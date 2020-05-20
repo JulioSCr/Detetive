@@ -4,5 +4,10 @@
     <TargetFramework>netcoreapp3.1</TargetFramework>
   </PropertyGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\Detetive.Business\Detetive.Business.csproj" />
+    <ProjectReference Include="..\Detetive.Injection\Detetive.Injection.csproj" />
+  </ItemGroup>
+
 
 </Project>
