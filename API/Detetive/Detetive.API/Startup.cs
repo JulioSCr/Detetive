@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Detetive.API.Configuration;
 using Detetive.Injection;
 using DevIO.Api.Configuration;
 using Microsoft.AspNetCore.Builder;
@@ -28,6 +29,8 @@ namespace Detetive.API
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddApiConfig();
+
+            services.AddDataBaseConfig(Configuration);
 
             services.ResolveDependencies();
         }

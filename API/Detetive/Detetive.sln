@@ -11,6 +11,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Detetive.Data", "Detetive.D
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Detetive.Injection", "Detetive.Injection\Detetive.Injection.csproj", "{173E008E-328B-4BAA-B3B8-781113B73453}"
 EndProject
+Project("{00D1A9C2-B5F0-4AF3-8072-F6C62B433612}") = "Detetive.Database", "Detetive.Database\Detetive.Database.sqlproj", "{7A9B1C48-6056-40BA-A312-C99DA0199688}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -33,6 +35,12 @@ Global
 		{173E008E-328B-4BAA-B3B8-781113B73453}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{173E008E-328B-4BAA-B3B8-781113B73453}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{173E008E-328B-4BAA-B3B8-781113B73453}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7A9B1C48-6056-40BA-A312-C99DA0199688}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7A9B1C48-6056-40BA-A312-C99DA0199688}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7A9B1C48-6056-40BA-A312-C99DA0199688}.Debug|Any CPU.Deploy.0 = Debug|Any CPU
+		{7A9B1C48-6056-40BA-A312-C99DA0199688}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7A9B1C48-6056-40BA-A312-C99DA0199688}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7A9B1C48-6056-40BA-A312-C99DA0199688}.Release|Any CPU.Deploy.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
