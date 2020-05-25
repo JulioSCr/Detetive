@@ -34,7 +34,6 @@ namespace Detetive.Controllers
 
         public ActionResult Index()
         {
-            var lista = _suspeitoRepository.Listar();
             return View();
         }
 
