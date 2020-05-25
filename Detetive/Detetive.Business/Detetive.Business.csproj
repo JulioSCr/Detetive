@@ -41,6 +41,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Data\Interfaces\IArmaRepository.cs" />
+    <Compile Include="Data\Interfaces\ILocalRepository.cs" />
+    <Compile Include="Data\Interfaces\ISalaRepository.cs" />
     <Compile Include="Data\Interfaces\ISuspeitoRepository.cs" />
     <Compile Include="Entities\Arma.cs" />
     <Compile Include="Entities\Base\BaseEntity.cs" />

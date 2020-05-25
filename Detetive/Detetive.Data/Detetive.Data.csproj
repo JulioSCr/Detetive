@@ -52,8 +52,14 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Context\DetetiveContext.cs" />
+    <Compile Include="Context\EntityConfig\SalaConfig.cs" />
+    <Compile Include="Context\EntityConfig\LocalConfig.cs" />
+    <Compile Include="Context\EntityConfig\ArmaConfig.cs" />
     <Compile Include="Context\EntityConfig\SuspeitoConfig.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Repository\ArmaRepository.cs" />
+    <Compile Include="Repository\LocalRepository.cs" />
+    <Compile Include="Repository\SalaRepository.cs" />
     <Compile Include="Repository\SuspeitoRepository.cs" />
   </ItemGroup>
   <ItemGroup>

@@ -19,6 +19,9 @@ namespace Detetive.Injection
             // Business
 
             // Data
+            container.Register<IArmaRepository, ArmaRepository>(Lifestyle.Scoped);
+            container.Register<ILocalRepository, LocalRepository>(Lifestyle.Scoped);
+            container.Register<ISalaRepository, SalaRepository>(Lifestyle.Scoped);
             container.Register<ISuspeitoRepository, SuspeitoRepository>(Lifestyle.Scoped);
 
 
