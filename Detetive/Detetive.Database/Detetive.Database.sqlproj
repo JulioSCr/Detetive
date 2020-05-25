@@ -56,5 +56,22 @@
   <Import Condition="'$(SQLDBExtensionsRefPath)' == ''" Project="$(MSBuildExtensionsPath)\Microsoft\VisualStudio\v$(VisualStudioVersion)\SSDT\Microsoft.Data.Tools.Schema.SqlTasks.targets" />
   <ItemGroup>
     <Folder Include="Properties" />
+    <Folder Include="SQL Server" />
+    <Folder Include="SQL Server\Table" />
+  </ItemGroup>
+  <ItemGroup>
+    <Build Include="SQL Server\Table\dbo-ANOTACAO_ARMA.sql" />
+    <Build Include="SQL Server\Table\dbo-ANOTACAO_LOCAL.sql" />
+    <Build Include="SQL Server\Table\dbo-ANOTACAO_SUSPEITO.sql" />
+    <Build Include="SQL Server\Table\dbo-ARMA.sql" />
+    <Build Include="SQL Server\Table\dbo-ARMA_JOGADOR_SALA.sql" />
+    <Build Include="SQL Server\Table\dbo-CRIME.sql" />
+    <Build Include="SQL Server\Table\dbo-JOGADOR.sql" />
+    <Build Include="SQL Server\Table\dbo-JOGADOR_SALA.sql" />
+    <Build Include="SQL Server\Table\dbo-LOCAL.sql" />
+    <Build Include="SQL Server\Table\dbo-LOCAL_JOGADOR_SALA.sql" />
+    <Build Include="SQL Server\Table\dbo-SALA.sql" />
+    <Build Include="SQL Server\Table\dbo-SUSPEITO.sql" />
+    <Build Include="SQL Server\Table\dbo-SUSPEITO_JOGADOR_SALA.sql" />
   </ItemGroup>
 </Project>
