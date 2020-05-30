@@ -1,0 +1,52 @@
+﻿#Icone {
+    width: 100%;
+    padding-top: 4.5%;
+}
+
+    #Icone > img {
+        width: 185px;
+    }
+
+#divSuspeitos > label {
+    font-weight: bold;
+    font-size: 1.5em;
+    letter-spacing: -1px;
+    padding: 10px 0px;
+    color: #E9E9E9;
+    font-family: 'Roboto Slab', serif;
+}
+
+.cartaSuspeito {
+    width: 100px;
+}
+
+@media (min-height: 630px) {
+    #Icone {
+        padding-top: 10%;
+    }
+
+        #Icone > img {
+            width: 200px;
+        }
+
+    #divSuspeitos > label {
+        font-size: 2em;
+        letter-spacing: -2px;
+    }
+}
+
+@media (min-height: 750px) {
+    #Icone {
+        width: 100%;
+        padding-top: 5%;
+    }
+
+        #Icone > img {
+            width: 250px;
+        }
+
+    #divSuspeitos > label {
+        font-size: 2.7em;
+        letter-spacing: -3px;
+    }
+}

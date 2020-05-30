@@ -1,0 +1,14 @@
+﻿#Icone {
+    width: 100%;
+    padding-top: 10%;
+}
+
+@media only screen and (max-height: 660px) {
+    #Icone {
+        padding-top: 5%;
+    }
+
+        #Icone > img {
+            width: 185px;
+        }
+}
