@@ -22,5 +22,10 @@ namespace Detetive.Business.Business
         {
             return _anotacaoLocalRepository.Adicionar(new AnotacaoLocal(idLocal, idJogadorSala));
         }
+
+        public List<AnotacaoLocal> Listar()
+        {
+            return _anotacaoLocalRepository.Listar();
+        }
     }
 }

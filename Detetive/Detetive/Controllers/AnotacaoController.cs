@@ -11,30 +11,20 @@ namespace Detetive.Controllers
     public class AnotacaoController : Controller
     {
         private readonly IAnotacaoArmaBusiness _anotacaoArmaBusiness;
-        private readonly IAnotacaoArmaRepository _anotacaoArmaRepository;
         private readonly IAnotacaoLocalBusiness _anotacaoLocalBusiness;
-        private readonly IAnotacaoLocalRepository _anotacaoLocalRepository;
         private readonly IAnotacaoSuspeitoBusiness _anotacaoSuspeitoBusiness;
-        private readonly IAnotacaoSuspeitoRepository _anotacaoSuspeitoRepository;
 
-        public AnotacaoController(IAnotacaoArmaBusiness anotacaoArmaBusiness, 
-                                    IAnotacaoArmaRepository anotacaoArmaRepository, 
-                                    IAnotacaoLocalBusiness anotacaoLocalBusiness, 
-                                    IAnotacaoLocalRepository anotacaoLocalRepository, 
-                                    IAnotacaoSuspeitoBusiness anotacaoSuspeitoBusiness, 
-                                    IAnotacaoSuspeitoRepository anotacaoSuspeitoRepository)
+        public AnotacaoController(IAnotacaoArmaBusiness anotacaoArmaBusiness,
+                                    IAnotacaoLocalBusiness anotacaoLocalBusiness,
+                                    IAnotacaoSuspeitoBusiness anotacaoSuspeitoBusiness)
         {
             _anotacaoArmaBusiness = anotacaoArmaBusiness;
-            _anotacaoArmaRepository = anotacaoArmaRepository;
             _anotacaoLocalBusiness = anotacaoLocalBusiness;
-            _anotacaoLocalRepository = anotacaoLocalRepository;
             _anotacaoSuspeitoBusiness = anotacaoSuspeitoBusiness;
-            _anotacaoSuspeitoRepository = anotacaoSuspeitoRepository;
         }
 
         public ActionResult Index()
         {
-            var lista = _suspeitoRepository.Listar();
             return View();
         }
 

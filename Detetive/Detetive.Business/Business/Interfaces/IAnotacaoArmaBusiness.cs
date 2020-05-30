@@ -9,6 +9,7 @@ namespace Detetive.Business.Business.Interfaces
 {
     public interface IAnotacaoArmaBusiness
     {
+        List<AnotacaoArma> Listar();
         AnotacaoArma Adicionar(int idArma, int idJogadorSala);
     }
 }

@@ -22,5 +22,10 @@ namespace Detetive.Business.Business
         {
             return _anotacaoSuspeitoRepository.Adicionar(new AnotacaoSuspeito(idSuspeito, idJogadorSala));
         }
+
+        public List<AnotacaoSuspeito> Listar()
+        {
+            return _anotacaoSuspeitoRepository.Listar();
+        }
     }
 }
