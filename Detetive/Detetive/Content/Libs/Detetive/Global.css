@@ -1,0 +1,107 @@
+﻿/*#region Global*/
+
+
+select {
+    text-align: center;
+    text-align-last: center;
+}
+
+option {
+    text-align: right;
+    text-align-last: right;
+}
+
+p {
+    font-size: 1.2rem !important;
+}
+
+li {
+    display: list-item;
+    text-align: -webkit-match-parent;
+}
+
+ol, ul {
+    list-style: none;
+}
+
+*, *::after, *::before {
+    box-sizing: border-box;
+}
+
+article, aside, details, figcaption, figure, footer, header, hgroup, menu, nav, section {
+    display: block;
+}
+
+html, body, div, span, applet, object, iframe,
+h1, h2, h3, h4, h5, h6, p, blockquote, pre, a,
+abbr, acronym, address, big, cite, code, del,
+dfn, em, img, ins, kbd, q, s, samp, small,
+strike, strong, sub, sup, tt, var, b, u, i,
+center, dl, dt, dd, ol, ul, li, fieldset,
+form, label, legend, table, caption, tbody,
+tfoot, thead, tr, th, td, article, aside,
+canvas, details, embed, figure, figcaption,
+footer, header, hgroup, menu, nav, output,
+ruby, section, summary, time, mark, audio, video {
+    margin: 0;
+    padding: 0;
+    border: 0;
+    font-size: 100%;
+    font: inherit;
+    vertical-align: baseline;
+    text-decoration: none;
+}
+
+body {
+    z-index: 1;
+}
+
+/*#endregion Global*/
+
+.centralizar {
+    display: flex !important;
+    justify-content: center;
+    align-items: center;
+}
+
+/*.click-especial {
+    -webkit-transition: background-color 500ms !important;
+    transition: background-color 500ms !important;
+}
+
+.click-especial:hover {
+    background-color: #cfcfcf !important;
+}
+
+.click-especial:active {
+    -webkit-transition: unset !important;
+    transition: unset !important;
+    background-color: #c0c0c0 !important;
+}
+
+.campo-especial {
+    -webkit-transition: font-size 500ms !important;
+    transition: font-size 500ms !important;
+}
+
+.campo-especial:hover {
+    font-size: 1.05rem !important;
+}
+
+.btn.btn-primary {
+    background-color: #425366 !important;
+}*/
+
+
+
+/*#region Modal*/
+/*.modal.fade {
+    display: flex !important;
+    align-items: center !important;
+    z-index: -1;
+}
+
+.modal.fade.show {
+    z-index: 1041;
+}*/
+/*#endregion Modal*/
