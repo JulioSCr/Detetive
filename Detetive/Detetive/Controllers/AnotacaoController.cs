@@ -8,6 +8,7 @@ using System.Web.Mvc;
 
 namespace Detetive.Controllers
 {
+    [Route("anotacao")]
     public class AnotacaoController : Controller
     {
         private readonly IAnotacaoArmaBusiness _anotacaoArmaBusiness;
@@ -23,22 +24,57 @@ namespace Detetive.Controllers
             _anotacaoSuspeitoBusiness = anotacaoSuspeitoBusiness;
         }
 
-        public ActionResult Index()
+        [HttpPut]
+        [Route("arma/{idJogadorSala}/{id}/valor")]
+        public ActionResult MarcarArma(int idJogadorSala, int id, bool valor)
         {
+            try
+            {
+                var anotacao = _anotacaoArmaBusiness.Marcar(idJogadorSala, id, valor);
+
+            }
+            catch(Exception ex)
+            {
+
+            }
+
+            // TODO
             return View();
         }
 
-        public ActionResult About()
+        [HttpPut]
+        [Route("local/{idJogadorSala}/{id}/valor")]
+        public ActionResult MarcarLocal(int idJogadorSala, int id, bool valor)
         {
-            ViewBag.Message = "Your application description page.";
+            try
+            {
+                var anotacao = _anotacaoLocalBusiness.Marcar(idJogadorSala, id, valor);
 
+            }
+            catch (Exception ex)
+            {
+
+            }
+
+            // TODO
             return View();
         }
 
-        public ActionResult Contact()
+        [HttpPut]
+        [Route("suspeito/{idJogadorSala}/{id}/valor")]
+        public ActionResult MarcarSuspeito(int idJogadorSala, int id, bool valor)
         {
-            ViewBag.Message = "Your contact page.";
+            try
+            {
+                var anotacao = _anotacaoSuspeitoBusiness.Marcar(idJogadorSala, id, valor);
 
+            }
+            catch (Exception ex)
+            {
+
+            }
+
+            // TODO
             return View();
         }
     }

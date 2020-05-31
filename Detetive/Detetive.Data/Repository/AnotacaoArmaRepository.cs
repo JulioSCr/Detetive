@@ -23,7 +23,7 @@ namespace Detetive.Data.Repository
             if (anotacao != default)
             {
                 this.Context.AnotacaoArmas.Add(anotacao);
-                this.Context.SaveChangesAsync();
+                this.Context.SaveChanges();
             }
 
             return anotacao;
@@ -32,6 +32,16 @@ namespace Detetive.Data.Repository
         public List<AnotacaoArma> Listar()
         {
             return this.Context.AnotacaoArmas.AsNoTracking().Where(_ => _.Ativo).ToList();
+        }
+
+        public AnotacaoArma Marcar(int idJogadorSala, int idArma, bool valor)
+        {
+            var anotacao = this.Context.AnotacaoArmas.Single(_ => _.IdJogadorSala == idJogadorSala && _.IdArma == idArma);
+            
+            anotacao.Marcado = valor;
+            this.Context.SaveChanges();
+
+            return anotacao;
         }
     }
 }

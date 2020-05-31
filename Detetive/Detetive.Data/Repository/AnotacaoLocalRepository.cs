@@ -33,5 +33,15 @@ namespace Detetive.Data.Repository
         {
             return this.Context.AnotacaoLocais.AsNoTracking().Where(_ => _.Ativo).ToList();
         }
+
+        public AnotacaoLocal Marcar(int idJogadorSala, int idLocal, bool valor)
+        {
+            var anotacao = this.Context.AnotacaoLocais.Single(_ => _.IdJogadorSala == idJogadorSala && _.IdLocal == idLocal);
+
+            anotacao.Marcado = valor;
+            this.Context.SaveChanges();
+
+            return anotacao;
+        }
     }
 }

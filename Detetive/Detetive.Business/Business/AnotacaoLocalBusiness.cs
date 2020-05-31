@@ -27,5 +27,10 @@ namespace Detetive.Business.Business
         {
             return _anotacaoLocalRepository.Listar();
         }
+
+        public AnotacaoLocal Marcar(int idJogadorSala, int idLocal, bool valor)
+        {
+            return _anotacaoLocalRepository.Marcar(idJogadorSala, idLocal, valor);
+        }
     }
 }

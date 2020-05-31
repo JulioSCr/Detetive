@@ -27,5 +27,10 @@ namespace Detetive.Business.Business
         {
             return _anotacaoSuspeitoRepository.Listar();
         }
+
+        public AnotacaoSuspeito Marcar(int idJogadorSala, int idSuspeito, bool valor)
+        {
+            return _anotacaoSuspeitoRepository.Marcar(idJogadorSala, idSuspeito, valor);
+        }
     }
 }
