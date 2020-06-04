@@ -1,6 +1,7 @@
 ﻿using Detetive.Business.Data.Interfaces;
 using Detetive.Business.Entities;
 using Detetive.Data.Context;
+using Detetive.Data.Repository.Base;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -8,12 +9,10 @@ using System.Text;
 
 namespace Detetive.Data.Repository
 {
-    public class ArmaRepository : IArmaRepository
+    public class ArmaRepository : BaseRepository, IArmaRepository
     {
-        private readonly DetetiveContext Context;
-        public ArmaRepository()
+        public ArmaRepository() : base()
         {
-            this.Context = new DetetiveContext();
         }
 
         public List<Arma> Listar()
