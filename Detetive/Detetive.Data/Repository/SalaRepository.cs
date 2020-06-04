@@ -1,6 +1,7 @@
 ﻿using Detetive.Business.Data.Interfaces;
 using Detetive.Business.Entities;
 using Detetive.Data.Context;
+using Detetive.Data.Repository.Base;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -8,12 +9,10 @@ using System.Text;
 
 namespace Detetive.Data.Repository
 {
-    public class SalaRepository : ISalaRepository
+    public class SalaRepository : BaseRepository, ISalaRepository
     {
-        private readonly DetetiveContext Context;
-        public SalaRepository()
+        public SalaRepository() : base()
         {
-            this.Context = new DetetiveContext();
         }
 
         public List<Sala> Listar()

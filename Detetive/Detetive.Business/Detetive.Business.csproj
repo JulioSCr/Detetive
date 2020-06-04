@@ -47,12 +47,16 @@
     <Compile Include="Business\Interfaces\IAnotacaoArmaBusiness.cs" />
     <Compile Include="Business\Interfaces\IAnotacaoLocalBusiness.cs" />
     <Compile Include="Business\Interfaces\IAnotacaoSuspeitoBusiness.cs" />
+    <Compile Include="Business\Interfaces\IMovimentacaoBusiness.cs" />
+    <Compile Include="Business\MovimentacaoBusiness.cs" />
     <Compile Include="Data\Interfaces\IAnotacaoArmaRepository.cs" />
     <Compile Include="Data\Interfaces\IAnotacaoLocalRepository.cs" />
     <Compile Include="Data\Interfaces\IAnotacaoSuspeitoRepository.cs" />
     <Compile Include="Data\Interfaces\IArmaRepository.cs" />
+    <Compile Include="Data\Interfaces\IJogadorSalaRepository.cs" />
     <Compile Include="Data\Interfaces\ILocalRepository.cs" />
     <Compile Include="Data\Interfaces\ISalaRepository.cs" />
+    <Compile Include="Data\Interfaces\IJogadorRepository.cs" />
     <Compile Include="Data\Interfaces\ISuspeitoRepository.cs" />
     <Compile Include="Entities\AnotacaoSuspeito.cs" />
     <Compile Include="Entities\Arma.cs" />
@@ -60,6 +64,8 @@
     <Compile Include="Entities\Base\BaseEntity.cs" />
     <Compile Include="Entities\AnotacaoArma.cs" />
     <Compile Include="Entities\AnotacaoLocal.cs" />
+    <Compile Include="Entities\Jogador.cs" />
+    <Compile Include="Entities\JogadorSala.cs" />
     <Compile Include="Entities\Local.cs" />
     <Compile Include="Entities\Sala.cs" />
     <Compile Include="Entities\Suspeito.cs" />
