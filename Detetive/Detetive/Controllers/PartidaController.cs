@@ -13,5 +13,11 @@ namespace Detetive.Controllers
         {
             return View();
         }
+
+        public ActionResult Jogar()
+        {
+            ViewBag.ID_JOGADOR_SALA = 1;
+            return View();
+        }
     }
 }

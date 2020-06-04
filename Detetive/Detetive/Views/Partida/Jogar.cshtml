@@ -1,0 +1,63 @@
+﻿@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+
+    //var lID_JOGADOR_SALA = 1;//HttpContext.Current.Session["ID_JOGADOR_SALA"];
+}
+
+@section head{
+    <link rel="stylesheet" href="@Url.Content("~/Content/Views/Partida/Jogar.css?" + DateTimeOffset.Now)" />
+}
+
+@section scripts{
+    <script src="@Url.Content("~/Scripts/Views/Partida/Jogar.js?" + DateTimeOffset.Now)"></script>
+    <script>
+        @*gID_JOGADOR_SALA = @lID_JOGADOR_SALA;*@
+    </script>
+}
+<input id="inpID_JOGADOR_SALA" type="hidden" name="ID_JOGADOR_SALA" value="@ViewBag.ID_JOGADOR_SALA" />
+<section id="secPrimeiraLinha">
+    <div id="divTabuleiro" class="esquerda">
+        <div id="divReitor" class="suspeito"></div>
+        <div id="divDiretora" class="suspeito"></div>
+        <div id="divProfessora" class="suspeito"></div>
+        <div id="divEstudante" class="suspeito"></div>
+        <div id="divZelador" class="suspeito"></div>
+        <div id="divPolicial" class="suspeito"></div>
+        <div id="divReporter" class="suspeito"></div>
+        <div id="divBibliotecaria" class="suspeito"></div>
+    </div>
+    <div id="divAnotacoes" class="direita">
+
+    </div>
+</section>
+<section id="secSegundaLinha">
+    <div id="divCartas" class="esquerda">
+
+    </div>
+    <div id="divAcoes" class="direita">
+        <div id="divBotoes">
+            <button type="button" title="Mover para direita" id="btnDireita" class="botoes btnSetaHorizontal centralizarBotoes" onclick="Jogar.btnDireita_OnClick()"></button>
+            <button type="button" title="Mover para esquerda" id="btnEsquerda" class="botoes btnSetaHorizontal centralizarBotoes" onclick="Jogar.btnEsquerda_OnClick()"></button>
+            <button type="button" title="Mover para cima" id="btnAcima" class="botoes btnSetaVertical centralizarBotoes" onclick="Jogar.btnAcima_OnClick()"></button>
+            <button type="button" title="Mover para baixo" id="btnAbaixo" class="botoes btnSetaVertical centralizarBotoes" onclick="Jogar.btnAbaixo_OnClick()"></button>
+            <button type="button" title="Rolar os dados" id="btnLancarDados" class="botoes centralizarBotoes"></button>
+
+            <button type="button" title="Palpitar" id="btnPalpite" class="botoes centralizarBotoes botoesOpcoes">Palpite</button>
+            <button type="button" title="Acusar" id="btnAcusar" class="botoes centralizarBotoes botoesOpcoes">Acusar</button>
+            <button type="button" title="Usar passagem secreta" id="btnPassagemSecreta" class="botoes centralizarBotoes botoesOpcoes">Passagem</button>
+        </div>
+        <div id="divInformacoesContainer">
+            <div id="divInformacoes">
+                <label id="lblSala">#ID Sala: 17539</label>
+                <div id="divCaixaInformacoes">
+                    <label class="informacao">É a sua vez! Role o dado!</label>
+                    <label class="informacao">Valor do dado = 5. Avance até 5 casas!</label>
+                    <label class="informacao">Voce adentrou o CA! O que deseja fazer? (Palpite/Acusar)</label>
+                    <label class="informacao">Voce palpitou a blibliotecária, no CA com o Pendrive!</label>
+                    <label class="informacao">O jogador 2 revelou a carta Pendrive!</label>
+                    <label class="informacao">Sua vez terminou! Jogador 2 está fazendo sua jogada...</label>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

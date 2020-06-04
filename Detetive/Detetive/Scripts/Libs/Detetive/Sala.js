@@ -1,11 +1,12 @@
 ﻿var Sala = window.Sala || {
-    mHubSala: new Object(),                         // Objeto do SignalR
-    mWebSocketTryingToReconnect: new Boolean(false)     // Flag tentando reconectar
-
+    mHubSala: new Object(),                             // Objeto do SignalR
+    mWebSocketTryingToReconnect: new Boolean(false),    // Flag tentando reconectar
+    mID_JOGADOR_SALA: new Number()                      // Id do jogador sala
 };
 
 $(document).ready(function () {
     Sala.Iniciar();
+    Sala.mID_JOGADOR_SALA = $('#inpID_JOGADOR_SALA').val();
 });
 
 Sala.Iniciar = function () {
@@ -102,5 +103,33 @@ Sala.EnviarMensagem = function (apelido, mensagem) {
         Sala.mHubSala.server.enviarMensagem(apelido, mensagem);
     } catch (ex) {
         console.log(ex);
+    }
+}
+
+Sala.EnviarMovimento = function (pLinha, pColuna) {
+    try {
+        $.ajax({
+            url: gstrGlobalPath + '/',
+            data: {
+                linha: pLinha,
+                coluna: pColuna
+            },
+            success: function (data, textStatus, XMLHttpRequest) {
+                try {
+                    if (data.Exception != null) {
+                        throw data.Exception;
+                    }
+                    //Movimentar para os outros usuários
+                    if (data.Retorno) {
+
+                    }
+                    Sala.mHubSala.server.enviarMovimentoTabuleiro();
+                } catch (ex) {
+                    throw ex;
+                }
+            }
+        });
+    } catch (ex) {
+        throw ex;
     }
 }

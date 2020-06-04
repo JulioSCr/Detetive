@@ -251,7 +251,11 @@
     <Content Include="Content\Imagens\CartasSuspeitos\imgCartaReitor.svg" />
     <Content Include="Content\Imagens\CartasSuspeitos\imgCartaReporter.svg" />
     <Content Include="Content\Imagens\CartasSuspeitos\imgCartaZelador.svg" />
+    <Content Include="Content\Imagens\Shared\imgDados.svg" />
     <Content Include="Content\Imagens\Shared\imgLogo.svg" />
+    <Content Include="Content\Imagens\Shared\SetaVertical.svg" />
+    <Content Include="Content\Imagens\Shared\SetaHorizontal.svg" />
+    <Content Include="Content\Imagens\Tabuleiro\imgTabuleiro.svg" />
     <Content Include="Content\Libs\Bootstrap\bootstrap-grid.css" />
     <Content Include="Content\Libs\Bootstrap\bootstrap-grid.min.css" />
     <Content Include="Content\Libs\Bootstrap\bootstrap-reboot.css" />
@@ -260,6 +264,7 @@
     <Content Include="Content\Libs\Bootstrap\bootstrap.min.css" />
     <Content Include="Content\Libs\Detetive\Global.css" />
     <Content Include="Content\Libs\Material\material-icons.css" />
+    <Content Include="Content\Views\Partida\Jogar.css" />
     <Content Include="Content\Views\Partida\Manter.css" />
     <Content Include="Content\Views\Suspeito\Listar.css" />
     <Content Include="Content\Views\Shared\Layout.css" />
@@ -374,6 +379,7 @@
     <Content Include="Scripts\Libs\umd\popper-utils.min.js" />
     <Content Include="Scripts\Libs\umd\popper.js" />
     <Content Include="Scripts\Libs\umd\popper.min.js" />
+    <Content Include="Scripts\Views\Partida\Jogar.js" />
     <Content Include="Scripts\Views\Suspeito\Listar.js" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
@@ -400,12 +406,12 @@
     <Content Include="Views\Suspeito\Teste.cshtml" />
     <Content Include="Views\Partida\Manter.cshtml" />
     <Content Include="Views\Anotacao\Anotacao.cshtml" />
+    <Content Include="Views\Partida\Jogar.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Content\Imagens\CartasArmas\" />
     <Folder Include="Content\Imagens\CartasLocais\" />
-    <Folder Include="Scripts\Views\Partida\" />
     <Folder Include="Views\Teste\" />
   </ItemGroup>
   <ItemGroup>
