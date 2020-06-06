@@ -1,0 +1,40 @@
+﻿@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@section head{
+    <link rel="stylesheet" href="@Url.Content("~/Content/Views/Partida/Manter.css?" + DateTimeOffset.Now)" />
+}
+
+@section scripts{
+    <script src="@Url.Content("~/Scripts/Views/Partida/ManterSala.js?" + DateTimeOffset.Now)"></script>
+}
+
+
+<h1>
+    <a href="~/">Pagina Inicial</a>
+</h1>
+<h5>
+    <a href="~/">Pagina Inicial class</a>
+</h5>
+
+<div><input type="text" value="Informe o ID da Sala"></div>
+<div><input type="button" value="Vamos ao Caso"></div>
+
+
+<div class="centralizar" id="Icone">
+    <img src="~/Content/Imagens/Shared/imgLogo.svg" alt="Imagem do detetive" />
+</div>
+
+<div id="divBtnCriarSala">
+    <img src="~/Content/Imagens/ManterSala/imgBtnCriarSala.svg" alt="Criar Sala" />
+</div>
+
+<div id="divBtnIngressar">
+    <img src="~/Content/Imagens/ManterSala/imgBtnIngressar.svg" alt="Ingressar na Sala" />
+</div>
+
+<div id="divBtnVoltar">
+    <input type="button"/>
+    <img src="~/Content/Imagens/Shared/imgBtnVoltar.svg" alt="Voltar a tela anterior" />
+</div>

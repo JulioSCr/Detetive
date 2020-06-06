@@ -229,6 +229,7 @@
     <Compile Include="App_Start\Startup.cs" />
     <Compile Include="Controllers\AnotacaoController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\ManterSalaController.cs" />
     <Compile Include="Controllers\PartidaController.cs" />
     <Compile Include="Controllers\SuspeitoController.cs" />
     <Compile Include="Global.asax.cs">
@@ -251,6 +252,11 @@
     <Content Include="Content\Imagens\CartasSuspeitos\imgCartaReitor.svg" />
     <Content Include="Content\Imagens\CartasSuspeitos\imgCartaReporter.svg" />
     <Content Include="Content\Imagens\CartasSuspeitos\imgCartaZelador.svg" />
+    <Content Include="Content\Imagens\ManterSala\imgBtnCriarSala.svg" />
+    <Content Include="Content\Imagens\ManterSala\imgBtnIngressar.svg" />
+    <Content Include="Content\Imagens\ManterSala\imgBtnVamosAoCaso.svg" />
+    <Content Include="Content\Imagens\ManterSala\imgTxtIdSala.svg" />
+    <Content Include="Content\Imagens\Shared\imgBtnVoltar.svg" />
     <Content Include="Content\Imagens\Shared\imgLogo.svg" />
     <Content Include="Content\Libs\Bootstrap\bootstrap-grid.css" />
     <Content Include="Content\Libs\Bootstrap\bootstrap-grid.min.css" />
@@ -260,6 +266,7 @@
     <Content Include="Content\Libs\Bootstrap\bootstrap.min.css" />
     <Content Include="Content\Libs\Detetive\Global.css" />
     <Content Include="Content\Libs\Material\material-icons.css" />
+    <Content Include="Content\Views\ManterSala\ManterSala.css" />
     <Content Include="Content\Views\Partida\Manter.css" />
     <Content Include="Content\Views\Suspeito\Listar.css" />
     <Content Include="Content\Views\Shared\Layout.css" />
@@ -374,6 +381,7 @@
     <Content Include="Scripts\Libs\umd\popper-utils.min.js" />
     <Content Include="Scripts\Libs\umd\popper.js" />
     <Content Include="Scripts\Libs\umd\popper.min.js" />
+    <Content Include="Scripts\Views\ManterSala\ManterSala.js" />
     <Content Include="Scripts\Views\Suspeito\Listar.js" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
@@ -400,6 +408,7 @@
     <Content Include="Views\Suspeito\Teste.cshtml" />
     <Content Include="Views\Partida\Manter.cshtml" />
     <Content Include="Views\Anotacao\Anotacao.cshtml" />
+    <Content Include="Views\ManterSala\ManterSala.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
