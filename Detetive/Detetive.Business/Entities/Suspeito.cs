@@ -1,6 +1,7 @@
 ﻿using Detetive.Business.Entities.Base;
 using System;
 using System.Collections.Generic;
+using System.Security.Permissions;
 using System.Text;
 
 namespace Detetive.Business.Entities
@@ -8,6 +9,8 @@ namespace Detetive.Business.Entities
     public class Suspeito : BaseEntity
     {
         public string Descricao { get; set; }
+        public int IdLocal { get; set; }
+
 
         internal Suspeito()
         {

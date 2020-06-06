@@ -7,5 +7,6 @@ namespace Detetive.ViewModel.Anotacao
 {
     public class LocalViewModel : BaseViewModel
     {
+        public List<string> MyProperty { get; set; }
     }
 }

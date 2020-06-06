@@ -58,6 +58,7 @@
     <Compile Include="Context\EntityConfig\AnotacaoLocalConfig.cs" />
     <Compile Include="Context\EntityConfig\AnotacaoSuspeitoConfig.cs" />
     <Compile Include="Context\EntityConfig\JogadorConfig.cs" />
+    <Compile Include="Context\EntityConfig\JogadorSalaConfig.cs" />
     <Compile Include="Context\EntityConfig\SalaConfig.cs" />
     <Compile Include="Context\EntityConfig\LocalConfig.cs" />
     <Compile Include="Context\EntityConfig\ArmaConfig.cs" />

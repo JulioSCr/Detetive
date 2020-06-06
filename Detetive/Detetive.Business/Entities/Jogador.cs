@@ -10,18 +10,20 @@ namespace Detetive.Business.Entities
     {
         public int Id { get; set; }
         public string Descricao { get; set; }
-        public Suspeito Suspeito { get; set; }
+        public int? IdSuspeito { get; set; }
+        //public Suspeito Suspeito { get; set; }
 
         internal Jogador()
         {
 
         }
 
-        public Jogador(int id, string descricao, Suspeito suspeito)
+        public Jogador(int id, string descricao, int idSuspeito /*, Suspeito suspeito*/)
         {
             Id = id;
             Descricao = descricao;
-            Suspeito = suspeito;
+            IdSuspeito = idSuspeito;
+            //Suspeito = suspeito;
         }
     }
 }

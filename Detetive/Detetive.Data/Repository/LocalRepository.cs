@@ -17,7 +17,7 @@ namespace Detetive.Data.Repository
 
         public List<Local> Listar()
         {
-            return this.Context.Locais.ToList();
+            return this.Context.Locais.Where(_ => _.Ativo).ToList();
         }
     }
 }

@@ -15,6 +15,5 @@ namespace Detetive.Data.Repository
 
         }
 
-
     }
 }

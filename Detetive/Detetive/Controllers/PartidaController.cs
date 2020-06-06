@@ -1,4 +1,5 @@
 ﻿using Detetive.Business.Business.Interfaces;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -30,9 +31,9 @@ namespace Detetive.Controllers
 
         [HttpPut]
         [Route("movimentar/{idJogadorSala}")]
-        public bool Mover(int idJogadorSala, int linha, int coluna)
+        public string Mover(int idJogadorSala, int linha, int coluna)
         {
-            return _movimentacaoBusiness.MoverJogador(idJogadorSala, linha, coluna);
+            return JsonConvert.SerializeObject(_movimentacaoBusiness.MoverJogador(idJogadorSala, linha, coluna));
         }
     }
 }
