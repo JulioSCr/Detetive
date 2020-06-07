@@ -10,6 +10,7 @@ namespace Detetive.Business.Entities
     {
         public string Descricao { get; set; }
         public int IdLocal { get; set; }
+        public virtual Local Local { get; set; }
 
 
         internal Suspeito()

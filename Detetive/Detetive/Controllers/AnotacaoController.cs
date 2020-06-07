@@ -24,6 +24,16 @@ namespace Detetive.Controllers
             _anotacaoSuspeitoBusiness = anotacaoSuspeitoBusiness;
         }
 
+        public ActionResult Anotacao()
+        {
+            var lista1 = _anotacaoArmaBusiness.Listar(1);
+            var lista2 = _anotacaoLocalBusiness.Listar(1);
+            var lista3 = _anotacaoSuspeitoBusiness.Listar(1);
+            
+            return View();
+        }
+
+
         [HttpPut]
         [Route("arma/{idJogadorSala}/{id}/valor")]
         public ActionResult MarcarArma(int idJogadorSala, int id, bool valor)

@@ -11,10 +11,13 @@ namespace Detetive.Business.Business
 {
     public class AnotacaoArmaBusiness : IAnotacaoArmaBusiness
     {
+        private readonly IArmaRepository _armaRepository;
         private readonly IAnotacaoArmaRepository _anotacaoArmaRepository;
 
-        public AnotacaoArmaBusiness(IAnotacaoArmaRepository anotacaoArmaRepository)
+        public AnotacaoArmaBusiness(IArmaRepository armaRepository,
+                                    IAnotacaoArmaRepository anotacaoArmaRepository)
         {
+            _armaRepository = armaRepository;
             _anotacaoArmaRepository = anotacaoArmaRepository;
         }
 
@@ -23,9 +26,13 @@ namespace Detetive.Business.Business
             return _anotacaoArmaRepository.Adicionar(new AnotacaoArma(idArma, idJogadorSala));
         }
 
-        public List<AnotacaoArma> Listar()
+        public List<AnotacaoArma> Listar(int idJogadorSala)
         {
-            return _anotacaoArmaRepository.Listar();
+            var lista = _anotacaoArmaRepository.Listar(idJogadorSala);
+
+            lista.ForEach(_ => _.Arma = _armaRepository.Obter(_.IdArma));
+
+            return lista;
         }
 
         public AnotacaoArma Marcar(int idJogadorSala, int idArma, bool valor)

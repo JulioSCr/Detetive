@@ -9,7 +9,6 @@ namespace Detetive.Data.Context
 {
     public class DetetiveContext : DbContext
     {
-        // Entidades Fortes
         public DbSet<Arma> Armas { get; set; }
         public DbSet<Local> Locais { get; set; }
         public DbSet<Sala> Salas { get; set; }

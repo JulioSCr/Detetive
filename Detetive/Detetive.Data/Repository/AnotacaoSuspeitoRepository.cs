@@ -27,9 +27,9 @@ namespace Detetive.Data.Repository
             return anotacao;
         }
 
-        public List<AnotacaoSuspeito> Listar()
+        public List<AnotacaoSuspeito> Listar(int idJogadorSala)
         {
-            return this.Context.AnotacaoSuspeitos.AsNoTracking().Where(_ => _.Ativo).ToList();
+            return this.Context.AnotacaoSuspeitos.AsNoTracking().Where(_ => _.IdJogadorSala == idJogadorSala && _.Ativo).ToList();
         }
 
         public AnotacaoSuspeito Marcar(int idJogadorSala, int idSuspeito, bool valor)

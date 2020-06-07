@@ -17,7 +17,12 @@ namespace Detetive.Data.Repository
 
         public List<Suspeito> Listar()
         {
-            return this.Context.Suspeitos.ToList();
+            return this.Context.Suspeitos.AsNoTracking().ToList();
+        }
+
+        public Suspeito Obter(int idSuspeito)
+        {
+            return this.Context.Suspeitos.AsNoTracking().SingleOrDefault(_ => _.Id == idSuspeito && _.Ativo);
         }
     }
 }

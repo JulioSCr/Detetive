@@ -11,10 +11,13 @@ namespace Detetive.Business.Business
 {
     public class AnotacaoLocalBusiness : IAnotacaoLocalBusiness
     {
+        private readonly ILocalRepository _localRepository;
         private readonly IAnotacaoLocalRepository _anotacaoLocalRepository;
 
-        public AnotacaoLocalBusiness(IAnotacaoLocalRepository anotacaoLocalRepository)
+        public AnotacaoLocalBusiness(ILocalRepository localRepository, 
+                                        IAnotacaoLocalRepository anotacaoLocalRepository)
         {
+            _localRepository = localRepository;
             _anotacaoLocalRepository = anotacaoLocalRepository;
         }
 
@@ -23,9 +26,13 @@ namespace Detetive.Business.Business
             return _anotacaoLocalRepository.Adicionar(new AnotacaoLocal(idLocal, idJogadorSala));
         }
 
-        public List<AnotacaoLocal> Listar()
+        public List<AnotacaoLocal> Listar(int idJogadorSala)
         {
-            return _anotacaoLocalRepository.Listar();
+            var lista = _anotacaoLocalRepository.Listar(idJogadorSala);
+
+            lista.ForEach(_ => _.Local = _localRepository.Obter(_.IdLocal));
+
+            return lista;
         }
 
         public AnotacaoLocal Marcar(int idJogadorSala, int idLocal, bool valor)

@@ -19,5 +19,10 @@ namespace Detetive.Data.Repository
         {
             return this.Context.Armas.ToList();
         }
+
+        public Arma Obter(int idArma)
+        {
+            return this.Context.Armas.AsNoTracking().SingleOrDefault(_ => _.Id == idArma && _.Ativo);
+        }
     }
 }
