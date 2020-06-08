@@ -10,7 +10,7 @@ namespace Detetive.Business.Business
 {
     public class MovimentacaoBusiness : IMovimentacaoBusiness
     {
-        public bool MoverJogador(int idJogadorSala, int linhaMovimento, int colunaMovimento)
+        public bool MoverJogador(int ID_JOGADOR, int linhaMovimento, int colunaMovimento)
         {
             // TO DO
             return true;
