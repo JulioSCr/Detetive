@@ -47,6 +47,10 @@ Sala.Configurar = function () {
         Listar.TransmitirMensagem(apelido, msg);
     };
 
+    Sala.mHubSala.client.TransmitirMovimento = function (ID_JOGADOR_SALA, pLinha, pColuna, pIDLocal) {
+        Jogar.TransmitirMovimento(ID_JOGADOR_SALA, pLinha, pColuna, pIDLocal);
+    }
+
     //Sala.mHubSala.client.erro = function (vstrMensagem, vstrMensagemTecnica) {
     //    console.log(vstrMensagemTecnica);
     //};
@@ -106,24 +110,26 @@ Sala.EnviarMensagem = function (apelido, mensagem) {
     }
 }
 
-Sala.EnviarMovimento = function (pLinha, pColuna) {
+/// <summary>Envia o movimento para todos os jogadores da sala.</summary>
+/// <param name="pLinha" type="Number">Número da linha.</param>
+/// <param name="pColuna" type="Number">Número da coluna.</param>
+/// <param name="pIDLocal" type="Number">ID do local onde o jogador está.</param>
+/// <returns type="Void"></returns>
+Sala.EnviarMovimento = function (pLinha, pColuna, pIDLocal) {
     try {
         $.ajax({
-            url: gstrGlobalPath + '/',
+            url: gstrGlobalPath + 'Partida/Mover',
             data: {
+                idJogadorSala: Sala.mID_JOGADOR_SALA,
                 linha: pLinha,
                 coluna: pColuna
             },
             success: function (data, textStatus, XMLHttpRequest) {
                 try {
-                    if (data.Exception != null) {
-                        throw data.Exception;
-                    }
-                    //Movimentar para os outros usuários
-                    if (data.Retorno) {
+                    if (!JSON.parse(data.toLowerCase())) { throw 'Movimento inválido'; }
 
-                    }
-                    Sala.mHubSala.server.enviarMovimentoTabuleiro();
+                    //Movimentar para os outros usuários
+                    Sala.mHubSala.server.enviarMovimento(Sala.mID_JOGADOR_SALA, pLinha, pColuna, pIDLocal).done(function () { });
                 } catch (ex) {
                     throw ex;
                 }
