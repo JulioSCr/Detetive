@@ -57,7 +57,7 @@ namespace Detetive.Controllers
         /// <param name="linha" type="int">Número da linha.</param>
         /// <param name="coluna" type="int">Número da coluna.</param>
         /// <returns type="Void"></returns>
-        public bool Mover(int idJogadorSala, int linha, int coluna)
+        public string Mover(int idJogadorSala, int linha, int coluna)
         {
             return JsonConvert.SerializeObject(_movimentacaoBusiness.MoverJogador(idJogadorSala, linha, coluna));
         }
