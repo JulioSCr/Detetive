@@ -1,0 +1,29 @@
+.botoes {
+    width: 250px;
+    height: 50px;
+    background-color: #B80E0F;
+    color: white;
+    border: none;
+    -moz-box-shadow: 0px 0px 3px 0px #000000 inset;
+    -webkit-box-shadow: 0px 0px 3px 0px #000000 inset;
+    box-shadow: 0px 0px 3px 0px #000000 inset;
+    margin-top: 12px;
+    font-family: 'Roboto Slab', serif;
+    font-weight: bold;
+    font-size: 1.3em;
+    border: 1px solid #000000;
+    border-radius: 15px;
+}
+
+h1 {
+    font-size: 60px;
+    color: white;
+    text-align: center;
+    margin-top: 50px;
+    margin-bottom: 70px;
+    font-family: 'Roboto Slab', serif;
+    font-weight: bold;
+}
+img {
+    width: 160px;
+}

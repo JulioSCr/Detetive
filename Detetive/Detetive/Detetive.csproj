@@ -264,6 +264,7 @@
     <Content Include="Content\Libs\Bootstrap\bootstrap.min.css" />
     <Content Include="Content\Libs\Detetive\Global.css" />
     <Content Include="Content\Libs\Material\material-icons.css" />
+    <Content Include="Content\Views\Home\Index.css" />
     <Content Include="Content\Views\Partida\Jogar.css" />
     <Content Include="Content\Views\Partida\Manter.css" />
     <Content Include="Content\Views\Suspeito\Listar.css" />
@@ -407,6 +408,7 @@
     <Content Include="Views\Partida\Manter.cshtml" />
     <Content Include="Views\Anotacao\Anotacao.cshtml" />
     <Content Include="Views\Partida\Jogar.cshtml" />
+    <Content Include="Views\Home\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
