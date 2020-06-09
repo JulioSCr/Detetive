@@ -27,3 +27,26 @@ h1 {
 img {
     width: 160px;
 }
+
+@media only screen and (max-width: 770px) {
+
+    h1 {
+        margin-bottom: 35px;
+    }
+
+    img {
+        display: block;
+        margin-left: auto;
+        margin-right: auto;
+        width: 50%;
+        margin-bottom: 15px;
+    }
+
+    .botoes {
+        display: block;
+        margin-left: auto;
+        margin-right: auto;
+        width: 65%;
+    }
+}
+
