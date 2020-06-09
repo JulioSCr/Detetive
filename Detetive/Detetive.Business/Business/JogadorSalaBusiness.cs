@@ -11,10 +11,13 @@ namespace Detetive.Business.Business
 {
     public class JogadorSalaBusiness : IJogadorSalaBusiness
     {
+        private readonly ISuspeitoRepository _suspeitoRepository;
         private readonly IJogadorSalaRepository _jogadorSalaRepository;
 
-        public JogadorSalaBusiness(IJogadorSalaRepository jogadorSalaRepository)
+        public JogadorSalaBusiness(ISuspeitoRepository suspeitoRepository,
+                                   IJogadorSalaRepository jogadorSalaRepository)
         {
+            _suspeitoRepository = suspeitoRepository;
             _jogadorSalaRepository = jogadorSalaRepository;
         }
 
@@ -28,6 +31,16 @@ namespace Detetive.Business.Business
         public JogadorSala Obter(int idJogadorSala)
         {
             return _jogadorSalaRepository.Obter(idJogadorSala);
+        }
+
+        public List<JogadorSala> Listar(int idSala)
+        {
+            var listaJogadores = _jogadorSalaRepository.Listar(idSala);
+            var suspeitos = _suspeitoRepository.Listar();
+
+            listaJogadores.ForEach(x => x.Suspeito = suspeitos.FirstOrDefault(y => y.Id == x.IdSuspeito));
+
+            return listaJogadores;
         }
     }
 }

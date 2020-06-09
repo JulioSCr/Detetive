@@ -25,6 +25,7 @@ namespace Detetive.Data.Context.EntityConfig
             Property(p => p.CoordenadaColuna).HasColumnName("NR_COLUNA");
             Property(p => p.CoordenadaLinha).HasColumnName("NR_LINHA");
             Property(p => p.QuantidadeMovimento).HasColumnName("QT_MOVIMENTO");
+            Property(p => p.IdSuspeito).HasColumnName("ID_SUSPEITO");
             Property(p => p.Ativo).HasColumnName("IE_ATIVO");
         }
     }

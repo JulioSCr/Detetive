@@ -33,5 +33,10 @@ namespace Detetive.Data.Repository
 
             return jogadorSala;
         }
+
+        public List<JogadorSala> Listar(int idSala)
+        {
+            return this.Context.JogadoresSala.Where(_ => _.IdSala == idSala && _.Ativo).ToList();
+        }
     }
 }

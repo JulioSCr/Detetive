@@ -18,7 +18,6 @@ namespace Detetive.Data.Context.EntityConfig
             Property(p => p.Id).HasDatabaseGeneratedOption(DatabaseGeneratedOption.Identity);
             Property(p => p.Id).HasColumnName("ID_JOGADOR");
             Property(p => p.Descricao).HasColumnName("DS_JOGADOR");
-            Property(p => p.IdSuspeito).HasColumnName("ID_SUSPEITO");
         }
     }
 }

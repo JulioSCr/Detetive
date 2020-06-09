@@ -1,6 +1,5 @@
 ﻿using AutoMapper;
 using Detetive.Business.Entities;
-using Detetive.ViewModel.Anotacao;
 using System;
 using System.Collections.Generic;
 using System.Linq;

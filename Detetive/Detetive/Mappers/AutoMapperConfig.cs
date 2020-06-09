@@ -12,7 +12,8 @@ namespace Detetive.Mappers
         {
             Mapper.Initialize(x =>
             {
-                //x.AddProfile<MapperAtendimentoViewModelToAtendimento>();
+                x.AddProfile<MapperLocalToLocalViewModel>();
+                x.AddProfile<MapperJpgadorSalaToJogadorSuspeitoViewModel>();
             });
         }
     }

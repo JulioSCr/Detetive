@@ -11,5 +11,6 @@ namespace Detetive.Business.Business.Interfaces
     {
         JogadorSala Mover(JogadorSala jogador, int novaCoordenadaLinha, int novaCoordenadaColuna);
         JogadorSala Obter(int idJogadorSala);
+        List<JogadorSala> Listar(int idSala);
     }
 }
