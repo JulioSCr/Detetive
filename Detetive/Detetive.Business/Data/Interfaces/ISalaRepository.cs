@@ -9,6 +9,7 @@ namespace Detetive.Business.Data.Interfaces
 {
     public interface ISalaRepository
     {
+        Sala Adicionar(Sala sala);
         List<Sala> Listar();
     }
 }

@@ -40,7 +40,7 @@ namespace Detetive.Controllers
         {
             try
             {
-                var anotacao = _anotacaoArmaBusiness.Marcar(idJogadorSala, id, valor);
+                var anotacao = _anotacaoArmaBusiness.Adicionar(id, idJogadorSala);
 
             }
             catch(Exception ex)

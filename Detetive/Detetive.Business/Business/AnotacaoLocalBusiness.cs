@@ -14,7 +14,7 @@ namespace Detetive.Business.Business
         private readonly ILocalRepository _localRepository;
         private readonly IAnotacaoLocalRepository _anotacaoLocalRepository;
 
-        public AnotacaoLocalBusiness(ILocalRepository localRepository, 
+        public AnotacaoLocalBusiness(ILocalRepository localRepository,
                                         IAnotacaoLocalRepository anotacaoLocalRepository)
         {
             _localRepository = localRepository;
@@ -23,7 +23,9 @@ namespace Detetive.Business.Business
 
         public AnotacaoLocal Adicionar(int idLocal, int idJogadorSala)
         {
-            return _anotacaoLocalRepository.Adicionar(new AnotacaoLocal(idLocal, idJogadorSala));
+            AnotacaoLocal anotacaoLocal = _anotacaoLocalRepository.Adicionar(new AnotacaoLocal(idLocal, idJogadorSala));
+
+            return anotacaoLocal;
         }
 
         public List<AnotacaoLocal> Listar(int idJogadorSala)
