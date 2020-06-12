@@ -230,6 +230,7 @@
     <Compile Include="Controllers\AnotacaoController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\PartidaController.cs" />
+    <Compile Include="Controllers\SobreController.cs" />
     <Compile Include="Controllers\SuspeitoController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -261,6 +262,7 @@
     <Content Include="Content\Libs\Detetive\Global.css" />
     <Content Include="Content\Libs\Material\material-icons.css" />
     <Content Include="Content\Views\Partida\Manter.css" />
+    <Content Include="Content\Views\Sobre\Exibir.css" />
     <Content Include="Content\Views\Suspeito\Listar.css" />
     <Content Include="Content\Views\Shared\Layout.css" />
     <Content Include="favicon.ico" />
@@ -400,6 +402,7 @@
     <Content Include="Views\Suspeito\Teste.cshtml" />
     <Content Include="Views\Partida\Manter.cshtml" />
     <Content Include="Views\Anotacao\Anotacao.cshtml" />
+    <Content Include="Views\Sobre\Exibir.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
