@@ -50,9 +50,11 @@
     <Compile Include="Business\Interfaces\IJogadorSalaBusiness.cs" />
     <Compile Include="Business\Interfaces\ILocalBusiness.cs" />
     <Compile Include="Business\Interfaces\IMovimentacaoBusiness.cs" />
+    <Compile Include="Business\Interfaces\ISalaBusiness.cs" />
     <Compile Include="Business\JogadorSalaBusiness.cs" />
     <Compile Include="Business\LocalBusiness.cs" />
     <Compile Include="Business\MovimentacaoBusiness.cs" />
+    <Compile Include="Business\SalaBusiness.cs" />
     <Compile Include="Data\Interfaces\IAnotacaoArmaRepository.cs" />
     <Compile Include="Data\Interfaces\IAnotacaoLocalRepository.cs" />
     <Compile Include="Data\Interfaces\IAnotacaoSuspeitoRepository.cs" />

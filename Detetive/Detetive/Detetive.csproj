@@ -234,6 +234,7 @@
     <Compile Include="Controllers\AnotacaoController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\PartidaController.cs" />
+    <Compile Include="Controllers\SalaController.cs" />
     <Compile Include="Controllers\SuspeitoController.cs" />
     <Compile Include="Extensions\StringExtensions.cs" />
     <Compile Include="Global.asax.cs">
@@ -426,6 +427,7 @@
     <Folder Include="App_Data\" />
     <Folder Include="Content\Imagens\CartasArmas\" />
     <Folder Include="Content\Imagens\CartasLocais\" />
+    <Folder Include="Views\Sala\" />
     <Folder Include="Views\Teste\" />
   </ItemGroup>
   <ItemGroup>

@@ -25,6 +25,7 @@ namespace Detetive.Injection
             container.Register<IJogadorSalaBusiness, JogadorSalaBusiness>(Lifestyle.Scoped);
             container.Register<ILocalBusiness, LocalBusiness>(Lifestyle.Scoped);
             container.Register<IMovimentacaoBusiness, MovimentacaoBusiness>(Lifestyle.Scoped);
+            container.Register<ISalaBusiness, SalaBusiness>(Lifestyle.Scoped);
 
             // Data
             container.Register<IAnotacaoArmaRepository, AnotacaoArmaRepository>(Lifestyle.Scoped);
