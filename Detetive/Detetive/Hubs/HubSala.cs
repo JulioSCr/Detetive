@@ -12,5 +12,6 @@ namespace Detetive.Hubs
         {
             Clients.All.TransmitirMensagem(apelido, mensagem);
         }
+
     }
 }
