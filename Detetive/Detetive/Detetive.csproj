@@ -266,8 +266,8 @@
     <Content Include="Content\Libs\Bootstrap\bootstrap.min.css" />
     <Content Include="Content\Libs\Detetive\Global.css" />
     <Content Include="Content\Libs\Material\material-icons.css" />
-    <Content Include="Content\Views\ManterSala\ManterSala.css" />
     <Content Include="Content\Views\Partida\Manter.css" />
+    <Content Include="Content\Views\Sala\ManterSala.css" />
     <Content Include="Content\Views\Suspeito\Listar.css" />
     <Content Include="Content\Views\Shared\Layout.css" />
     <Content Include="favicon.ico" />
@@ -381,7 +381,7 @@
     <Content Include="Scripts\Libs\umd\popper-utils.min.js" />
     <Content Include="Scripts\Libs\umd\popper.js" />
     <Content Include="Scripts\Libs\umd\popper.min.js" />
-    <Content Include="Scripts\Views\ManterSala\ManterSala.js" />
+    <Content Include="Scripts\Views\Sala\ManterSala.js" />
     <Content Include="Scripts\Views\Suspeito\Listar.js" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
@@ -408,13 +408,13 @@
     <Content Include="Views\Suspeito\Teste.cshtml" />
     <Content Include="Views\Partida\Manter.cshtml" />
     <Content Include="Views\Anotacao\Anotacao.cshtml" />
-    <Content Include="Views\ManterSala\ManterSala.cshtml" />
     <Content Include="Views\Sala\ManterSala.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Content\Imagens\CartasArmas\" />
     <Folder Include="Content\Imagens\CartasLocais\" />
+    <Folder Include="Content\Views\NewFolder1\" />
     <Folder Include="Scripts\Views\Partida\" />
     <Folder Include="Views\Teste\" />
   </ItemGroup>
