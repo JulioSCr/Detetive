@@ -1,7 +1,15 @@
 ﻿<!DOCTYPE html>
 @{ 
     ViewBag.Title = "Detetive";
-    string lGlobalPath = HttpContext.Current.Request.Url.AbsoluteUri;
+    string lGlobalPath;
+    if (HttpContext.Current.Request.Url.PathAndQuery.Trim() != "/")
+    {
+        lGlobalPath = HttpContext.Current.Request.Url.AbsoluteUri.Replace(HttpContext.Current.Request.Url.PathAndQuery, "") + (HttpContext.Current.Request.ApplicationPath.Trim().Length > 1 ? HttpContext.Current.Request.ApplicationPath.Trim() : "") + "/";
+    }
+    else
+    {
+        lGlobalPath = HttpContext.Current.Request.Url.AbsoluteUri;
+    }
 }
 <html lang="pt-br">
 <head>

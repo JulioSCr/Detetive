@@ -242,6 +242,10 @@
     <Compile Include="ViewModel\BaseViewModel.cs" />
     <Compile Include="ViewModel\Anotacao\LocalViewModel.cs" />
     <Compile Include="ViewModel\Anotacao\SuspeitoViewModel.cs" />
+    <Compile Include="ViewModel\Tabuleiro\PartidaViewModel.cs" />
+    <Compile Include="ViewModel\Tabuleiro\JogadorViewModel.cs" />
+    <Compile Include="ViewModel\Tabuleiro\LocalViewModew.cs" />
+    <Compile Include="ViewModel\Tabuleiro\PosicaoViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\Imagens\CartasSuspeitos\imgCartaBibliotecaria.svg" />

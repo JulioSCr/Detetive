@@ -29,6 +29,32 @@
     background-size: cover;
     background-position: center center;
     background-attachment: inherit;
+    grid-template-areas:
+        ". . . . . . . . . . . . . . . . . . . . . . . . . . santiago santiago santiago santiago santiago santiago"
+        ". . . . . . . . . . . . . . . . . . . . . . . . . . santiago santiago santiago santiago santiago santiago"
+        ". . . . . . . . . . . . . . . . . auditorio auditorio auditorio auditorio auditorio auditorio auditorio . . santiago santiago santiago santiago santiago santiago"
+        ". . . . . . . . . . . . . . . . . auditorio auditorio auditorio auditorio auditorio auditorio auditorio . . santiago santiago santiago santiago santiago santiago"
+        ". . . . . . . . . . . . . . . . . auditorio auditorio auditorio auditorio auditorio auditorio auditorio . . santiago santiago santiago santiago santiago santiago"
+        ". . . . . . . . . . . . . . . . . auditorio auditorio auditorio auditorio auditorio auditorio auditorio . . santiago santiago santiago santiago santiago santiago"
+        ". . . . . . . . . . . . . . . . . auditorio auditorio auditorio auditorio auditorio auditorio auditorio . . santiago santiago santiago santiago santiago santiago"
+        ". . . . . . . . . . . . . . . . . auditorio auditorio auditorio auditorio auditorio auditorio auditorio . . santiago santiago santiago santiago santiago santiago"
+        ". . . . . . . . . . . . . . . . . ginasio ginasio ginasio ginasio ginasio ginasio ginasio . . santiago santiago santiago santiago santiago santiago"
+        ". . . . . . . . . . . . . . . . . ginasio ginasio ginasio ginasio ginasio ginasio ginasio . . . . . . . ."
+        "predioA predioA predioA predioA predioA predioA . . predioB predioB predioB predioB predioB predioB . . . ginasio ginasio ginasio ginasio ginasio ginasio ginasio . . . . . . . ."
+        "predioA predioA predioA predioA predioA predioA . . predioB predioB predioB predioB predioB predioB . . . ginasio ginasio ginasio ginasio ginasio ginasio ginasio . . ca ca ca ca ca ca"
+        "predioA predioA predioA predioA predioA predioA . . predioB predioB predioB predioB predioB predioB . . . ginasio ginasio ginasio ginasio ginasio ginasio ginasio . . ca ca ca ca ca ca"
+        "predioA predioA predioA predioA predioA predioA . . predioB predioB predioB predioB predioB predioB . . . ginasio ginasio ginasio ginasio ginasio ginasio ginasio . . ca ca ca ca ca ca"
+        "predioA predioA predioA predioA predioA predioA . . predioB predioB predioB predioB predioB predioB . . . ginasio ginasio ginasio ginasio ginasio ginasio ginasio . . ca ca ca ca ca ca"
+        "predioA predioA predioA predioA predioA predioA . . predioB predioB predioB predioB predioB predioB . . . ginasio ginasio ginasio ginasio ginasio ginasio ginasio . . ca ca ca ca ca ca"
+        "predioA predioA predioA predioA predioA predioA . . predioB predioB predioB predioB predioB predioB . . . ginasio ginasio ginasio ginasio ginasio ginasio ginasio . . ca ca ca ca ca ca"
+        ". . . . . . . . . . . . . . . . . . . . . . . . . . ca ca ca ca ca ca"
+        ". . . . . . . . . . . . . . . . . . . . . . . . . . ca ca ca ca ca ca"
+        "cantinaAB cantinaAB cantinaAB cantinaAB cantinaAB cantinaAB . . etesp etesp etesp etesp etesp etesp . praca praca praca praca praca praca praca praca praca . . ca ca ca ca ca ca"
+        "cantinaAB cantinaAB cantinaAB cantinaAB cantinaAB cantinaAB . . etesp etesp etesp etesp etesp etesp . praca praca praca praca praca praca praca praca praca . . ca ca ca ca ca ca"
+        "cantinaAB cantinaAB cantinaAB cantinaAB cantinaAB cantinaAB . . etesp etesp etesp etesp etesp etesp . praca praca praca praca praca praca praca praca praca . . ca ca ca ca ca ca"
+        "cantinaAB cantinaAB cantinaAB cantinaAB cantinaAB cantinaAB . . etesp etesp etesp etesp etesp etesp . praca praca praca praca praca praca praca praca praca . . ca ca ca ca ca ca"
+        "cantinaAB cantinaAB cantinaAB cantinaAB cantinaAB cantinaAB . . etesp etesp etesp etesp etesp etesp . praca praca praca praca praca praca praca praca praca . . ca ca ca ca ca ca"
+        "cantinaAB cantinaAB cantinaAB cantinaAB cantinaAB cantinaAB . . etesp etesp etesp etesp etesp etesp . praca praca praca praca praca praca praca praca praca . . ca ca ca ca ca ca";
 }
 
 #divAnotacoes {
@@ -44,8 +70,86 @@
     align-self: center;
     justify-self: center;
 }
-/*#endregion*/
 
+#divPredioA {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    grid-row: 11/18;
+    grid-column: 1/7;
+}
+
+#divPredioB {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    grid-row: 11/18;
+    grid-column: 9/15;
+}
+
+#divSantiago {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    grid-row: 1/10;
+    grid-column: 27/33;
+}
+
+#divPraca {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    grid-row: 20/26;
+    grid-column: 16/25;
+}
+
+#divEtesp {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    grid-row: 20/26;
+    grid-column: 9/15;
+}
+
+#divCantinaAB {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    grid-row: 20/26;
+    grid-column: 1/7;
+}
+
+#divCA {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    grid-row: 12/26;
+    grid-column: 27/33;
+}
+
+#divAuditorio {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    grid-row: 3/9;
+    grid-column: 18/25;
+}
+
+#divGinasio {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    grid-row: 9/18;
+    grid-column: 18/25;
+}
+
+.dentro {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-gap: 40px;
+}
+
+/*#endregion*/
 /*#region Segunda Linha*/
 #secSegundaLinha {
     width: 100%;
