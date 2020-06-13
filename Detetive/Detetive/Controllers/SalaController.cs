@@ -6,9 +6,9 @@ using System.Web.Mvc;
 
 namespace Detetive.Controllers
 {
-    public class ManterSalaController : Controller
+    public class SalaController : Controller
     {
-        // GET: ManterSala
+        // GET: ManterSala()
         public ActionResult Index()
         {
             return View();
@@ -16,6 +16,10 @@ namespace Detetive.Controllers
         public ActionResult ManterSala()
         {
             return View();
+        }
+        public string CriarSala()
+        {
+            return "1234";
         }
     }
 }

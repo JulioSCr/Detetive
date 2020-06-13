@@ -1,0 +1,23 @@
+﻿#divBtnCriarSala {
+    width: 17.281%;
+    height: 8.545%;
+}
+
+#divBtnIngressar {
+    width: 17.281%;
+    height: 8.545%;
+}
+
+#divBtnVoltar {
+    position: absolute;
+    width: 250px;
+    height: 50px;
+    left: 100px;
+    top: 489px;
+}
+.divBtnVoltar{
+    width: 250px;
+    height: 50px;
+    background-image: url('~/Content/Imagens/Shared/imgBtnVoltar.svg');
+}
+

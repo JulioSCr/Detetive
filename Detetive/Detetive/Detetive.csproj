@@ -229,7 +229,7 @@
     <Compile Include="App_Start\Startup.cs" />
     <Compile Include="Controllers\AnotacaoController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
-    <Compile Include="Controllers\ManterSalaController.cs" />
+    <Compile Include="Controllers\SalaController.cs" />
     <Compile Include="Controllers\PartidaController.cs" />
     <Compile Include="Controllers\SuspeitoController.cs" />
     <Compile Include="Global.asax.cs">
@@ -409,6 +409,7 @@
     <Content Include="Views\Partida\Manter.cshtml" />
     <Content Include="Views\Anotacao\Anotacao.cshtml" />
     <Content Include="Views\ManterSala\ManterSala.cshtml" />
+    <Content Include="Views\Sala\ManterSala.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
