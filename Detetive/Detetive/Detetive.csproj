@@ -229,6 +229,7 @@
     <Compile Include="App_Start\Startup.cs" />
     <Compile Include="Controllers\AnotacaoController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\SalaController.cs" />
     <Compile Include="Controllers\PartidaController.cs" />
     <Compile Include="Controllers\SobreController.cs" />
     <Compile Include="Controllers\SuspeitoController.cs" />
@@ -267,6 +268,7 @@
     <Content Include="Content\Libs\Material\material-icons.css" />
     <Content Include="Content\Views\Partida\Manter.css" />
     <Content Include="Content\Views\Sobre\Exibir.css" />
+    <Content Include="Content\Views\Sala\ManterSala.css" />
     <Content Include="Content\Views\Suspeito\Listar.css" />
     <Content Include="Content\Views\Shared\Layout.css" />
     <Content Include="favicon.ico" />
@@ -380,6 +382,7 @@
     <Content Include="Scripts\Libs\umd\popper-utils.min.js" />
     <Content Include="Scripts\Libs\umd\popper.js" />
     <Content Include="Scripts\Libs\umd\popper.min.js" />
+    <Content Include="Scripts\Views\Sala\ManterSala.js" />
     <Content Include="Scripts\Views\Suspeito\Listar.js" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
@@ -408,6 +411,7 @@
     <Content Include="Views\Anotacao\Anotacao.cshtml" />
     <Content Include="Views\Sobre\Exibir.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />
+    <Content Include="Views\Sala\ManterSala.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
