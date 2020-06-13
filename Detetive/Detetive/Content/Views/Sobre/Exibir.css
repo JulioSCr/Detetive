@@ -1,0 +1,45 @@
+﻿body {
+    margin: 0;
+    padding: 0;
+    border: 0;
+
+}
+
+.btnVoltar {
+    width: 250px;
+    height: 50px;
+    left: 96px;
+    top: 492px;
+    /*padding: 0.5px;*/
+    /*margin: 70px;*/
+    background-color: #B80E0F;
+    border: 0;
+    border-radius: 5px;
+    font-family: Roboto Slab;
+    color: #FFF;
+    font-style: normal;
+    font-weight: bold;
+    font-size: 35px;
+    align-items: center;
+    text-align: center;
+}
+
+#CaixaTexto {
+    width: 100%;
+    height: 100%;
+    /*left: 439px;*/
+    top: 3%;
+    background: #C4C4C4;
+    padding: 30px;
+    display: inline-block;
+    font-family: Roboto Slab;
+    font-style: normal;
+    font-weight: bold;
+    font-size: 26px;
+    line-height: 34px;
+    display: flex;
+    align-items: center;
+    text-align: justify;
+    color: #000000;
+    float: right;
+}
