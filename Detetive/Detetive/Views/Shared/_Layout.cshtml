@@ -1,7 +1,15 @@
 ﻿<!DOCTYPE html>
 @{ 
     ViewBag.Title = "Detetive";
-    string lGlobalPath = HttpContext.Current.Request.Url.AbsoluteUri;
+    string lGlobalPath;
+    if (HttpContext.Current.Request.Url.PathAndQuery.Trim() != "/")
+    {
+        lGlobalPath = HttpContext.Current.Request.Url.AbsoluteUri.Replace(HttpContext.Current.Request.Url.PathAndQuery, "") + (HttpContext.Current.Request.ApplicationPath.Trim().Length > 1 ? HttpContext.Current.Request.ApplicationPath.Trim() : "") + "/";
+    }
+    else
+    {
+        lGlobalPath = HttpContext.Current.Request.Url.AbsoluteUri;
+    }
 }
 <html lang="pt-br">
 <head>
@@ -16,7 +24,7 @@
     <link rel="stylesheet" type="text/css" href="@Url.Content("~/Content/Libs/Bootstrap/bootstrap-grid.min.css.map?" + DateTimeOffset.Now)" />
     <link rel="stylesheet" type="text/css" href="@Url.Content("~/Content/Libs/Detetive/Global.css?" + DateTimeOffset.Now)" />
     <link rel="stylesheet" type="text/css" href="@Url.Content("~/Content/Views/Shared/Layout.css?" + DateTimeOffset.Now)" />
-    <link href="https://fonts.googleapis.com/css2?family=Roboto&family=Roboto+Slab&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Risque&family=Roboto&family=Roboto+Slab&display=swap" rel="stylesheet">
     @RenderSection("head", required: false)
 </head>
 <body>

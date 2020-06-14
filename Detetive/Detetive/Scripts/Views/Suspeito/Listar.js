@@ -1,4 +1,4 @@
-﻿var Listar = window.Teste || {
+﻿var Listar = window.Listar || {
 };
 
 $(document).ready(function () {

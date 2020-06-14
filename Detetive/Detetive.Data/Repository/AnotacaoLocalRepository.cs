@@ -1,6 +1,7 @@
 ﻿using Detetive.Business.Data.Interfaces;
 using Detetive.Business.Entities;
 using Detetive.Data.Context;
+using Detetive.Data.Repository.Base;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,13 +10,10 @@ using System.Threading.Tasks;
 
 namespace Detetive.Data.Repository
 {
-    public class AnotacaoLocalRepository : IAnotacaoLocalRepository
+    public class AnotacaoLocalRepository : BaseRepository, IAnotacaoLocalRepository
     {
-        private readonly DetetiveContext Context;
-
-        public AnotacaoLocalRepository()
+        public AnotacaoLocalRepository() : base()
         {
-            this.Context = new DetetiveContext();
         }
 
         public AnotacaoLocal Adicionar(AnotacaoLocal anotacao)

@@ -231,6 +231,7 @@
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\SalaController.cs" />
     <Compile Include="Controllers\PartidaController.cs" />
+    <Compile Include="Controllers\SobreController.cs" />
     <Compile Include="Controllers\SuspeitoController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -242,6 +243,10 @@
     <Compile Include="ViewModel\BaseViewModel.cs" />
     <Compile Include="ViewModel\Anotacao\LocalViewModel.cs" />
     <Compile Include="ViewModel\Anotacao\SuspeitoViewModel.cs" />
+    <Compile Include="ViewModel\Tabuleiro\PartidaViewModel.cs" />
+    <Compile Include="ViewModel\Tabuleiro\JogadorViewModel.cs" />
+    <Compile Include="ViewModel\Tabuleiro\LocalViewModew.cs" />
+    <Compile Include="ViewModel\Tabuleiro\PosicaoViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\Imagens\CartasSuspeitos\imgCartaBibliotecaria.svg" />
@@ -267,6 +272,8 @@
     <Content Include="Content\Libs\Detetive\Global.css" />
     <Content Include="Content\Libs\Material\material-icons.css" />
     <Content Include="Content\Views\Partida\Manter.css" />
+    <Content Include="Content\Views\Sala\ManterSala.css" />
+    <Content Include="Content\Views\Sobre\Exibir.css" />
     <Content Include="Content\Views\Sala\ManterSala.css" />
     <Content Include="Content\Views\Suspeito\Listar.css" />
     <Content Include="Content\Views\Shared\Layout.css" />
@@ -409,12 +416,14 @@
     <Content Include="Views\Partida\Manter.cshtml" />
     <Content Include="Views\Anotacao\Anotacao.cshtml" />
     <Content Include="Views\Sala\ManterSala.cshtml" />
+    <Content Include="Views\Sobre\Exibir.cshtml" />
+    <Content Include="Views\Home\Index.cshtml" />
+    <Content Include="Views\Sala\ManterSala.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Content\Imagens\CartasArmas\" />
     <Folder Include="Content\Imagens\CartasLocais\" />
-    <Folder Include="Content\Views\NewFolder1\" />
     <Folder Include="Scripts\Views\Partida\" />
     <Folder Include="Views\Teste\" />
   </ItemGroup>
