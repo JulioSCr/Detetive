@@ -62,22 +62,15 @@ namespace Detetive.Controllers
             return _movimentacaoBusiness.MoverJogador(idJogadorSala, linha, coluna);
         }
 
-        public string Posicionar()
+
+        /// <summary>
+        /// Obtem a posição atual de cada jogador da sala
+        /// </summary>
+        /// <returns>Retorna uma lista com ID-JOGADOR_SALA e a sua posição atual</returns>
+        public string GetPosicaoAtual()
         {
             /// TO DO
-            /// Deve retornar uma lista dos jogadores da sala
-            /// e a posição de cada.
-            /// O object deve ser substituído por uma view model
-
-            /// Cordenada
-            /// Varrer a lista de locais
-            /// Retorna esse local
-            /// idLocal
-            /// Listar Locais --> pega id 
-            /// Via Razor 
-
-
-            //TabuleiroViewModel lTabuleiro;
+            /// Em caso de dúvida olhar o objeto de retorno em ~/Scripts/Views/Partida/Jogar.js
             return JsonConvert.SerializeObject("");
         }
 
@@ -85,6 +78,26 @@ namespace Detetive.Controllers
         {
             /// TO DO
             /// Deve retornar um objeto conforme o utilizado no javascript Scripts/Views/Partida/Jogar.js linha 220 a 342
+
+            return JsonConvert.SerializeObject("");
+        }
+
+        [HttpGet]
+        public ActionResult ModalPalpite()
+        {
+            return PartialView();
+        }
+
+        /// <summary>
+        /// Valida o palpite
+        /// </summary>
+        /// <param name="idJogadorSala"></param>
+        /// <param name="idArma"></param>
+        /// <param name="idLocal"></param>
+        /// <returns></returns>
+        public string Palpite(int idJogadorSala, int idArma, int idLocal)
+        {
+            /// Valida o palpite
 
             return JsonConvert.SerializeObject("");
         }

@@ -270,11 +270,13 @@
     <Content Include="Content\Libs\Bootstrap\bootstrap.css" />
     <Content Include="Content\Libs\Bootstrap\bootstrap.min.css" />
     <Content Include="Content\Libs\Detetive\Global.css" />
+    <Content Include="Content\Libs\Detetive\Modal.css" />
     <Content Include="Content\Libs\Material\material-icons.css" />
     <Content Include="Content\Views\Partida\Manter.css" />
     <Content Include="Content\Views\Sala\ManterSala.css" />
     <Content Include="Content\Views\Sobre\Exibir.css" />
     <Content Include="Content\Views\Sala\ManterSala.css" />
+    <Content Include="Content\Views\Partida\ModalPalpite.css" />
     <Content Include="Content\Views\Suspeito\Listar.css" />
     <Content Include="Content\Views\Shared\Layout.css" />
     <Content Include="favicon.ico" />
@@ -294,6 +296,7 @@
     <Content Include="Content\Libs\Bootstrap\bootstrap-grid.min.css.map" />
     <Content Include="Content\Libs\Bootstrap\bootstrap-grid.css.map" />
     <Content Include="Scripts\Libs\Detetive\Global.js" />
+    <Content Include="Scripts\Libs\Detetive\Modal.js" />
     <Content Include="Scripts\Libs\Detetive\Sala.js" />
     <Content Include="Scripts\Libs\esm\popper-utils.js" />
     <Content Include="Scripts\Libs\esm\popper-utils.min.js" />
@@ -389,6 +392,8 @@
     <Content Include="Scripts\Libs\umd\popper.js" />
     <Content Include="Scripts\Libs\umd\popper.min.js" />
     <Content Include="Scripts\Views\Sala\ManterSala.js" />
+    <Content Include="Scripts\Views\Partida\Jogar.js" />
+    <Content Include="Scripts\Views\Partida\ModalPalpite.js" />
     <Content Include="Scripts\Views\Suspeito\Listar.js" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
@@ -419,6 +424,9 @@
     <Content Include="Views\Sobre\Exibir.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Views\Sala\ManterSala.cshtml" />
+    <Content Include="Views\Partida\Jogar.cshtml" />
+    <Content Include="Views\Partida\ModalPalpite.cshtml" />
+    <Content Include="Views\Shared\_LayoutModal.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

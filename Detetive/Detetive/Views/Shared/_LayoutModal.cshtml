@@ -1,0 +1,12 @@
+﻿@RenderSection("head", required: false)
+<div id="DetetiveModal" class="modal-container">
+    <div class="modal-customizado">
+        <button class="fecha">x</button>
+        <div id="divDetetiveModalTitulo" class="centralizar">
+            <h3 id="lblDetetiveModalTitulo"></h3>
+        </div>
+        @RenderBody()
+    </div>
+</div>
+
+@RenderSection("scripts", required: false)
