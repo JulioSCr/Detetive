@@ -23,5 +23,10 @@ namespace Detetive.Hubs
         {
             Clients.All.TransmitirMovimento(ID_JOGADOR_SALA, pLinha, pColuna, pIDLocal);
         }
+
+        public void Teletransporte(int ID_JOGADOR_SALA, int pIDLocal)
+        {
+            Clients.All.TransmitirTeletransporte(ID_JOGADOR_SALA, pIDLocal);
+        }
     }
 }
