@@ -54,6 +54,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Context\DetetiveContext.cs" />
+    <Compile Include="Context\EntityConfig\CrimeConfig.cs" />
     <Compile Include="Context\EntityConfig\AnotacaoArmaConfig.cs" />
     <Compile Include="Context\EntityConfig\AnotacaoLocalConfig.cs" />
     <Compile Include="Context\EntityConfig\AnotacaoSuspeitoConfig.cs" />
@@ -69,6 +70,7 @@
     <Compile Include="Repository\AnotacaoSuspeitoRepository.cs" />
     <Compile Include="Repository\ArmaRepository.cs" />
     <Compile Include="Repository\Base\BaseRepository.cs" />
+    <Compile Include="Repository\CrimeRepository.cs" />
     <Compile Include="Repository\JogadorSalaRepository.cs" />
     <Compile Include="Repository\JogadorRepository.cs" />
     <Compile Include="Repository\LocalRepository.cs" />
@@ -82,7 +84,6 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <None Include="App.config" />
     <None Include="packages.config" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Detetive.Business.Entities.Base;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -6,9 +7,8 @@ using System.Threading.Tasks;
 
 namespace Detetive.Business.Entities
 {
-    public class JogadorSala
+    public class JogadorSala : BaseEntity
     {
-        public int Id { get; set; }
         public int IdSala { get; set; }
         public int NumeroOrdem { get; set; }
         public int NumeroPassagemSecreta { get; set; }
@@ -16,16 +16,11 @@ namespace Detetive.Business.Entities
         public int QuantidadeMovimento { get; set; }
         public int CoordenadaLinha { get; set; }
         public int CoordenadaColuna { get; set; }
-        public bool Ativo { get; set; }
         public int IdJogador { get; set; }
         public int IdSuspeito { get; set; }
         public virtual Suspeito Suspeito { get; set; }
 
-
-        //public Sala Sala { get; set; }
-        //public Jogador Jogador { get; set; }
-
-        internal JogadorSala()
+        internal JogadorSala() : base()
         {
 
         }
@@ -52,6 +47,12 @@ namespace Detetive.Business.Entities
                                                     Math.Abs(CoordenadaColuna - coordenadaColuna);
 
             QuantidadeMovimento -= quantidadeMovimentosNecessarios;
+        }
+
+        public void AlterarCoordenadas(int coordenadaLinha, int coordenadaColuna)
+        {
+            CoordenadaLinha = coordenadaLinha;
+            CoordenadaColuna = coordenadaColuna;
         }
 
         public void Alterar(JogadorSala jogadorSala)

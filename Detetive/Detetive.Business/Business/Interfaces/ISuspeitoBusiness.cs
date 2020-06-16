@@ -7,9 +7,9 @@ using System.Threading.Tasks;
 
 namespace Detetive.Business.Business.Interfaces
 {
-    public interface ILocalBusiness
+    public interface ISuspeitoBusiness
     {
-        Local Obter(int idLocal);
-        List<Local> Listar();
+        Suspeito Obter(int idSuspeito);
+        List<Suspeito> Listar();
     }
 }

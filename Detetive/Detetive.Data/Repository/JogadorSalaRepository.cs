@@ -21,6 +21,17 @@ namespace Detetive.Data.Repository
             return this.Context.JogadoresSala.AsNoTracking().SingleOrDefault(_ => _.Id == idJogadorSala && _.Ativo);
         }
 
+        public JogadorSala Obter(int idJogadorSala, int idSala)
+        {
+            return this.Context.JogadoresSala.AsNoTracking().SingleOrDefault(_ => _.Id == idJogadorSala && _.IdSala == idSala && _.Ativo);
+        }
+
+        public JogadorSala ObterPorSuspeito(int idSuspeito, int idSala)
+        {
+            return this.Context.JogadoresSala.AsNoTracking().SingleOrDefault(_ => _.IdSuspeito == idSuspeito && 
+                                                                                                _.IdSala == idSala && _.Ativo);
+        }
+
         public JogadorSala Alterar(JogadorSala jogador)
         {
             var jogadorSala = this.Context.JogadoresSala.SingleOrDefault(_ => _.Id == jogador.Id && _.Ativo);

@@ -22,7 +22,8 @@ namespace Detetive.Data.Context
         // Jogador
         public DbSet<Jogador> Jogadores { get; set; }
         public DbSet<JogadorSala> JogadoresSala { get; set; }
-
+        
+        public DbSet<Crime> Crimes { get; set; }
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
@@ -35,6 +36,7 @@ namespace Detetive.Data.Context
             modelBuilder.Configurations.Add(new AnotacaoSuspeitoConfig());
             modelBuilder.Configurations.Add(new JogadorConfig());
             modelBuilder.Configurations.Add(new JogadorSalaConfig());
+            modelBuilder.Configurations.Add(new CrimeConfig());
 
             Database.SetInitializer<DetetiveContext>(null);
         }

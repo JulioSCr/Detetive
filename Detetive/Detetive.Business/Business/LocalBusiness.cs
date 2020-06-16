@@ -22,5 +22,10 @@ namespace Detetive.Business.Business
         {
             return _localRepository.Listar();
         }
+
+        public Local Obter(int idLocal)
+        {
+            return _localRepository.Obter(idLocal);
+        }
     }
 }

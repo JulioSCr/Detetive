@@ -5,11 +5,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Detetive.Business.Business.Interfaces
+namespace Detetive.Business.Data.Interfaces
 {
-    public interface ILocalBusiness
+    public interface ICrimeRepository
     {
-        Local Obter(int idLocal);
-        List<Local> Listar();
+        Crime Obter(int idSala);
+        Crime Alterar(Crime crime);
     }
 }
