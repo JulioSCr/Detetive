@@ -11,6 +11,7 @@ namespace Detetive.Data.Context
     {
         public DbSet<Arma> Armas { get; set; }
         public DbSet<Local> Locais { get; set; }
+        public DbSet<PortaLocal> PortasLocal { get; set; }
         public DbSet<Sala> Salas { get; set; }
         public DbSet<Suspeito> Suspeitos { get; set; }
 
@@ -37,6 +38,7 @@ namespace Detetive.Data.Context
             modelBuilder.Configurations.Add(new JogadorConfig());
             modelBuilder.Configurations.Add(new JogadorSalaConfig());
             modelBuilder.Configurations.Add(new CrimeConfig());
+            modelBuilder.Configurations.Add(new PortaLocalConfig());
 
             Database.SetInitializer<DetetiveContext>(null);
         }

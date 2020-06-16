@@ -54,6 +54,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Context\DetetiveContext.cs" />
+    <Compile Include="Context\EntityConfig\PortaLocalConfig.cs" />
     <Compile Include="Context\EntityConfig\CrimeConfig.cs" />
     <Compile Include="Context\EntityConfig\AnotacaoArmaConfig.cs" />
     <Compile Include="Context\EntityConfig\AnotacaoLocalConfig.cs" />
@@ -74,6 +75,7 @@
     <Compile Include="Repository\JogadorSalaRepository.cs" />
     <Compile Include="Repository\JogadorRepository.cs" />
     <Compile Include="Repository\LocalRepository.cs" />
+    <Compile Include="Repository\PortaLocalRepository.cs" />
     <Compile Include="Repository\SalaRepository.cs" />
     <Compile Include="Repository\SuspeitoRepository.cs" />
   </ItemGroup>

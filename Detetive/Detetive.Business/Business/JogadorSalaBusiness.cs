@@ -15,16 +15,19 @@ namespace Detetive.Business.Business
         private readonly ICrimeBusiness _crimeBusiness;
         private readonly ILocalBusiness _localBusiness;
         private readonly ISuspeitoBusiness _suspeitoBusiness;
+        private readonly IPortaLocalBusiness _portaLocalBusiness;
         private readonly IJogadorSalaRepository _jogadorSalaRepository;
 
         public JogadorSalaBusiness(ICrimeBusiness crimeBusiness,
                                    ILocalBusiness localBusiness,
                                    ISuspeitoBusiness suspeitoBusiness,
+                                   IPortaLocalBusiness portaLocalBusiness,
                                    IJogadorSalaRepository jogadorSalaRepository)
         {
             _crimeBusiness = crimeBusiness;
             _localBusiness = localBusiness;
             _suspeitoBusiness = suspeitoBusiness;
+            _portaLocalBusiness = portaLocalBusiness;
             _jogadorSalaRepository = jogadorSalaRepository;
         }
 
@@ -138,6 +141,7 @@ namespace Detetive.Business.Business
             this.MoverJogadorSalaParaLocal(idSuspeito, idSala, idLocal);
 
             //TODO
+            return null;
         }
 
         private void MoverJogadorSalaParaLocal(int idSuspeito, int idSala, int idLocal)
@@ -152,7 +156,14 @@ namespace Detetive.Business.Business
             if (local == default)
                 return;
 
-            jogadorSala.AlterarCoordenadas(local.CoordenadaALinha, local.CoordenadaAColuna);
+            var portas = _portaLocalBusiness.Listar(idLocal);
+
+            if (portas != null && portas.Any())
+                return;
+
+            var porta = portas.First();
+
+            jogadorSala.AlterarCoordenadas(porta.CoordenadaLinha, porta.CoordenadaColuna);
             _jogadorSalaRepository.Alterar(jogadorSala);
         }
     }
