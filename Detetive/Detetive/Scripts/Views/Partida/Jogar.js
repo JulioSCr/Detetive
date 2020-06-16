@@ -10,7 +10,10 @@ Jogar.MontarTela = function () {
     //Posicionando suspeitos
     $('#ModalPalpite').Detetive_Modal({
         Titulo: 'Palpite'
-    })
+    });
+    $('#ModalAcusar').Detetive_Modal({
+        Titulo: 'Acusar'
+    });
     $.ajax({
         url: gstrGlobalPath + 'Partida/GetPosicaoAtual',
         success: function (data, textStatus, XMLHttpRequest) {
@@ -139,6 +142,14 @@ Jogar.btnPassagemSecreta_OnClick = function () {
 Jogar.btnPalpite_OnClick = function () {
     try {
         $('#ModalPalpite').Detetive_Modal('show');
+    } catch (ex) {
+        alert(ex);
+    }
+}
+
+Jogar.btnAcusar_OnClick = function () {
+    try {
+        $('#ModalAcusar').Detetive_Modal('show');
     } catch (ex) {
         alert(ex);
     }

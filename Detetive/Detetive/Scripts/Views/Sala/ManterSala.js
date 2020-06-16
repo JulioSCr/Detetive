@@ -38,7 +38,6 @@ Manter.IngressarSala = function () {
 Manter.CriarSala = function () {
     var lintIdSala = new Number();
     try {
-        debugger;
         $.ajax({
             url: gstrGlobalPath + ManterSala / this.CriarSala, success: function (data, textStatus, XMLHttpRequest) {
                 try {

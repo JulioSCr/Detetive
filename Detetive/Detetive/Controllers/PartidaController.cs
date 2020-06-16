@@ -88,6 +88,12 @@ namespace Detetive.Controllers
             return PartialView();
         }
 
+        [HttpGet]
+        public ActionResult ModalAcusar()
+        {
+            return PartialView();
+        }
+
         /// <summary>
         /// Valida o palpite
         /// </summary>
@@ -96,6 +102,13 @@ namespace Detetive.Controllers
         /// <param name="idLocal"></param>
         /// <returns></returns>
         public string Palpite(int idJogadorSala, int idArma, int idLocal)
+        {
+            /// Valida o palpite
+
+            return JsonConvert.SerializeObject("");
+        }
+
+        public string Acusar(int idJogadorSala, int idArma, int idLocal)
         {
             /// Valida o palpite
 

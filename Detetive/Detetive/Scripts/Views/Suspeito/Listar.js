@@ -14,7 +14,6 @@ Listar.TransmitirMensagem = function (apelido, msg) {
 
 $('#mensagem').keypress(function (e) {
     if (e.which == 13) {
-        debugger;
         // Chamando o método de transmissão de mensagem no Hub
         Sala.EnviarMensagem($("#apelido").val(), $("#mensagem").val());
         // Limpando o texto da mensagem.
