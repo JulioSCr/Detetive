@@ -50,3 +50,21 @@
         letter-spacing: -3px;
     }
 }
+
+.btnPadrao {
+    width: 300px;
+    height: 50px;
+    left: 96px;
+    top: 492px;
+    background-color: #B80E0F;
+    border: 0;
+    border-radius: 5px;
+    font-family: Roboto Slab;
+    color: #FFF;
+    font-style: normal;
+    font-weight: bold;
+    font-size: 35px;
+    align-items: center;
+    text-align: center;
+}
+
