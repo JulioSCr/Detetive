@@ -282,13 +282,11 @@
     <Content Include="Content\Libs\Material\material-icons.css" />
     <Content Include="Content\Site.css" />
     <Content Include="Content\Views\Home\Index.css" />
-    <Content Include="Content\Views\ManterSala\ManterSala.css" />
     <Content Include="Content\Views\Partida\Jogar.css" />
     <Content Include="Content\Views\Partida\Manter.css" />
     <Content Include="Content\Views\Partida\ModalAcusar.css" />
-    <Content Include="Content\Views\Sala\ManterSala.css" />
+    <Content Include="Content\Views\Sala\Manter.css" />
     <Content Include="Content\Views\Sobre\Exibir.css" />
-    <Content Include="Content\Views\Sala\ManterSala.css" />
     <Content Include="Content\Views\Partida\ModalPalpite.css" />
     <Content Include="Content\Views\Suspeito\Listar.css" />
     <Content Include="Content\Views\Shared\Layout.css" />
@@ -410,9 +408,8 @@
     <Content Include="Scripts\Libs\umd\popper-utils.min.js" />
     <Content Include="Scripts\Libs\umd\popper.js" />
     <Content Include="Scripts\Libs\umd\popper.min.js" />
-    <Content Include="Scripts\Views\ManterSala\ManterSala.js" />
     <Content Include="Scripts\Views\Partida\ModalAcusar.js" />
-    <Content Include="Scripts\Views\Sala\ManterSala.js" />
+    <Content Include="Scripts\Views\Sala\Manter.js" />
     <Content Include="Scripts\Views\Partida\Jogar.js" />
     <Content Include="Scripts\Views\Partida\ModalPalpite.js" />
     <Content Include="Scripts\Views\Suspeito\Listar.js" />
@@ -441,16 +438,16 @@
     <Content Include="Views\Suspeito\Teste.cshtml" />
     <Content Include="Views\Partida\Manter.cshtml" />
     <Content Include="Views\Anotacao\Anotacao.cshtml" />
-    <Content Include="Views\Sala\ManterSala.cshtml" />
     <Content Include="Views\Sobre\Exibir.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />
-    <Content Include="Views\Sala\ManterSala.cshtml" />
     <Content Include="Views\Partida\Jogar.cshtml" />
     <Content Include="Views\Partida\ModalPalpite.cshtml" />
     <Content Include="Views\Shared\_LayoutModal.cshtml" />
     <Content Include="Views\Partida\ModalAcusar.cshtml" />
     <Content Include="Views\Home1\Index.cshtml" />
-    <Content Include="Views\ManterSala\ManterSala.cshtml" />
+    <Content Include="Views\Partida\Jogar.cshtml" />
+    <Content Include="Views\Home1\Index.cshtml" />
+    <Content Include="Views\Sala\Manter.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
