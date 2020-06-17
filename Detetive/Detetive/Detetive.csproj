@@ -430,13 +430,12 @@
     <Content Include="Views\Suspeito\Teste.cshtml" />
     <Content Include="Views\Partida\Manter.cshtml" />
     <Content Include="Views\Anotacao\Anotacao.cshtml" />
-    <Content Include="Views\Sala\Manter.cshtml" />
     <Content Include="Views\Sobre\Exibir.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Views\Partida\Jogar.cshtml" />
     <Content Include="Views\ManterSala\ManterSala.cshtml" />
     <Content Include="Views\Home1\Index.cshtml" />
-    <Content Include="Views\Sala\ManterCopia.cshtml" />
+    <Content Include="Views\Sala\Manter.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
