@@ -23,11 +23,13 @@ namespace Detetive.Injection
             container.Register<IAnotacaoLocalBusiness, AnotacaoLocalBusiness>(Lifestyle.Scoped);
             container.Register<IAnotacaoSuspeitoBusiness, AnotacaoSuspeitoBusiness>(Lifestyle.Scoped);
             container.Register<ICrimeBusiness, CrimeBusiness>(Lifestyle.Scoped);
+            container.Register<IJogadorBusiness, JogadorBusiness>(Lifestyle.Scoped);
             container.Register<IJogadorSalaBusiness, JogadorSalaBusiness>(Lifestyle.Scoped);
             container.Register<ILocalBusiness, LocalBusiness>(Lifestyle.Scoped);
             container.Register<IMovimentacaoBusiness, MovimentacaoBusiness>(Lifestyle.Scoped);
-            container.Register<ISuspeitoBusiness, SuspeitoBusiness>(Lifestyle.Scoped);
             container.Register<IPortaLocalBusiness, PortaLocalBusiness>(Lifestyle.Scoped);
+            container.Register<ISalaBusiness, SalaBusiness>(Lifestyle.Scoped);
+            container.Register<ISuspeitoBusiness, SuspeitoBusiness>(Lifestyle.Scoped);
 
             // Data
             container.Register<IAnotacaoArmaRepository, AnotacaoArmaRepository>(Lifestyle.Scoped);
@@ -38,9 +40,9 @@ namespace Detetive.Injection
             container.Register<IJogadorRepository, JogadorRepository>(Lifestyle.Scoped);
             container.Register<IJogadorSalaRepository, JogadorSalaRepository>(Lifestyle.Scoped);
             container.Register<ILocalRepository, LocalRepository>(Lifestyle.Scoped);
+            container.Register<IPortaLocalRepository, PortaLocalRepository>(Lifestyle.Scoped);
             container.Register<ISalaRepository, SalaRepository>(Lifestyle.Scoped);
             container.Register<ISuspeitoRepository, SuspeitoRepository>(Lifestyle.Scoped);
-            container.Register<IPortaLocalRepository, PortaLocalRepository>(Lifestyle.Scoped);
 
 
             container.RegisterMvcControllers(Assembly.GetExecutingAssembly());
