@@ -28,7 +28,7 @@ namespace Detetive.Data.Repository
 
         public JogadorSala ObterPorSuspeito(int idSuspeito, int idSala)
         {
-            return this.Context.JogadoresSala.AsNoTracking().SingleOrDefault(_ => _.IdSuspeito == idSuspeito && 
+            return this.Context.JogadoresSala.AsNoTracking().SingleOrDefault(_ => _.IdSuspeito == idSuspeito &&
                                                                                                 _.IdSala == idSala && _.Ativo);
         }
 
@@ -48,6 +48,14 @@ namespace Detetive.Data.Repository
         public List<JogadorSala> Listar(int idSala)
         {
             return this.Context.JogadoresSala.Where(_ => _.IdSala == idSala && _.Ativo).ToList();
+        }
+
+        public JogadorSala Adicionar(JogadorSala jogadorSala)
+        {
+            this.Context.JogadoresSala.Add(jogadorSala);
+            this.Context.SaveChanges();
+
+            return jogadorSala;
         }
     }
 }

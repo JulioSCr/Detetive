@@ -5,12 +5,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Detetive.Business.Data.Interfaces
+namespace Detetive.Business.Business.Interfaces
 {
-    public interface ISalaRepository
+    public interface ISalaBusiness
     {
-        Sala Adicionar(Sala sala);
-        List<Sala> Listar();
         Sala Obter(int idSala);
+        Sala Adicionar(int idJogador);
     }
 }

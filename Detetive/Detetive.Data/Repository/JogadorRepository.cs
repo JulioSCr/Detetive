@@ -1,4 +1,5 @@
 ﻿using Detetive.Business.Data.Interfaces;
+using Detetive.Business.Entities;
 using Detetive.Data.Repository.Base;
 using System;
 using System.Collections.Generic;
@@ -15,5 +16,17 @@ namespace Detetive.Data.Repository
 
         }
 
+        public Jogador Adicionar(Jogador jogador)
+        {
+            this.Context.Jogadores.Add(jogador);
+            this.Context.SaveChanges();
+
+            return jogador;
+        }
+
+        public Jogador Obter(int idJogador)
+        {
+            return this.Context.Jogadores.AsNoTracking().SingleOrDefault(_ => _.Id == idJogador);
+        }
     }
 }

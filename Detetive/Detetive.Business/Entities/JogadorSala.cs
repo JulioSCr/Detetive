@@ -25,6 +25,13 @@ namespace Detetive.Business.Entities
 
         }
 
+        public JogadorSala(int idJogador) : base()
+        {
+            IdJogador = idJogador;
+            CoordenadaLinha = 1;
+            CoordenadaColuna = 1;
+        }
+
         public bool MinhaVez()
         {
             return VezJogador;

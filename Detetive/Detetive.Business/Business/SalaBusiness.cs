@@ -1,4 +1,5 @@
-﻿using Detetive.Business.Data.Interfaces;
+﻿using Detetive.Business.Business.Interfaces;
+using Detetive.Business.Data.Interfaces;
 using Detetive.Business.Entities;
 using System;
 using System.Collections.Generic;
@@ -8,20 +9,30 @@ using System.Threading.Tasks;
 
 namespace Detetive.Business.Business
 {
-    public class SalaBusiness
+    public class SalaBusiness : ISalaBusiness
     {
         private readonly ISalaRepository _salaRepository;
+        private readonly IJogadorBusiness _jogadorBusiness;
 
-        public SalaBusiness(ISalaRepository salaRepository)
+        public SalaBusiness(ISalaRepository salaRepository, IJogadorBusiness jogadorBusiness)
         {
             _salaRepository = salaRepository;
+            _jogadorBusiness = jogadorBusiness;
         }
 
-        public Sala Criar(int idJogador)
+        public Sala Adicionar(int idJogador)
         {
-            Sala sala = new Sala();
+            var jogador = _jogadorBusiness.Obter(idJogador);
 
-            sala = _salaRepository.Adicionar(sala);
+            if (jogador == default)
+                return null;
+
+            return _salaRepository.Adicionar(new Sala());
+        }
+
+        public Sala Obter(int idSala)
+        {
+            return _salaRepository.Obter(idSala);
         }
     }
 }

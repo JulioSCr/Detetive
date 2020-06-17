@@ -14,18 +14,21 @@ namespace Detetive.Business.Business
     {
         private readonly ICrimeBusiness _crimeBusiness;
         private readonly ILocalBusiness _localBusiness;
+        private readonly IJogadorBusiness _jogadorBusiness;
         private readonly ISuspeitoBusiness _suspeitoBusiness;
         private readonly IPortaLocalBusiness _portaLocalBusiness;
         private readonly IJogadorSalaRepository _jogadorSalaRepository;
 
-        public JogadorSalaBusiness(ICrimeBusiness crimeBusiness,
-                                   ILocalBusiness localBusiness,
-                                   ISuspeitoBusiness suspeitoBusiness,
-                                   IPortaLocalBusiness portaLocalBusiness,
-                                   IJogadorSalaRepository jogadorSalaRepository)
+        public JogadorSalaBusiness(ICrimeBusiness crimeBusiness, 
+                                    ILocalBusiness localBusiness, 
+                                    IJogadorBusiness jogadorBusiness, 
+                                    ISuspeitoBusiness suspeitoBusiness, 
+                                    IPortaLocalBusiness portaLocalBusiness, 
+                                    IJogadorSalaRepository jogadorSalaRepository)
         {
             _crimeBusiness = crimeBusiness;
             _localBusiness = localBusiness;
+            _jogadorBusiness = jogadorBusiness;
             _suspeitoBusiness = suspeitoBusiness;
             _portaLocalBusiness = portaLocalBusiness;
             _jogadorSalaRepository = jogadorSalaRepository;
@@ -165,6 +168,29 @@ namespace Detetive.Business.Business
 
             jogadorSala.AlterarCoordenadas(porta.CoordenadaLinha, porta.CoordenadaColuna);
             _jogadorSalaRepository.Alterar(jogadorSala);
+        }
+
+        public Operacao Adicionar(Sala sala, int idJogador)
+        {
+            var jogadoresSala = _jogadorSalaRepository.Listar(sala.Id);
+
+            if (jogadoresSala != default && jogadoresSala.Count >= 8)
+                return new Operacao("A sala já está cheia", false);
+
+            var jogador= _jogadorBusiness.Obter(idJogador);
+
+            if (jogador == default)
+                return new Operacao("Jogador não cadastrado", false);
+
+            var jogadorSala = new JogadorSala(idJogador);
+            jogadorSala = _jogadorSalaRepository.Adicionar(jogadorSala);
+
+            return new Operacao("Jogador ingressado com sucesso!");
+        }
+
+        public JogadorSala Obter(int idJogador, int idSala)
+        {
+            return _jogadorSalaRepository.Obter(idJogador, idSala);
         }
     }
 }

@@ -16,9 +16,8 @@ namespace Detetive.Business.Entities
 
         }
 
-        public Jogador(int id, string descricao)
+        public Jogador(string descricao)
         {
-            Id = id;
             Descricao = descricao;
         }
     }
