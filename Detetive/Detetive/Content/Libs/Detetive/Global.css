@@ -56,6 +56,14 @@ body {
     z-index: 1;
 }
 
+button{
+    cursor: pointer;
+}
+
+button:focus {
+    outline: none;
+}
+
 /*#endregion Global*/
 
 .centralizar {

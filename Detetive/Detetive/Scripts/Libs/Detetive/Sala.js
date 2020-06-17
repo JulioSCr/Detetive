@@ -51,6 +51,10 @@ Sala.Configurar = function () {
         Jogar.TransmitirMovimento(ID_JOGADOR_SALA, pLinha, pColuna, pIDLocal);
     }
 
+    Sala.mHubSala.client.TransmitirTeletransporte = function (pintID_JOGADOR_SALA, pintIDLocal) {
+        Jogar.TransmitirTeletransporte(pintID_JOGADOR_SALA, pintIDLocal);
+    }
+
     //Sala.mHubSala.client.erro = function (vstrMensagem, vstrMensagemTecnica) {
     //    console.log(vstrMensagemTecnica);
     //};
@@ -104,7 +108,7 @@ Sala.Desconectar = function () {
 
 Sala.EnviarMensagem = function (apelido, mensagem) {
     try {
-        Sala.mHubSala.server.enviarMensagem(apelido, mensagem);
+        Sala.mHubSala.server.enviarMensagem(apelido, mensagem).done(function () { });;
     } catch (ex) {
         console.log(ex);
     }
@@ -137,5 +141,13 @@ Sala.EnviarMovimento = function (pLinha, pColuna, pIDLocal) {
         });
     } catch (ex) {
         throw ex;
+    }
+}
+
+Sala.Teletransporte = function (pintIdJogadorSala, pintIdLocal) {
+    try {
+        Sala.mHubSala.server.teletransporte(pintIdJogadorSala, pintIdLocal).done(function () { });
+    } catch (ex) {
+        alert(ex);
     }
 }
