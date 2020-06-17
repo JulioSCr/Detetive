@@ -1,0 +1,55 @@
+﻿@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@section head{
+    <link rel="stylesheet" href="@Url.Content("~/Content/Views/Sala/Manter.css?" + DateTimeOffset.Now)" />
+}
+
+@section scripts{
+    <script src="@Url.Content("~/Scripts/Views/Sala/Manter.js?" + DateTimeOffset.Now)"></script>
+}
+
+<section id="secSuperior">
+    <div class="centralizar" id="divLogo">
+        <img src="~/Content/Imagens/Shared/imgLogo.svg" id="divLogo" />
+    </div>
+</section>
+
+<section class="centralizar" id="secAcoes">
+    <div id="divBotoes">
+        <div>
+            @*<button class="centralizar" id="divBtnCriarSala" onclick="location.href='..'">Criar Sala</button>*@
+            <button class="centralizar" id="divBtnCriarSala" onclick="ManterSala.CriarSala()">Criar Sala</button>
+        </div>
+        <div>
+            <button id="divBtnIngressar" onclick="ManterSala.IngressarSala()">Ingressar</button>
+        </div>
+        <div>
+            <button id="divBtnVoltar" onclick="location.href='/Home/Index'">
+                Voltar
+            </button>
+        </div>
+
+    </div>
+
+    <div classe="centralizar" id="divInputs">
+        <div>
+            <label for="txtIdSala" id="lblIdSala">Informe o ID da Sala:</label>
+        </div>
+        <div>
+            <input type="text" id="txtIdSala" placeholder="Digite o #idSala aqui">
+        </div>
+
+        <div>
+            <label for="txtNick" id="lblNick">Informe o seu Nick:</label>
+        </div>
+        <div>
+            <input type="text" id="txtNick" placeholder="Digite o seu Nick aqui">
+        </div>
+
+        <div>
+            <button id="divBtnVamosAoCaso" onclick="location.href='/Suspeito/Listar'">Vamos Ao Caso</button>
+        </div>
+    </div>
+</section>

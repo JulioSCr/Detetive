@@ -13,12 +13,18 @@ namespace Detetive.Controllers
         {
             return View();
         }
-        public ActionResult ManterSala()
+        public ActionResult Manter()
         {
             return View();
         }
         public string CriarSala()
         {
+            //object lRetorno = new
+            //{
+            //    IDSala = 1234,
+            //    Status = "Ok"
+            //};
+
             return "1234";
         }
     }
