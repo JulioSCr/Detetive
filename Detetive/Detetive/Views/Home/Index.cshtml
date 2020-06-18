@@ -1,0 +1,24 @@
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@section head{
+    <link rel="stylesheet" href="@Url.Content("~/Content/Views/Home/Index.css?" + DateTimeOffset.Now)" />
+}
+
+    <div class="container">
+        <h1>Sherlock <br/> Holmes</h1>
+        <div class="row">
+            <div class="offset-md-2 col-md-2">
+                <img src="~/Content/Imagens/Shared/imgLogo.svg" alt="Alternate Text" />
+            </div>
+            <div class="offset-md-3 col-md-2 offset-md-3">
+                <button class="botoes" onclick="location.href='/Sala/Manter'">
+                    Iniciar
+                </button>
+                <button class="botoes" onclick="location.href='/Sobre/Exibir'">
+                    Sobre
+                </button>
+            </div>
+        </div>
+    </div>

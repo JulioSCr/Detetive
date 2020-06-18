@@ -10,7 +10,7 @@ namespace Detetive.Controllers
     public class HomeController : Controller
     {
         private readonly ISuspeitoRepository _suspeitoRepository;
-        
+
         public HomeController(ISuspeitoRepository suspeitoRepository)
         {
             _suspeitoRepository = suspeitoRepository;
@@ -18,7 +18,7 @@ namespace Detetive.Controllers
 
         public ActionResult Index()
         {
-            var lista = _suspeitoRepository.Listar();
+            //var lista = _suspeitoRepository.Listar();
             return View();
         }
 

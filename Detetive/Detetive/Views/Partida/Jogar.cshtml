@@ -43,9 +43,9 @@
             <button type="button" title="Mover para baixo" id="btnAbaixo" class="botoes btnSetaVertical centralizarBotoes" onclick="Jogar.btnAbaixo_OnClick()"></button>
             <button type="button" title="Rolar os dados" id="btnLancarDados" class="botoes centralizarBotoes"></button>
 
-            <button type="button" title="Palpitar" id="btnPalpite" class="botoes centralizarBotoes botoesOpcoes">Palpite</button>
-            <button type="button" title="Acusar" id="btnAcusar" class="botoes centralizarBotoes botoesOpcoes">Acusar</button>
-            <button type="button" title="Usar passagem secreta" id="btnPassagemSecreta" class="botoes centralizarBotoes botoesOpcoes">Passagem</button>
+            <button type="button" title="Palpitar" id="btnPalpite" class="botoes centralizarBotoes botoesOpcoes" onclick="Jogar.btnPalpite_OnClick()">Palpite</button>
+            <button type="button" title="Acusar" id="btnAcusar" class="botoes centralizarBotoes botoesOpcoes" onclick="Jogar.btnAcusar_OnClick()">Acusar</button>
+            <button type="button" title="Usar passagem secreta" id="btnPassagemSecreta" class="botoes centralizarBotoes botoesOpcoes" onclick="Jogar.btnPassagemSecreta_OnClick()">Passagem</button>
         </div>
         <div id="divInformacoesContainer">
             <div id="divInformacoes">
@@ -62,3 +62,6 @@
         </div>
     </div>
 </section>
+
+<div id="ModalPalpite" data-url='@Url.Action("ModalPalpite", "Partida")'></div>
+<div id="ModalAcusar" data-url='@Url.Action("ModalAcusar", "Partida")'></div>
