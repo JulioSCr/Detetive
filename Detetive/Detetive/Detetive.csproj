@@ -235,7 +235,6 @@
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\SalaController.cs" />
     <Compile Include="Controllers\PartidaController.cs" />
-    <Compile Include="Controllers\SalaController.cs" />
     <Compile Include="Controllers\SobreController.cs" />
     <Compile Include="Controllers\SuspeitoController.cs" />
     <Compile Include="Extensions\StringExtensions.cs" />
