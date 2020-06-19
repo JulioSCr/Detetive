@@ -30,6 +30,11 @@ namespace Detetive.Business.Business
             return _salaRepository.Adicionar(new Sala());
         }
 
+        public Sala Adicionar()
+        {
+           return _salaRepository.Adicionar(new Sala());
+        }
+
         public Sala Obter(int idSala)
         {
             return _salaRepository.Obter(idSala);

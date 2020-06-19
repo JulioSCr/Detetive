@@ -10,6 +10,7 @@ namespace Detetive.Business.Business.Interfaces
     public interface ISalaBusiness
     {
         Sala Obter(int idSala);
+        Sala Adicionar();
         Sala Adicionar(int idJogador);
     }
 }

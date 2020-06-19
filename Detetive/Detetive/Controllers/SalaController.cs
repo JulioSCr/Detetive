@@ -1,4 +1,6 @@
 ﻿using Detetive.Business.Business.Interfaces;
+using Detetive.Business.Entities;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -20,30 +22,27 @@ namespace Detetive.Controllers
             _jogadorSalaBusiness = jogadorSalaBusiness;
         }
 
-        public ActionResult Index()
-        {
-            return View();
-        }
-
         public ActionResult Manter()
         {
-            //var jogador = _jogadorBusiness.Adicionar(dsJogador);
-
-            //var sala = _salaBusiness.Adicionar(jogador.Id);
-
-            //var operacao = _jogadorSalaBusiness.Adicionar(sala, jogador.Id);
-
             return View();
         }
 
-        public void Ingressar(int idSala, int idJogador)
+        public string Ingressar(int idSala, string dsJogador)
         {
-            //var sala = _salaBusiness.Obter(idSala);
+            var jogador = _jogadorBusiness.Adicionar(dsJogador);
+            var sala = _salaBusiness.Obter(idSala);
 
-            //if (sala == default)
-            //    return;
+            if (sala == default)
+                return JsonConvert.SerializeObject(new Operacao("Sala não encontrada.", false)); 
 
-            //var operacao = _jogadorSalaBusiness.Adicionar(sala, idJogador);
+            return JsonConvert.SerializeObject(_jogadorSalaBusiness.Adicionar(sala, jogador.Id));
+        }
+
+        public int CriarSala()
+        {
+            var sala = _salaBusiness.Adicionar();
+            
+            return sala.Id;
         }
     }
 }
