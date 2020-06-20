@@ -19,12 +19,19 @@ namespace Detetive.Business.Business
         private readonly IPortaLocalBusiness _portaLocalBusiness;
         private readonly IJogadorSalaRepository _jogadorSalaRepository;
 
+        private readonly IAnotacaoArmaBusiness _anotacaoArmaBusiness;
+        private readonly IAnotacaoLocalBusiness _anotacaoLocalBusiness;
+        private readonly IAnotacaoSuspeitoBusiness _anotacaoSuspeitoBusiness;
+
         public JogadorSalaBusiness(ICrimeBusiness crimeBusiness, 
                                     ILocalBusiness localBusiness, 
                                     IJogadorBusiness jogadorBusiness, 
                                     ISuspeitoBusiness suspeitoBusiness, 
                                     IPortaLocalBusiness portaLocalBusiness, 
-                                    IJogadorSalaRepository jogadorSalaRepository)
+                                    IJogadorSalaRepository jogadorSalaRepository,
+                                    IAnotacaoArmaBusiness anotacaoArmaBusiness,
+                                    IAnotacaoLocalBusiness anotacaoLocalBusiness,
+                                    IAnotacaoSuspeitoBusiness anotacaoSuspeitoBusiness)
         {
             _crimeBusiness = crimeBusiness;
             _localBusiness = localBusiness;
@@ -32,6 +39,9 @@ namespace Detetive.Business.Business
             _suspeitoBusiness = suspeitoBusiness;
             _portaLocalBusiness = portaLocalBusiness;
             _jogadorSalaRepository = jogadorSalaRepository;
+            _anotacaoArmaBusiness = anotacaoArmaBusiness;
+            _anotacaoLocalBusiness = anotacaoLocalBusiness;
+            _anotacaoSuspeitoBusiness = anotacaoSuspeitoBusiness;
         }
 
         public JogadorSala Mover(JogadorSala jogadorSala, int novaCoordenadaLinha, int novaCoordenadaColuna)
@@ -182,8 +192,9 @@ namespace Detetive.Business.Business
             if (jogador == default)
                 return new Operacao("Jogador não cadastrado", false);
 
-            var jogadorSala = new JogadorSala(idJogador);
-            jogadorSala = _jogadorSalaRepository.Adicionar(jogadorSala);
+            var jogadorSala = _jogadorSalaRepository.Adicionar(new JogadorSala(idJogador));
+
+            GerarAnotacoesJogador(jogadorSala);
 
             return new Operacao("Jogador ingressado com sucesso!");
         }
@@ -191,6 +202,13 @@ namespace Detetive.Business.Business
         public JogadorSala Obter(int idJogador, int idSala)
         {
             return _jogadorSalaRepository.Obter(idJogador, idSala);
+        }
+
+        private void GerarAnotacoesJogador(JogadorSala jogadorSala)
+        {
+            _anotacaoArmaBusiness.CriarAnotacoes(jogadorSala.Id);
+            _anotacaoLocalBusiness.CriarAnotacoes(jogadorSala.Id);
+            _anotacaoSuspeitoBusiness.CriarAnotacoes(jogadorSala.Id);
         }
     }
 }

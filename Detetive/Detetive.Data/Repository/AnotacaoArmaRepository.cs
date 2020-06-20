@@ -32,11 +32,11 @@ namespace Detetive.Data.Repository
             return this.Context.AnotacaoArmas.AsNoTracking().Where(_ => _.IdJogadorSala == idJogadorSala && _.Ativo).ToList();
         }
 
-        public AnotacaoArma Marcar(int idJogadorSala, int idArma, bool valor)
+        public AnotacaoArma Marcar(int idArma, int idJogadorSala, bool valor)
         {
             var anotacao = this.Context.AnotacaoArmas.Single(_ => _.IdJogadorSala == idJogadorSala && _.IdArma == idArma);
 
-            anotacao.Marcado = valor;
+            anotacao.Sinalar(valor);
             this.Context.SaveChanges();
 
             return anotacao;

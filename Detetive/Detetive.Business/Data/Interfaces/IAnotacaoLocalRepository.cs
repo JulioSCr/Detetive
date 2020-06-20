@@ -11,6 +11,6 @@ namespace Detetive.Business.Data.Interfaces
     {
         List<AnotacaoLocal> Listar(int idJogadorSala);
         AnotacaoLocal Adicionar(AnotacaoLocal anotacao);
-        AnotacaoLocal Marcar(int idJogadorSala, int idLocal, bool valor);
+        AnotacaoLocal Marcar(int idLocal, int idJogadorSala, bool valor);
     }
 }

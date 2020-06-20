@@ -1,5 +1,7 @@
 ﻿using Detetive.Business.Business.Interfaces;
 using Detetive.Business.Data.Interfaces;
+using Detetive.Business.Entities;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -24,68 +26,49 @@ namespace Detetive.Controllers
             _anotacaoSuspeitoBusiness = anotacaoSuspeitoBusiness;
         }
 
-        public ActionResult Anotacao()
-        {
-            var lista1 = _anotacaoArmaBusiness.Listar(1);
-            var lista2 = _anotacaoLocalBusiness.Listar(1);
-            var lista3 = _anotacaoSuspeitoBusiness.Listar(1);
-            
-            return View();
-        }
-
-
         [HttpPut]
-        [Route("arma/{idJogadorSala}/{id}/valor")]
-        public ActionResult MarcarArma(int idJogadorSala, int id, bool valor)
+        public string MarcarArma(int idArma, int idJogadorSala, bool valor)
         {
             try
             {
-                var anotacao = _anotacaoArmaBusiness.Adicionar(id, idJogadorSala);
+                _anotacaoArmaBusiness.Alterar(idArma, idJogadorSala, valor);
 
-            }
-            catch(Exception ex)
-            {
-
-            }
-
-            // TODO
-            return View();
-        }
-
-        [HttpPut]
-        [Route("local/{idJogadorSala}/{id}/valor")]
-        public ActionResult MarcarLocal(int idJogadorSala, int id, bool valor)
-        {
-            try
-            {
-                var anotacao = _anotacaoLocalBusiness.Marcar(idJogadorSala, id, valor);
-
+                return JsonConvert.SerializeObject(new Operacao("Anotação realizada com sucesso!"));
             }
             catch (Exception ex)
             {
-
+                return JsonConvert.SerializeObject(new Operacao($"Ocorreu um problema: {ex.Message}", false));
             }
-
-            // TODO
-            return View();
         }
 
         [HttpPut]
-        [Route("suspeito/{idJogadorSala}/{id}/valor")]
-        public ActionResult MarcarSuspeito(int idJogadorSala, int id, bool valor)
+        public string MarcarLocal(int idLocal, int idJogadorSala, bool valor)
         {
             try
             {
-                var anotacao = _anotacaoSuspeitoBusiness.Marcar(idJogadorSala, id, valor);
+                var anotacao = _anotacaoLocalBusiness.Alterar(idLocal, idJogadorSala, valor);
 
+                return JsonConvert.SerializeObject(new Operacao("Anotação realizada com sucesso!"));
             }
             catch (Exception ex)
             {
-
+                return JsonConvert.SerializeObject(new Operacao($"Ocorreu um problema: {ex.Message}", false));
             }
+        }
 
-            // TODO
-            return View();
+        [HttpPut]
+        public string MarcarSuspeito(int idSuspeito, int idJogadorSala, bool valor)
+        {
+            try
+            {
+                var anotacao = _anotacaoSuspeitoBusiness.Alterar(idSuspeito, idJogadorSala, valor);
+
+                return JsonConvert.SerializeObject(new Operacao("Anotação realizada com sucesso!"));
+            }
+            catch (Exception ex)
+            {
+                return JsonConvert.SerializeObject(new Operacao($"Ocorreu um problema: {ex.Message}", false));
+            }
         }
     }
 }
