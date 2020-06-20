@@ -22,11 +22,12 @@ namespace Detetive.Controllers
             _jogadorSalaBusiness = jogadorSalaBusiness;
         }
 
-        public ActionResult Manter(Operacao operacao)
+        public ActionResult Manter()
         {
             return View();
         }
 
+        [HttpPost]
         public string Ingressar(int idSala, string dsJogador)
         {
             var jogador = _jogadorBusiness.Adicionar(dsJogador);

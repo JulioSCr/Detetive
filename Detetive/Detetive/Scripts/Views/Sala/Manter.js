@@ -79,16 +79,19 @@ ManterSala.divBtnVamosAoCaso_OnClick = function () {
     var lintIdSala = new Number();
     var lstrDsJogdor = new String();
     try {
+        debugger;
         lintIdSala = parseInt(($('#txtIdSala').val()).replace('#', ''));
         lstrDsJogdor = $('#txtNick').val();
         $.ajax({
             url: gstrGlobalPath + 'Sala/Ingressar',
+            type: 'post',
             data: {
                 idSala: lintIdSala,
                 dsJogador: lstrDsJogdor
             },
             success: function (data, textStatus, XMLHttpRequest) {
                 try {
+                    debugger;
                     //if (!JSON.parse(data.toLowerCase())) { throw 'Movimento inválido'; }
                     //lintIdSala = parseInt(JSON.parse(data));
                     
