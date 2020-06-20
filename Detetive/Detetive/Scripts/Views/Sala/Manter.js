@@ -74,3 +74,30 @@ ManterSala.CriarSala = function () {
         throw ex;
     }
 }
+
+ManterSala.divBtnVamosAoCaso_OnClick = function () {
+    var lintIdSala = new Number();
+    var lstrDsJogdor = new String();
+    try {
+        lintIdSala = parseInt(($('#txtIdSala').val()).replace('#', ''));
+        lstrDsJogdor = $('#txtNick').val();
+        $.ajax({
+            url: gstrGlobalPath + 'Sala/Ingressar',
+            data: {
+                idSala: lintIdSala,
+                dsJogador: lstrDsJogdor
+            },
+            success: function (data, textStatus, XMLHttpRequest) {
+                try {
+                    //if (!JSON.parse(data.toLowerCase())) { throw 'Movimento inválido'; }
+                    //lintIdSala = parseInt(JSON.parse(data));
+                    
+                } catch (ex) {
+                    throw ex;
+                }
+            }
+        });
+    } catch (ex) {
+        alert(ex);
+    }
+}

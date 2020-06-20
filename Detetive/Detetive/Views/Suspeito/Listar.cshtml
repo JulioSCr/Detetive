@@ -9,11 +9,14 @@
 @section scripts{
     <script src="@Url.Content("~/Scripts/Views/Suspeito/Listar.js?" + DateTimeOffset.Now)"></script>
 }
+<div id="divInformaIDSala">
+    <h1>ID da Sala: #@ViewBag.Sala_ID</h1>
+</div>
 <div class="centralizar" id="Icone">
     <img src="~/Content/Imagens/Shared/imgLogo.svg" alt="Alternate Text" />
 </div>
 <div class="centralizar" id="divSuspeitos">
-    <label>Escolha seu personagem:</label>
+    <label>@ViewBag.NomeJogador escolha seu personagem:</label>
 </div>
 <div id="carouselSuspeitos" class="carousel slide" data-ride="carousel">
     <div class="carousel-inner">
