@@ -37,7 +37,7 @@ namespace Detetive.Business.Business
 
             var operacao = ValidarMovimento(jogador.CoordenadaLinha, jogador.CoordenadaColuna, novaCoordenadaLinha, novaCoordenadaColuna);
 
-            if (operacao.Sucesso)
+            if (operacao.Status)
                 _jogadorSalaBusiness.Mover(jogador, novaCoordenadaLinha, novaCoordenadaColuna);
 
             return operacao;
