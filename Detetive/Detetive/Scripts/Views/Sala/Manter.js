@@ -82,6 +82,7 @@ ManterSala.divBtnVamosAoCaso_OnClick = function () {
         debugger;
         lintIdSala = parseInt(($('#txtIdSala').val()).replace('#', ''));
         lstrDsJogdor = $('#txtNick').val();
+        if (lstrDsJogdor == '') { throw 'Erro: Obrigatório inserir um nick para o jogador.'; }
         $.ajax({
             url: gstrGlobalPath + 'Sala/Ingressar',
             type: 'post',
