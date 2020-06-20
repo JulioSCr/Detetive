@@ -8,13 +8,13 @@ namespace Detetive.Business.Entities
 {
     public class Operacao
     {
-        public bool Sucesso { get; set; }
-        public string Mensagem { get; set; }
+        public bool Status { get; set; }
+        public string Retorno { get; set; }
 
-        public Operacao(string mensagem, bool sucesso = true)
+        public Operacao(string retorno, bool status = true)
         {
-            Sucesso = sucesso;
-            Mensagem = mensagem;
+            Status = status;
+            Retorno = retorno;
         }
     }
 }

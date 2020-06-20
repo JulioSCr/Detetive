@@ -22,7 +22,7 @@ namespace Detetive.Controllers
             _jogadorSalaBusiness = jogadorSalaBusiness;
         }
 
-        public ActionResult Manter()
+        public ActionResult Manter(Operacao operacao)
         {
             return View();
         }
@@ -33,15 +33,24 @@ namespace Detetive.Controllers
             var sala = _salaBusiness.Obter(idSala);
 
             if (sala == default)
-                return JsonConvert.SerializeObject(new Operacao("Sala não encontrada.", false)); 
+                return JsonConvert.SerializeObject(new Operacao("Sala não encontrada.", false));
 
-            return JsonConvert.SerializeObject(_jogadorSalaBusiness.Adicionar(sala, jogador.Id));
+            var operacao = _jogadorSalaBusiness.Adicionar(sala, jogador.Id);
+
+            if (!operacao.Status)
+                return JsonConvert.SerializeObject(operacao);
+
+            var jogadorSala = _jogadorSalaBusiness.Obter(jogador.Id, sala.Id);
+            
+            var retorno = Json(new { idSala = sala.Id, idJogadorSala = jogadorSala.Id }, "json");
+
+            return JsonConvert.SerializeObject(new Operacao(JsonConvert.SerializeObject(retorno)));
         }
 
         public int CriarSala()
         {
             var sala = _salaBusiness.Adicionar();
-            
+
             return sala.Id;
         }
     }
