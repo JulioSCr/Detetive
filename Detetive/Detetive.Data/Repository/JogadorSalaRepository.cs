@@ -47,7 +47,7 @@ namespace Detetive.Data.Repository
 
         public List<JogadorSala> Listar(int idSala)
         {
-            return this.Context.JogadoresSala.Where(_ => _.IdSala == idSala && _.Ativo).ToList();
+            return this.Context.JogadoresSala.AsNoTracking().Where(_ => _.IdSala == idSala && _.Ativo).ToList();
         }
 
         public JogadorSala Adicionar(JogadorSala jogadorSala)
