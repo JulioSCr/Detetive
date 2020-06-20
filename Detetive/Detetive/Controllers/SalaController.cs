@@ -22,7 +22,7 @@ namespace Detetive.Controllers
             _jogadorSalaBusiness = jogadorSalaBusiness;
         }
 
-        public ActionResult Manter(Operacao operacao)
+        public ActionResult Manter()
         {
             return View();
         }
