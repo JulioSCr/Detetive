@@ -18,8 +18,8 @@ namespace Detetive
                 url: "{controller}/{action}/{id}",
                 //defaults: new { controller = "Suspeito", action = "Listar", id = UrlParameter.Optional }
                 //defaults: new { controller = "Anotacao", action = "Anotacao", id = UrlParameter.Optional }
-                //defaults: new { controller = "Home", action = "Index", id = UrlParameter.Optional }
-                defaults: new { controller = "Sala", action = "Ingressar", id = UrlParameter.Optional }
+                defaults: new { controller = "Home", action = "Index", id = UrlParameter.Optional }
+                //defaults: new { controller = "Sala", action = "Ingressar", id = UrlParameter.Optional }
                 //defaults: new { controller = "Partida", action = "Jogar", id = UrlParameter.Optional }
             );
         }
