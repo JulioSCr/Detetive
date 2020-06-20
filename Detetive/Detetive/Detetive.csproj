@@ -37,6 +37,7 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <LangVersion>7.1</LangVersion>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -46,6 +47,7 @@
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <LangVersion>7.1</LangVersion>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="AutoMapper, Version=6.2.2.0, Culture=neutral, PublicKeyToken=be96cd2c38ef1005, processorArchitecture=MSIL">
@@ -280,6 +282,7 @@
     <Content Include="Content\Imagens\ManterSala\imgTxtIdSala.svg" />
     <Content Include="Content\Imagens\Shared\imgBtnVoltar.svg" />
     <Content Include="Content\Imagens\Shared\imgLogo.svg" />
+    <Content Include="Content\Imagens\Shared\imgTurno.svg" />
     <Content Include="Content\Imagens\Tabuleiro\imgTabuleiro.svg" />
     <Content Include="Content\Imagens\Tabuleiro\imgTabuleiroQuadrada.svg" />
     <Content Include="Content\Libs\Bootstrap\bootstrap-grid.css" />

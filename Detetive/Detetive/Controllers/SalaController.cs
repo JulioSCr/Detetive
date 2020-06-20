@@ -27,6 +27,7 @@ namespace Detetive.Controllers
             return View();
         }
 
+        [HttpPost]
         public string Ingressar(int idSala, string dsJogador)
         {
             var jogador = _jogadorBusiness.Adicionar(dsJogador);
