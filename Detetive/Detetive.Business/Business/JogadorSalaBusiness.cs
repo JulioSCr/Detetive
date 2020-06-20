@@ -192,7 +192,7 @@ namespace Detetive.Business.Business
             if (jogador == default)
                 return new Operacao("Jogador não cadastrado", false);
 
-            var jogadorSala = _jogadorSalaRepository.Adicionar(new JogadorSala(idJogador));
+            var jogadorSala = _jogadorSalaRepository.Adicionar(new JogadorSala(idJogador, sala.Id));
 
             GerarAnotacoesJogador(jogadorSala);
 
