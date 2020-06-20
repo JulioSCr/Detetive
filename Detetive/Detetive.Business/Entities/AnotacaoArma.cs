@@ -10,6 +10,7 @@ namespace Detetive.Business.Entities
     public class AnotacaoArma : AnotacaoBaseEntity
     {
         public int IdArma { get; set; }
+        public virtual Arma Arma { get; set; }
 
         internal AnotacaoArma() { }
 

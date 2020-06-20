@@ -15,9 +15,22 @@ namespace Detetive.Data.Repository
         {
         }
 
+        public Sala Adicionar(Sala sala)
+        {
+            this.Context.Salas.Add(sala);
+            this.Context.SaveChanges();
+
+            return sala;
+        }
+
         public List<Sala> Listar()
         {
             return this.Context.Salas.ToList();
+        }
+
+        public Sala Obter(int idSala)
+        {
+            return this.Context.Salas.SingleOrDefault(_ => _.Id == idSala);
         }
     }
 }

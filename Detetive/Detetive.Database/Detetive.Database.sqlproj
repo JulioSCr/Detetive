@@ -75,6 +75,6 @@
     <Build Include="SQL Server\Table\dbo-SUSPEITO.sql" />
     <Build Include="SQL Server\Table\dbo-SUSPEITO_JOGADOR_SALA.sql" />
     <Build Include="SQL Server\Table\dbo-LOCAL_PORTA.sql" />
-    <Build Include="SQL Server\Script\dbo-CARGA_ARMA_SUSPEITO_LOCAL.sql" />
+    <None Include="SQL Server\Script\dbo-CARGA_ARMA_SUSPEITO_LOCAL.sql" />
   </ItemGroup>
 </Project>

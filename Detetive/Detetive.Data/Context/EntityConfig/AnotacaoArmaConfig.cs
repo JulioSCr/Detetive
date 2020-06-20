@@ -16,6 +16,7 @@ namespace Detetive.Data.Context.EntityConfig
             Property(p => p.IdArma).HasColumnName("ID_ARMA");
             Property(p => p.Marcado).HasColumnName("IE_ANOTADO");
             Property(p => p.Ativo).HasColumnName("IE_ATIVO");
+            Ignore(p => p.Arma);
         }
     }
 }

@@ -10,6 +10,7 @@ namespace Detetive.Business.Entities
     public class AnotacaoLocal : AnotacaoBaseEntity
     {
         public int IdLocal { get; set; }
+        public Local Local { get; set; }
 
         internal AnotacaoLocal() { }
 
