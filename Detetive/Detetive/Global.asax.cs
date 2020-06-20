@@ -1,4 +1,5 @@
 ﻿using Detetive.Injection;
+using Detetive.Mappers;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -18,6 +19,7 @@ namespace Detetive
             RouteConfig.RegisterRoutes(RouteTable.Routes);
             BundleConfig.RegisterBundles(BundleTable.Bundles);
             InjectionDependency.Register();
+            AutoMapperConfig.RegisterMappings();
         }
     }
 }

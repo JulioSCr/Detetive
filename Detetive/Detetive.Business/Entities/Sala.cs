@@ -9,7 +9,7 @@ namespace Detetive.Business.Entities
     {
         public DateTime DataCriacao { get; set; }
 
-        internal Sala()
+        internal Sala() : base()
         {
             DataCriacao = DateTime.Now;
         }

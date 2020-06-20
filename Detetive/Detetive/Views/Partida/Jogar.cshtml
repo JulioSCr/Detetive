@@ -17,24 +17,15 @@
 <input id="inpID_JOGADOR_SALA" type="hidden" name="ID_JOGADOR_SALA" value="@ViewBag.ID_JOGADOR_SALA" />
 <section id="secPrimeiraLinha">
     <div id="divTabuleiro" class="esquerda">
-        <div id="divPredioA" idLocal="@ViewBag.IDPredioA"></div>
-        <div id="divPredioB" idLocal="@ViewBag.IDPredioB"></div>
-        <div id="divSantiago" idLocal="@ViewBag.IDSantiago"></div>
-        <div id="divPraca" idLocal="@ViewBag.IDPraca"></div>
-        <div id="divEtesp" idLocal="@ViewBag.IDEtesp"></div>
-        <div id="divCantinaAB" idLocal="@ViewBag.IDCantinaAB"></div>
-        <div id="divCA" idLocal="@ViewBag.IDCA"></div>
-        <div id="divAuditorio" idLocal="@ViewBag.IDAuditorio"></div>
-        <div id="divGinasio" idLocal="@ViewBag.IDGinasio"></div>
+        @foreach (var local in ViewBag.Locais)
+        {
+            <div id=@($"div{local.IdDescricao}") idLocal="@local.Id"></div>
+        }
 
-        <div id="divReitor" title="Reitor" idJogadorSala="@ViewBag.JogadorSalaReitor" class="suspeito"></div>
-        <div id="divDiretora" title="Diretora" idJogadorSala="@ViewBag.JogadorSalaDiretora" class="suspeito"></div>
-        <div id="divProfessora" title="Professora" idJogadorSala="@ViewBag.JogadorSalaProfessora" class="suspeito"></div>
-        <div id="divEstudante" title="Professora" idJogadorSala="@ViewBag.JogadorSalaEstudante" class="suspeito"></div>
-        <div id="divZelador" title="Zelador" idJogadorSala="@ViewBag.JogadorSalaZelador" class="suspeito"></div>
-        <div id="divPolicial" title="Policial" idJogadorSala="@ViewBag.JogadorSalaPolicial" class="suspeito"></div>
-        <div id="divReporter" title="Reporter" idJogadorSala="@ViewBag.JogadorSalaReporter" class="suspeito"></div>
-        <div id="divBibliotecaria" title="Bibliotecaria" idJogadorSala="@ViewBag.JogadorSalaBibliotecaria" class="suspeito"></div>
+        @foreach (var jogadorSuspeito in ViewBag.JogadoresSuspeitos)
+        {
+            <div id=@($"div{jogadorSuspeito.IdDescricao}") title="@jogadorSuspeito.IdDescricao" idJogadorSala="@jogadorSuspeito.IdJogadorSala" class="suspeito"></div>
+        }
     </div>
     <div id="divAnotacoes" class="direita">
 

@@ -22,17 +22,29 @@ namespace Detetive.Injection
             container.Register<IAnotacaoArmaBusiness, AnotacaoArmaBusiness>(Lifestyle.Scoped);
             container.Register<IAnotacaoLocalBusiness, AnotacaoLocalBusiness>(Lifestyle.Scoped);
             container.Register<IAnotacaoSuspeitoBusiness, AnotacaoSuspeitoBusiness>(Lifestyle.Scoped);
+            container.Register<ICrimeBusiness, CrimeBusiness>(Lifestyle.Scoped);
+            container.Register<IJogadorBusiness, JogadorBusiness>(Lifestyle.Scoped);
+            container.Register<IJogadorSalaBusiness, JogadorSalaBusiness>(Lifestyle.Scoped);
+            container.Register<ILocalBusiness, LocalBusiness>(Lifestyle.Scoped);
             container.Register<IMovimentacaoBusiness, MovimentacaoBusiness>(Lifestyle.Scoped);
+            container.Register<IPortaLocalBusiness, PortaLocalBusiness>(Lifestyle.Scoped);
+            container.Register<ISalaBusiness, SalaBusiness>(Lifestyle.Scoped);
+            container.Register<ISuspeitoBusiness, SuspeitoBusiness>(Lifestyle.Scoped);
+            container.Register<IArmaBusiness, ArmaBusiness>(Lifestyle.Scoped);
 
             // Data
-            container.Register<IArmaRepository, ArmaRepository>(Lifestyle.Scoped);
-            container.Register<ILocalRepository, LocalRepository>(Lifestyle.Scoped);
-            container.Register<ISalaRepository, SalaRepository>(Lifestyle.Scoped);
-            container.Register<ISuspeitoRepository, SuspeitoRepository>(Lifestyle.Scoped);
-
             container.Register<IAnotacaoArmaRepository, AnotacaoArmaRepository>(Lifestyle.Scoped);
             container.Register<IAnotacaoLocalRepository, AnotacaoLocalRepository>(Lifestyle.Scoped);
             container.Register<IAnotacaoSuspeitoRepository, AnotacaoSuspeitoRepository>(Lifestyle.Scoped);
+            container.Register<IArmaRepository, ArmaRepository>(Lifestyle.Scoped);
+            container.Register<ICrimeRepository, CrimeRepository>(Lifestyle.Scoped);
+            container.Register<IJogadorRepository, JogadorRepository>(Lifestyle.Scoped);
+            container.Register<IJogadorSalaRepository, JogadorSalaRepository>(Lifestyle.Scoped);
+            container.Register<ILocalRepository, LocalRepository>(Lifestyle.Scoped);
+            container.Register<IPortaLocalRepository, PortaLocalRepository>(Lifestyle.Scoped);
+            container.Register<ISalaRepository, SalaRepository>(Lifestyle.Scoped);
+            container.Register<ISuspeitoRepository, SuspeitoRepository>(Lifestyle.Scoped);
+
 
             container.RegisterMvcControllers(Assembly.GetExecutingAssembly());
             container.Verify();

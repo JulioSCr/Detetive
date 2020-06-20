@@ -7,6 +7,7 @@ namespace Detetive.Business.Data.Interfaces
 {
     public interface ISuspeitoRepository
     {
+        Suspeito Obter(int idSuspeito);
         List<Suspeito> Listar();
     }
 }

@@ -13,6 +13,7 @@ namespace Detetive.Data.Context.EntityConfig
             Property(p => p.Id).HasDatabaseGeneratedOption(DatabaseGeneratedOption.Identity);
             Property(p => p.Id).HasColumnName("ID_ARMA");
             Property(p => p.Descricao).HasColumnName("DS_ARMA");
+            Property(p => p.UrlImagem).HasColumnName("DS_CAMINHO_IMAGEM");
             Property(p => p.Ativo).HasColumnName("IE_ATIVO");
         }
     }
