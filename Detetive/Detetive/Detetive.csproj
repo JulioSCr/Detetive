@@ -243,8 +243,9 @@
     </Compile>
     <Compile Include="Hubs\HubSala.cs" />
     <Compile Include="Mappers\AutoMapperConfig.cs" />
+    <Compile Include="Mappers\MapperSuspeitoToSuspeitoViewModel.cs" />
     <Compile Include="Mappers\MapperArmaToArmaViewModel.cs" />
-    <Compile Include="Mappers\MapperJpgadorSalaToJogadorSuspeitoViewModel.cs" />
+    <Compile Include="Mappers\MapperJogadorSalaToJogadorSuspeitoViewModel.cs" />
     <Compile Include="Mappers\MapperLocalToLocalViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ViewModel\AnotacaoViewModel.cs" />

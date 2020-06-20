@@ -1,11 +1,15 @@
-﻿using System;
+﻿using Microsoft.SqlServer.Server;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 
 namespace Detetive.ViewModel
 {
-    public class SuspeitoViewModel : BaseViewModel
+    public class SuspeitoViewModel
     {
+        public int Id { get; set; }
+        public string Descricao { get; set; }
+        public string UrlImagem { get; set; }
     }
 }

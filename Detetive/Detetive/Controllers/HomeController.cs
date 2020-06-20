@@ -1,4 +1,5 @@
-﻿using Detetive.Business.Data.Interfaces;
+﻿using Detetive.Business.Business.Interfaces;
+using Detetive.Business.Data.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Linq;

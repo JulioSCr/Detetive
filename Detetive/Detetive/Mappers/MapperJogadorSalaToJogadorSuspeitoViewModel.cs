@@ -9,9 +9,9 @@ using System.Web;
 
 namespace Detetive.Mappers
 {
-    public class MapperJpgadorSalaToJogadorSuspeitoViewModel : Profile
+    public class MapperJogadorSalaToJogadorSuspeitoViewModel : Profile
     {
-        public MapperJpgadorSalaToJogadorSuspeitoViewModel()
+        public MapperJogadorSalaToJogadorSuspeitoViewModel()
         {
             CreateMap<JogadorSala, JogadorSuspeitoViewModel>()
                 .ForMember(viewModel => viewModel.IdJogadorSala, _ => _.MapFrom(model => model.Suspeito.Id))
@@ -22,7 +22,7 @@ namespace Detetive.Mappers
 
         public override string ProfileName
         {
-            get { return "MapperJpgadorSalaToJogadorSuspeitoViewModel"; }
+            get { return "MapperJogadorSalaToJogadorSuspeitoViewModel"; }
         }
     }
 }

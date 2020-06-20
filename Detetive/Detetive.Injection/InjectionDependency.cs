@@ -30,6 +30,7 @@ namespace Detetive.Injection
             container.Register<IPortaLocalBusiness, PortaLocalBusiness>(Lifestyle.Scoped);
             container.Register<ISalaBusiness, SalaBusiness>(Lifestyle.Scoped);
             container.Register<ISuspeitoBusiness, SuspeitoBusiness>(Lifestyle.Scoped);
+            container.Register<IArmaBusiness, ArmaBusiness>(Lifestyle.Scoped);
 
             // Data
             container.Register<IAnotacaoArmaRepository, AnotacaoArmaRepository>(Lifestyle.Scoped);

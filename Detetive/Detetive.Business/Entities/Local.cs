@@ -12,6 +12,7 @@ namespace Detetive.Business.Entities
         public int CoordenadaAColuna { get; set; }
         public int CoordenadaBLinha { get; set; }
         public int CoordenadaBColuna { get; set; }
+        public string UrlImagem { get; set; }
 
         internal Local()
         {

@@ -44,10 +44,12 @@
     <Compile Include="Business\AnotacaoArmaBusiness.cs" />
     <Compile Include="Business\AnotacaoLocalBusiness.cs" />
     <Compile Include="Business\AnotacaoSuspeitoBusiness.cs" />
+    <Compile Include="Business\ArmaBusiness.cs" />
     <Compile Include="Business\CrimeBusiness.cs" />
     <Compile Include="Business\Interfaces\IAnotacaoArmaBusiness.cs" />
     <Compile Include="Business\Interfaces\IAnotacaoLocalBusiness.cs" />
     <Compile Include="Business\Interfaces\IAnotacaoSuspeitoBusiness.cs" />
+    <Compile Include="Business\Interfaces\IArmaBusiness.cs" />
     <Compile Include="Business\Interfaces\ICrimeBusiness.cs" />
     <Compile Include="Business\Interfaces\IJogadorBusiness.cs" />
     <Compile Include="Business\Interfaces\IJogadorSalaBusiness.cs" />
