@@ -3,7 +3,9 @@ using Detetive.Business.Business.Interfaces;
 using Detetive.Business.Entities;
 using Detetive.ViewModel;
 using Detetive.ViewModel.Anotacao;
+using Microsoft.EntityFrameworkCore.Internal;
 using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 using System.Web.Mvc;
 
@@ -22,7 +24,8 @@ namespace Detetive.Controllers
                                  IJogadorSalaBusiness jogadorSalaBusiness,
                                  IMovimentacaoBusiness movimentacaoBusiness,
                                  IAnotacaoArmaBusiness anotacaoArmaBusiness,
-                                 IAnotacaoLocalBusiness anotacaoLocalBusiness, IAnotacaoSuspeitoBusiness anotacaoSuspeitoBusiness)
+                                 IAnotacaoLocalBusiness anotacaoLocalBusiness,
+                                 IAnotacaoSuspeitoBusiness anotacaoSuspeitoBusiness)
         {
             _localBusiness = localBusiness;
             _jogadorSalaBusiness = jogadorSalaBusiness;
@@ -70,9 +73,14 @@ namespace Detetive.Controllers
         /// Obtem a posição atual de cada jogador da sala
         /// </summary>
         /// <returns>Retorna uma lista com ID-JOGADOR_SALA e a sua posição atual</returns>
-        public string GetPosicaoAtual()
+        public string GetPosicaoAtual(/*int idSala*/)
         {
-            /// TO DO
+            int idSala = 1007;
+            var jogadoresSala = _jogadorSalaBusiness.Listar(idSala);
+
+            if (jogadoresSala == null || !jogadoresSala.Any())
+                return String.Empty;
+
             /// Em caso de dúvida olhar o objeto de retorno em ~/Scripts/Views/Partida/Jogar.js
             return JsonConvert.SerializeObject("");
         }

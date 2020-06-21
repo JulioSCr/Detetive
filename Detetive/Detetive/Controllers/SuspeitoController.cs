@@ -32,18 +32,18 @@ namespace Detetive.Controllers
         {
             var sala = _salaBusiness.Obter(idSala);
 
-            if (sala != default)
+            if (sala == default)
                 return RedirectToAction("Manter", "Sala", new Operacao("Sala não encontrada.", false));
 
-            var jogadorSala = _jogadorSalaBusiness.Obter(idJogadorSala, idSala);
+            var jogadorSala = _jogadorSalaBusiness.Obter(idJogadorSala);
             
-            if (jogadorSala != default)
+            if (jogadorSala == default || jogadorSala.IdSala != sala.Id)
                 return RedirectToAction("Manter", "Sala", new Operacao("Jogador não encontrada.", false));
 
-            var jogaodor = _jogadorBusiness.Obter(jogadorSala.IdJogador);
+            var jogador = _jogadorBusiness.Obter(jogadorSala.IdJogador);
 
             ViewBag.Sala_ID = sala.Id;
-            ViewBag.NomeJogador = jogaodor.Descricao;
+            ViewBag.NomeJogador = jogador.Descricao;
             ViewBag.Suspeitos = Mapper.Map<List<Suspeito>, List<SuspeitoViewModel>>(_suspeitoBusiness.Listar());
 
             return View();

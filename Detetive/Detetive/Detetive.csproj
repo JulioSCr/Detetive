@@ -248,6 +248,7 @@
     <Compile Include="Mappers\MapperAnotacaoArmaToAnotacaoArmaViewModel.cs" />
     <Compile Include="Mappers\MapperAnotacaoSuspeitoToAnotacaoLocalViewModel.cs" />
     <Compile Include="Mappers\MapperAnotacaoLocalToAnotacaoLocalViewModel.cs" />
+    <Compile Include="Mappers\MapperJogadorSalaToJogadorSalaViewModel.cs" />
     <Compile Include="Mappers\MapperSuspeitoToSuspeitoViewModel.cs" />
     <Compile Include="Mappers\MapperArmaToArmaViewModel.cs" />
     <Compile Include="Mappers\MapperJogadorSalaToJogadorSuspeitoViewModel.cs" />
@@ -262,7 +263,7 @@
     <Compile Include="ViewModel\LocalViewModel.cs" />
     <Compile Include="ViewModel\SuspeitoViewModel.cs" />
     <Compile Include="ViewModel\Tabuleiro\PartidaViewModel.cs" />
-    <Compile Include="ViewModel\Tabuleiro\JogadorViewModel.cs" />
+    <Compile Include="ViewModel\Tabuleiro\JogadorSalaViewModel.cs" />
     <Compile Include="ViewModel\Tabuleiro\LocalViewModew.cs" />
     <Compile Include="ViewModel\Tabuleiro\PosicaoViewModel.cs" />
   </ItemGroup>
