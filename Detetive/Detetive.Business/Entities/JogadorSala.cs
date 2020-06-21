@@ -72,5 +72,10 @@ namespace Detetive.Business.Entities
             CoordenadaLinha = jogadorSala.CoordenadaLinha;
             CoordenadaColuna = jogadorSala.CoordenadaColuna;
         }
+
+        internal void AlterarSuspeito(int idSuspeito)
+        {
+            IdSuspeito = idSuspeito;
+        }
     }
 }

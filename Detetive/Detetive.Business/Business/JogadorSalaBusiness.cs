@@ -204,6 +204,32 @@ namespace Detetive.Business.Business
             return _jogadorSalaRepository.Obter(idJogador, idSala);
         }
 
+        public Operacao SelecionarSuspeito(int idSala, int idJogadorSala, int idSuspeito)
+        {
+            if (idSala <= 0)
+                return new Operacao("Id da sala não informado", false);
+
+            if (idJogadorSala <= 0)
+                return new Operacao("Id do jogador não informado", false);
+
+            if (idSuspeito <= 0)
+                return new Operacao("Id do suspeito não informado", false);
+
+            var jogadorSala = _jogadorSalaRepository.Obter(idJogadorSala);
+            if (jogadorSala == default || jogadorSala.IdSala != idSala)
+                return new Operacao("Jogador não encotrado.", false);
+
+            var suspeito = _suspeitoBusiness.Obter(idSuspeito);
+            if(suspeito == default)
+                return new Operacao("Suspeito não encotrado.", false);
+
+            jogadorSala.AlterarSuspeito(suspeito.Id);
+
+            _jogadorSalaRepository.Alterar(jogadorSala);
+
+            return new Operacao($"{suspeito.Descricao} selecionado com sucesso!");
+        }
+
         private void GerarAnotacoesJogador(JogadorSala jogadorSala)
         {
             _anotacaoArmaBusiness.CriarAnotacoes(jogadorSala.Id);

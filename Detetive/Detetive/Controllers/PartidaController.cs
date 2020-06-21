@@ -98,6 +98,9 @@ namespace Detetive.Controllers
         {
             /// TO DO
             /// Deve retornar um objeto conforme o utilizado no javascript Scripts/Views/Partida/Jogar.js linha 220 a 342
+            var locais = _localBusiness.Listar();
+
+
 
             return JsonConvert.SerializeObject("");
         }

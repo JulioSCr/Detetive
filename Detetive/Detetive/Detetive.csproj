@@ -260,6 +260,7 @@
     <Compile Include="ViewModel\ArmaViewModel.cs" />
     <Compile Include="ViewModel\BaseViewModel.cs" />
     <Compile Include="ViewModel\JogadorSuspeitoViewModel.cs" />
+    <Compile Include="ViewModel\LocalPortaViewModel.cs" />
     <Compile Include="ViewModel\LocalViewModel.cs" />
     <Compile Include="ViewModel\SuspeitoViewModel.cs" />
     <Compile Include="ViewModel\Tabuleiro\PartidaViewModel.cs" />
