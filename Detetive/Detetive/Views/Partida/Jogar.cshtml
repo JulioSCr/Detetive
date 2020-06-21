@@ -17,24 +17,15 @@
 <input id="inpID_JOGADOR_SALA" type="hidden" name="ID_JOGADOR_SALA" value="@ViewBag.ID_JOGADOR_SALA" />
 <section id="secPrimeiraLinha">
     <div id="divTabuleiro" class="esquerda">
-        <div id="divPredioA" idLocal="@ViewBag.IDPredioA"></div>
-        <div id="divPredioB" idLocal="@ViewBag.IDPredioB"></div>
-        <div id="divSantiago" idLocal="@ViewBag.IDSantiago"></div>
-        <div id="divPraca" idLocal="@ViewBag.IDPraca"></div>
-        <div id="divEtesp" idLocal="@ViewBag.IDEtesp"></div>
-        <div id="divCantinaAB" idLocal="@ViewBag.IDCantinaAB"></div>
-        <div id="divCA" idLocal="@ViewBag.IDCA"></div>
-        <div id="divAuditorio" idLocal="@ViewBag.IDAuditorio"></div>
-        <div id="divGinasio" idLocal="@ViewBag.IDGinasio"></div>
+        @foreach (var local in ViewBag.Locais)
+        {
+            <div id=@($"div{local.IdDescricao}") idLocal="@local.Id"></div>
+        }
 
-        <div id="divReitor" title="Reitor" idJogadorSala="@ViewBag.JogadorSalaReitor" class="suspeito"></div>
-        <div id="divDiretora" title="Diretora" idJogadorSala="@ViewBag.JogadorSalaDiretora" class="suspeito"></div>
-        <div id="divProfessora" title="Professora" idJogadorSala="@ViewBag.JogadorSalaProfessora" class="suspeito"></div>
-        <div id="divEstudante" title="Professora" idJogadorSala="@ViewBag.JogadorSalaEstudante" class="suspeito"></div>
-        <div id="divZelador" title="Zelador" idJogadorSala="@ViewBag.JogadorSalaZelador" class="suspeito"></div>
-        <div id="divPolicial" title="Policial" idJogadorSala="@ViewBag.JogadorSalaPolicial" class="suspeito"></div>
-        <div id="divReporter" title="Reporter" idJogadorSala="@ViewBag.JogadorSalaReporter" class="suspeito"></div>
-        <div id="divBibliotecaria" title="Bibliotecaria" idJogadorSala="@ViewBag.JogadorSalaBibliotecaria" class="suspeito"></div>
+        @foreach (var jogadorSuspeito in ViewBag.JogadoresSuspeitos)
+        {
+            <div id=@($"div{jogadorSuspeito.IdDescricao}") title="@jogadorSuspeito.IdDescricao" idJogadorSala="@jogadorSuspeito.IdJogadorSala" class="suspeito"></div>
+        }
     </div>
     <div id="divAnotacoes" class="direita">
 
@@ -52,13 +43,14 @@
             <button type="button" title="Mover para baixo" id="btnAbaixo" class="botoes btnSetaVertical centralizarBotoes" onclick="Jogar.btnAbaixo_OnClick()"></button>
             <button type="button" title="Rolar os dados" id="btnLancarDados" class="botoes centralizarBotoes"></button>
 
-            <button type="button" title="Palpitar" id="btnPalpite" class="botoes centralizarBotoes botoesOpcoes">Palpite</button>
-            <button type="button" title="Acusar" id="btnAcusar" class="botoes centralizarBotoes botoesOpcoes">Acusar</button>
-            <button type="button" title="Usar passagem secreta" id="btnPassagemSecreta" class="botoes centralizarBotoes botoesOpcoes">Passagem</button>
+            <button type="button" title="Palpitar" id="btnPalpite" class="botoes centralizarBotoes botoesOpcoes" onclick="Jogar.btnPalpite_OnClick()">Palpite</button>
+            <button type="button" title="Acusar" id="btnAcusar" class="botoes centralizarBotoes botoesOpcoes" onclick="Jogar.btnAcusar_OnClick()">Acusar</button>
+            <button type="button" title="Usar passagem secreta" id="btnPassagemSecreta" class="botoes centralizarBotoes botoesOpcoes" onclick="Jogar.btnPassagemSecreta_OnClick()">Passagem</button>
         </div>
         <div id="divInformacoesContainer">
             <div id="divInformacoes">
                 <label id="lblSala">#ID Sala: 17539</label>
+                <button type="button" title="Finalizar turno" id="btnFinalizarTurno" class="botoes centralizarBotoes" onclick="Jogar.btnFinalizarTurno_OnClick()"></button>
                 <div id="divCaixaInformacoes">
                     <label class="informacao">É a sua vez! Role o dado!</label>
                     <label class="informacao">Valor do dado = 5. Avance até 5 casas!</label>
@@ -71,3 +63,6 @@
         </div>
     </div>
 </section>
+
+<div id="ModalPalpite" data-url='@Url.Action("ModalPalpite", "Partida")'></div>
+<div id="ModalAcusar" data-url='@Url.Action("ModalAcusar", "Partida")'></div>

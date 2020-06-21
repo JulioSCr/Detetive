@@ -9,8 +9,8 @@ namespace Detetive.Business.Data.Interfaces
 {
     public interface IAnotacaoArmaRepository
     {
-        List<AnotacaoArma> Listar();
+        List<AnotacaoArma> Listar(int idJogadorSala);
         AnotacaoArma Adicionar(AnotacaoArma anotacao);
-        AnotacaoArma Marcar(int idJogadorSala, int idArma, bool valor);
+        AnotacaoArma Marcar(int idArma, int idJogadorSala, bool valor);
     }
 }

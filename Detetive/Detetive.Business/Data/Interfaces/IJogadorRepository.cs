@@ -7,5 +7,7 @@ namespace Detetive.Business.Data.Interfaces
 {
     public interface IJogadorRepository
     {
+        Jogador Adicionar(Jogador jogador);
+        Jogador Obter(int idJogador);
     }
 }

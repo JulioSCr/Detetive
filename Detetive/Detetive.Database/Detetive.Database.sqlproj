@@ -58,6 +58,7 @@
     <Folder Include="Properties" />
     <Folder Include="SQL Server" />
     <Folder Include="SQL Server\Table" />
+    <Folder Include="SQL Server\Script" />
   </ItemGroup>
   <ItemGroup>
     <Build Include="SQL Server\Table\dbo-ANOTACAO_ARMA.sql" />
@@ -74,5 +75,6 @@
     <Build Include="SQL Server\Table\dbo-SUSPEITO.sql" />
     <Build Include="SQL Server\Table\dbo-SUSPEITO_JOGADOR_SALA.sql" />
     <Build Include="SQL Server\Table\dbo-LOCAL_PORTA.sql" />
+    <None Include="SQL Server\Script\dbo-CARGA_ARMA_SUSPEITO_LOCAL.sql" />
   </ItemGroup>
 </Project>

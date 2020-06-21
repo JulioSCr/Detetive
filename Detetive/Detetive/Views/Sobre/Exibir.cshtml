@@ -1,0 +1,85 @@
+﻿@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+@section head{
+    <link rel="stylesheet" href="@Url.Content("~/Content/Views/Sobre/Exibir.css?" + DateTimeOffset.Now)" />
+}
+
+
+
+
+<div class="container ml-auto mt-auto" >
+
+    <div class="row">
+
+        <div class="col-md-4 mt-5">
+           
+            <div id="IconeLateral">
+                    <img src="~/Content/Imagens/Shared/imgLogo.svg" alt="ImagemIcone" width="391" height="391" />
+            </div>
+
+        </div>
+
+        <div class="col-md-8 mt-5 mr-0">
+
+            <div id="CaixaTexto">
+
+                <p>
+                    “Um terrível assassinato aconteceu no campus de umas das mais tradicionais faculdades de São Paulo. O culpado? Ainda não se sabe, mas ele está entre nós. Seja esperto, fique atento e anote cada detalhe. Isso pode provar sua inocência e finalmente trazer o assassino à público!”
+                    O jogo se trata de uma releitura de um clássico dos tabuleiros. A equipe de desenvolvimento ambientou todo o jogo em um cenário um tanto comum para todos, a própria FATEC. Todos os personagens são fictícios, toda e qualquer semelhança é apenas uma coincidência, tendo como objetivo apenas fins didáticos.
+                    A atual versão é um alpha test, sendo ainda sua primeira versão, sendo passível de alterações e futuros upgrades.
+                    Divirta-se e sempre mantenha em mente... o culpado está entre nós...
+                </p>
+
+            </div>
+
+        </div>
+
+    </div>
+
+    <div class="row">
+
+        <div class="col ml-4 mt-5">
+
+            <button name="btnVoltar" type="button" class="btnVoltar" onclick="location.href='/Home/Index'">
+
+                Voltar
+
+            </button>
+
+
+        </div>
+
+
+    </div>
+
+ 
+</div>
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

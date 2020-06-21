@@ -1,5 +1,6 @@
 ﻿using Detetive.Business.Entities;
 using System.ComponentModel.DataAnnotations.Schema;
+using System.Data.Entity.Core.EntityClient;
 using System.Data.Entity.ModelConfiguration;
 
 namespace Detetive.Data.Context.EntityConfig
@@ -16,6 +17,7 @@ namespace Detetive.Data.Context.EntityConfig
             Property(p => p.IdLocal).HasColumnName("ID_LOCAL");
             Property(p => p.Marcado).HasColumnName("IE_ANOTADO");
             Property(p => p.Ativo).HasColumnName("IE_ATIVO");
+            Ignore(p => p.Local);
         }
     }
 }

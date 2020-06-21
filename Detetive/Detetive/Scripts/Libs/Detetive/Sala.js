@@ -51,6 +51,57 @@ Sala.Configurar = function () {
         Jogar.TransmitirMovimento(ID_JOGADOR_SALA, pLinha, pColuna, pIDLocal);
     }
 
+    Sala.mHubSala.client.TransmitirTeletransporte = function (pintID_JOGADOR_SALA, pintIDLocal) {
+        Jogar.TransmitirTeletransporte(pintID_JOGADOR_SALA, pintIDLocal);
+    }
+
+    Sala.mHubSala.client.receberMensagemAcao = function (
+        pintIdJogadorSalaRemetente,
+        pintIdJogadorSalaDestinatario,
+        pstrChatDsMensagem
+    ) {
+        var larrMensagensAcao = [
+            {
+                UPCHAT_DS_MSG: vstrUPCHAT_DS_MSG,
+                UPCHAT_DT_INCLUSAO: vstrUPCHAT_DT_INCLUSAO,
+                UPCHAT_DT_INCLUSAO_DS: vstrUPCHAT_DT_INCLUSAO_DS,
+                UPCHAT_IN_USUARIO_LOGADO: vstrUPCHAT_IN_USUARIO_LOGADO,
+                UPUSGR_NM: vstrUPUSGR_NM_REMET
+            }
+        ]
+
+        //Verifica se o chat está visível e se a ação selecionada é a ação da mensagem
+        if ($('#divUPCENCM02_Chat').length > 0 && Nvl(UPMENCM.mintATACPJ_NS_Selecionado, 0) == vintATACPJ_NS) {
+            if (
+                (
+                    $("#tabUPECNEM02_Messenger_Chat").dxTabs('instance').option("selectedItem").UPUSER_NS == 0 && //Aba selecionada = Todos e
+                    vintUPUSER_NS_DESTIN == 0 //Destinatário = Todos
+                ) || //ou
+                (
+                    vintUPUSER_NS_REMET == $("#tabUPECNEM02_Messenger_Chat").dxTabs('instance').option("selectedItem").UPUSER_NS && //Remetente = aba selecionada e
+                    vintUPUSER_NS_DESTIN == UPCHAT.mintHidUPCHAT_UPUSER_NS //Destinatário = Usuário logado
+                ) || //ou
+                (
+                    vintUPUSER_NS_REMET == UPCHAT.mintHidUPCHAT_UPUSER_NS && //Remetente = Usuário logado e
+                    vintUPUSER_NS_DESTIN == $("#tabUPECNEM02_Messenger_Chat").dxTabs('instance').option("selectedItem").UPUSER_NS //Destinatário = aba selecionada
+                )
+            ) {
+                UPCENCM02.GerarMensagens(larrMensagens);
+            } else {
+                if (
+                    vintUPUSER_NS_DESTIN == UPCHAT.mintHidUPCHAT_UPUSER_NS || //Se o destinatário for o usuário logado ou
+                    vintUPUSER_NS_DESTIN == 0 //Se o destinatário for "Todos"
+                ) {
+                    //Colocar o badge no lugar correto
+                    UPCENCM02.AtualizarBadge((vintUPUSER_NS_DESTIN == 0 ? 0 : vintUPUSER_NS_REMET));
+                }
+            }
+        } else {
+            //Criar notificação
+            UPCHAT.criarNotificacao(vstrTitulo_Notificacao, vstrCorpo_Notificacao);
+        }
+    };
+
     //Sala.mHubSala.client.erro = function (vstrMensagem, vstrMensagemTecnica) {
     //    console.log(vstrMensagemTecnica);
     //};
@@ -104,7 +155,7 @@ Sala.Desconectar = function () {
 
 Sala.EnviarMensagem = function (apelido, mensagem) {
     try {
-        Sala.mHubSala.server.enviarMensagem(apelido, mensagem);
+        Sala.mHubSala.server.enviarMensagem(apelido, mensagem).done(function () { });;
     } catch (ex) {
         console.log(ex);
     }
@@ -137,5 +188,13 @@ Sala.EnviarMovimento = function (pLinha, pColuna, pIDLocal) {
         });
     } catch (ex) {
         throw ex;
+    }
+}
+
+Sala.Teletransporte = function (pintIdJogadorSala, pintIdLocal) {
+    try {
+        Sala.mHubSala.server.teletransporte(pintIdJogadorSala, pintIdLocal).done(function () { });
+    } catch (ex) {
+        alert(ex);
     }
 }
