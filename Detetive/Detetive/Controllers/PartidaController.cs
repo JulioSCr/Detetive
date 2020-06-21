@@ -2,11 +2,9 @@
 using Detetive.Business.Business.Interfaces;
 using Detetive.Business.Entities;
 using Detetive.ViewModel;
+using Detetive.ViewModel.Anotacao;
 using Newtonsoft.Json;
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Web;
 using System.Web.Mvc;
 
 namespace Detetive.Controllers
@@ -16,14 +14,22 @@ namespace Detetive.Controllers
         private readonly ILocalBusiness _localBusiness;
         private readonly IJogadorSalaBusiness _jogadorSalaBusiness;
         private readonly IMovimentacaoBusiness _movimentacaoBusiness;
+        private readonly IAnotacaoArmaBusiness _anotacaoArmaBusiness;
+        private readonly IAnotacaoLocalBusiness _anotacaoLocalBusiness;
+        private readonly IAnotacaoSuspeitoBusiness _anotacaoSuspeitoBusiness;
 
         public PartidaController(ILocalBusiness localBusiness,
                                  IJogadorSalaBusiness jogadorSalaBusiness,
-                                 IMovimentacaoBusiness movimentacaoBusiness)
+                                 IMovimentacaoBusiness movimentacaoBusiness,
+                                 IAnotacaoArmaBusiness anotacaoArmaBusiness,
+                                 IAnotacaoLocalBusiness anotacaoLocalBusiness, IAnotacaoSuspeitoBusiness anotacaoSuspeitoBusiness)
         {
             _localBusiness = localBusiness;
             _jogadorSalaBusiness = jogadorSalaBusiness;
             _movimentacaoBusiness = movimentacaoBusiness;
+            _anotacaoArmaBusiness = anotacaoArmaBusiness;
+            _anotacaoLocalBusiness = anotacaoLocalBusiness;
+            _anotacaoSuspeitoBusiness = anotacaoSuspeitoBusiness;
         }
 
         public ActionResult Manter()
@@ -31,17 +37,20 @@ namespace Detetive.Controllers
             return View();
         }
 
-        public ActionResult Jogar(int idSala)
+        public ActionResult Jogar(/*int idSala*/)
         {
             /// TO DO
             /// Deve retornar o ID_JOGADOR do jogador principal
             ViewBag.ID_JOGADOR_SALA = 1;
 
-            var jogadoresSala = _jogadorSalaBusiness.Listar(idSala);
+            var jogadoresSala = _jogadorSalaBusiness.Listar(1007);
             ViewBag.JogadoresSuspeitos = Mapper.Map<List<JogadorSala>, List<JogadorSuspeitoViewModel>>(jogadoresSala);
 
             var locais = _localBusiness.Listar();
             ViewBag.Locais = Mapper.Map<List<Local>, List<LocalViewModel>>(locais);
+
+            // idJogadorSala
+            this.CarregarAnotacoes(11);
 
             return View();
         }
@@ -107,6 +116,13 @@ namespace Detetive.Controllers
             /// Valida o palpite
 
             return JsonConvert.SerializeObject("");
+        }
+
+        private void CarregarAnotacoes(int idJogadorSala)
+        {
+            ViewBag.AnotacaoArma = Mapper.Map<List<AnotacaoArma>, List<AnotacaoArmaViewModel>>(_anotacaoArmaBusiness.Listar(idJogadorSala));
+            ViewBag.AnotacaoLocal = Mapper.Map<List<AnotacaoLocal>, List<AnotacaoLocalViewModel>>(_anotacaoLocalBusiness.Listar(idJogadorSala));
+            ViewBag.AnotacaoSuspeito = Mapper.Map<List<AnotacaoSuspeito>, List<AnotacaoSuspeitoViewModel>>(_anotacaoSuspeitoBusiness.Listar(idJogadorSala));
         }
     }
 }
