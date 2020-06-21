@@ -27,21 +27,31 @@ namespace Detetive.Controllers
             return View();
         }
 
+        [HttpPost]
         public string Ingressar(int idSala, string dsJogador)
         {
             var jogador = _jogadorBusiness.Adicionar(dsJogador);
             var sala = _salaBusiness.Obter(idSala);
 
             if (sala == default)
-                return JsonConvert.SerializeObject(new Operacao("Sala não encontrada.", false)); 
+                return JsonConvert.SerializeObject(new Operacao("Sala não encontrada.", false));
 
-            return JsonConvert.SerializeObject(_jogadorSalaBusiness.Adicionar(sala, jogador.Id));
+            var operacao = _jogadorSalaBusiness.Adicionar(sala, jogador.Id);
+
+            if (!operacao.Status)
+                return JsonConvert.SerializeObject(operacao);
+
+            var jogadorSala = _jogadorSalaBusiness.Obter(jogador.Id, sala.Id);
+            
+            var retorno = Json(new { idSala = sala.Id, idJogadorSala = jogadorSala.Id }, "json");
+
+            return JsonConvert.SerializeObject(new Operacao(JsonConvert.SerializeObject(retorno)));
         }
 
         public int CriarSala()
         {
             var sala = _salaBusiness.Adicionar();
-            
+
             return sala.Id;
         }
     }

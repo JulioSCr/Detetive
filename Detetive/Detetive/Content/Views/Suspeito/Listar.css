@@ -1,4 +1,15 @@
-﻿#Icone {
+﻿#divInformaIDSala {
+    float: right;
+}
+
+    #divInformaIDSala h1 {
+        color: #E9E9E9;
+        font-family: 'Roboto Slab', serif;
+        font-weight: bold;
+        font-size: 1.2em;
+    }
+
+#Icone {
     width: 100%;
     padding-top: 4.5%;
 }

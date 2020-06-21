@@ -71,6 +71,14 @@ $(document).ready(function () {
 
 //#region Botões de ação
 
+Jogar.btnFinalizarTurno_OnClick = function () {
+    try {
+
+    } catch (ex) {
+        alert(ex);
+    }
+}
+
 Jogar.btnDireita_OnClick = function () {
     var lLinha = new Number();
     var lColuna = new Number();

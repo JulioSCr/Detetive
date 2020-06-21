@@ -17,7 +17,7 @@ namespace Detetive.Business.Entities
         public int CoordenadaLinha { get; set; }
         public int CoordenadaColuna { get; set; }
         public int IdJogador { get; set; }
-        public int IdSuspeito { get; set; }
+        public int? IdSuspeito { get; set; }
         public virtual Suspeito Suspeito { get; set; }
 
         internal JogadorSala() : base()
@@ -25,8 +25,9 @@ namespace Detetive.Business.Entities
 
         }
 
-        public JogadorSala(int idJogador) : base()
+        public JogadorSala(int idJogador, int idSala) : base()
         {
+            IdSala = idSala;
             IdJogador = idJogador;
             CoordenadaLinha = 1;
             CoordenadaColuna = 1;
