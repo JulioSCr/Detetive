@@ -9,7 +9,8 @@
 @section scripts{
     <script src="@Url.Content("~/Scripts/Views/Suspeito/Listar.js?" + DateTimeOffset.Now)"></script>
 }
-<div id="divInformaIDSala">
+<input id="inpID_JOGADOR_SALA" type="hidden" name="ID_JOGADOR_SALA" data-id="@ViewBag.ID_JOGADOR_SALA" />
+<div id="divInformaIDSala" data-id="@ViewBag.Sala_ID">
     <h1>ID da Sala: #@ViewBag.Sala_ID</h1>
 </div>
 <div class="centralizar" id="Icone">
@@ -24,7 +25,9 @@
         {
             <div class="carousel-item @(suspeito.Id == ViewBag.Suspeitos[0].Id? "active": "")">
                 <div class="centralizar">
-                    <img data-id="@suspeito.Id" class="d-block cartaSuspeito" title="@suspeito.Descricao" src="@Url.Content(suspeito.UrlImagem)">
+                    <a href="#" onclick="Listar.Suspeito_OnClick(event)">
+                        <img data-idjogadorsala="@(suspeito.jogadorsala == null ? 0 : suspeito.jogadorsala.id)" data-id="@suspeito.Id" class="d-block cartaSuspeito @(suspeito.jogadorsala == null ? "" : "selected")" title="@suspeito.Descricao" src="@Url.Content(suspeito.UrlImagem)">
+                    </a>
                 </div>
             </div>
         }

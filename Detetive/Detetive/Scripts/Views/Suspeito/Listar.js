@@ -1,22 +1,63 @@
 ﻿var Listar = window.Listar || {
+    mintIdSuspeito: new Number(),
+    mintIdSala: new Number(),
+    mintIdJogadorSala: new Number()
 };
 
 $(document).ready(function () {
-    
+    Listar.MontarTela();
 });
 
-Listar.TransmitirMensagem = function (apelido, msg) {
-    // Area do chat
-    var chatWin = $("#chatWindow");
-    // Publicando a mensagem no chat
-    chatWin.html(chatWin.html() + "<b>" + apelido + "</b>: " + msg + "<br />");
+Listar.MontarTela = function () {
+    try {
+        Listar.mintIdSala = $('#divInformaIDSala').data().id;
+        Listar.mintIdJogadorSala = $('#inpID_JOGADOR_SALA').data().id;
+        if (Listar.mintIdSala == null || Listar.mintIdSala == undefined) { throw 'Sala não encontrada.' }
+        Sala.mintIdSala = Listar.mintIdSala;
+    } catch (ex) {
+        alert(ex);
+    }
 }
 
-$('#mensagem').keypress(function (e) {
-    if (e.which == 13) {
-        // Chamando o método de transmissão de mensagem no Hub
-        Sala.EnviarMensagem($("#apelido").val(), $("#mensagem").val());
-        // Limpando o texto da mensagem.
-        $("#mensagem").val("");
+Listar.Suspeito_OnClick = function (e) {
+    try {
+        if ($(e.currentTarget).children().data().idjogadorsala == Listar.mintIdJogadorSala) {
+            Sala.DesconsiderarSuspeito(Listar.mintIdSala, Listar.mintIdJogadorSala);
+        } else {
+            if ($(e.currentTarget).children().data().idjogadorsala == 0) {
+                $('#carouselSuspeitos').carousel('pause');
+                Listar.mintIdSuspeito = parseInt($(e.currentTarget).children().get(0).dataset.id);
+                Sala.SelecionarSuspeito(Listar.mintIdSala, Listar.mintIdJogadorSala, Listar.mintIdSuspeito);
+            } else {
+                return;
+            }
+        }
+    } catch (ex) {
+        alert(ex);
     }
-});
+}
+
+Listar.TransmitirSelecaoSuspeito = function (pintIdJogadorSala, pintIdSuspeito) {
+    try {
+        if ($('.cartaSuspeito[data-idjogadorsala=' + pintIdJogadorSala + ']').length > 0) {
+            Listar.TransmitirDesconsideracaoSuspeito(pintIdJogadorSala);
+        }
+        $('.cartaSuspeito[data-id=' + pintIdSuspeito + ']').addClass('selected');
+        $('.cartaSuspeito[data-id=' + pintIdSuspeito + ']').data().idjogadorsala = pintIdJogadorSala;
+        $('.cartaSuspeito[data-id=' + pintIdSuspeito + ']').attr('data-idjogadorsala', pintIdJogadorSala);
+    } catch (ex) {
+        alert(ex);
+    }
+}
+
+Listar.TransmitirDesconsideracaoSuspeito = function (pintIdJogadorSala) {
+    try {
+        if ($('.cartaSuspeito[data-idjogadorsala=' + pintIdJogadorSala + ']').length > 0) {
+            $('.cartaSuspeito[data-idjogadorsala=' + pintIdJogadorSala + ']').removeClass('selected');
+            $('.cartaSuspeito[data-idjogadorsala=' + pintIdJogadorSala + ']').data().idjogadorsala = 0;
+            $('.cartaSuspeito[data-idjogadorsala=' + pintIdJogadorSala + ']').attr('data-idjogadorsala', 0);
+        }
+    } catch (ex) {
+        alert(ex);
+    }
+}

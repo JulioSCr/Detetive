@@ -43,6 +43,7 @@ namespace Detetive.Controllers
             var jogador = _jogadorBusiness.Obter(jogadorSala.IdJogador);
 
             ViewBag.Sala_ID = sala.Id;
+            ViewBag.ID_JOGADOR_SALA = idJogadorSala;
             ViewBag.NomeJogador = jogador.Descricao;
             ViewBag.Suspeitos = Mapper.Map<List<Suspeito>, List<SuspeitoViewModel>>(_suspeitoBusiness.Listar());
 

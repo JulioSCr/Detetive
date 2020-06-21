@@ -31,6 +31,10 @@
     width: 100px;
 }
 
+.selected {
+    opacity: 0.5;
+}
+
 @media (min-height: 630px) {
     #Icone {
         padding-top: 10%;
