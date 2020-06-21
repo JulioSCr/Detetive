@@ -19,7 +19,7 @@
     <div class="carousel-inner">
         @foreach (var suspeito in ViewBag.Suspeitos)
         {
-            <div class="carousel-item @(suspeito.Id == ViewBag.Suspeitos[0].Id? "active": "")">
+            <div class="carousel-item @(suspeito.Id == ViewBag.Suspeitos[0].Id ? "active" : "")">
                 <div class="centralizar">
                     <img data-id="@suspeito.Id" class="d-block cartaSuspeito" title="@suspeito.Descricao" src="@Url.Content(suspeito.UrlImagem)">
                 </div>
@@ -59,6 +59,7 @@
                     <img class="d-block cartaSuspeito" src="~/Content/Imagens/CartasSuspeitos/imgCartaZelador.svg">
                 </div>
             </div>
+        }
         </div>
         <a class="carousel-control-prev" href="#carouselSuspeitos" role="button" data-slide="prev">
             <span class="carousel-control-prev-icon" aria-hidden="true"></span>
