@@ -121,18 +121,14 @@ namespace Detetive.Controllers
         /// <param name="idArma"></param>
         /// <param name="idLocal"></param>
         /// <returns></returns>
-        public string Palpite(int idJogadorSala, int idArma, int idLocal)
+        public string Palpite(int idJogadorSala, int idSala, int idArma, int idLocal, int idSuspeito)
         {
-            /// Valida o palpite
-
-            return JsonConvert.SerializeObject("");
+            return JsonConvert.SerializeObject(_jogadorSalaBusiness.Palpitar(idSala, idJogadorSala, idLocal, idSuspeito, idArma));
         }
 
-        public string Acusar(int idJogadorSala, int idArma, int idLocal)
-        {
-            /// Valida o palpite
-
-            return JsonConvert.SerializeObject("");
+        public string Acusar(int idJogadorSala, int idSala, int idArma, int idLocal, int idSuspeito)
+        { 
+            return JsonConvert.SerializeObject(_jogadorSalaBusiness.Acusar(idSala, idJogadorSala, idLocal, idSuspeito, idArma));
         }
 
         private void CarregarAnotacoes(int idJogadorSala)
