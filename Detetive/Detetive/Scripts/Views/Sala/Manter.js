@@ -43,6 +43,7 @@ ManterSala.IngressarSala = function () {
         }
         $('#txtIdSala').attr('placeholer', 'Digite o #idSala aqui');
         $('#lblIdSala').text('Informe o ID da Sala:');
+        $('#txtIdSala').attr('readOnly', false);
     }
     catch (ex) {
         alert(ex);
@@ -64,6 +65,8 @@ ManterSala.CriarSala = function () {
                     lstrIdSala = '#' + data;
                     $('#lblIdSala').text('ID da sala:');
                     $('#txtIdSala').val(lstrIdSala);
+                    $('#txtIdSala').attr('readOnly', true);
+                    
                 } catch (ex) {
                     throw ex;
                 }
@@ -77,7 +80,10 @@ ManterSala.CriarSala = function () {
 
 ManterSala.divBtnVamosAoCaso_OnClick = function () {
     var lintIdSala = new Number();
+    var lintIdJogadorSala = new Number();
     var lstrDsJogdor = new String();
+    var lobjRetorno = new Object();
+    var lobjRetornoDados = new Object();
     try {
         debugger;
         lintIdSala = parseInt(($('#txtIdSala').val()).replace('#', ''));
@@ -92,10 +98,11 @@ ManterSala.divBtnVamosAoCaso_OnClick = function () {
             },
             success: function (data, textStatus, XMLHttpRequest) {
                 try {
-                    debugger;
-                    //if (!JSON.parse(data.toLowerCase())) { throw 'Movimento inválido'; }
-                    //lintIdSala = parseInt(JSON.parse(data));
-                    
+                    lobjRetorno = JSON.parse(data);
+                    if (!lobjRetorno.Status) { throw lobjRetorno.Retorno; }
+                    lobjRetornoDados = JSON.parse(lobjRetorno.Retorno).Data;
+                    lintIdJogadorSala = lobjRetornoDados.idJogadorSala;
+                    location.href = gstrGlobalPath + 'Suspeito/Listar?idSala=' + lintIdSala + '&idJogadorSala=' + lintIdJogadorSala;
                 } catch (ex) {
                     throw ex;
                 }
