@@ -36,7 +36,7 @@ namespace Detetive.Controllers
                 return RedirectToAction("Manter", "Sala", new Operacao("Sala não encontrada.", false));
 
             var jogadoresSala = _jogadorSalaBusiness.Listar(idSala);
-            var jogadorSala = jogadoresSala.SingleOrDefault(_ => _.IdJogador == idJogadorSala);
+            var jogadorSala = jogadoresSala.SingleOrDefault(_ => _.Id == idJogadorSala);
 
             if (jogadorSala == default || jogadorSala.IdSala != sala.Id)
                 return RedirectToAction("Manter", "Sala", new Operacao("Jogador não encontrada.", false));
@@ -49,7 +49,7 @@ namespace Detetive.Controllers
             var suspeitosViewModel = Mapper.Map<List<Suspeito>, List<SuspeitoViewModel>>(_suspeitoBusiness.Listar());
             suspeitosViewModel.ForEach(suspeitoViewModel =>
             {
-                jogadorSala = jogadoresSala.First(_ => _.IdSuspeito == suspeitoViewModel.Id);
+                jogadorSala = jogadoresSala.FirstOrDefault(_ => _.IdSuspeito == suspeitoViewModel.Id);
 
                 if (jogadorSala != default)
                     suspeitoViewModel.IdJogadorSala = jogadorSala.Id;
