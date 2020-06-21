@@ -8,6 +8,7 @@ namespace Detetive.Business.Entities
     public class Arma : BaseEntity
     {
         public string Descricao { get; set; }
+        public string UrlImagem { get; set; }
 
         internal Arma()
         {

@@ -1,8 +1,7 @@
 ﻿using System;
-using System.Web;
-using System.Linq;
 using System.Collections.Generic;
-using Detetive.ViewModel.Anotacao;
+using System.Linq;
+using System.Web;
 
 namespace Detetive.ViewModel
 {

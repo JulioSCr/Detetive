@@ -1,5 +1,6 @@
 ﻿using Detetive.Business.Entities;
 using System.ComponentModel.DataAnnotations.Schema;
+using System.Data.Entity.Core.EntityClient;
 using System.Data.Entity.ModelConfiguration;
 
 namespace Detetive.Data.Context.EntityConfig

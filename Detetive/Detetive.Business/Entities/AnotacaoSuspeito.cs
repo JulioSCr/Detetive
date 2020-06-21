@@ -10,6 +10,7 @@ namespace Detetive.Business.Entities
     public class AnotacaoSuspeito : AnotacaoBaseEntity
     {
         public int IdSuspeito { get; set; }
+        public virtual Suspeito Suspeito { get; set; }
 
         internal AnotacaoSuspeito() { }
 

@@ -9,18 +9,19 @@
 @section scripts{
     <script src="@Url.Content("~/Scripts/Views/Suspeito/Listar.js?" + DateTimeOffset.Now)"></script>
 }
-    <div class="centralizar" id="Icone">
-        <img  src="~/Content/Imagens/Shared/imgLogo.svg" alt="Alternate Text" />
-    </div>
-    <div class="centralizar" id="divSuspeitos">
-        <label>Escolha seu personagem:</label>
-    </div>
-    <div id="carouselSuspeitos" class="carousel slide" data-ride="carousel">
-        
-        <div class="carousel-inner">
-            <div class="carousel-item active">
+<div class="centralizar" id="Icone">
+    <img src="~/Content/Imagens/Shared/imgLogo.svg" alt="Alternate Text" />
+</div>
+<div class="centralizar" id="divSuspeitos">
+    <label>Escolha seu personagem:</label>
+</div>
+<div id="carouselSuspeitos" class="carousel slide" data-ride="carousel">
+    <div class="carousel-inner">
+        @foreach (var suspeito in ViewBag.Suspeitos)
+        {
+            <div class="carousel-item @(suspeito.Id == ViewBag.Suspeitos[0].Id? "active": "")">
                 <div class="centralizar">
-                    <img class="d-block cartaSuspeito" src="~/Content/Imagens/CartasSuspeitos/imgCartaBibliotecaria.svg">
+                    <img data-id="@suspeito.Id" class="d-block cartaSuspeito" title="@suspeito.Descricao" src="@Url.Content(suspeito.UrlImagem)">
                 </div>
             </div>
             <div class="carousel-item">

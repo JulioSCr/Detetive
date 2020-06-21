@@ -27,16 +27,16 @@ namespace Detetive.Data.Repository
             return anotacao;
         }
 
-        public List<AnotacaoSuspeito> Listar()
+        public List<AnotacaoSuspeito> Listar(int idJogadorSala)
         {
-            return this.Context.AnotacaoSuspeitos.AsNoTracking().Where(_ => _.Ativo).ToList();
+            return this.Context.AnotacaoSuspeitos.AsNoTracking().Where(_ => _.IdJogadorSala == idJogadorSala && _.Ativo).ToList();
         }
 
-        public AnotacaoSuspeito Marcar(int idJogadorSala, int idSuspeito, bool valor)
+        public AnotacaoSuspeito Alterar(int idSuspeito, int idJogadorSala, bool valor)
         {
             var anotacao = this.Context.AnotacaoSuspeitos.Single(_ => _.IdJogadorSala == idJogadorSala && _.IdSuspeito == idSuspeito);
 
-            anotacao.Marcado = valor;
+            anotacao.Sinalar(valor);
             this.Context.SaveChanges();
 
             return anotacao;

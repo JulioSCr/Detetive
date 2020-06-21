@@ -1,4 +1,6 @@
-﻿using Detetive.Business.Business.Interfaces;
+﻿using AutoMapper;
+using Detetive.Business.Business.Interfaces;
+using Detetive.Business.Entities;
 using Detetive.ViewModel;
 using Newtonsoft.Json;
 using System;
@@ -11,10 +13,16 @@ namespace Detetive.Controllers
 {
     public class PartidaController : Controller
     {
+        private readonly ILocalBusiness _localBusiness;
+        private readonly IJogadorSalaBusiness _jogadorSalaBusiness;
         private readonly IMovimentacaoBusiness _movimentacaoBusiness;
 
-        public PartidaController(IMovimentacaoBusiness movimentacaoBusiness)
+        public PartidaController(ILocalBusiness localBusiness,
+                                 IJogadorSalaBusiness jogadorSalaBusiness,
+                                 IMovimentacaoBusiness movimentacaoBusiness)
         {
+            _localBusiness = localBusiness;
+            _jogadorSalaBusiness = jogadorSalaBusiness;
             _movimentacaoBusiness = movimentacaoBusiness;
         }
 
@@ -23,32 +31,18 @@ namespace Detetive.Controllers
             return View();
         }
 
-        public ActionResult Jogar()
+        public ActionResult Jogar(int idSala)
         {
             /// TO DO
             /// Deve retornar o ID_JOGADOR do jogador principal
             ViewBag.ID_JOGADOR_SALA = 1;
-            /// TO DO
-            /// Deve retornar o id dos ID_JOGADOR de acordo com o suspeito que o jogador possuir
-            ViewBag.JogadorSalaReitor = 1;
-            ViewBag.JogadorSalaDiretora = 2;
-            ViewBag.JogadorSalaProfessora = 3;
-            ViewBag.JogadorSalaEstudante = 4;
-            ViewBag.JogadorSalaZelador = 5;
-            ViewBag.JogadorSalaPolicial = 6;
-            ViewBag.JogadorSalaReporter = 7;
-            ViewBag.JogadorSalaBibliotecaria = 8;
-            /// TO DO
-            /// Deve retornar os ID's de cada local
-            ViewBag.IDPredioA = 1;
-            ViewBag.IDPredioB = 2;
-            ViewBag.IDSantiago = 3;
-            ViewBag.IDPraca = 4;
-            ViewBag.IDEtesp = 5;
-            ViewBag.IDCantinaAB = 6;
-            ViewBag.IDCA = 7;
-            ViewBag.IDAuditorio = 8;
-            ViewBag.IDGinasio = 9;
+
+            var jogadoresSala = _jogadorSalaBusiness.Listar(idSala);
+            ViewBag.JogadoresSuspeitos = Mapper.Map<List<JogadorSala>, List<JogadorSuspeitoViewModel>>(jogadoresSala);
+
+            var locais = _localBusiness.Listar();
+            ViewBag.Locais = Mapper.Map<List<Local>, List<LocalViewModel>>(locais);
+
             return View();
         }
 
@@ -57,9 +51,9 @@ namespace Detetive.Controllers
         /// <param name="linha" type="int">Número da linha.</param>
         /// <param name="coluna" type="int">Número da coluna.</param>
         /// <returns type="Void"></returns>
-        public bool Mover(int idJogadorSala, int linha, int coluna)
+        public string Mover(int idJogadorSala, int linha, int coluna)
         {
-            return _movimentacaoBusiness.MoverJogador(idJogadorSala, linha, coluna);
+            return JsonConvert.SerializeObject(_movimentacaoBusiness.MoverJogador(idJogadorSala, linha, coluna));
         }
 
 

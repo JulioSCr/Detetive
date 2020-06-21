@@ -1,4 +1,8 @@
-﻿using System;
+﻿using AutoMapper;
+using Detetive.Business.Business.Interfaces;
+using Detetive.Business.Entities;
+using Detetive.ViewModel;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -8,12 +12,17 @@ namespace Detetive.Controllers
 {
     public class SuspeitoController : Controller
     {
-        /// <summary>
-        /// Método controller para trazer a view de seleção de personagem
-        /// </summary>
-        /// <returns>Tela de seleção de personagem</returns>
+        private readonly ISuspeitoBusiness _suspeitoBusiness;
+
+        public SuspeitoController(ISuspeitoBusiness suspeitoBusiness)
+        {
+            _suspeitoBusiness = suspeitoBusiness;
+        }
+
         public ActionResult Listar()
         {
+            ViewBag.Suspeitos = Mapper.Map<List<Suspeito>, List<SuspeitoViewModel>>(_suspeitoBusiness.Listar());
+
             return View();
         }
 

@@ -11,11 +11,29 @@ namespace Detetive.Business.Business
 {
     public class AnotacaoSuspeitoBusiness : IAnotacaoSuspeitoBusiness
     {
+        private readonly ISuspeitoBusiness _suspeitoBusiness;
         private readonly IAnotacaoSuspeitoRepository _anotacaoSuspeitoRepository;
         
-        public AnotacaoSuspeitoBusiness(IAnotacaoSuspeitoRepository anotacaoSuspeitoRepository)
+        public AnotacaoSuspeitoBusiness(ISuspeitoBusiness suspeitoBusiness, 
+                                        IAnotacaoSuspeitoRepository anotacaoSuspeitoRepository)
         {
+            _suspeitoBusiness = suspeitoBusiness;
             _anotacaoSuspeitoRepository = anotacaoSuspeitoRepository;
+        }
+
+        public void CriarAnotacoes(int idJogadorSala)
+        {
+            var suspeitos = _suspeitoBusiness.Listar();
+            var anotacoesSuspeitos = _anotacaoSuspeitoRepository.Listar(idJogadorSala);
+
+            if (anotacoesSuspeitos != null && anotacoesSuspeitos.Any())
+            {
+                // Mantem apenas os suspeitos que ainda não foram cadastrada nas anotações no Jogador na sala.
+                suspeitos = suspeitos.Where(suspeito => !anotacoesSuspeitos.Any(anotacao => anotacao.IdSuspeito == suspeito.Id)).ToList();
+            }
+
+            // Adiciona os suspeitos que ainda não foram cadastradas.
+            suspeitos.ForEach(suspeito => Adicionar(suspeito.Id, idJogadorSala));
         }
 
         public AnotacaoSuspeito Adicionar(int idSuspeito, int idJogadorSala)
@@ -23,14 +41,18 @@ namespace Detetive.Business.Business
             return _anotacaoSuspeitoRepository.Adicionar(new AnotacaoSuspeito(idSuspeito, idJogadorSala));
         }
 
-        public List<AnotacaoSuspeito> Listar()
+        public List<AnotacaoSuspeito> Listar(int idJogadorSala)
         {
-            return _anotacaoSuspeitoRepository.Listar();
+            var lista = _anotacaoSuspeitoRepository.Listar(idJogadorSala);
+
+            lista.ForEach(_ => _.Suspeito = _suspeitoBusiness.Obter(_.IdSuspeito));
+
+            return lista;
         }
 
-        public AnotacaoSuspeito Marcar(int idJogadorSala, int idSuspeito, bool valor)
+        public AnotacaoSuspeito Alterar(int idSuspeito, int idJogadorSala, bool valor)
         {
-            return _anotacaoSuspeitoRepository.Marcar(idJogadorSala, idSuspeito, valor);
-        }
+            return _anotacaoSuspeitoRepository.Alterar(idSuspeito, idJogadorSala, valor);
+        }       
     }
 }
