@@ -31,13 +31,13 @@ namespace Detetive.Controllers
             return View();
         }
 
-        public ActionResult Jogar(int idSala)
+        public ActionResult Jogar(/*int idSala*/)
         {
             /// TO DO
             /// Deve retornar o ID_JOGADOR do jogador principal
             ViewBag.ID_JOGADOR_SALA = 1;
 
-            var jogadoresSala = _jogadorSalaBusiness.Listar(idSala);
+            var jogadoresSala = _jogadorSalaBusiness.Listar(1007);
             ViewBag.JogadoresSuspeitos = Mapper.Map<List<JogadorSala>, List<JogadorSuspeitoViewModel>>(jogadoresSala);
 
             var locais = _localBusiness.Listar();
