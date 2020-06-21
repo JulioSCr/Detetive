@@ -12,11 +12,10 @@ namespace Detetive.Mappers
     {
         public MapperJogadorSalaToJogadorSalaViewModel()
         {
-            //CreateMap<JogadorSala, JogadorSalaViewModel>()
-            //    .ForMember(viewModel => viewModel.Id, _ => _.MapFrom(model => model.Id))
-            //    .ForMember(viewModel => viewModel.Posicao.Linha, _ => _.MapFrom(model => model.CoordenadaLinha))
-            //    .ForMember(viewModel => viewModel.Posicao.Coluna, _ => _.MapFrom(model => model.CoordenadaColuna))
-            //    .ForMember(viewModel => viewModel.Posicao.IdLocal, _ => _.MapFrom(model => model.));
+            CreateMap<JogadorSala, JogadorSalaViewModel>()
+                .ForMember(viewModel => viewModel.Id, _ => _.MapFrom(model => model.Id))
+                .ForMember(viewModel => viewModel.Posicao.Linha, _ => _.MapFrom(model => model.CoordenadaLinha))
+                .ForMember(viewModel => viewModel.Posicao.Coluna, _ => _.MapFrom(model => model.CoordenadaColuna));
         }
 
         public override string ProfileName

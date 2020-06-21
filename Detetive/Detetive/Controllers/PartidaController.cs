@@ -3,10 +3,12 @@ using Detetive.Business.Business.Interfaces;
 using Detetive.Business.Entities;
 using Detetive.ViewModel;
 using Detetive.ViewModel.Anotacao;
+using Detetive.ViewModel.Tabuleiro;
 using Microsoft.EntityFrameworkCore.Internal;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Web.Mvc;
 
 namespace Detetive.Controllers
@@ -14,6 +16,7 @@ namespace Detetive.Controllers
     public class PartidaController : Controller
     {
         private readonly ILocalBusiness _localBusiness;
+        private readonly IPortaLocalBusiness _portaLocalBusiness;
         private readonly IJogadorSalaBusiness _jogadorSalaBusiness;
         private readonly IMovimentacaoBusiness _movimentacaoBusiness;
         private readonly IAnotacaoArmaBusiness _anotacaoArmaBusiness;
@@ -25,9 +28,11 @@ namespace Detetive.Controllers
                                  IMovimentacaoBusiness movimentacaoBusiness,
                                  IAnotacaoArmaBusiness anotacaoArmaBusiness,
                                  IAnotacaoLocalBusiness anotacaoLocalBusiness,
-                                 IAnotacaoSuspeitoBusiness anotacaoSuspeitoBusiness)
+                                 IAnotacaoSuspeitoBusiness anotacaoSuspeitoBusiness,
+                                 IPortaLocalBusiness portaLocalBusiness)
         {
             _localBusiness = localBusiness;
+            _portaLocalBusiness = portaLocalBusiness;
             _jogadorSalaBusiness = jogadorSalaBusiness;
             _movimentacaoBusiness = movimentacaoBusiness;
             _anotacaoArmaBusiness = anotacaoArmaBusiness;
@@ -81,8 +86,12 @@ namespace Detetive.Controllers
             if (jogadoresSala == null || !jogadoresSala.Any())
                 return String.Empty;
 
-            /// Em caso de dúvida olhar o objeto de retorno em ~/Scripts/Views/Partida/Jogar.js
-            return JsonConvert.SerializeObject("");
+            var portasLocais = _portaLocalBusiness.Listar();
+            var jogadoresViewModel = Mapper.Map<List<JogadorSala>, List<JogadorSalaViewModel>>(jogadoresSala);
+
+            jogadoresViewModel = CarregarLocaisJogadoresViewModel(jogadoresViewModel, portasLocais);
+
+            return JsonConvert.SerializeObject(jogadoresViewModel);
         }
 
         public string MapearTabuleiro()
@@ -131,6 +140,23 @@ namespace Detetive.Controllers
             ViewBag.AnotacaoArma = Mapper.Map<List<AnotacaoArma>, List<AnotacaoArmaViewModel>>(_anotacaoArmaBusiness.Listar(idJogadorSala));
             ViewBag.AnotacaoLocal = Mapper.Map<List<AnotacaoLocal>, List<AnotacaoLocalViewModel>>(_anotacaoLocalBusiness.Listar(idJogadorSala));
             ViewBag.AnotacaoSuspeito = Mapper.Map<List<AnotacaoSuspeito>, List<AnotacaoSuspeitoViewModel>>(_anotacaoSuspeitoBusiness.Listar(idJogadorSala));
+        }
+
+        private List<JogadorSalaViewModel> CarregarLocaisJogadoresViewModel(List<JogadorSalaViewModel> jogadoresViewModel, List<PortaLocal> portasLocais)
+        {
+            if (portasLocais == null || !portasLocais.Any())
+                return jogadoresViewModel;
+
+            jogadoresViewModel.ForEach(jogadorViewModel =>
+            {
+                var portaLocal = portasLocais.FirstOrDefault(_ => _.CoordenadaLinha == jogadorViewModel.Posicao.Linha &&
+                                                                    _.CoordenadaColuna == jogadorViewModel.Posicao.Coluna);
+
+                if (portaLocal != default)
+                    jogadorViewModel.Posicao.IdLocal = portaLocal.IdLocal;
+            });
+
+            return jogadoresViewModel;
         }
     }
 }
