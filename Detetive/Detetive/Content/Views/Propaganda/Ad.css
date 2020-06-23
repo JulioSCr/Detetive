@@ -1,0 +1,21 @@
+﻿div {
+    padding-top: 50%;
+    padding-bottom: 50%;
+    padding-right: 50%;
+    padding-left: 50%;
+}
+
+    div.showme {
+        visibility: visible;
+    }
+
+    div.hideme {
+        visibility: hidden;
+    }
+
+#close {
+    float: right;
+    display: inline-block;
+    padding: 2px 5px;
+    background: #ccc;
+}
