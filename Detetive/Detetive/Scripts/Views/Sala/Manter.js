@@ -85,7 +85,6 @@ ManterSala.divBtnVamosAoCaso_OnClick = function () {
     var lobjRetorno = new Object();
     var lobjRetornoDados = new Object();
     try {
-        debugger;
         lintIdSala = parseInt(($('#txtIdSala').val()).replace('#', ''));
         lstrDsJogdor = $('#txtNick').val();
         if (lstrDsJogdor == '') { throw 'Erro: Obrigatório inserir um nick para o jogador.'; }

@@ -2,6 +2,7 @@
 using Detetive.Business.Business.Interfaces;
 using Detetive.Business.Entities;
 using Detetive.ViewModel;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -53,7 +54,10 @@ namespace Detetive.Controllers
                 jogadorSala = jogadoresSala.FirstOrDefault(_ => _.IdSuspeito == suspeitoViewModel.Id);
 
                 if (jogadorSala != default)
+                {
                     suspeitoViewModel.IdJogadorSala = jogadorSala.Id;
+                    suspeitoViewModel.NickJogador = jogadorSala != null ? _jogadorBusiness.Obter(jogadorSala.IdJogador).Descricao : "";
+                }
             });
 
             ViewBag.Suspeitos = suspeitosViewModel;
@@ -61,9 +65,61 @@ namespace Detetive.Controllers
             return View();
         }
 
-        public ActionResult Teste()
+        [HttpPost]
+        public string SelecionarSuspeito(int idSala, int idJogadorSala, int idSuspeito)
         {
-            return View();
+            try
+            {
+                string descricaoSuspeito = "";
+                var jogadorSala = _jogadorSalaBusiness.Obter(idJogadorSala);
+
+                if(jogadorSala.IdSuspeito != null)
+                {
+                    int idSuspeitoDesconsiderado = jogadorSala.IdSuspeito ?? 0;
+                    if (idSuspeitoDesconsiderado > 0)
+                        descricaoSuspeito = _suspeitoBusiness.Obter(idSuspeitoDesconsiderado).Descricao;
+                }
+                
+                _jogadorSalaBusiness.SelecionarSuspeito(idSala, idJogadorSala, idSuspeito);
+
+                var jogador = _jogadorBusiness.Obter(jogadorSala.IdJogador);
+
+                var retorno = Json(new
+                {
+                    DescricaoJogador = jogador.Descricao,
+                    DescricaoSuspeito = descricaoSuspeito
+                }, "json");
+
+                var operacao = new Operacao(JsonConvert.SerializeObject(retorno), true);
+
+                return JsonConvert.SerializeObject(operacao);
+            }
+            catch (Exception ex)
+            {
+                return JsonConvert.SerializeObject(new Operacao(ex.Message, false));
+            }
+        }
+
+        [HttpPost]
+        public string DesconsiderarSuspeito(int idJogadorSala)
+        {
+            try
+            {
+                var suspeito = _jogadorSalaBusiness.ObterSuspeitoSelecionado(idJogadorSala);
+                _jogadorSalaBusiness.DesconsiderarSuspeitoSelecionado(idJogadorSala);
+
+                var retorno = new
+                {
+                    DescricaoSuspeito = suspeito.Descricao
+                };
+
+                var operacao = new Operacao(JsonConvert.SerializeObject(retorno), true);
+                return JsonConvert.SerializeObject(operacao);
+            }
+            catch (Exception ex)
+            {
+                return JsonConvert.SerializeObject(new Operacao(ex.Message, false));
+            }
         }
     }
 }

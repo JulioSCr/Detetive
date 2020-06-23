@@ -204,30 +204,74 @@ namespace Detetive.Business.Business
             return _jogadorSalaRepository.Obter(idJogador, idSala);
         }
 
-        public Operacao SelecionarSuspeito(int idSala, int idJogadorSala, int idSuspeito)
+        public Suspeito ObterSuspeitoSelecionado(int idJogadorSala)
         {
-            if (idSala <= 0)
-                return new Operacao("Id da sala não informado", false);
+            try
+            {
+                if (idJogadorSala <= 0)
+                    throw new ArgumentException("Id do jogador sala não informado");
 
-            if (idJogadorSala <= 0)
-                return new Operacao("Id do jogador não informado", false);
+                var jogadorSala = _jogadorSalaRepository.Obter(idJogadorSala);
+                if (jogadorSala == default)
+                    throw new NullReferenceException("Jogador não encotrado.");
 
-            if (idSuspeito <= 0)
-                return new Operacao("Id do suspeito não informado", false);
+                int idSuspeito = jogadorSala.IdSuspeito ?? 0;
+                if (idSuspeito == 0)
+                    throw new NullReferenceException("Suspeito não encotrado.");
 
-            var jogadorSala = _jogadorSalaRepository.Obter(idJogadorSala);
-            if (jogadorSala == default || jogadorSala.IdSala != idSala)
-                return new Operacao("Jogador não encotrado.", false);
+                return _suspeitoBusiness.Obter(idSuspeito);
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
 
-            var suspeito = _suspeitoBusiness.Obter(idSuspeito);
-            if(suspeito == default)
-                return new Operacao("Suspeito não encotrado.", false);
+        public void SelecionarSuspeito(int idSala, int idJogadorSala, int idSuspeito)
+        {
+            try
+            {
+                if (idSala <= 0)
+                    throw new ArgumentException("Id da sala não informado");
 
-            jogadorSala.AlterarSuspeito(suspeito.Id);
+                if (idJogadorSala <= 0)
+                    throw new ArgumentException("Id do jogador não informado");
 
-            _jogadorSalaRepository.Alterar(jogadorSala);
+                if (idSuspeito <= 0)
+                    throw new ArgumentException("Id do suspeito não informado");
 
-            return new Operacao($"{suspeito.Descricao} selecionado com sucesso!");
+                var jogadorSala = _jogadorSalaRepository.Obter(idJogadorSala);
+                if (jogadorSala == default || jogadorSala.IdSala != idSala)
+                    throw new NullReferenceException("Jogador não encotrado.");
+
+                var suspeito = _suspeitoBusiness.Obter(idSuspeito);
+                if (suspeito == default)
+                    throw new NullReferenceException("Suspeito não encotrado.");
+
+                jogadorSala.AlterarSuspeito(suspeito.Id);
+
+                _jogadorSalaRepository.Alterar(jogadorSala);
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+
+        public void DesconsiderarSuspeitoSelecionado(int idJogadorSala)
+        {
+            try
+            {
+                if (idJogadorSala <= 0)
+                    throw new ArgumentException("Id do jogador sala não informado.");
+                var jogadorSala = _jogadorSalaRepository.Obter(idJogadorSala);
+                jogadorSala.AlterarSuspeito(null);
+                _jogadorSalaRepository.Alterar(jogadorSala);
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
         }
 
         private void GerarAnotacoesJogador(JogadorSala jogadorSala)

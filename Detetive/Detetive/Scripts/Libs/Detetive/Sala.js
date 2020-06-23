@@ -56,12 +56,12 @@ Sala.Configurar = function () {
         Jogar.TransmitirTeletransporte(pintID_JOGADOR_SALA, pintIDLocal);
     }
 
-    Sala.mHubSala.client.TransmitirSelecaoSuspeito = function (pintIdJogadorSala, pintIdSuspeito) {
-        Listar.TransmitirSelecaoSuspeito(pintIdJogadorSala, pintIdSuspeito);
+    Sala.mHubSala.client.TransmitirSelecaoSuspeito = function (pintIdJogadorSala, pintIdSuspeito, pstrDescricaoJogador, pstrDescricaoSuspeito) {
+        Listar.TransmitirSelecaoSuspeito(pintIdJogadorSala, pintIdSuspeito, pstrDescricaoJogador, pstrDescricaoSuspeito);
     }
 
-    Sala.mHubSala.client.TransmitirDesconsideracaoSuspeito = function (pintIdJogadorSala, pintIdSuspeito) {
-        Listar.TransmitirDesconsideracaoSuspeito(pintIdJogadorSala, pintIdSuspeito);
+    Sala.mHubSala.client.TransmitirDesconsideracaoSuspeito = function (pintIdJogadorSala, pDescricaoSuspeito) {
+        Listar.TransmitirDesconsideracaoSuspeito(pintIdJogadorSala, pDescricaoSuspeito);
     }
 
     Sala.mHubSala.client.erro = function (vstrMensagem, vstrMensagemTecnica) {
@@ -104,7 +104,32 @@ Sala.DeixarGrupo = function (pstrNomeGrupo) {
 
 Sala.SelecionarSuspeito = function (pintIdSala, pintIdJogadorSala, pintIdSuspeito) {
     try {
-        Sala.mHubSala.server.selecaoSuspeito(pintIdSala, pintIdJogadorSala, pintIdSuspeito).done(function () { });
+        $.ajax({
+            url: gstrGlobalPath + 'Suspeito/SelecionarSuspeito',
+            type: 'post',
+            data: {
+                idSala: pintIdSala,
+                idJogadorSala: pintIdJogadorSala,
+                idSuspeito: pintIdSuspeito
+            },
+            success: function (data, textStatus, XMLHttpRequest) {
+                var lobjResltado = new Object();
+                var lstrDescricaoJogador = new String();
+                var lstrDescricaoSuspeito = new String();
+                try {
+                    lobjResltado = JSON.parse(data);
+                    if (!lobjResltado.Status) { throw data.Retorno; }
+                    lstrDescricaoJogador = JSON.parse(lobjResltado.Retorno).Data.DescricaoJogador;
+                    lstrDescricaoSuspeito = JSON.parse(lobjResltado.Retorno).Data.DescricaoSuspeito
+                    Sala.mHubSala.server.selecaoSuspeito(pintIdSala, pintIdJogadorSala, pintIdSuspeito, lstrDescricaoJogador, lstrDescricaoSuspeito).done(function () { });
+                } catch (ex) {
+                    throw ex;
+                }
+            },
+            error: function (request, status, error) {
+                alert(request.responseText);
+            }
+        });
     } catch (ex) {
         throw ex;
     }
@@ -112,7 +137,25 @@ Sala.SelecionarSuspeito = function (pintIdSala, pintIdJogadorSala, pintIdSuspeit
 
 Sala.DesconsiderarSuspeito = function (pintIdSala, pintIdJogadorSala) {
     try {
-        Sala.mHubSala.server.desconsiderarSuspeito(pintIdSala, pintIdJogadorSala).done(function () { });
+        $.ajax({
+            url: gstrGlobalPath + 'Suspeito/DesconsiderarSuspeito',
+            type: 'post',
+            data: {
+                idJogadorSala: pintIdJogadorSala
+            },
+            success: function (data, textStatus, XMLHttpRequest) {
+                var lobjResltado = new Object();
+                var lstrDescricaoSuspeito = new String();
+                try {
+                    lobjResltado = JSON.parse(data);
+                    if (!lobjResltado.Status) { throw data.Retorno; }
+                    lstrDescricaoSuspeito = JSON.parse(lobjResltado.Retorno).DescricaoSuspeito
+                    Sala.mHubSala.server.desconsiderarSuspeito(pintIdSala, pintIdJogadorSala, lstrDescricaoSuspeito).done(function () { });
+                } catch (ex) {
+                    throw ex;
+                }
+            }
+        });
     } catch (ex) {
         throw ex;
     }

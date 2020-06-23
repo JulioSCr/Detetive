@@ -1,4 +1,7 @@
-﻿using Microsoft.AspNet.SignalR;
+﻿using Detetive.Business.Business;
+using Detetive.Business.Business.Interfaces;
+using Detetive.Injection;
+using Microsoft.AspNet.SignalR;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -80,11 +83,11 @@ namespace Detetive.Hubs
         /// </summary>
         /// <param name="pIdSala"></param>
         /// <param name="pIdJogadorSala"></param>
-        public void selecaoSuspeito(int pIdSala, int pIdJogadorSala, int pIdSuspeito)
+        public void selecaoSuspeito(int pIdSala, int pIdJogadorSala, int pIdSuspeito, string pDescricaoJogador, string pDescricaoSuspeito)
         {
             try
             {
-                Clients.Group(pIdSala.ToString()).TransmitirSelecaoSuspeito(pIdJogadorSala, pIdSuspeito);
+                Clients.Group(pIdSala.ToString()).TransmitirSelecaoSuspeito(pIdJogadorSala, pIdSuspeito, pDescricaoJogador, pDescricaoSuspeito);
             }
             catch (Exception ex)
             {
@@ -92,11 +95,11 @@ namespace Detetive.Hubs
             }
         }
 
-        public void DesconsiderarSuspeito(int pIdSala, int pIdJogadorSala)
+        public void DesconsiderarSuspeito(int pIdSala, int pIdJogadorSala, string pDescricaoSuspeito)
         {
             try
             {
-                Clients.Group(pIdSala.ToString()).TransmitirDesconsideracaoSuspeito(pIdJogadorSala);
+                Clients.Group(pIdSala.ToString()).TransmitirDesconsideracaoSuspeito(pIdJogadorSala, pDescricaoSuspeito);
             }
             catch (Exception ex)
             {

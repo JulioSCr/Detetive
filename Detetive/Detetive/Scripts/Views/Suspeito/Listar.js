@@ -37,11 +37,12 @@ Listar.Suspeito_OnClick = function (e) {
     }
 }
 
-Listar.TransmitirSelecaoSuspeito = function (pintIdJogadorSala, pintIdSuspeito) {
+Listar.TransmitirSelecaoSuspeito = function (pintIdJogadorSala, pintIdSuspeito, pstrDescricaoJogador, pstrDescricaoSuspeito) {
     try {
         if ($('.cartaSuspeito[data-idjogadorsala=' + pintIdJogadorSala + ']').length > 0) {
-            Listar.TransmitirDesconsideracaoSuspeito(pintIdJogadorSala);
+            Listar.TransmitirDesconsideracaoSuspeito(pintIdJogadorSala, pstrDescricaoSuspeito);
         }
+        $('.cartaSuspeito[data-id=' + pintIdSuspeito + ']').attr('title', pstrDescricaoJogador);
         $('.cartaSuspeito[data-id=' + pintIdSuspeito + ']').addClass('selected');
         $('.cartaSuspeito[data-id=' + pintIdSuspeito + ']').data().idjogadorsala = pintIdJogadorSala;
         $('.cartaSuspeito[data-id=' + pintIdSuspeito + ']').attr('data-idjogadorsala', pintIdJogadorSala);
@@ -50,9 +51,10 @@ Listar.TransmitirSelecaoSuspeito = function (pintIdJogadorSala, pintIdSuspeito) 
     }
 }
 
-Listar.TransmitirDesconsideracaoSuspeito = function (pintIdJogadorSala) {
+Listar.TransmitirDesconsideracaoSuspeito = function (pintIdJogadorSala, pstrDescricaoSuspeito) {
     try {
         if ($('.cartaSuspeito[data-idjogadorsala=' + pintIdJogadorSala + ']').length > 0) {
+            $('.cartaSuspeito[data-idjogadorsala=' + pintIdJogadorSala + ']').attr('title', pstrDescricaoSuspeito);
             $('.cartaSuspeito[data-idjogadorsala=' + pintIdJogadorSala + ']').removeClass('selected');
             $('.cartaSuspeito[data-idjogadorsala=' + pintIdJogadorSala + ']').data().idjogadorsala = 0;
             $('.cartaSuspeito[data-idjogadorsala=' + pintIdJogadorSala + ']').attr('data-idjogadorsala', 0);
