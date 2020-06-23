@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Detetive.Business.Entities;
+using System;
 using System.CodeDom.Compiler;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,6 +10,6 @@ namespace Detetive.Business.Business.Interfaces
 {
     public interface IMovimentacaoBusiness
     {
-        bool MoverJogador(int ID_JOGADOR, int linhaMovimento, int colunaMovimento);
+        Operacao MoverJogador(int idJogadorSala, int novaCoordenadaLinha, int novaCoordenadaColuna);
     }
 }

@@ -9,6 +9,8 @@ namespace Detetive.ViewModel.Tabuleiro
     {
         public int Linha { get; set; }
         public int Coluna { get; set; }
-        public int IdLocal { get; set; }
+        public int? IdLocal { get; set; }
+
+        internal PosicaoViewModel() { Linha = 1; Coluna = 1; }
     }
 }

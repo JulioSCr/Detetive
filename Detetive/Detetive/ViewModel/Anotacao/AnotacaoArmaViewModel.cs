@@ -5,7 +5,8 @@ using System.Web;
 
 namespace Detetive.ViewModel.Anotacao
 {
-    public class SuspeitoViewModel : BaseViewModel
+    public class AnotacaoArmaViewModel : BaseViewModel
     {
+        internal AnotacaoArmaViewModel() { }
     }
 }

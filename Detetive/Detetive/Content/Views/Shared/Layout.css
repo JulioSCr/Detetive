@@ -7,9 +7,18 @@
     font-family: sans-serif;
 }
 
-main{
+main {
     height: 100%;
 }
+
+.btn.btn-primary {
+    background: #B80E0F;
+    border: 1px solid black;
+}
+
+    .btn.btn-primary:hover {
+        box-shadow: 0 0 10px 0 rgba(0,0,0,.7);
+    }
 
 /* #region Cabeçalho */
 /*#hdrLayout_Cabecalho {

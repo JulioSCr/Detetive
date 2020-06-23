@@ -54,10 +54,13 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Context\DetetiveContext.cs" />
+    <Compile Include="Context\EntityConfig\PortaLocalConfig.cs" />
+    <Compile Include="Context\EntityConfig\CrimeConfig.cs" />
     <Compile Include="Context\EntityConfig\AnotacaoArmaConfig.cs" />
     <Compile Include="Context\EntityConfig\AnotacaoLocalConfig.cs" />
     <Compile Include="Context\EntityConfig\AnotacaoSuspeitoConfig.cs" />
     <Compile Include="Context\EntityConfig\JogadorConfig.cs" />
+    <Compile Include="Context\EntityConfig\JogadorSalaConfig.cs" />
     <Compile Include="Context\EntityConfig\SalaConfig.cs" />
     <Compile Include="Context\EntityConfig\LocalConfig.cs" />
     <Compile Include="Context\EntityConfig\ArmaConfig.cs" />
@@ -68,9 +71,11 @@
     <Compile Include="Repository\AnotacaoSuspeitoRepository.cs" />
     <Compile Include="Repository\ArmaRepository.cs" />
     <Compile Include="Repository\Base\BaseRepository.cs" />
+    <Compile Include="Repository\CrimeRepository.cs" />
     <Compile Include="Repository\JogadorSalaRepository.cs" />
     <Compile Include="Repository\JogadorRepository.cs" />
     <Compile Include="Repository\LocalRepository.cs" />
+    <Compile Include="Repository\PortaLocalRepository.cs" />
     <Compile Include="Repository\SalaRepository.cs" />
     <Compile Include="Repository\SuspeitoRepository.cs" />
   </ItemGroup>
@@ -81,7 +86,6 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <None Include="App.config" />
     <None Include="packages.config" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

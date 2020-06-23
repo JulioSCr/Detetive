@@ -9,6 +9,7 @@ namespace Detetive.Business.Data.Interfaces
 {
     public interface IArmaRepository
     {
+        Arma Obter(int idArma);
         List<Arma> Listar();
     }
 }

@@ -9,8 +9,8 @@ namespace Detetive.Business.Business.Interfaces
 {
     public interface IAnotacaoLocalBusiness
     {
-        List<AnotacaoLocal> Listar();
-        AnotacaoLocal Adicionar(int idLocal, int idJogadorSala);
-        AnotacaoLocal Marcar(int idJogadorSala, int idLocal, bool valor);
+        List<AnotacaoLocal> Listar(int idJogadorSala);
+        void CriarAnotacoes(int idJogadorSala);
+        AnotacaoLocal Alterar(int idLocal, int idJogadorSala, bool valor);
     }
 }

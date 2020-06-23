@@ -1,0 +1,53 @@
+﻿@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@section head{
+    <link rel="stylesheet" href="@Url.Content("~/Content/Views/ManterSala/ManterSala.css?" + DateTimeOffset.Now)" />
+}
+
+@section scripts{
+    <script src="@Url.Content("~/Scripts/Views/ManterSala/ManterSala.js?" + DateTimeOffset.Now)"></script>
+}
+
+
+<section id="secSuperior">
+<div class="centralizar"  id="divLogo">
+    <img src="~/Content/Imagens/Shared/imgLogo.svg" id="divLogo"
+</div>
+</section>
+
+<section class="centralizar" id="secAcoes">
+    <div id="divBotoes">
+        <div>
+            <button class="centralizar" id="divBtnCriarSala" onclick="href='..'">
+                Criar Sala
+            </button>
+        </div>
+
+        <div>
+            <button id="divBtnIngressar" onclick="location.href='..'">
+                Ingressar
+            </button>
+        </div>
+
+        <div>
+            <button id="divBtnVoltar" onclick="location.href='..'">
+                Voltar
+            </button>
+        </div>
+       
+    </div>
+
+    <div classe="centralizar" id="divInputs">
+        <div>
+            <label for="txtIdSasla">Informe o ID da Sala:</label>
+        </div>
+        <div>
+            <input type="text" id="txtIdSala" placeholder="Digite o #IdSala">
+        </div>
+        <div>
+            <button id="divBtnVamosAoCaso" onclick="location.href='..'">Vamos Ao Caso</button>
+        </div>
+    </div>
+</section>

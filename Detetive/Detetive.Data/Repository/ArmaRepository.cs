@@ -17,7 +17,12 @@ namespace Detetive.Data.Repository
 
         public List<Arma> Listar()
         {
-            return this.Context.Armas.ToList();
+            return this.Context.Armas.AsNoTracking().Where(_ => _.Ativo).ToList();
+        }
+
+        public Arma Obter(int idArma)
+        {
+            return this.Context.Armas.AsNoTracking().SingleOrDefault(_ => _.Id == idArma && _.Ativo);
         }
     }
 }

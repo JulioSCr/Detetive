@@ -29,32 +29,7 @@
     background-size: cover;
     background-position: center center;
     background-attachment: inherit;
-    grid-template-areas:
-        ". . . . . . . . . . . . . . . . . . . . . . . . . . santiago santiago santiago santiago santiago santiago"
-        ". . . . . . . . . . . . . . . . . . . . . . . . . . santiago santiago santiago santiago santiago santiago"
-        ". . . . . . . . . . . . . . . . . auditorio auditorio auditorio auditorio auditorio auditorio auditorio . . santiago santiago santiago santiago santiago santiago"
-        ". . . . . . . . . . . . . . . . . auditorio auditorio auditorio auditorio auditorio auditorio auditorio . . santiago santiago santiago santiago santiago santiago"
-        ". . . . . . . . . . . . . . . . . auditorio auditorio auditorio auditorio auditorio auditorio auditorio . . santiago santiago santiago santiago santiago santiago"
-        ". . . . . . . . . . . . . . . . . auditorio auditorio auditorio auditorio auditorio auditorio auditorio . . santiago santiago santiago santiago santiago santiago"
-        ". . . . . . . . . . . . . . . . . auditorio auditorio auditorio auditorio auditorio auditorio auditorio . . santiago santiago santiago santiago santiago santiago"
-        ". . . . . . . . . . . . . . . . . auditorio auditorio auditorio auditorio auditorio auditorio auditorio . . santiago santiago santiago santiago santiago santiago"
-        ". . . . . . . . . . . . . . . . . ginasio ginasio ginasio ginasio ginasio ginasio ginasio . . santiago santiago santiago santiago santiago santiago"
-        ". . . . . . . . . . . . . . . . . ginasio ginasio ginasio ginasio ginasio ginasio ginasio . . . . . . . ."
-        "predioA predioA predioA predioA predioA predioA . . predioB predioB predioB predioB predioB predioB . . . ginasio ginasio ginasio ginasio ginasio ginasio ginasio . . . . . . . ."
-        "predioA predioA predioA predioA predioA predioA . . predioB predioB predioB predioB predioB predioB . . . ginasio ginasio ginasio ginasio ginasio ginasio ginasio . . ca ca ca ca ca ca"
-        "predioA predioA predioA predioA predioA predioA . . predioB predioB predioB predioB predioB predioB . . . ginasio ginasio ginasio ginasio ginasio ginasio ginasio . . ca ca ca ca ca ca"
-        "predioA predioA predioA predioA predioA predioA . . predioB predioB predioB predioB predioB predioB . . . ginasio ginasio ginasio ginasio ginasio ginasio ginasio . . ca ca ca ca ca ca"
-        "predioA predioA predioA predioA predioA predioA . . predioB predioB predioB predioB predioB predioB . . . ginasio ginasio ginasio ginasio ginasio ginasio ginasio . . ca ca ca ca ca ca"
-        "predioA predioA predioA predioA predioA predioA . . predioB predioB predioB predioB predioB predioB . . . ginasio ginasio ginasio ginasio ginasio ginasio ginasio . . ca ca ca ca ca ca"
-        "predioA predioA predioA predioA predioA predioA . . predioB predioB predioB predioB predioB predioB . . . ginasio ginasio ginasio ginasio ginasio ginasio ginasio . . ca ca ca ca ca ca"
-        ". . . . . . . . . . . . . . . . . . . . . . . . . . ca ca ca ca ca ca"
-        ". . . . . . . . . . . . . . . . . . . . . . . . . . ca ca ca ca ca ca"
-        "cantinaAB cantinaAB cantinaAB cantinaAB cantinaAB cantinaAB . . etesp etesp etesp etesp etesp etesp . praca praca praca praca praca praca praca praca praca . . ca ca ca ca ca ca"
-        "cantinaAB cantinaAB cantinaAB cantinaAB cantinaAB cantinaAB . . etesp etesp etesp etesp etesp etesp . praca praca praca praca praca praca praca praca praca . . ca ca ca ca ca ca"
-        "cantinaAB cantinaAB cantinaAB cantinaAB cantinaAB cantinaAB . . etesp etesp etesp etesp etesp etesp . praca praca praca praca praca praca praca praca praca . . ca ca ca ca ca ca"
-        "cantinaAB cantinaAB cantinaAB cantinaAB cantinaAB cantinaAB . . etesp etesp etesp etesp etesp etesp . praca praca praca praca praca praca praca praca praca . . ca ca ca ca ca ca"
-        "cantinaAB cantinaAB cantinaAB cantinaAB cantinaAB cantinaAB . . etesp etesp etesp etesp etesp etesp . praca praca praca praca praca praca praca praca praca . . ca ca ca ca ca ca"
-        "cantinaAB cantinaAB cantinaAB cantinaAB cantinaAB cantinaAB . . etesp etesp etesp etesp etesp etesp . praca praca praca praca praca praca praca praca praca . . ca ca ca ca ca ca";
+    grid-template-areas: ". . . . . . . . . . . . . . . . . . . . . . . . . . santiago santiago santiago santiago santiago santiago" ". . . . . . . . . . . . . . . . . . . . . . . . . . santiago santiago santiago santiago santiago santiago" ". . . . . . . . . . . . . . . . . auditorio auditorio auditorio auditorio auditorio auditorio auditorio . . santiago santiago santiago santiago santiago santiago" ". . . . . . . . . . . . . . . . . auditorio auditorio auditorio auditorio auditorio auditorio auditorio . . santiago santiago santiago santiago santiago santiago" ". . . . . . . . . . . . . . . . . auditorio auditorio auditorio auditorio auditorio auditorio auditorio . . santiago santiago santiago santiago santiago santiago" ". . . . . . . . . . . . . . . . . auditorio auditorio auditorio auditorio auditorio auditorio auditorio . . santiago santiago santiago santiago santiago santiago" ". . . . . . . . . . . . . . . . . auditorio auditorio auditorio auditorio auditorio auditorio auditorio . . santiago santiago santiago santiago santiago santiago" ". . . . . . . . . . . . . . . . . auditorio auditorio auditorio auditorio auditorio auditorio auditorio . . santiago santiago santiago santiago santiago santiago" ". . . . . . . . . . . . . . . . . ginasio ginasio ginasio ginasio ginasio ginasio ginasio . . santiago santiago santiago santiago santiago santiago" ". . . . . . . . . . . . . . . . . ginasio ginasio ginasio ginasio ginasio ginasio ginasio . . . . . . . ." "predioA predioA predioA predioA predioA predioA . . predioB predioB predioB predioB predioB predioB . . . ginasio ginasio ginasio ginasio ginasio ginasio ginasio . . . . . . . ." "predioA predioA predioA predioA predioA predioA . . predioB predioB predioB predioB predioB predioB . . . ginasio ginasio ginasio ginasio ginasio ginasio ginasio . . ca ca ca ca ca ca" "predioA predioA predioA predioA predioA predioA . . predioB predioB predioB predioB predioB predioB . . . ginasio ginasio ginasio ginasio ginasio ginasio ginasio . . ca ca ca ca ca ca" "predioA predioA predioA predioA predioA predioA . . predioB predioB predioB predioB predioB predioB . . . ginasio ginasio ginasio ginasio ginasio ginasio ginasio . . ca ca ca ca ca ca" "predioA predioA predioA predioA predioA predioA . . predioB predioB predioB predioB predioB predioB . . . ginasio ginasio ginasio ginasio ginasio ginasio ginasio . . ca ca ca ca ca ca" "predioA predioA predioA predioA predioA predioA . . predioB predioB predioB predioB predioB predioB . . . ginasio ginasio ginasio ginasio ginasio ginasio ginasio . . ca ca ca ca ca ca" "predioA predioA predioA predioA predioA predioA . . predioB predioB predioB predioB predioB predioB . . . ginasio ginasio ginasio ginasio ginasio ginasio ginasio . . ca ca ca ca ca ca" ". . . . . . . . . . . . . . . . . . . . . . . . . . ca ca ca ca ca ca" ". . . . . . . . . . . . . . . . . . . . . . . . . . ca ca ca ca ca ca" "cantinaAB cantinaAB cantinaAB cantinaAB cantinaAB cantinaAB . . etesp etesp etesp etesp etesp etesp . praca praca praca praca praca praca praca praca praca . . ca ca ca ca ca ca" "cantinaAB cantinaAB cantinaAB cantinaAB cantinaAB cantinaAB . . etesp etesp etesp etesp etesp etesp . praca praca praca praca praca praca praca praca praca . . ca ca ca ca ca ca" "cantinaAB cantinaAB cantinaAB cantinaAB cantinaAB cantinaAB . . etesp etesp etesp etesp etesp etesp . praca praca praca praca praca praca praca praca praca . . ca ca ca ca ca ca" "cantinaAB cantinaAB cantinaAB cantinaAB cantinaAB cantinaAB . . etesp etesp etesp etesp etesp etesp . praca praca praca praca praca praca praca praca praca . . ca ca ca ca ca ca" "cantinaAB cantinaAB cantinaAB cantinaAB cantinaAB cantinaAB . . etesp etesp etesp etesp etesp etesp . praca praca praca praca praca praca praca praca praca . . ca ca ca ca ca ca" "cantinaAB cantinaAB cantinaAB cantinaAB cantinaAB cantinaAB . . etesp etesp etesp etesp etesp etesp . praca praca praca praca praca praca praca praca praca . . ca ca ca ca ca ca";
 }
 
 #divAnotacoes {
@@ -217,6 +192,16 @@
     background-attachment: inherit;
 }
 
+#btnFinalizarTurno {
+    background-image: url(../../Imagens/Shared/imgTurno.svg);
+    background-repeat: no-repeat;
+    background-size: 15px;
+    background-position: center center;
+    background-attachment: inherit;
+    grid-column: 1;
+    grid-row: 1;
+}
+
 #btnDireita {
     grid-column: 3;
     grid-row: 2;
@@ -255,8 +240,6 @@
 }
 
 .botoes.botoesOpcoes {
-    width: 100px;
-    font-family: 'Roboto Slab', serif;
     width: 100px;
     font-family: 'Roboto Slab', serif;
     font-size: 0.8em;
@@ -300,6 +283,10 @@
     font-size: 1.15em;
 }
 
+#btnFinalizarTurno{
+    float: right;
+}
+
 #divCaixaInformacoes {
     width: 100%;
     height: calc(100% - 20px);
@@ -317,6 +304,82 @@
 
 /*#endregion*/
 @media (min-width: 630px) {
+    #divColunasTabelaAnotacoes {
+        width: 120px;
+        background: #DBD5D5;
+        /*margin-top: 10px;
+        margin-bottom: 10px;*/
+        margin-right: 4px;
+        margin-left: 4px;
+        width: 120px;
+        font-family: 'Risque', cursive;
+        font-size: 0.95em;
+    }
+    #divTituloColunas {
+        font-family: 'Risque', cursive;
+        font-size: 1.52em;
+        font-weight: bold;
+        margin-bottom: 12px;
+    }
+    #divTabelaAnotacoes {
+        font-family: 'Risque', cursive;
+        font-size: 2.85em;
+        font-weight: bold;
+        margin-bottom: 12px;
+    }
+    #divItemColuna{
+        padding: 3px;
+    }
+    .container{
+        display:block;
+        position:relative;
+        padding-left: 20px;
+        margin-bottom: 15px;
+        cursor: pointer;
+        font-size: 1.1em;
+    }
+
+    .container input{
+        position: absolute;
+        opacity: 0;
+        cursor: pointer;
+    }
+
+    .check {
+        left: 0;
+        top: 2px;
+        width:14px;
+        height: 14px;
+        background: #FFFFFF;
+        position: absolute;
+        border: solid #000000;
+        border-width: 1px 1px 1px 1px;
+    }
+    .container input:checked ~ .check{
+        background: #FFFFFF;
+    }
+
+    .container .check:after {
+        top:-2px;
+        left: 2.35px;
+        width: 8px;
+        height: 14px;
+        border: solid #138f09;
+        border-width: 0px 3px 3px 0px;
+        -webkit-transform: rotate(35deg);
+        -ms-transform: rotate(35deg);
+        transform: rotate(35deg);
+    }
+    .check:after{
+        content:"";
+        position: absolute;
+        display: none;
+    }
+
+    .container input:checked ~ .check:after{
+        display: block;
+    }
+   
     /*#divAnotacoes {
         background: blue;
     }*/
