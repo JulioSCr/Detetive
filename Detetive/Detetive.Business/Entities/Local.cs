@@ -1,6 +1,7 @@
 ﻿using Detetive.Business.Entities.Base;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 
 namespace Detetive.Business.Entities
@@ -14,15 +15,18 @@ namespace Detetive.Business.Entities
         public int CoordenadaBColuna { get; set; }
         public string UrlImagem { get; set; }
 
+        public virtual List<PortaLocal> Portas { get; set; }
+
         internal Local()
         {
-
+            Portas = new List<PortaLocal>();
         }
 
         public Local(int id, string descricao)
         {
             Id = id;
             Descricao = descricao;
+            Portas = new List<PortaLocal>();
         }
 
         public bool DentroLocal(int coordenadaLinha, int coordenadaColuna)
@@ -38,7 +42,8 @@ namespace Detetive.Business.Entities
 
         public bool PortaLocal(int coordenadaLinha, int coordenadaColuna)
         {
-            return true;
+            return Portas.Any(_ => _.CoordenadaLinha == coordenadaLinha &&
+                                    _.CoordenadaColuna == coordenadaColuna);
         }
     }
 }

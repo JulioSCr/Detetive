@@ -13,7 +13,7 @@ namespace Detetive.Business.Entities
         public int NumeroOrdem { get; set; }
         public int NumeroPassagemSecreta { get; set; }
         public bool VezJogador { get; set; }
-        public int QuantidadeMovimento { get; set; }
+        public int? QuantidadeMovimento { get; set; }
         public int CoordenadaLinha { get; set; }
         public int CoordenadaColuna { get; set; }
         public int IdJogador { get; set; }
@@ -22,7 +22,6 @@ namespace Detetive.Business.Entities
 
         internal JogadorSala() : base()
         {
-
         }
 
         public JogadorSala(int idJogador, int idSala) : base()
@@ -71,6 +70,11 @@ namespace Detetive.Business.Entities
             QuantidadeMovimento = jogadorSala.QuantidadeMovimento;
             CoordenadaLinha = jogadorSala.CoordenadaLinha;
             CoordenadaColuna = jogadorSala.CoordenadaColuna;
+        }
+
+        public void AlterarSuspeito(int idSuspeito)
+        {
+            IdSuspeito = idSuspeito;
         }
     }
 }

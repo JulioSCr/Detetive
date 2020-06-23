@@ -10,7 +10,6 @@ using System.Web.Mvc;
 
 namespace Detetive.Controllers
 {
-    [Route("anotacao")]
     public class AnotacaoController : Controller
     {
         private readonly IAnotacaoArmaBusiness _anotacaoArmaBusiness;

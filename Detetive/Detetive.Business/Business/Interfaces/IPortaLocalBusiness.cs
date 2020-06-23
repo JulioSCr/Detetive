@@ -9,6 +9,7 @@ namespace Detetive.Business.Business.Interfaces
 {
     public interface IPortaLocalBusiness
     {
+        List<PortaLocal> Listar();
         List<PortaLocal> Listar(int idLocal);
     }
 }

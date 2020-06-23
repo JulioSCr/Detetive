@@ -245,19 +245,26 @@
     </Compile>
     <Compile Include="Hubs\HubSala.cs" />
     <Compile Include="Mappers\AutoMapperConfig.cs" />
+    <Compile Include="Mappers\MapperAnotacaoArmaToAnotacaoArmaViewModel.cs" />
+    <Compile Include="Mappers\MapperAnotacaoSuspeitoToAnotacaoLocalViewModel.cs" />
+    <Compile Include="Mappers\MapperAnotacaoLocalToAnotacaoLocalViewModel.cs" />
+    <Compile Include="Mappers\MapperJogadorSalaToJogadorSalaViewModel.cs" />
     <Compile Include="Mappers\MapperSuspeitoToSuspeitoViewModel.cs" />
     <Compile Include="Mappers\MapperArmaToArmaViewModel.cs" />
     <Compile Include="Mappers\MapperJogadorSalaToJogadorSuspeitoViewModel.cs" />
     <Compile Include="Mappers\MapperLocalToLocalViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="ViewModel\AnotacaoViewModel.cs" />
+    <Compile Include="ViewModel\Anotacao\AnotacaoArmaViewModel.cs" />
+    <Compile Include="ViewModel\Anotacao\AnotacaoSuspeitoViewModel.cs" />
+    <Compile Include="ViewModel\Anotacao\AnotacaoLocalViewModel.cs" />
     <Compile Include="ViewModel\ArmaViewModel.cs" />
     <Compile Include="ViewModel\BaseViewModel.cs" />
     <Compile Include="ViewModel\JogadorSuspeitoViewModel.cs" />
+    <Compile Include="ViewModel\LocalPortaViewModel.cs" />
     <Compile Include="ViewModel\LocalViewModel.cs" />
     <Compile Include="ViewModel\SuspeitoViewModel.cs" />
     <Compile Include="ViewModel\Tabuleiro\PartidaViewModel.cs" />
-    <Compile Include="ViewModel\Tabuleiro\JogadorViewModel.cs" />
+    <Compile Include="ViewModel\Tabuleiro\JogadorSalaViewModel.cs" />
     <Compile Include="ViewModel\Tabuleiro\LocalViewModew.cs" />
     <Compile Include="ViewModel\Tabuleiro\PosicaoViewModel.cs" />
   </ItemGroup>
@@ -458,7 +465,6 @@
     <Content Include="Views\Shared\_LayoutModal.cshtml" />
     <Content Include="Views\Partida\ModalAcusar.cshtml" />
     <Content Include="Views\Home1\Index.cshtml" />
-    <Content Include="Views\Partida\Jogar.cshtml" />
     <Content Include="Views\Home1\Index.cshtml" />
     <Content Include="Views\Sala\Manter.cshtml" />
   </ItemGroup>

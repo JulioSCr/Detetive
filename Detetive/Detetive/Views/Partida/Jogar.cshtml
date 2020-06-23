@@ -28,7 +28,81 @@
         }
     </div>
     <div id="divAnotacoes" class="direita">
+        <div class="centralizar" id="divTabelaAnotacoes">
+            Anotações
+        </div>
+        @using Detetive.ViewModel
+        @model AnotacaoViewModel
 
+        @* ----------- TO DO -----------*@
+        <div class="centralizar">
+            <div id="divColunasTabelaAnotacoes"@*class="col-4"*@>
+                <div class="centralizar" id="divTituloColunas"> Armas </div>
+                <div id="divItemColuna">
+                    <label class="container">Teclado
+                        <input type="checkbox">
+                        <span class="check"></span>
+                    </label>
+                    <label class="container">Pen Drive
+                        <input type="checkbox">
+                        <span class="check"></span>
+                    </label>
+                </div>
+
+                @*@foreach (var arma in Model.Armas)
+        {
+            <div class="custom-control custom-checkbox">
+                @Html.CheckBox(arma.Descricao, arma.Selecionado, new { id = arma.Id, @class = "custom-control-input", onchance = "AnotarArma(this)" })
+                @Html.Label(arma.Descricao, new { @class = "custom-control-label" })
+            </div>
+        }*@
+            </div>
+            <div id="divColunasTabelaAnotacoes" @*class="col-4"*@>
+                <div class="centralizar" id="divTituloColunas"> Locais </div>
+                <div id="divItemColuna" class=".checkItem">
+                    <div>
+                        <label class="container">Santiago
+                            <input type="checkbox">
+                            <span class="check"></span>
+                        </label>
+                        @*<input type="checkbox"/> <label>Santiago</label>*@
+                    </div>
+                    <div>
+                        <label class="container">CA
+                            <input type="checkbox">
+                            <span class="check"></span>
+                        </label>
+                    </div>
+                </div>
+                @*@foreach (var local in Model.Locais)
+        {
+            <div class="custom-control custom-checkbox">
+                @Html.CheckBox(local.Descricao, local.Selecionado, new { id = local.Id, @class = "custom-control-input", onchance = "AnotarLocal(this)" })
+                @Html.Label(local.Descricao, new { @class = "custom-control-label" })
+            </div>
+        }*@
+            </div>
+            <div id="divColunasTabelaAnotacoes" @*class="col-4"*@>
+                <div class="centralizar" id="divTituloColunas"> Suspeitos </div>
+                <div id="divItemColuna">
+                    <label class="container">Reitor
+                        <input type="checkbox">
+                        <span class="check"></span>
+                    </label>
+                    <label class="container">Diretora
+                        <input type="checkbox">
+                        <span class="check"></span>
+                    </label>
+                </div>
+                @*@foreach (var suspeito in Model.Suspeitos)
+        {
+            <div class="custom-control custom-checkbox">
+                @Html.CheckBox(suspeito.Descricao, suspeito.Selecionado, new { id = suspeito.Id, @class = "custom-control-input", onchance = "AnotarSuspeito(this)" })
+                @Html.Label(suspeito.Descricao, new { @class = "custom-control-label" })
+            </div>
+        }*@
+            </div>
+        </div>
     </div>
 </section>
 <section id="secSegundaLinha">

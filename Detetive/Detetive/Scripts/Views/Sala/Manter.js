@@ -43,6 +43,7 @@ ManterSala.IngressarSala = function () {
         }
         $('#txtIdSala').attr('placeholer', 'Digite o #idSala aqui');
         $('#lblIdSala').text('Informe o ID da Sala:');
+        $('#txtIdSala').attr('readOnly', false);
     }
     catch (ex) {
         alert(ex);
@@ -64,6 +65,8 @@ ManterSala.CriarSala = function () {
                     lstrIdSala = '#' + data;
                     $('#lblIdSala').text('ID da sala:');
                     $('#txtIdSala').val(lstrIdSala);
+                    $('#txtIdSala').attr('readOnly', true);
+                    
                 } catch (ex) {
                     throw ex;
                 }

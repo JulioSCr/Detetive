@@ -23,21 +23,69 @@
     <div class="carousel-inner">
         @foreach (var suspeito in ViewBag.Suspeitos)
         {
-            <div class="carousel-item @(suspeito.Id == ViewBag.Suspeitos[0].Id? "active": "")">
+            <div class="carousel-item @(suspeito.Id == ViewBag.Suspeitos[0].Id ? "active" : "")">
                 <div class="centralizar">
                     <a href="#" onclick="Listar.Suspeito_OnClick(event)">
                         <img data-idjogadorsala="@(suspeito.jogadorsala == null ? 0 : suspeito.jogadorsala.id)" data-id="@suspeito.Id" class="d-block cartaSuspeito @(suspeito.jogadorsala == null ? "" : "selected")" title="@suspeito.Descricao" src="@Url.Content(suspeito.UrlImagem)">
                     </a>
                 </div>
             </div>
+            <div class="carousel-item">
+                <div class="centralizar">
+                    <img class="d-block cartaSuspeito" src="~/Content/Imagens/CartasSuspeitos/imgCartaDiretora.svg">
+                </div>
+            </div>
+            <div class="carousel-item">
+                <div class="centralizar">
+                    <img class="d-block cartaSuspeito" src="~/Content/Imagens/CartasSuspeitos/imgCartaEstudante.svg">
+                </div>
+            </div>
+            <div class="carousel-item">
+                <div class="centralizar">
+                    <img class="d-block cartaSuspeito" src="~/Content/Imagens/CartasSuspeitos/imgCartaPolicial.svg">
+                </div>
+            </div>
+            <div class="carousel-item">
+                <div class="centralizar">
+                    <img class="d-block cartaSuspeito" src="~/Content/Imagens/CartasSuspeitos/imgCartaProfessora.svg">
+                </div>
+            </div>
+            <div class="carousel-item">
+                <div class="centralizar">
+                    <img class="d-block cartaSuspeito" src="~/Content/Imagens/CartasSuspeitos/imgCartaReitor.svg">
+                </div>
+            </div>
+            <div class="carousel-item">
+                <div class="centralizar">
+                    <img class="d-block cartaSuspeito" src="~/Content/Imagens/CartasSuspeitos/imgCartaReporter.svg">
+                </div>
+            </div>
+            <div class="carousel-item">
+                <div class="centralizar">
+                    <img class="d-block cartaSuspeito" src="~/Content/Imagens/CartasSuspeitos/imgCartaZelador.svg">
+                </div>
+            </div>
         }
+        </div>
+        <a class="carousel-control-prev" href="#carouselSuspeitos" role="button" data-slide="prev">
+            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+            <span class="sr-only">Previous</span>
+        </a>
+        <a class="carousel-control-next" href="#carouselSuspeitos" role="button" data-slide="next">
+            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+            <span class="sr-only">Next</span>
+        </a>
     </div>
-    <a class="carousel-control-prev" href="#carouselSuspeitos" role="button" data-slide="prev">
-        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-        <span class="sr-only">Previous</span>
-    </a>
-    <a class="carousel-control-next" href="#carouselSuspeitos" role="button" data-slide="next">
-        <span class="carousel-control-next-icon" aria-hidden="true"></span>
-        <span class="sr-only">Next</span>
-    </a>
-</div>
+    <div class="row" style="margin-top:50px;">
+        <div class="offset-md-2 col-md-3 ">
+            <button class="btnPadrao" id="btnVoltar" onclick="location.href='/Sala/Manter'">
+                Voltar
+            </button>
+        </div>
+        <div class="col-md-3 offset-md-2">
+            <button class="btnPadrao" id="btnVamosAoCaso" onclick="">
+                Vamos ao caso!
+            </button>
+        </div>
+    </div>
+    

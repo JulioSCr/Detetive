@@ -3,14 +3,12 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 
-namespace Detetive.ViewModel.Tabuleiro
+namespace Detetive.ViewModel
 {
-    public class PosicaoViewModel
+    public class LocalPortaViewModel
     {
         public int Linha { get; set; }
         public int Coluna { get; set; }
-        public int? IdLocal { get; set; }
-
-        internal PosicaoViewModel() { Linha = 1; Coluna = 1; }
+        public string Direcao { get; set; }
     }
 }
