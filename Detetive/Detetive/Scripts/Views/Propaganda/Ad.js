@@ -4,8 +4,14 @@ var myVideo = document.getElementById("ad");
 
 window.onload = function () {
     EsconderAd()
-    setTimeout(ExibirAd, 5000)
-    setTimeout(EsconderAd, 15000)
+    setTimeout(ExibirAd, 3000)
+   // setTimeout(EsconderAd, 15000)
+    document.getElementById('close').onclick = function () {
+        this.parentNode.parentNode.parentNode
+            .removeChild(this.parentNode.parentNode);
+        return false;
+    };
+
 };
 
 
@@ -19,5 +25,3 @@ function EsconderAd() {
     document.getElementById('propaganda').style.visibility = 'hidden';
     myVideo.pause()
 }
-
-
