@@ -9,13 +9,13 @@ INSERT INTO ARMA (DS_ARMA, DS_CAMINHO_IMAGEM, IE_ATIVO) VALUES
 	, ('Pomba', '~/Content/Imagens/CartasArmas/imgCartaPomba.svg', 1)
 
 INSERT INTO "LOCAL" (DS_LOCAL, DS_CAMINHO_IMAGEM, NR_LINHA_1, NR_COLUNA_1, NR_LINHA_2, NR_COLUNA_2, IE_ATIVO) VALUES 
-	  ('Santhiago', '~/Content/Imagens/CartasLocais/imgCartaSanthiago.svg', 1, 1, 2, 2, 1)
+	  ('Santiago', '~/Content/Imagens/CartasLocais/imgCartaSantiago.svg', 1, 1, 2, 2, 1)
 	, ('Centro Acadêmico', '~/Content/Imagens/CartasLocais/imgCartaCentroAcademico.svg', 1, 1, 2, 2, 1)
 	, ('Ginásio', '~/Content/Imagens/CartasLocais/imgCartaGinasio.svg', 1, 1, 2, 2, 1)
 	, ('Prédio A', '~/Content/Imagens/CartasLocais/imgCartaPredioA.svg', 1, 1, 2, 2, 1)
 	, ('Prédio B', '~/Content/Imagens/CartasLocais/imgCartaPredioB.svg', 1, 1, 2, 2, 1)
 	, ('Praça', '~/Content/Imagens/CartasLocais/imgCartaPraca.svg', 1, 1, 2, 2, 1)
-	, ('Etec', '~/Content/Imagens/CartasLocais/imgCartaEtec.svg', 1, 1, 2, 2, 1)
+	, ('ETESP', '~/Content/Imagens/CartasLocais/imgCartaETESP.svg', 1, 1, 2, 2, 1)
 	, ('Cantina A/B', '~/Content/Imagens/CartasLocais/imgCartaCatinaAB.svg', 1, 1, 2, 2, 1)
 	, ('Auditório', '~/Content/Imagens/CartasLocais/imgCartaAuditorio.svg', 1, 1, 2, 2, 1)
 
