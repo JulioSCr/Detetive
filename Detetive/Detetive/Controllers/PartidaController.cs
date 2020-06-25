@@ -58,17 +58,19 @@ namespace Detetive.Controllers
             /// as anotações dos jogadores deverão estar checadas
             /// o chat deve ser recarregado
 
+            var jogadorSala = _jogadorSalaBusiness.Obter(idJogadorSala);
+            int idSala = jogadorSala.IdSala;
+            ViewBag.ID_JOGADOR_SALA = jogadorSala.Id;
+            ViewBag.ID_Sala = idSala;
 
-            ViewBag.ID_JOGADOR_SALA = idJogadorSala;
-
-            var jogadoresSala = _jogadorSalaBusiness.Listar(1007);
+            var jogadoresSala = _jogadorSalaBusiness.Listar(idSala);
             ViewBag.JogadoresSuspeitos = Mapper.Map<List<JogadorSala>, List<JogadorSuspeitoViewModel>>(jogadoresSala);
 
             var locais = _localBusiness.Listar();
             ViewBag.Locais = Mapper.Map<List<Local>, List<LocalViewModel>>(locais);
 
             // idJogadorSala
-            this.CarregarAnotacoes(11);
+            this.CarregarAnotacoes(jogadorSala.Id);
 
             return View();
         }
