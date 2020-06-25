@@ -63,3 +63,21 @@ Listar.TransmitirDesconsideracaoSuspeito = function (pintIdJogadorSala, pstrDesc
         alert(ex);
     }
 }
+
+Listar.btnVamosAoCaso_OnClick = function () {
+    try {
+        //$.ajax({
+        //    url: gstrGlobalPath + 'Suspeito/Ingressar',
+        //    data: {
+        //        idJogadorSala: Listar.mintIdJogadorSala
+        //    },
+        //    type: 'post',
+        //    success: function (data, textStatus, XMLHttpRequest) {
+
+        //    }
+        //});
+        location.href = '/Partida/Jogar?idJogadorSala=' + Listar.mintIdJogadorSala;
+    } catch (ex) {
+        alert(ex);
+    }
+}

@@ -19,20 +19,34 @@
     <div id="divTabuleiro" class="esquerda">
         @foreach (var local in ViewBag.Locais)
         {
-            <div id=@($"div{local.IdDescricao}") idLocal="@local.Id"></div>
+            <div id=@($"div{local.IdDescricao}") idLocal="@local.Id">
+                @foreach (var jogadorSuspeito in ViewBag.JogadoresSuspeitos)
+                {
+                    if ((jogadorSuspeito.CoordenadaLinha >= local.CoordenadaALinha && jogadorSuspeito.CoordenadaLinha <= local.CoordenadaBLinha)
+                        && (jogadorSuspeito.CoordenadaColuna >= local.CoordenadaAColuna && jogadorSuspeito.CoordenadaColuna <= local.CoordenadaBColuna))
+                    {
+                        <div id=@($"div{jogadorSuspeito.IdDescricao}") title="@jogadorSuspeito.IdDescricao" idJogadorSala="@jogadorSuspeito.IdJogadorSala" class="suspeito"></div>
+                    }
+                }
+            </div>
         }
 
         @foreach (var jogadorSuspeito in ViewBag.JogadoresSuspeitos)
         {
-            <div id=@($"div{jogadorSuspeito.IdDescricao}") title="@jogadorSuspeito.IdDescricao" idJogadorSala="@jogadorSuspeito.IdJogadorSala" class="suspeito"></div>
+            foreach (var local in ViewBag.Locais)
+            {
+                if (!(jogadorSuspeito.CoordenadaLinha >= local.CoordenadaALinha && jogadorSuspeito.CoordenadaLinha <= local.CoordenadaBLinha)
+                    && !(jogadorSuspeito.CoordenadaColuna >= local.CoordenadaAColuna && jogadorSuspeito.CoordenadaColuna <= local.CoordenadaBColuna))
+                {
+                    <div id=@($"div{jogadorSuspeito.IdDescricao}") title="@jogadorSuspeito.IdDescricao" idJogadorSala="@jogadorSuspeito.IdJogadorSala" class="suspeito"></div>
+                }
+            }
         }
     </div>
     <div id="divAnotacoes" class="direita">
         <div class="centralizar" id="divTabelaAnotacoes">
             Anotações
         </div>
-        @using Detetive.ViewModel
-        @model AnotacaoViewModel
 
         @* ----------- TO DO -----------*@
         <div class="centralizar">

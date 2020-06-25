@@ -45,11 +45,21 @@ namespace Detetive.Controllers
             return View();
         }
 
-        public ActionResult Jogar(/*int idSala*/)
+        public ActionResult Jogar(int idJogadorSala)
         {
-            /// TO DO
-            /// Deve retornar o ID_JOGADOR do jogador principal
-            ViewBag.ID_JOGADOR_SALA = 1;
+            /// Cenário carregar partida
+            /// Dada: 
+            /// uma partida
+            /// Quando: 
+            /// tela da partida for carregada
+            /// Então: 
+            /// todos os jogadores serão posicionados ok
+            /// as cartas de cada jogador deverão ser listadas
+            /// as anotações dos jogadores deverão estar checadas
+            /// o chat deve ser recarregado
+
+
+            ViewBag.ID_JOGADOR_SALA = idJogadorSala;
 
             var jogadoresSala = _jogadorSalaBusiness.Listar(1007);
             ViewBag.JogadoresSuspeitos = Mapper.Map<List<JogadorSala>, List<JogadorSuspeitoViewModel>>(jogadoresSala);
