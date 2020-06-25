@@ -25,7 +25,7 @@ namespace Detetive.Controllers
             _anotacaoSuspeitoBusiness = anotacaoSuspeitoBusiness;
         }
 
-        [HttpPut]
+        [HttpPost]
         public string MarcarArma(int idArma, int idJogadorSala, bool valor)
         {
             try
@@ -40,7 +40,7 @@ namespace Detetive.Controllers
             }
         }
 
-        [HttpPut]
+        [HttpPost]
         public string MarcarLocal(int idLocal, int idJogadorSala, bool valor)
         {
             try
@@ -55,7 +55,7 @@ namespace Detetive.Controllers
             }
         }
 
-        [HttpPut]
+        [HttpPost]
         public string MarcarSuspeito(int idSuspeito, int idJogadorSala, bool valor)
         {
             try

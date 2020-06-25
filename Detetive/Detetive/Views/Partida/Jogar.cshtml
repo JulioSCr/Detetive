@@ -47,74 +47,54 @@
         <div class="centralizar" id="divTabelaAnotacoes">
             Anotações
         </div>
-
-        @* ----------- TO DO -----------*@
         <div class="centralizar">
-            <div id="divColunasTabelaAnotacoes"@*class="col-4"*@>
+            <div id="divColunasTabelaAnotacoes">
                 <div class="centralizar" id="divTituloColunas"> Armas </div>
                 <div id="divItemColuna">
-                    <label class="container">Teclado
-                        <input type="checkbox">
-                        <span class="check"></span>
-                    </label>
-                    <label class="container">Pen Drive
-                        <input type="checkbox">
-                        <span class="check"></span>
-                    </label>
+                    @if (ViewBag.AnotacaoArma != null)
+                    {
+                        foreach (var anotacaoArma in ViewBag.AnotacaoArma)
+                        {
+                            <label class="container">
+                                @anotacaoArma.Descricao
+                                <input type="checkbox" onchange="Jogar.AnotacaoArma_OnChange(this)" idArma="@anotacaoArma.Id" @(@anotacaoArma.Selecionado ? "checked=\"checked\"" : "")>
+                                <span class="check"></span>
+                            </label>
+                        }
+                    }
                 </div>
-
-                @*@foreach (var arma in Model.Armas)
-        {
-            <div class="custom-control custom-checkbox">
-                @Html.CheckBox(arma.Descricao, arma.Selecionado, new { id = arma.Id, @class = "custom-control-input", onchance = "AnotarArma(this)" })
-                @Html.Label(arma.Descricao, new { @class = "custom-control-label" })
             </div>
-        }*@
-            </div>
-            <div id="divColunasTabelaAnotacoes" @*class="col-4"*@>
+            <div id="divColunasTabelaAnotacoes">
                 <div class="centralizar" id="divTituloColunas"> Locais </div>
                 <div id="divItemColuna" class=".checkItem">
-                    <div>
-                        <label class="container">Santiago
-                            <input type="checkbox">
-                            <span class="check"></span>
-                        </label>
-                        @*<input type="checkbox"/> <label>Santiago</label>*@
-                    </div>
-                    <div>
-                        <label class="container">CA
-                            <input type="checkbox">
-                            <span class="check"></span>
-                        </label>
-                    </div>
+                    @if (ViewBag.AnotacaoLocal != null)
+                    {
+                        foreach (var anotacaoLocal in ViewBag.AnotacaoLocal)
+                        {
+                            <label class="container">
+                                @anotacaoLocal.Descricao
+                                <input type="checkbox" onchange="Jogar.AnotacaoLocal_OnChange(this)" idLocal="@anotacaoLocal.Id" @(anotacaoLocal.Selecionado ? "checked=\"checked\"" : "")>
+                                <span class="check"></span>
+                            </label>
+                        }
+                    }
                 </div>
-                @*@foreach (var local in Model.Locais)
-        {
-            <div class="custom-control custom-checkbox">
-                @Html.CheckBox(local.Descricao, local.Selecionado, new { id = local.Id, @class = "custom-control-input", onchance = "AnotarLocal(this)" })
-                @Html.Label(local.Descricao, new { @class = "custom-control-label" })
             </div>
-        }*@
-            </div>
-            <div id="divColunasTabelaAnotacoes" @*class="col-4"*@>
+            <div id="divColunasTabelaAnotacoes">
                 <div class="centralizar" id="divTituloColunas"> Suspeitos </div>
                 <div id="divItemColuna">
-                    <label class="container">Reitor
-                        <input type="checkbox">
-                        <span class="check"></span>
-                    </label>
-                    <label class="container">Diretora
-                        <input type="checkbox">
-                        <span class="check"></span>
-                    </label>
+                    @if (ViewBag.AnotacaoSuspeito != null)
+                    {
+                        foreach (var anotacaoSuspeito in ViewBag.AnotacaoSuspeito)
+                        {
+                            <label class="container">
+                                @anotacaoSuspeito.Descricao
+                                <input type="checkbox" onchange="Jogar.AnotacaoSuspeito_OnChange(this)" idSuspeito="@anotacaoSuspeito.Id" @(anotacaoSuspeito.Selecionado ? "checked=\"checked\"" : "")>
+                                <span class="check"></span>
+                            </label>
+                        }
+                    }
                 </div>
-                @*@foreach (var suspeito in Model.Suspeitos)
-        {
-            <div class="custom-control custom-checkbox">
-                @Html.CheckBox(suspeito.Descricao, suspeito.Selecionado, new { id = suspeito.Id, @class = "custom-control-input", onchance = "AnotarSuspeito(this)" })
-                @Html.Label(suspeito.Descricao, new { @class = "custom-control-label" })
-            </div>
-        }*@
             </div>
         </div>
     </div>
