@@ -37,8 +37,8 @@ Jogar.btnDireita_OnClick = function () {
     var lIDLocal = new Number();
     try {
         ({ lLinha, lColuna } = Jogar.Posicao(lLinha, lColuna));
-        ({ lIDLocal, lLinha, lColuna } = Jogar.SairLocal(lIDLocal, lLinha, lColuna, 'direita'));
-        Jogar.Movimentar(lLinha, lColuna + 1, lIDLocal);
+        //({ lIDLocal, lLinha, lColuna } = Jogar.SairLocal(lIDLocal, lLinha, lColuna, 'direita'));
+        Sala.EnviarMovimento(lLinha, lColuna + 1);
     } catch (ex) {
         alert(ex);
     }
@@ -51,7 +51,7 @@ Jogar.btnEsquerda_OnClick = function () {
     try {
         ({ lLinha, lColuna } = Jogar.Posicao(lLinha, lColuna));
         ({ lIDLocal, lLinha, lColuna } = Jogar.SairLocal(lIDLocal, lLinha, lColuna, 'esquerda'));
-        Jogar.Movimentar(lLinha, lColuna - 1, lIDLocal);
+        Sala.EnviarMovimento(lLinha, lColuna - 1);
     } catch (ex) {
         alert(ex);
     }
@@ -64,7 +64,7 @@ Jogar.btnAcima_OnClick = function () {
     try {
         ({ lLinha, lColuna } = Jogar.Posicao(lLinha, lColuna));
         ({ lIDLocal, lLinha, lColuna } = Jogar.SairLocal(lIDLocal, lLinha, lColuna, 'cima'));
-        Jogar.Movimentar(lLinha - 1, lColuna, lIDLocal);
+        Sala.EnviarMovimento(lLinha - 1, lColuna);
     } catch (ex) {
         alert(ex);
     }
@@ -77,7 +77,7 @@ Jogar.btnAbaixo_OnClick = function () {
     try {
         ({ lLinha, lColuna } = Jogar.Posicao(lLinha, lColuna));
         ({ lIDLocal, lLinha, lColuna } = Jogar.SairLocal(lIDLocal, lLinha, lColuna, 'baixo'));
-        Jogar.Movimentar(lLinha + 1, lColuna, lIDLocal);
+        Sala.EnviarMovimento(lLinha + 1, lColuna);
     } catch (ex) {
         alert(ex);
     }
@@ -117,42 +117,15 @@ Jogar.btnAcusar_OnClick = function () {
 
 //#endregion
 
-Jogar.Movimentar = function (pLinha, pColuna, pIDLocal = 0) {
-    try {
-        Sala.EnviarMovimento(pLinha, pColuna, pIDLocal);
-    } catch (ex) {
-        throw ex;
-    }
-}
-
 Jogar.TransmitirMovimento = function (pID_JOGADOR_SALA, pLinha, pColuna, pIDLocal) {
     var lIDLocalPassagemSecreta = new Number();
-    Jogar.marrMapeamento.forEach(function (Local, index, Mapa) {
-        for (var i = Local.Linhas[0]; i < Local.Linhas[1]; i++) {
-            for (var j = Local.Colunas[0]; j < Local.Colunas[1]; j++) {
-                if (pLinha == i && pColuna == j) {
-                    Local.Portas.forEach(function (Porta, indexP, PortasP) {
-                        if (pLinha == Porta.Linha && pColuna == Porta.Coluna) {
-                            pIDLocal = Local.ID;
-                            lIDLocalPassagemSecreta = Local.PassagemSecreta;
-                        }
-                        else if (pIDLocal == 0 || pIDLocal == -1) {
-                            pIDLocal = -1;
-                        }
-                    });
-                } else if (pLinha == 0 && pColuna == 0 && pIDLocal == Local.ID) {
-                    lIDLocalPassagemSecreta = Local.PassagemSecreta;
-                }
-            }
-        }
-    });
-    if (pIDLocal == 0) {
+    if (pIDLocal == null || pIDLocal == 0) {
         $('div[idJogadorSala=' + pID_JOGADOR_SALA + ']').css('grid-row', pLinha);
         $('div[idJogadorSala=' + pID_JOGADOR_SALA + ']').css('grid-column', pColuna);
         if (pID_JOGADOR_SALA == Jogar.mID_JOGADOR_SALA) {
             Jogar.VisibilidadeBotoesAcao(false);
         }
-    } else if (pIDLocal != -1) {
+    } else {
         if (Jogar.GetLocalAtual(pID_JOGADOR_SALA) > 0) {
             Jogar.RemoveDoLocal(pID_JOGADOR_SALA, pLinha, pColuna);
         } else {

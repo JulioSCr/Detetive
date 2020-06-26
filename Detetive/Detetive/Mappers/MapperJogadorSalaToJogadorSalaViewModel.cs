@@ -14,8 +14,8 @@ namespace Detetive.Mappers
         {
             CreateMap<JogadorSala, JogadorSalaViewModel>()
                 .ForMember(viewModel => viewModel.Id, _ => _.MapFrom(model => model.Id))
-                .ForMember(viewModel => viewModel.Posicao.Linha, _ => _.MapFrom(model => model.CoordenadaLinha))
-                .ForMember(viewModel => viewModel.Posicao.Coluna, _ => _.MapFrom(model => model.CoordenadaColuna));
+                .AfterMap((model, viewModel) => viewModel.Posicao.Linha = model.CoordenadaLinha)
+                .AfterMap((model, viewModel) => viewModel.Posicao.Coluna = model.CoordenadaColuna);
         }
 
         public override string ProfileName

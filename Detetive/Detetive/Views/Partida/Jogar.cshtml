@@ -14,7 +14,7 @@
         @*gID_JOGADOR_SALA = @lID_JOGADOR_SALA;*@
     </script>
 }
-<input id="inpID_JOGADOR_SALA" type="hidden" name="ID_JOGADOR_SALA" value="@ViewBag.ID_JOGADOR_SALA" />
+<input id="inpID_JOGADOR_SALA" type="hidden" name="ID_JOGADOR_SALA" value="@ViewBag.JogadorSala.Id" />
 <section id="secPrimeiraLinha">
     <div id="divTabuleiro" class="esquerda">
         @foreach (var local in ViewBag.Locais)
@@ -25,7 +25,7 @@
                     if ((jogadorSuspeito.CoordenadaLinha >= local.CoordenadaALinha && jogadorSuspeito.CoordenadaLinha <= local.CoordenadaBLinha)
                         && (jogadorSuspeito.CoordenadaColuna >= local.CoordenadaAColuna && jogadorSuspeito.CoordenadaColuna <= local.CoordenadaBColuna))
                     {
-                        <div id=@($"div{jogadorSuspeito.IdDescricao}") title="@jogadorSuspeito.IdDescricao" idJogadorSala="@jogadorSuspeito.IdJogadorSala" class="suspeito"></div>
+                        <div id=@($"div{jogadorSuspeito.IdDescricao}") title="@jogadorSuspeito.DescricaoSuspeito" idJogadorSala="@jogadorSuspeito.IdJogadorSala" class="suspeito dentro"></div>
                     }
                 }
             </div>
@@ -33,13 +33,19 @@
 
         @foreach (var jogadorSuspeito in ViewBag.JogadoresSuspeitos)
         {
+            bool foraLocal = false;
             foreach (var local in ViewBag.Locais)
             {
                 if (!(jogadorSuspeito.CoordenadaLinha >= local.CoordenadaALinha && jogadorSuspeito.CoordenadaLinha <= local.CoordenadaBLinha)
                     && !(jogadorSuspeito.CoordenadaColuna >= local.CoordenadaAColuna && jogadorSuspeito.CoordenadaColuna <= local.CoordenadaBColuna))
                 {
-                    <div id=@($"div{jogadorSuspeito.IdDescricao}") title="@jogadorSuspeito.IdDescricao" idJogadorSala="@jogadorSuspeito.IdJogadorSala" class="suspeito"></div>
+                    foraLocal = true;
+                    break;
                 }
+            }
+            if (foraLocal)
+            {
+                <div id=@($"div{jogadorSuspeito.IdDescricao}") title="@jogadorSuspeito.DescricaoSuspeito" idJogadorSala="@jogadorSuspeito.IdJogadorSala" class="suspeito" style="grid-column:@jogadorSuspeito.CoordenadaColuna;grid-row:@jogadorSuspeito.CoordenadaLinha"></div>
             }
         }
     </div>
@@ -50,71 +56,77 @@
 
         @* ----------- TO DO -----------*@
         <div class="centralizar">
-            <div id="divColunasTabelaAnotacoes"@*class="col-4"*@>
+            <div id="divColunasTabelaAnotacoes" @*class="col-4"*@>
                 <div class="centralizar" id="divTituloColunas"> Armas </div>
                 <div id="divItemColuna">
-                    <label class="container">Teclado
+                    <label class="container">
+                        Teclado
                         <input type="checkbox">
                         <span class="check"></span>
                     </label>
-                    <label class="container">Pen Drive
+                    <label class="container">
+                        Pen Drive
                         <input type="checkbox">
                         <span class="check"></span>
                     </label>
                 </div>
 
                 @*@foreach (var arma in Model.Armas)
-        {
-            <div class="custom-control custom-checkbox">
-                @Html.CheckBox(arma.Descricao, arma.Selecionado, new { id = arma.Id, @class = "custom-control-input", onchance = "AnotarArma(this)" })
-                @Html.Label(arma.Descricao, new { @class = "custom-control-label" })
-            </div>
-        }*@
+                    {
+                        <div class="custom-control custom-checkbox">
+                            @Html.CheckBox(arma.Descricao, arma.Selecionado, new { id = arma.Id, @class = "custom-control-input", onchance = "AnotarArma(this)" })
+                            @Html.Label(arma.Descricao, new { @class = "custom-control-label" })
+                        </div>
+                    }*@
             </div>
             <div id="divColunasTabelaAnotacoes" @*class="col-4"*@>
                 <div class="centralizar" id="divTituloColunas"> Locais </div>
                 <div id="divItemColuna" class=".checkItem">
                     <div>
-                        <label class="container">Santiago
+                        <label class="container">
+                            Santiago
                             <input type="checkbox">
                             <span class="check"></span>
                         </label>
                         @*<input type="checkbox"/> <label>Santiago</label>*@
                     </div>
                     <div>
-                        <label class="container">CA
+                        <label class="container">
+                            CA
                             <input type="checkbox">
                             <span class="check"></span>
                         </label>
                     </div>
                 </div>
                 @*@foreach (var local in Model.Locais)
-        {
-            <div class="custom-control custom-checkbox">
-                @Html.CheckBox(local.Descricao, local.Selecionado, new { id = local.Id, @class = "custom-control-input", onchance = "AnotarLocal(this)" })
-                @Html.Label(local.Descricao, new { @class = "custom-control-label" })
-            </div>
-        }*@
+                    {
+                        <div class="custom-control custom-checkbox">
+                            @Html.CheckBox(local.Descricao, local.Selecionado, new { id = local.Id, @class = "custom-control-input", onchance = "AnotarLocal(this)" })
+                            @Html.Label(local.Descricao, new { @class = "custom-control-label" })
+                        </div>
+                    }*@
             </div>
             <div id="divColunasTabelaAnotacoes" @*class="col-4"*@>
                 <div class="centralizar" id="divTituloColunas"> Suspeitos </div>
                 <div id="divItemColuna">
-                    <label class="container">Reitor
+                    <label class="container">
+                        Reitor
                         <input type="checkbox">
                         <span class="check"></span>
                     </label>
-                    <label class="container">Diretora
+                    <label class="container">
+                        Diretora
                         <input type="checkbox">
                         <span class="check"></span>
                     </label>
                 </div>
                 @*@foreach (var suspeito in Model.Suspeitos)
-        {
-            <div class="custom-control custom-checkbox">
-                @Html.CheckBox(suspeito.Descricao, suspeito.Selecionado, new { id = suspeito.Id, @class = "custom-control-input", onchance = "AnotarSuspeito(this)" })
-                @Html.Label(suspeito.Descricao, new { @class = "custom-control-label" })
-            </div>
-        }*@
+                    {
+                        <div class="custom-control custom-checkbox">
+                            @Html.CheckBox(suspeito.Descricao, suspeito.Selecionado, new { id = suspeito.Id, @class = "custom-control-input", onchance = "AnotarSuspeito(this)" })
+                            @Html.Label(suspeito.Descricao, new { @class = "custom-control-label" })
+                        </div>
+                    }*@
             </div>
         </div>
     </div>
@@ -130,10 +142,10 @@
             <button type="button" title="Mover para cima" id="btnAcima" class="botoes btnSetaVertical centralizarBotoes" onclick="Jogar.btnAcima_OnClick()"></button>
             <button type="button" title="Mover para baixo" id="btnAbaixo" class="botoes btnSetaVertical centralizarBotoes" onclick="Jogar.btnAbaixo_OnClick()"></button>
             <button type="button" title="Rolar os dados" id="btnLancarDados" class="botoes centralizarBotoes"></button>
-
-            <button type="button" title="Palpitar" id="btnPalpite" class="botoes centralizarBotoes botoesOpcoes" onclick="Jogar.btnPalpite_OnClick()">Palpite</button>
-            <button type="button" title="Acusar" id="btnAcusar" class="botoes centralizarBotoes botoesOpcoes" onclick="Jogar.btnAcusar_OnClick()">Acusar</button>
-            <button type="button" title="Usar passagem secreta" id="btnPassagemSecreta" class="botoes centralizarBotoes botoesOpcoes" onclick="Jogar.btnPassagemSecreta_OnClick()">Passagem</button>
+            
+            <button type="button" title="Palpitar" id="btnPalpite" class="botoes centralizarBotoes botoesOpcoes" onclick="Jogar.btnPalpite_OnClick()" style="@(ViewBag.JogadorSala.Posicao.IdLocal == null ? "visibility: hidden" : "visibility: visible")">Palpite</button>
+            <button type="button" title="Acusar" id="btnAcusar" class="botoes centralizarBotoes botoesOpcoes" onclick="Jogar.btnAcusar_OnClick()" style="@(ViewBag.JogadorSala.Posicao.IdLocal == null ? "visibility: hidden" : "visibility: visible")">Acusar</button>
+            <button type="button" title="Usar passagem secreta" id="btnPassagemSecreta" class="botoes centralizarBotoes botoesOpcoes" onclick="Jogar.btnPassagemSecreta_OnClick()" style="@(ViewBag.passagemSecreta == false ? "visibility: hidden" : "visibility: visible")"></button> 
         </div>
         <div id="divInformacoesContainer">
             <div id="divInformacoes">

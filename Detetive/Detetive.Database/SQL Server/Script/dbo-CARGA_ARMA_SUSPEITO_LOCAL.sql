@@ -9,15 +9,15 @@ INSERT INTO ARMA (DS_ARMA, DS_CAMINHO_IMAGEM, IE_ATIVO) VALUES
 	, ('Pomba', '~/Content/Imagens/CartasArmas/imgCartaPomba.svg', 1)
 
 INSERT INTO "LOCAL" (DS_LOCAL, DS_CAMINHO_IMAGEM, NR_LINHA_1, NR_COLUNA_1, NR_LINHA_2, NR_COLUNA_2, IE_ATIVO) VALUES 
-	  ('Santiago', '~/Content/Imagens/CartasLocais/imgCartaSantiago.svg', 1, 1, 2, 2, 1)
-	, ('Centro Acadêmico', '~/Content/Imagens/CartasLocais/imgCartaCentroAcademico.svg', 1, 1, 2, 2, 1)
-	, ('Ginásio', '~/Content/Imagens/CartasLocais/imgCartaGinasio.svg', 1, 1, 2, 2, 1)
-	, ('Prédio A', '~/Content/Imagens/CartasLocais/imgCartaPredioA.svg', 1, 1, 2, 2, 1)
-	, ('Prédio B', '~/Content/Imagens/CartasLocais/imgCartaPredioB.svg', 1, 1, 2, 2, 1)
-	, ('Praça', '~/Content/Imagens/CartasLocais/imgCartaPraca.svg', 1, 1, 2, 2, 1)
-	, ('ETESP', '~/Content/Imagens/CartasLocais/imgCartaETESP.svg', 1, 1, 2, 2, 1)
-	, ('Cantina A/B', '~/Content/Imagens/CartasLocais/imgCartaCatinaAB.svg', 1, 1, 2, 2, 1)
-	, ('Auditório', '~/Content/Imagens/CartasLocais/imgCartaAuditorio.svg', 1, 1, 2, 2, 1)
+	  ('Santiago', '~/Content/Imagens/CartasLocais/imgCartaSantiago.svg', 1, 27, 10, 33, 1)
+	, ('Centro Acadêmico', '~/Content/Imagens/CartasLocais/imgCartaCentroAcademico.svg', 12, 27, 26, 33, 1)
+	, ('Ginásio', '~/Content/Imagens/CartasLocais/imgCartaGinasio.svg', 9, 18, 18, 25, 1)
+	, ('Prédio A', '~/Content/Imagens/CartasLocais/imgCartaPredioA.svg', 11, 1, 18, 7, 1)
+	, ('Prédio B', '~/Content/Imagens/CartasLocais/imgCartaPredioB.svg', 11, 9, 18, 15, 1)
+	, ('Praça', '~/Content/Imagens/CartasLocais/imgCartaPraca.svg', 20, 16, 26, 25, 1)
+	, ('ETESP', '~/Content/Imagens/CartasLocais/imgCartaETESP.svg', 20, 9, 26, 15, 1)
+	, ('Cantina A/B', '~/Content/Imagens/CartasLocais/imgCartaCatinaAB.svg', 20, 1, 26, 7, 1)
+	, ('Auditório', '~/Content/Imagens/CartasLocais/imgCartaAuditorio.svg',	3, 18, 9, 25, 1)
 
 UPDATE "LOCAL" SET NR_LINHA_1 = 1, NR_COLUNA_1 = 7, NR_LINHA_2 = 11, NR_COLUNA_2 = 18 WHERE ID_LOCAL = 4
 UPDATE "LOCAL" SET NR_LINHA_1 = 11, NR_COLUNA_1 = 9, NR_LINHA_2 = 18, NR_COLUNA_2 = 15 WHERE ID_LOCAL = 5
