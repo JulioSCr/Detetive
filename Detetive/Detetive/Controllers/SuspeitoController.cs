@@ -73,13 +73,13 @@ namespace Detetive.Controllers
                 string descricaoSuspeito = "";
                 var jogadorSala = _jogadorSalaBusiness.Obter(idJogadorSala);
 
-                if(jogadorSala.IdSuspeito != null)
+                if (jogadorSala.IdSuspeito != null)
                 {
                     int idSuspeitoDesconsiderado = jogadorSala.IdSuspeito ?? 0;
                     if (idSuspeitoDesconsiderado > 0)
                         descricaoSuspeito = _suspeitoBusiness.Obter(idSuspeitoDesconsiderado).Descricao;
                 }
-                
+
                 _jogadorSalaBusiness.SelecionarSuspeito(idSala, idJogadorSala, idSuspeito);
 
                 var jogador = _jogadorBusiness.Obter(jogadorSala.IdJogador);
@@ -105,16 +105,25 @@ namespace Detetive.Controllers
         {
             try
             {
-                var suspeito = _jogadorSalaBusiness.ObterSuspeitoSelecionado(idJogadorSala);
-                _jogadorSalaBusiness.DesconsiderarSuspeitoSelecionado(idJogadorSala);
+                var jogadorSala = _jogadorSalaBusiness.Obter(idJogadorSala);
+
+                if (jogadorSala == default)
+                    return JsonConvert.SerializeObject(new Operacao("Jogador não encontrado!", false));
+
+                if (!jogadorSala.IdSuspeito.HasValue)
+                    return JsonConvert.SerializeObject(new Operacao("Jogador ainda não selecionou nenhum jogador.", false));
+
+                var suspeito = _suspeitoBusiness.Obter(jogadorSala.IdSuspeito.GetValueOrDefault());
 
                 var retorno = new
                 {
                     DescricaoSuspeito = suspeito.Descricao
                 };
 
-                var operacao = new Operacao(JsonConvert.SerializeObject(retorno), true);
-                return JsonConvert.SerializeObject(operacao);
+                jogadorSala.AlterarSuspeito(null);
+                _jogadorSalaBusiness.Alterar(jogadorSala);
+
+                return JsonConvert.SerializeObject(new Operacao(JsonConvert.SerializeObject(retorno), true));
             }
             catch (Exception ex)
             {

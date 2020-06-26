@@ -206,29 +206,6 @@ namespace Detetive.Business.Business
             return _jogadorSalaRepository.Obter(idJogador, idSala);
         }
 
-        public Suspeito ObterSuspeitoSelecionado(int idJogadorSala)
-        {
-            try
-            {
-                if (idJogadorSala <= 0)
-                    throw new ArgumentException("Id do jogador sala não informado");
-
-                var jogadorSala = _jogadorSalaRepository.Obter(idJogadorSala);
-                if (jogadorSala == default)
-                    throw new NullReferenceException("Jogador não encotrado.");
-
-                int idSuspeito = jogadorSala.IdSuspeito ?? 0;
-                if (idSuspeito == 0)
-                    throw new NullReferenceException("Suspeito não encotrado.");
-
-                return _suspeitoBusiness.Obter(idSuspeito);
-            }
-            catch (Exception ex)
-            {
-                throw ex;
-            }
-        }
-
         public void SelecionarSuspeito(int idSala, int idJogadorSala, int idSuspeito)
         {
             try
@@ -260,27 +237,16 @@ namespace Detetive.Business.Business
             }
         }
 
-        public void DesconsiderarSuspeitoSelecionado(int idJogadorSala)
-        {
-            try
-            {
-                if (idJogadorSala <= 0)
-                    throw new ArgumentException("Id do jogador sala não informado.");
-                var jogadorSala = _jogadorSalaRepository.Obter(idJogadorSala);
-                jogadorSala.AlterarSuspeito(null);
-                _jogadorSalaRepository.Alterar(jogadorSala);
-            }
-            catch (Exception ex)
-            {
-                throw ex;
-            }
-        }
-
         private void GerarAnotacoesJogador(JogadorSala jogadorSala)
         {
             _anotacaoArmaBusiness.CriarAnotacoes(jogadorSala.Id);
             _anotacaoLocalBusiness.CriarAnotacoes(jogadorSala.Id);
             _anotacaoSuspeitoBusiness.CriarAnotacoes(jogadorSala.Id);
+        }
+
+        public JogadorSala Alterar(JogadorSala jogadorSala)
+        {
+            return _jogadorSalaRepository.Alterar(jogadorSala);
         }
     }
 }
