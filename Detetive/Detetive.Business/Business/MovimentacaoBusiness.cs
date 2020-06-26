@@ -24,6 +24,22 @@ namespace Detetive.Business.Business
 
         public Operacao MoverJogador(int idJogadorSala, int novaCoordenadaLinha, int novaCoordenadaColuna)
         {
+            ///Cenário #01 - Entrar em um local
+            ///Dado um jogador
+            ///Quando ele está fora de um local e ele passa a ter a coordenada de uma porta de um local
+            ///Então ele é movido para o local através do Id
+            ///
+            ///Cenário #02 - Sair de um local
+            ///Dado um jogador
+            ///Quando ele está dentro de um local e se movimenta na direção de uma das portas
+            ///Então o sistema deve validar se a direção corresponde com a direção de uma das portas (através das coordenadas de origem e destino)
+            ///se a direção corresponder a uma das portas então o sistema deve retornar id do local nulo e coordenada das portas igual a porta
+            ///
+            ///Cenário #03 - Movimentar pelas ruas
+            ///Dado um jogador
+            ///Quando em uma rua e se movendo para outra rua
+            ///Então deve apenas validar se a coordenada não corresponde a um local e se ele está fora de um local
+            ///
             var jogador = _jogadorSalaBusiness.Obter(idJogadorSala);
 
             if (jogador == default)

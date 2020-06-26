@@ -23,7 +23,7 @@ namespace Detetive.Hubs
         /// <param name="pColuna" type="int">Número da coluna.</param>
         /// <param name="pIDLocal" type="int">ID do local em que o jogador está.</param>
         /// <returns type="Void"></returns>
-        public void EnviarMovimento(int ID_JOGADOR_SALA, int pLinha, int pColuna, int pIDLocal)
+        public void EnviarMovimento(int ID_JOGADOR_SALA, int pLinha, int pColuna, int? pIDLocal)
         {
             try
             {

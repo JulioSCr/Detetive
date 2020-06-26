@@ -60,7 +60,7 @@ namespace Detetive.Controllers
 
             var jogadorSala = _jogadorSalaBusiness.Obter(idJogadorSala);
             int idSala = jogadorSala.IdSala;
-            ViewBag.ID_JOGADOR_SALA = jogadorSala.Id;
+
             ViewBag.ID_Sala = idSala;
 
             var jogadoresSala = _jogadorSalaBusiness.Listar(idSala);
@@ -69,8 +69,20 @@ namespace Detetive.Controllers
             var locais = _localBusiness.Listar();
             ViewBag.Locais = Mapper.Map<List<Local>, List<LocalViewModel>>(locais);
 
-            // idJogadorSala
             this.CarregarAnotacoes(jogadorSala.Id);
+
+            var jogadorSalaViewModel = Mapper.Map<JogadorSala, JogadorSalaViewModel>(_jogadorSalaBusiness.Obter(idJogadorSala));
+
+            ViewBag.JogadorSala = jogadorSalaViewModel;
+
+            if (jogadorSalaViewModel.Posicao.IdLocal == 1 || jogadorSalaViewModel.Posicao.IdLocal == 7 || jogadorSalaViewModel.Posicao.IdLocal == 8 || jogadorSalaViewModel.Posicao.IdLocal == 6)
+            {
+                ViewBag.passagemSecreta = true;
+            }
+            else
+            {
+                ViewBag.passagemSecreta = false;
+            }
 
             return View();
         }
@@ -80,9 +92,17 @@ namespace Detetive.Controllers
         /// <param name="linha" type="int">Número da linha.</param>
         /// <param name="coluna" type="int">Número da coluna.</param>
         /// <returns type="Void"></returns>
-        public string Mover(int idJogadorSala, int linha, int coluna)
+        [HttpPost]
+        public string MoverJogador(int idJogadorSala, int novaCoordenadaLinha, int novaCoordenadaColuna)
         {
-            return JsonConvert.SerializeObject(_movimentacaoBusiness.MoverJogador(idJogadorSala, linha, coluna));
+            var operacao = _movimentacaoBusiness.MoverJogador(idJogadorSala, novaCoordenadaLinha, novaCoordenadaColuna);
+
+            if (!operacao.Status)
+            {
+                return JsonConvert.SerializeObject(operacao);
+            }
+            var jogadorSalaViewModel = Mapper.Map<JogadorSala, JogadorSalaViewModel>(_jogadorSalaBusiness.Obter(idJogadorSala));
+            return JsonConvert.SerializeObject(new Operacao(JsonConvert.SerializeObject(jogadorSalaViewModel)));
         }
 
 
@@ -142,7 +162,7 @@ namespace Detetive.Controllers
         }
 
         public string Acusar(int idJogadorSala, int idSala, int idArma, int idLocal, int idSuspeito)
-        { 
+        {
             return JsonConvert.SerializeObject(_jogadorSalaBusiness.Acusar(idSala, idJogadorSala, idLocal, idSuspeito, idArma));
         }
 
