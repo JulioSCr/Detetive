@@ -305,7 +305,6 @@
     <Content Include="Content\Site.css" />
     <Content Include="Content\Views\Home\Index.css" />
     <Content Include="Content\Views\Partida\Jogar.css" />
-    <Content Include="Content\Views\Partida\Manter.css" />
     <Content Include="Content\Views\Partida\ModalAcusar.css" />
     <Content Include="Content\Views\Propaganda\Ad.css" />
     <Content Include="Content\Views\Sala\Manter.css" />
@@ -459,7 +458,6 @@
     <Content Include="Scripts\Libs\Popper\popper-utils.min.js.map" />
     <Content Include="Scripts\Libs\Popper\popper-utils.js.map" />
     <Content Include="Views\Suspeito\Listar.cshtml" />
-    <Content Include="Views\Partida\Manter.cshtml" />
     <Content Include="Views\Anotacao\Anotacao.cshtml" />
     <Content Include="Views\Sobre\Exibir.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />
