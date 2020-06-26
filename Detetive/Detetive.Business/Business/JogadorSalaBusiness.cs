@@ -46,7 +46,9 @@ namespace Detetive.Business.Business
 
         public JogadorSala Mover(JogadorSala jogadorSala, int novaCoordenadaLinha, int novaCoordenadaColuna)
         {
-            jogadorSala.Mover(novaCoordenadaLinha, novaCoordenadaColuna);
+            var porta = _portaLocalBusiness.Obter(novaCoordenadaLinha, novaCoordenadaColuna);
+            
+            jogadorSala.Mover(novaCoordenadaLinha, novaCoordenadaColuna, porta?.IdLocal);
 
             return _jogadorSalaRepository.Alterar(jogadorSala);
         }

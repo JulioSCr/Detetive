@@ -96,6 +96,7 @@
     <Compile Include="Entities\AnotacaoLocal.cs" />
     <Compile Include="Entities\Base\CartaBaseEntity.cs" />
     <Compile Include="Entities\Crime.cs" />
+    <Compile Include="Entities\Enum\DirecaoEnum.cs" />
     <Compile Include="Entities\Jogador.cs" />
     <Compile Include="Entities\JogadorSala.cs" />
     <Compile Include="Entities\Local.cs" />
@@ -105,6 +106,7 @@
     <Compile Include="Entities\Sala.cs" />
     <Compile Include="Entities\Suspeito.cs" />
     <Compile Include="Entities\SuspeitoJogadorSala.cs" />
+    <Compile Include="Extension\EnumExtensions.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup />

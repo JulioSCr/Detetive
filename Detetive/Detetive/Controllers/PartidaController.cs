@@ -101,6 +101,7 @@ namespace Detetive.Controllers
             {
                 return JsonConvert.SerializeObject(operacao);
             }
+
             var jogadorSalaViewModel = Mapper.Map<JogadorSala, JogadorSalaViewModel>(_jogadorSalaBusiness.Obter(idJogadorSala));
             return JsonConvert.SerializeObject(new Operacao(JsonConvert.SerializeObject(jogadorSalaViewModel)));
         }
@@ -109,7 +110,7 @@ namespace Detetive.Controllers
         /// <summary>
         /// Obtem a posição atual de cada jogador da sala
         /// </summary>
-        /// <returns>Retorna uma lista com ID-JOGADOR_SALA e a sua posição atual</returns>
+        /// <returns> Retorna uma lista com ID-JOGADOR_SALA e a sua posição atual. </returns>
         public string GetPosicaoAtual(/*int idSala*/)
         {
             int idSala = 1007;
