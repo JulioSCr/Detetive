@@ -178,7 +178,7 @@ Sala.EnviarMensagem = function (apelido, mensagem) {
 /// <returns type="Void"></returns>
 Sala.EnviarMovimento = function (pLinha, pColuna) {
     try {
-        debugger;
+        Jogar.DesativarBotoes(true);
         $.ajax({
             url: gstrGlobalPath + 'Partida/MoverJogador',
             type: 'post',
@@ -194,7 +194,7 @@ Sala.EnviarMovimento = function (pLinha, pColuna) {
                 var lintColuna = new Number();
                 var lintIdLocal = new Number();
                 try {
-                    debugger;
+                    Jogar.DesativarBotoes(false);
                     lobjResultado = JSON.parse(data);
                     if (!lobjResultado.Status) { throw lobjResultado.Retorno; }
                     lobjRetorno = JSON.parse(lobjResultado.Retorno);
@@ -207,6 +207,7 @@ Sala.EnviarMovimento = function (pLinha, pColuna) {
                 }
             },
             error: function (data, textStatus, XMLHttpRequest) {
+                Jogar.DesativarBotoes(false);
                 alert("Erro na chamada da movimentação.");
             }
         });
