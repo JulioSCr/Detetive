@@ -38,35 +38,35 @@ namespace Detetive.Business.Business
             _suspeitoBusiness = suspeitoBusiness;
         }
 
-        public Operacao Iniciar(int idSala)
-        {
-            var sala = _salaBusiness.Obter(idSala);
-            if (sala == default)
-                return new Operacao("Sala não encontrada.", false);
+        //public Operacao Iniciar(int idSala)
+        //{
+        //    var sala = _salaBusiness.Obter(idSala);
+        //    if (sala == default)
+        //        return new Operacao("Sala não encontrada.", false);
 
-            var crimeSala = _crimeBusiness.Obter(idSala);
-            if (crimeSala != default)
-                return new Operacao("A sala já foi iniciada.", false);
+        //    var crimeSala = _crimeBusiness.Obter(idSala);
+        //    if (crimeSala != default)
+        //        return new Operacao("A sala já foi iniciada.", false);
 
-            var jogadoresSala = _jogadorSalaBusiness.Listar(idSala);
-            if (jogadoresSala == null || jogadoresSala.Count < 3)
-                return new Operacao("Para iniciar a partida, é necessário que haja pelo menos 3 jogadores.", false);
+        //    var jogadoresSala = _jogadorSalaBusiness.Listar(idSala);
+        //    if (jogadoresSala == null || jogadoresSala.Count < 3)
+        //        return new Operacao("Para iniciar a partida, é necessário que haja pelo menos 3 jogadores.", false);
 
-            return IniciarPartida(sala);
-        }
+        //    return IniciarPartida(sala);
+        //}
 
-        private Operacao IniciarPartida(Sala sala)
-        {
-            var armas = _armaBusiness.Listar();
-            var locais = _localBusiness.Listar();
-            var suspeitos = _suspeitoBusiness.Listar();
+        //private Operacao IniciarPartida(Sala sala)
+        //{
+        //    var armas = _armaBusiness.Listar();
+        //    var locais = _localBusiness.Listar();
+        //    var suspeitos = _suspeitoBusiness.Listar();
 
-            if (armas == null || locais == null || suspeitos == null || !armas.Any() || !locais.Any() || !suspeitos.Any())
-                return new Operacao("Ocorreu um problema ao carregar as cartas.", false);
+        //    if (armas == null || locais == null || suspeitos == null || !armas.Any() || !locais.Any() || !suspeitos.Any())
+        //        return new Operacao("Ocorreu um problema ao carregar as cartas.", false);
 
-            var crime = _crimeBusiness.Adicionar(sala);
+        //    var crime = _crimeBusiness.Adicionar(sala);
 
-        }
+        //}
 
         public Operacao Acusar(int idSala, int idJogadorSala, int idLocal, int idSuspeito, int idArma)
         {
@@ -212,10 +212,10 @@ namespace Detetive.Business.Business
         {
             if (!idLocal.HasValue)
             {
-                var locais = _localBusiness.Listar();
-
-                if (locais.Any(l => !l.DentroLocal(coordenadaOrigemLinha, coordenadaOrigemColuna) && l.DentroLocal(coordenadaDestinoLinha, coordenadaDestinoColuna) &&
-                                     !l.PortaLocal(coordenadaDestinoLinha, coordenadaDestinoColuna)))
+                var local = _localBusiness.Obter(coordenadaDestinoLinha, coordenadaDestinoColuna);
+                
+                if (local != default && !local.DentroLocal(coordenadaOrigemLinha, coordenadaOrigemColuna) &&
+                    local.DentroLocal(coordenadaDestinoLinha, coordenadaDestinoColuna) && !local.PortaLocal(coordenadaDestinoLinha, coordenadaDestinoColuna))
                 {
                     return new Operacao("Não é possível entrar no local por esse quadrado.", false);
                 }

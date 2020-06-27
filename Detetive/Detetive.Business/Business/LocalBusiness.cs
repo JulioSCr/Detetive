@@ -14,7 +14,7 @@ namespace Detetive.Business.Business
         private readonly ILocalRepository _localRepository;
         private readonly IPortaLocalBusiness _portaLocalBusiness;
 
-        public LocalBusiness(ILocalRepository localRepository, 
+        public LocalBusiness(ILocalRepository localRepository,
                              IPortaLocalBusiness portaLocalBusiness)
         {
             _localRepository = localRepository;
@@ -24,8 +24,9 @@ namespace Detetive.Business.Business
         public List<Local> Listar()
         {
             var locais = _localRepository.Listar();
+            var portasLocais = _portaLocalBusiness.Listar();
 
-            locais.ForEach(local => local.Portas = _portaLocalBusiness.Listar(local.Id));
+            locais.ForEach(local => local.Portas = portasLocais.Where(p => p.IdLocal == local.Id).ToList());
 
             return locais;
         }
@@ -33,6 +34,16 @@ namespace Detetive.Business.Business
         public Local Obter(int idLocal)
         {
             return _localRepository.Obter(idLocal);
+        }
+
+        public Local Obter(int coordenadaLinha, int coordenadaColuna)
+        {
+            var local = _localRepository.Obter(coordenadaLinha, coordenadaColuna);
+
+            if (local != default)
+                local.Portas = _portaLocalBusiness.Listar(local.Id);
+
+            return local;
         }
     }
 }
