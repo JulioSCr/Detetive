@@ -16,6 +16,11 @@ namespace Detetive.Data.Repository
 
         }
 
+        public Crime Adicionar(Crime crime)
+        {
+            throw new NotImplementedException();
+        }
+
         public Crime Obter(int idSala)
         {
             return this.Context.Crimes.AsNoTracking().SingleOrDefault(_ => _.IdSala == idSala && _.Ativo);

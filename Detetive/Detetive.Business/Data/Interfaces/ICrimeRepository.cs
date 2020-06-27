@@ -9,6 +9,7 @@ namespace Detetive.Business.Data.Interfaces
 {
     public interface ICrimeRepository
     {
+        Crime Adicionar(Crime crime);
         Crime Obter(int idSala);
         Crime Alterar(Crime crime);
     }
