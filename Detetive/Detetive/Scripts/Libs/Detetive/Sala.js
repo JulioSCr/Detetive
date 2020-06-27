@@ -49,7 +49,6 @@ Sala.Configurar = function () {
     };
 
     Sala.mHubSala.client.TransmitirMovimento = function (ID_JOGADOR_SALA, pLinha, pColuna, pIDLocal) {
-        debugger;
         Jogar.TransmitirMovimento(ID_JOGADOR_SALA, pLinha, pColuna, pIDLocal);
     }
 

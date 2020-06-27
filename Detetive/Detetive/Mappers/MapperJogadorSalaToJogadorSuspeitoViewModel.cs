@@ -20,7 +20,8 @@ namespace Detetive.Mappers
                 .ForMember(viewModel => viewModel.CoordenadaColuna, _ => _.MapFrom(model => model.CoordenadaColuna))
                 .ForMember(viewModel => viewModel.IdSuspeito, _ => _.MapFrom(model => model.Suspeito.Id))
                 .ForMember(viewModel => viewModel.DescricaoSuspeito, _ => _.MapFrom(model => model.Suspeito.Descricao))
-                .ForMember(viewModel => viewModel.IdDescricao, _ => _.MapFrom(model => model.Suspeito.Descricao.TratarString()));
+                .ForMember(viewModel => viewModel.IdDescricao, _ => _.MapFrom(model => model.Suspeito.Descricao.TratarString()))
+                .ForMember(viewModel => viewModel.IdLocal, _ => _.MapFrom(model => model.IdLocal));
         }
 
         public override string ProfileName

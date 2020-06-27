@@ -40,10 +40,11 @@ namespace Detetive.Business.Entities
             return entreLinhas && entreColunas;
         }
 
-        public bool PortaLocal(int coordenadaLinha, int coordenadaColuna)
+        public bool PortaLocal(int coordenadaLinha, int coordenadaColuna, string direcao)
         {
             return Portas.Any(_ => _.CoordenadaLinha == coordenadaLinha &&
-                                    _.CoordenadaColuna == coordenadaColuna);
+                                    _.CoordenadaColuna == coordenadaColuna &&
+                                    _.Direcao.Equals(direcao));
         }
     }
 }
