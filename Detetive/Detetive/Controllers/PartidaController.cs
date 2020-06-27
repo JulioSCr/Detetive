@@ -23,12 +23,12 @@ namespace Detetive.Controllers
         private readonly IAnotacaoLocalBusiness _anotacaoLocalBusiness;
         private readonly IAnotacaoSuspeitoBusiness _anotacaoSuspeitoBusiness;
 
-        public PartidaController(ILocalBusiness localBusiness, 
-                                 IPartidaBusiness partidaBusiness, 
-                                 IPortaLocalBusiness portaLocalBusiness, 
-                                 IJogadorSalaBusiness jogadorSalaBusiness, 
-                                 IAnotacaoArmaBusiness anotacaoArmaBusiness, 
-                                 IAnotacaoLocalBusiness anotacaoLocalBusiness, 
+        public PartidaController(ILocalBusiness localBusiness,
+                                 IPartidaBusiness partidaBusiness,
+                                 IPortaLocalBusiness portaLocalBusiness,
+                                 IJogadorSalaBusiness jogadorSalaBusiness,
+                                 IAnotacaoArmaBusiness anotacaoArmaBusiness,
+                                 IAnotacaoLocalBusiness anotacaoLocalBusiness,
                                  IAnotacaoSuspeitoBusiness anotacaoSuspeitoBusiness)
         {
             _localBusiness = localBusiness;
@@ -95,15 +95,22 @@ namespace Detetive.Controllers
         [HttpPost]
         public string MoverJogador(int idJogadorSala, int novaCoordenadaLinha, int novaCoordenadaColuna)
         {
-            var operacao = _partidaBusiness.MoverJogador(idJogadorSala, novaCoordenadaLinha, novaCoordenadaColuna);
-
-            if (!operacao.Status)
+            try
             {
-                return JsonConvert.SerializeObject(operacao);
-            }
+                var operacao = _partidaBusiness.MoverJogador(idJogadorSala, novaCoordenadaLinha, novaCoordenadaColuna);
 
-            var jogadorSalaViewModel = Mapper.Map<JogadorSala, JogadorSalaViewModel>(_jogadorSalaBusiness.Obter(idJogadorSala));
-            return JsonConvert.SerializeObject(new Operacao(JsonConvert.SerializeObject(jogadorSalaViewModel)));
+                if (!operacao.Status)
+                {
+                    return JsonConvert.SerializeObject(operacao);
+                }
+
+                var jogadorSalaViewModel = Mapper.Map<JogadorSala, JogadorSalaViewModel>(_jogadorSalaBusiness.Obter(idJogadorSala));
+                return JsonConvert.SerializeObject(new Operacao(JsonConvert.SerializeObject(jogadorSalaViewModel)));
+            }
+            catch (Exception ex)
+            {
+                return JsonConvert.SerializeObject(new Operacao(ex.Message, false));
+            }
         }
 
 

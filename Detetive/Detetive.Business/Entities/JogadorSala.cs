@@ -43,7 +43,7 @@ namespace Detetive.Business.Entities
             int quantidadeMovimentosNecessarios = Math.Abs(CoordenadaLinha - linhaMovimento) +
                                                     Math.Abs(CoordenadaColuna - colunaMovimento);
 
-            return QuantidadeMovimento > 0 && quantidadeMovimentosNecessarios <= QuantidadeMovimento;
+            return IdLocal.HasValue || (QuantidadeMovimento > 0 && quantidadeMovimentosNecessarios <= QuantidadeMovimento);
         }
 
         public void Mover(int coordenadaLinha, int coordenadaColuna, int? idLocal = null)
@@ -74,7 +74,7 @@ namespace Detetive.Business.Entities
             CoordenadaColuna = jogadorSala.CoordenadaColuna;
             IdLocal = jogadorSala.IdLocal;
             IdSuspeito = jogadorSala.IdSuspeito;
-    }
+        }
 
         public void AlterarSuspeito(int? idSuspeito)
         {

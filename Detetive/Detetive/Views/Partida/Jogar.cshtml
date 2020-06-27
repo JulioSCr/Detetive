@@ -32,8 +32,9 @@
 
         @foreach (var jogadorSuspeito in ViewBag.JogadoresSuspeitos)
         {
-            if (jogadorSuspeito.IdLocal == null){
-            <div id=@($"div{jogadorSuspeito.IdDescricao}") title="@jogadorSuspeito.DescricaoSuspeito" idJogadorSala="@jogadorSuspeito.IdJogadorSala" class="suspeito" style="grid-column:@jogadorSuspeito.CoordenadaColuna;grid-row:@jogadorSuspeito.CoordenadaLinha"></div>
+            if (jogadorSuspeito.IdLocal == null)
+            {
+                <div id=@($"div{jogadorSuspeito.IdDescricao}") title="@jogadorSuspeito.DescricaoSuspeito" idJogadorSala="@jogadorSuspeito.IdJogadorSala" class="suspeito" style="grid-column:@jogadorSuspeito.CoordenadaColuna;grid-row:@jogadorSuspeito.CoordenadaLinha"></div>
             }
         }
     </div>

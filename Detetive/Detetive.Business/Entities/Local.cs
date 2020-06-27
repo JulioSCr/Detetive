@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.Remoting.Messaging;
 using System.Text;
 
 namespace Detetive.Business.Entities
@@ -40,11 +41,13 @@ namespace Detetive.Business.Entities
             return entreLinhas && entreColunas;
         }
 
-        public bool PortaLocal(int coordenadaLinha, int coordenadaColuna, string direcao)
+        public bool PortaLocal(int coordenadaOrigemLinha, int coordenadaOrigemColuna, int coordenadaDestinoLinha, int coordenadaDestinoColuna)
         {
-            return Portas.Any(_ => _.CoordenadaLinha == coordenadaLinha &&
-                                    _.CoordenadaColuna == coordenadaColuna &&
-                                    _.Direcao.Equals(direcao));
+            var porta = Portas.FirstOrDefault(_ => _.CoordenadaLinha == coordenadaDestinoLinha && _.CoordenadaColuna == coordenadaDestinoColuna);
+            if (porta == default)
+                return false;
+
+            return porta.ValidarMovimento(coordenadaOrigemLinha, coordenadaOrigemColuna);
         }
     }
 }

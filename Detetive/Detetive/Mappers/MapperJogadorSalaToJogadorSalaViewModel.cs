@@ -14,6 +14,7 @@ namespace Detetive.Mappers
         {
             CreateMap<JogadorSala, JogadorSalaViewModel>()
                 .ForMember(viewModel => viewModel.Id, _ => _.MapFrom(model => model.Id))
+                .ForMember(viewModel => viewModel.MinhaVez, _ => _.MapFrom(model => model.VezJogador))
                 .AfterMap((model, viewModel) => viewModel.Posicao.Linha = model.CoordenadaLinha)
                 .AfterMap((model, viewModel) => viewModel.Posicao.Coluna = model.CoordenadaColuna)
                 .AfterMap((model, viewModel) => viewModel.Posicao.IdLocal = model.IdLocal);

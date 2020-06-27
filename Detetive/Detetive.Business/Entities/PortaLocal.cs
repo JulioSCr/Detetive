@@ -20,27 +20,27 @@ namespace Detetive.Business.Entities
         {
         }
 
-        public bool ValidarMovimento(int novaCoordenadaLinha, int novaCoordenadaColuna)
+        public bool ValidarMovimento(int coordenadaLinha, int coordenadaColuna)
         {
             var direcao = EnumExtensions.GetValueFromDescription<DirecaoEnum>(this.Direcao);
 
-            switch (direcao) 
+            switch (direcao)
             {
                 case DirecaoEnum.Cima:
-                    return CoordenadaLinha == novaCoordenadaLinha + 1 &&
-                               CoordenadaColuna == novaCoordenadaColuna;
+                    return CoordenadaLinha == coordenadaLinha + 1 &&
+                               CoordenadaColuna == coordenadaColuna;
 
                 case DirecaoEnum.Baixo:
-                    return CoordenadaLinha == novaCoordenadaLinha - 1 &&
-                               CoordenadaColuna == novaCoordenadaColuna;
+                    return CoordenadaLinha == coordenadaLinha - 1 &&
+                               CoordenadaColuna == coordenadaColuna;
 
                 case DirecaoEnum.Direita:
-                    return CoordenadaLinha == novaCoordenadaLinha &&
-                               CoordenadaColuna == novaCoordenadaColuna - 1;
+                    return CoordenadaLinha == coordenadaLinha &&
+                               CoordenadaColuna == coordenadaColuna - 1;
 
                 case DirecaoEnum.Esquerda:
-                    return CoordenadaLinha == novaCoordenadaLinha &&
-                               CoordenadaColuna == novaCoordenadaColuna + 1;
+                    return CoordenadaLinha == coordenadaLinha &&
+                               CoordenadaColuna == coordenadaColuna + 1;
 
                 default:
                     return false;
