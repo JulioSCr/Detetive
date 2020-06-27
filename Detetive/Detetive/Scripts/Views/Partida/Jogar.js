@@ -73,6 +73,29 @@ $(document).ready(function () {
 
 Jogar.btnFinalizarTurno_OnClick = function () {
     try {
+        $("#btnEsquerda").attr("disabled", true);
+        $("#btnEsquerda").css('background', 'darkgrey');
+
+        $("#btnDireita").attr("disabled", true);
+        $("#btnDireita").css('background', 'darkgrey');
+
+        $("#btnAcima").attr("disabled", true);
+        $("#btnAcima").css('background', 'darkgrey');
+
+        $("#btnAbaixo").attr("disabled", true);
+        $("#btnAbaixo").css('background', 'darkgrey');
+
+        $("#btnLancarDados").attr("disabled", true);
+        $("#btnLancarDados").css('background', 'darkgrey');
+
+        $("#btnPalpite").attr("disabled", true);
+        $("#btnAcusar").attr("disabled", true);
+        $("#btnPassagemSecreta").attr("disabled", true);
+
+        $("#btnFinalizarTurno").attr("disabled", true);
+        $("#btnFinalizarTurno").css('background', 'darkgrey');
+
+        $("#divCaixaInformacoes").append("Você finalizou seu turno!");
 
     } catch (ex) {
         alert(ex);
