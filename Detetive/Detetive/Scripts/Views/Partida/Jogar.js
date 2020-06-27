@@ -115,6 +115,17 @@ Jogar.btnAcusar_OnClick = function () {
     }
 }
 
+Jogar.DesativarBotoes = function (pblnAtivar) {
+    $('#btnDireita').prop('disabled', pblnAtivar);
+    $('#btnEsquerda').prop('disabled', pblnAtivar);
+    $('#btnAcima').prop('disabled', pblnAtivar);
+    $('#btnAbaixo').prop('disabled', pblnAtivar);
+    $('#btnLancarDados').prop('disabled', pblnAtivar);
+    $('#btnPalpite').prop('disabled', pblnAtivar);
+    $('#btnAcusar').prop('disabled', pblnAtivar);
+    $('#btnPassagemSecreta').prop('disabled', pblnAtivar);
+}
+
 //#endregion
 
 Jogar.TransmitirMovimento = function (pID_JOGADOR_SALA, pLinha, pColuna, pIDLocal) {
