@@ -18,12 +18,12 @@ namespace Detetive.Data.Repository
 
         public Crime Obter(int idSala)
         {
-            return this.Context.Crimes.SingleOrDefault(_ => _.IdSala == idSala && _.Ativo);
+            return this.Context.Crimes.AsNoTracking().SingleOrDefault(_ => _.IdSala == idSala && _.Ativo);
         }
 
         public Crime Alterar(Crime crime)
         {
-            var crimeSala = this.Context.Crimes.SingleOrDefault(_ => _.Id == crime.Id && _.Ativo);
+            var crimeSala = this.Context.Crimes.AsNoTracking().SingleOrDefault(_ => _.Id == crime.Id && _.Ativo);
 
             if (crimeSala != default)
             {

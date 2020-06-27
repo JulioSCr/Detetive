@@ -16,25 +16,25 @@ namespace Detetive.Controllers
     public class PartidaController : Controller
     {
         private readonly ILocalBusiness _localBusiness;
+        private readonly IPartidaBusiness _partidaBusiness;
         private readonly IPortaLocalBusiness _portaLocalBusiness;
         private readonly IJogadorSalaBusiness _jogadorSalaBusiness;
-        private readonly IMovimentacaoBusiness _movimentacaoBusiness;
         private readonly IAnotacaoArmaBusiness _anotacaoArmaBusiness;
         private readonly IAnotacaoLocalBusiness _anotacaoLocalBusiness;
         private readonly IAnotacaoSuspeitoBusiness _anotacaoSuspeitoBusiness;
 
-        public PartidaController(ILocalBusiness localBusiness,
-                                 IJogadorSalaBusiness jogadorSalaBusiness,
-                                 IMovimentacaoBusiness movimentacaoBusiness,
-                                 IAnotacaoArmaBusiness anotacaoArmaBusiness,
-                                 IAnotacaoLocalBusiness anotacaoLocalBusiness,
-                                 IAnotacaoSuspeitoBusiness anotacaoSuspeitoBusiness,
-                                 IPortaLocalBusiness portaLocalBusiness)
+        public PartidaController(ILocalBusiness localBusiness, 
+                                 IPartidaBusiness partidaBusiness, 
+                                 IPortaLocalBusiness portaLocalBusiness, 
+                                 IJogadorSalaBusiness jogadorSalaBusiness, 
+                                 IAnotacaoArmaBusiness anotacaoArmaBusiness, 
+                                 IAnotacaoLocalBusiness anotacaoLocalBusiness, 
+                                 IAnotacaoSuspeitoBusiness anotacaoSuspeitoBusiness)
         {
             _localBusiness = localBusiness;
+            _partidaBusiness = partidaBusiness;
             _portaLocalBusiness = portaLocalBusiness;
             _jogadorSalaBusiness = jogadorSalaBusiness;
-            _movimentacaoBusiness = movimentacaoBusiness;
             _anotacaoArmaBusiness = anotacaoArmaBusiness;
             _anotacaoLocalBusiness = anotacaoLocalBusiness;
             _anotacaoSuspeitoBusiness = anotacaoSuspeitoBusiness;
@@ -95,7 +95,7 @@ namespace Detetive.Controllers
         [HttpPost]
         public string MoverJogador(int idJogadorSala, int novaCoordenadaLinha, int novaCoordenadaColuna)
         {
-            var operacao = _movimentacaoBusiness.MoverJogador(idJogadorSala, novaCoordenadaLinha, novaCoordenadaColuna);
+            var operacao = _partidaBusiness.MoverJogador(idJogadorSala, novaCoordenadaLinha, novaCoordenadaColuna);
 
             if (!operacao.Status)
             {
@@ -159,12 +159,12 @@ namespace Detetive.Controllers
         /// <returns></returns>
         public string Palpite(int idJogadorSala, int idSala, int idArma, int idLocal, int idSuspeito)
         {
-            return JsonConvert.SerializeObject(_jogadorSalaBusiness.Palpitar(idSala, idJogadorSala, idLocal, idSuspeito, idArma));
+            return JsonConvert.SerializeObject(_partidaBusiness.Palpitar(idSala, idJogadorSala, idLocal, idSuspeito, idArma));
         }
 
         public string Acusar(int idJogadorSala, int idSala, int idArma, int idLocal, int idSuspeito)
         {
-            return JsonConvert.SerializeObject(_jogadorSalaBusiness.Acusar(idSala, idJogadorSala, idLocal, idSuspeito, idArma));
+            return JsonConvert.SerializeObject(_partidaBusiness.Acusar(idSala, idJogadorSala, idLocal, idSuspeito, idArma));
         }
 
         private void CarregarAnotacoes(int idJogadorSala)

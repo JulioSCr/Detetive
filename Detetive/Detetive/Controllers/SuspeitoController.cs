@@ -70,20 +70,33 @@ namespace Detetive.Controllers
         {
             try
             {
-                string descricaoSuspeito = "";
-                var jogadorSala = _jogadorSalaBusiness.Obter(idJogadorSala);
+                var sala = _salaBusiness.Obter(idSala);
+                if (sala == default)
+                    return JsonConvert.SerializeObject(new Operacao("Sala não encontrada.", false));
 
-                if (jogadorSala.IdSuspeito != null)
+                var jogadorSala = _jogadorSalaBusiness.Obter(idJogadorSala);
+                if (jogadorSala == default)
+                    return JsonConvert.SerializeObject(new Operacao("Jogador Sala não encontrado.", false));
+
+                var suspeito = _suspeitoBusiness.Obter(idSuspeito);
+                if (suspeito == default)
+                    return JsonConvert.SerializeObject(new Operacao("Suspeito não encontrado.", false));
+
+                if (jogadorSala.IdSala != sala.Id)
+                    return JsonConvert.SerializeObject(new Operacao("Jogador Sala não pertence a sala passada.", false));
+
+                string descricaoSuspeito = String.Empty;
+
+                if (jogadorSala.IdSuspeito.HasValue)
                 {
-                    int idSuspeitoDesconsiderado = jogadorSala.IdSuspeito ?? 0;
-                    if (idSuspeitoDesconsiderado > 0)
-                        descricaoSuspeito = _suspeitoBusiness.Obter(idSuspeitoDesconsiderado).Descricao;
+                    var suspeitoSelecionado = _suspeitoBusiness.Obter(jogadorSala.IdSuspeito.Value);
+                    descricaoSuspeito = suspeitoSelecionado.Descricao;
                 }
 
-                _jogadorSalaBusiness.SelecionarSuspeito(idSala, idJogadorSala, idSuspeito);
+                jogadorSala.AlterarSuspeito(suspeito.Id);
+                _jogadorSalaBusiness.Alterar(jogadorSala);
 
                 var jogador = _jogadorBusiness.Obter(jogadorSala.IdJogador);
-
                 var retorno = Json(new
                 {
                     DescricaoJogador = jogador.Descricao,

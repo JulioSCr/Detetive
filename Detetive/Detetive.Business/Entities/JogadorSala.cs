@@ -72,8 +72,9 @@ namespace Detetive.Business.Entities
             QuantidadeMovimento = jogadorSala.QuantidadeMovimento;
             CoordenadaLinha = jogadorSala.CoordenadaLinha;
             CoordenadaColuna = jogadorSala.CoordenadaColuna;
+            IdLocal = jogadorSala.IdLocal;
             IdSuspeito = jogadorSala.IdSuspeito;
-        }
+    }
 
         public void AlterarSuspeito(int? idSuspeito)
         {
