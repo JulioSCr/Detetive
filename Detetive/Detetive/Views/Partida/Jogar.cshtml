@@ -19,13 +19,12 @@
     <div id="divTabuleiro" class="esquerda">
         @foreach (var local in ViewBag.Locais)
         {
-            <div id=@($"div{local.IdDescricao}") idLocal="@local.Id">
+            <div id=@($"div{local.IdDescricao}") idLocal="@local.Id" class="Local" style="grid-row:@local.CoordenadaALinha/@(local.CoordenadaBLinha+1);grid-column:@local.CoordenadaAColuna/@(local.CoordenadaBColuna+1);">
                 @foreach (var jogadorSuspeito in ViewBag.JogadoresSuspeitos)
                 {
-                    if ((jogadorSuspeito.CoordenadaLinha >= local.CoordenadaALinha && jogadorSuspeito.CoordenadaLinha <= local.CoordenadaBLinha)
-                        && (jogadorSuspeito.CoordenadaColuna >= local.CoordenadaAColuna && jogadorSuspeito.CoordenadaColuna <= local.CoordenadaBColuna))
+                    if (jogadorSuspeito.IdLocal != null && jogadorSuspeito.IdLocal == local.Id)
                     {
-                        <div id=@($"div{jogadorSuspeito.IdDescricao}") title="@jogadorSuspeito.DescricaoSuspeito" idJogadorSala="@jogadorSuspeito.IdJogadorSala" class="suspeito dentro"></div>
+                        <div id=@($"div{jogadorSuspeito.IdDescricao}") title="@jogadorSuspeito.DescricaoSuspeito" idJogadorSala="@jogadorSuspeito.IdJogadorSala" class="suspeito dentro" style="grid-column:@jogadorSuspeito.CoordenadaColuna;grid-row:@jogadorSuspeito.CoordenadaLinha;"></div>
                     }
                 }
             </div>
@@ -33,19 +32,8 @@
 
         @foreach (var jogadorSuspeito in ViewBag.JogadoresSuspeitos)
         {
-            bool foraLocal = false;
-            foreach (var local in ViewBag.Locais)
-            {
-                if (!(jogadorSuspeito.CoordenadaLinha >= local.CoordenadaALinha && jogadorSuspeito.CoordenadaLinha <= local.CoordenadaBLinha)
-                    && !(jogadorSuspeito.CoordenadaColuna >= local.CoordenadaAColuna && jogadorSuspeito.CoordenadaColuna <= local.CoordenadaBColuna))
-                {
-                    foraLocal = true;
-                    break;
-                }
-            }
-            if (foraLocal)
-            {
-                <div id=@($"div{jogadorSuspeito.IdDescricao}") title="@jogadorSuspeito.DescricaoSuspeito" idJogadorSala="@jogadorSuspeito.IdJogadorSala" class="suspeito" style="grid-column:@jogadorSuspeito.CoordenadaColuna;grid-row:@jogadorSuspeito.CoordenadaLinha"></div>
+            if (jogadorSuspeito.IdLocal == null){
+            <div id=@($"div{jogadorSuspeito.IdDescricao}") title="@jogadorSuspeito.DescricaoSuspeito" idJogadorSala="@jogadorSuspeito.IdJogadorSala" class="suspeito" style="grid-column:@jogadorSuspeito.CoordenadaColuna;grid-row:@jogadorSuspeito.CoordenadaLinha"></div>
             }
         }
     </div>
@@ -116,10 +104,10 @@
             <button type="button" title="Mover para cima" id="btnAcima" class="botoes btnSetaVertical centralizarBotoes" onclick="Jogar.btnAcima_OnClick()"></button>
             <button type="button" title="Mover para baixo" id="btnAbaixo" class="botoes btnSetaVertical centralizarBotoes" onclick="Jogar.btnAbaixo_OnClick()"></button>
             <button type="button" title="Rolar os dados" id="btnLancarDados" class="botoes centralizarBotoes"></button>
-            
+
             <button type="button" title="Palpitar" id="btnPalpite" class="botoes centralizarBotoes botoesOpcoes" onclick="Jogar.btnPalpite_OnClick()" style="@(ViewBag.JogadorSala.Posicao.IdLocal == null ? "visibility: hidden" : "visibility: visible")">Palpite</button>
             <button type="button" title="Acusar" id="btnAcusar" class="botoes centralizarBotoes botoesOpcoes" onclick="Jogar.btnAcusar_OnClick()" style="@(ViewBag.JogadorSala.Posicao.IdLocal == null ? "visibility: hidden" : "visibility: visible")">Acusar</button>
-            <button type="button" title="Usar passagem secreta" id="btnPassagemSecreta" class="botoes centralizarBotoes botoesOpcoes" onclick="Jogar.btnPassagemSecreta_OnClick()" style="@(ViewBag.passagemSecreta == false ? "visibility: hidden" : "visibility: visible")"></button> 
+            <button type="button" title="Usar passagem secreta" id="btnPassagemSecreta" class="botoes centralizarBotoes botoesOpcoes" onclick="Jogar.btnPassagemSecreta_OnClick()" style="@(ViewBag.passagemSecreta == false ? "visibility: hidden" : "visibility: visible")"></button>
         </div>
         <div id="divInformacoesContainer">
             <div id="divInformacoes">
