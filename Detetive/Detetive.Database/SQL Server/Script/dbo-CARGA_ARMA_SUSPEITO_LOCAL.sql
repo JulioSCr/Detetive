@@ -9,15 +9,15 @@ INSERT INTO ARMA (DS_ARMA, DS_CAMINHO_IMAGEM, IE_ATIVO) VALUES
 	, ('Pomba', '~/Content/Imagens/CartasArmas/imgCartaPomba.svg', 1)
 
 INSERT INTO "LOCAL" (DS_LOCAL, DS_CAMINHO_IMAGEM, NR_LINHA_1, NR_COLUNA_1, NR_LINHA_2, NR_COLUNA_2, IE_ATIVO) VALUES 
-	  ('Santiago', '~/Content/Imagens/CartasLocais/imgCartaSantiago.svg', 1, 27, 10, 33, 1)
-	, ('Centro Acadêmico', '~/Content/Imagens/CartasLocais/imgCartaCentroAcademico.svg', 12, 27, 26, 33, 1)
-	, ('Ginásio', '~/Content/Imagens/CartasLocais/imgCartaGinasio.svg', 9, 18, 18, 25, 1)
-	, ('Prédio A', '~/Content/Imagens/CartasLocais/imgCartaPredioA.svg', 11, 1, 18, 7, 1)
-	, ('Prédio B', '~/Content/Imagens/CartasLocais/imgCartaPredioB.svg', 11, 9, 18, 15, 1)
-	, ('Praça', '~/Content/Imagens/CartasLocais/imgCartaPraca.svg', 20, 16, 26, 25, 1)
-	, ('ETESP', '~/Content/Imagens/CartasLocais/imgCartaETESP.svg', 20, 9, 26, 15, 1)
-	, ('Cantina A/B', '~/Content/Imagens/CartasLocais/imgCartaCatinaAB.svg', 20, 1, 26, 7, 1)
-	, ('Auditório', '~/Content/Imagens/CartasLocais/imgCartaAuditorio.svg',	3, 18, 9, 25, 1)
+	  ('Santiago', '~/Content/Imagens/CartasLocais/imgCartaSantiago.svg', 1, 27, 9, 32, 1)
+	, ('Centro Acadêmico', '~/Content/Imagens/CartasLocais/imgCartaCentroAcademico.svg', 12, 27, 25, 32, 1)
+	, ('Ginásio', '~/Content/Imagens/CartasLocais/imgCartaGinasio.svg', 9, 18, 17, 24, 1)
+	, ('Prédio A', '~/Content/Imagens/CartasLocais/imgCartaPredioA.svg', 11, 1, 17, 6, 1)
+	, ('Prédio B', '~/Content/Imagens/CartasLocais/imgCartaPredioB.svg', 11, 9, 17, 14, 1)
+	, ('Praça', '~/Content/Imagens/CartasLocais/imgCartaPraca.svg', 20, 16, 25, 24, 1)
+	, ('ETESP', '~/Content/Imagens/CartasLocais/imgCartaETESP.svg', 20, 9, 25, 14, 1)
+	, ('Cantina A/B', '~/Content/Imagens/CartasLocais/imgCartaCatinaAB.svg', 20, 1, 25, 6, 1)
+	, ('Auditório', '~/Content/Imagens/CartasLocais/imgCartaAuditorio.svg',	3, 18, 8, 24, 1)
 
 INSERT INTO SUSPEITO (ID_LOCAL, DS_SUSPEITO, DS_CAMINHO_IMAGEM, IE_ATIVO) VALUES 
 	    (1, 'Reitor', '~/Content/Imagens/CartasSuspeitos/imgCartaReitor.svg', 1)
