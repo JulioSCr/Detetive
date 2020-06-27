@@ -247,17 +247,7 @@ namespace Detetive.Business.Business
 
                 return new Operacao("Operação válida.");
             }
-            //else
-            //{
-            //    var portas = _portaLocalBusiness.Listar(idLocal.Value);
-            //    if (portas == null || !portas.Any())
-            //        return new Operacao("Portas da sala não cadastradas.", false);
 
-            //    //if (portas.Any(p => p.ValidarMovimento(coordenadaDestinoLinha, coordenadaDestinoColuna)))
-            //    //    return new Operacao("Operação válida.");
-
-            //    return new Operacao("Não é possível sair do local por essa direção.", false);
-            //}
             return new Operacao("Operação válida.");
         }
 
