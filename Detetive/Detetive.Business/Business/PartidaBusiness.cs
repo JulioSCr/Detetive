@@ -40,7 +40,7 @@ namespace Detetive.Business.Business
         //    if (crime == default)
         //        return new Operacao("A sala já foi iniciada.", false);
 
-        //    _jogadorSalaBusiness.Listar(idSala);
+        //    var jogadoresSala = _jogadorSalaBusiness.Listar(idSala);
         //}
 
         public Operacao Acusar(int idSala, int idJogadorSala, int idLocal, int idSuspeito, int idArma)
@@ -67,7 +67,7 @@ namespace Detetive.Business.Business
         {
             var jogadorSala = _jogadorSalaBusiness.Obter(idJogadorSala);
 
-            if (jogadorSala == default && jogadorSala.IdSala == idSala)
+            if (jogadorSala == default && jogadorSala.IdSala != idSala)
                 return new Operacao("Jogador não encontrado", false);
 
             if (!jogadorSala.MinhaVez())
