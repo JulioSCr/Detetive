@@ -20,16 +20,6 @@ namespace Detetive.Business.Business
             _jogadorBusiness = jogadorBusiness;
         }
 
-        public Sala Adicionar(int idJogador)
-        {
-            var jogador = _jogadorBusiness.Obter(idJogador);
-
-            if (jogador == default)
-                return null;
-
-            return _salaRepository.Adicionar(new Sala());
-        }
-
         public Sala Adicionar()
         {
            return _salaRepository.Adicionar(new Sala());

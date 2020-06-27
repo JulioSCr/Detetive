@@ -12,7 +12,7 @@
     <div class="col-4">
         <h5 class="text-center"> Armas </h5>
 
-        @*foreach (var arma in Model.Armas)
+        @*@foreach (var arma in Model.Armas)
         {
             <div class="custom-control custom-checkbox">
                 @Html.CheckBox(arma.Descricao, arma.Selecionado, new { id = arma.Id, @class = "custom-control-input", onchance = "AnotarArma(this)" })

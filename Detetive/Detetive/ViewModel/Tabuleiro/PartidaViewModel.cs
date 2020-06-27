@@ -8,6 +8,6 @@ namespace Detetive.ViewModel.Tabuleiro
     public class PartidaViewModel
     {
         public int Id { get; set; }
-        public List<JogadorViewModel> Jogadores { get; set; }
+        public List<JogadorSalaViewModel> Jogadores { get; set; }
     }
 }

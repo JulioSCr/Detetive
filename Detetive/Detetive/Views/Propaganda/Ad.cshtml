@@ -1,0 +1,21 @@
+﻿@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@section head{
+    <link rel="stylesheet" href="@Url.Content("~/Content/Views/Propaganda/Ad.css?" + DateTimeOffset.Now)" />
+}
+
+@section scripts{
+    <script src="@Url.Content("~/Scripts/Views/Propaganda/Ad.js?" + DateTimeOffset.Now)"></script>
+}
+
+<div id="propaganda">
+    <span id='close' onclick='this.parentNode.parentNode.parentNode.removeChild(this.parentNode.parentNode); return false;'>x
+        <video id="ad" width="320" height="240" controls autoplay>
+            <source src="~/Content/Imagens/Ads/dolly.mp4" type="video/mp4">
+        </video>
+    </span>
+
+</div>
+

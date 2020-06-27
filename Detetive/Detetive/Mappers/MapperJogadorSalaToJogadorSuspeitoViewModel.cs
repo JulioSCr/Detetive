@@ -14,7 +14,10 @@ namespace Detetive.Mappers
         public MapperJogadorSalaToJogadorSuspeitoViewModel()
         {
             CreateMap<JogadorSala, JogadorSuspeitoViewModel>()
-                .ForMember(viewModel => viewModel.IdJogadorSala, _ => _.MapFrom(model => model.Suspeito.Id))
+                .ForMember(viewModel => viewModel.IdJogadorSala, _ => _.MapFrom(model => model.Id))
+                .ForMember(viewModel => viewModel.CoordenadaLinha, _ => _.MapFrom(model => model.CoordenadaLinha))
+                .ForMember(viewModel => viewModel.CoordenadaColuna, _ => _.MapFrom(model => model.CoordenadaColuna))
+                .ForMember(viewModel => viewModel.CoordenadaColuna, _ => _.MapFrom(model => model.CoordenadaColuna))
                 .ForMember(viewModel => viewModel.IdSuspeito, _ => _.MapFrom(model => model.Suspeito.Id))
                 .ForMember(viewModel => viewModel.DescricaoSuspeito, _ => _.MapFrom(model => model.Suspeito.Descricao))
                 .ForMember(viewModel => viewModel.IdDescricao, _ => _.MapFrom(model => model.Suspeito.Descricao.TratarString()));

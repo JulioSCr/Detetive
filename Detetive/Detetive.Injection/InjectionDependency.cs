@@ -26,11 +26,11 @@ namespace Detetive.Injection
             container.Register<IJogadorBusiness, JogadorBusiness>(Lifestyle.Scoped);
             container.Register<IJogadorSalaBusiness, JogadorSalaBusiness>(Lifestyle.Scoped);
             container.Register<ILocalBusiness, LocalBusiness>(Lifestyle.Scoped);
-            container.Register<IMovimentacaoBusiness, MovimentacaoBusiness>(Lifestyle.Scoped);
             container.Register<IPortaLocalBusiness, PortaLocalBusiness>(Lifestyle.Scoped);
             container.Register<ISalaBusiness, SalaBusiness>(Lifestyle.Scoped);
             container.Register<ISuspeitoBusiness, SuspeitoBusiness>(Lifestyle.Scoped);
             container.Register<IArmaBusiness, ArmaBusiness>(Lifestyle.Scoped);
+            container.Register<IPartidaBusiness, PartidaBusiness>(Lifestyle.Scoped);
 
             // Data
             container.Register<IAnotacaoArmaRepository, AnotacaoArmaRepository>(Lifestyle.Scoped);
