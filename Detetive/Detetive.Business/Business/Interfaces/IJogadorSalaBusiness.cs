@@ -15,5 +15,6 @@ namespace Detetive.Business.Business.Interfaces
         JogadorSala Alterar(JogadorSala jogadorSala);
         List<JogadorSala> Listar(int idSala);
         JogadorSala ObterPorSuspeito(int idSuspeito, int idSala);
+        List<JogadorSala> Alterar(List<JogadorSala> jogadoresSala);
     }
 }

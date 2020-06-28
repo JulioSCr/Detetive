@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace Detetive.Business.Business
 {
-    public class SuspeitoJogadorSalaBusiness
+    public class SuspeitoJogadorSalaBusiness : ISuspeitoJogadorSalaBusiness
     {
         private readonly ICrimeBusiness _crimeBusiness;
         private readonly IJogadorSalaBusiness _jogadorSalaBusiness;
@@ -27,9 +27,11 @@ namespace Detetive.Business.Business
         public SuspeitoJogadorSala Adicionar(int idSuspeito, int idJogadorSala)
         {
             var jogadorSala = _jogadorSalaBusiness.Obter(idJogadorSala);
-            var suspeitosJogadorSala = _suspeitoJogadorSalaRepository.Listar(idJogadorSala);
+            if (jogadorSala == default)
+                throw new InvalidOperationException("Jogador não encotrado.");
 
-            if (suspeitosJogadorSala != null && suspeitosJogadorSala.Any(suspeitoJogadorSala => suspeitoJogadorSala.IdSuspeito == idSuspeito))
+            var suspeitosJogadorSala = _suspeitoJogadorSalaRepository.Listar(idJogadorSala);
+            if (suspeitosJogadorSala != null)
                 throw new InvalidOperationException("Este jogador já possui esta carta.");
 
             var crime = _crimeBusiness.Obter(jogadorSala.IdSala);

@@ -4,6 +4,7 @@ using Detetive.Business.Entities.Enum;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Cryptography.X509Certificates;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -13,35 +14,124 @@ namespace Detetive.Business.Business
     {
         private readonly ISalaBusiness _salaBusiness;
         private readonly ICrimeBusiness _crimeBusiness;
-        private readonly ILocalBusiness _localBusiness;
         private readonly IPortaLocalBusiness _portaLocalBusiness;
         private readonly IJogadorSalaBusiness _jogadorSalaBusiness;
+        private readonly IArmaBusiness _armaBusiness;
+        private readonly ILocalBusiness _localBusiness;
+        private readonly ISuspeitoBusiness _suspeitoBusiness;
+        private readonly IArmaJogadorSalaBusiness _armaJogadorSalaBusiness;
+        private readonly ILocalJogadorSalaBusiness _localJogadorSalaBusiness;
+        private readonly ISuspeitoJogadorSalaBusiness _suspeitoJogadorSalaBusiness;
 
         public PartidaBusiness(ISalaBusiness salaBusiness,
-                               ICrimeBusiness crimeBusiness,
-                               ILocalBusiness localBusiness,
-                               IPortaLocalBusiness portaLocalBusiness,
-                               IJogadorSalaBusiness jogadorSalaBusiness)
+                                ICrimeBusiness crimeBusiness,
+                                IPortaLocalBusiness portaLocalBusiness,
+                                IJogadorSalaBusiness jogadorSalaBusiness,
+                                IArmaBusiness armaBusiness,
+                                ILocalBusiness localBusiness,
+                                ISuspeitoBusiness suspeitoBusiness,
+                                IArmaJogadorSalaBusiness armaJogadorSalaBusiness,
+                                ILocalJogadorSalaBusiness localJogadorSalaBusiness,
+                                ISuspeitoJogadorSalaBusiness suspeitoJogadorSalaBusiness)
         {
             _salaBusiness = salaBusiness;
             _crimeBusiness = crimeBusiness;
-            _localBusiness = localBusiness;
             _portaLocalBusiness = portaLocalBusiness;
             _jogadorSalaBusiness = jogadorSalaBusiness;
+            _armaBusiness = armaBusiness;
+            _localBusiness = localBusiness;
+            _suspeitoBusiness = suspeitoBusiness;
+            _armaJogadorSalaBusiness = armaJogadorSalaBusiness;
+            _localJogadorSalaBusiness = localJogadorSalaBusiness;
+            _suspeitoJogadorSalaBusiness = suspeitoJogadorSalaBusiness;
         }
 
-        //public Operacao Iniciar(int idSala)
-        //{
-        //    var sala = _salaBusiness.Obter(idSala);
-        //    if (sala == default)
-        //        return new Operacao("Sala não encontrada.", false);
+        public Operacao Iniciar(int idSala)
+        {
+            var sala = _salaBusiness.Obter(idSala);
+            if (sala == default)
+                return new Operacao("Sala não encontrada.", false);
 
-        //    var crime = _crimeBusiness.Obter(idSala);
-        //    if (crime == default)
-        //        return new Operacao("A sala já foi iniciada.", false);
+            var crimeSala = _crimeBusiness.Obter(idSala);
+            if (crimeSala != default)
+                return new Operacao("A sala já foi iniciada.", false);
 
-        //    var jogadoresSala = _jogadorSalaBusiness.Listar(idSala);
-        //}
+            var jogadoresSala = _jogadorSalaBusiness.Listar(idSala);
+            if (jogadoresSala == null || jogadoresSala.Count < 3)
+                return new Operacao("Para iniciar a partida, é necessário que haja pelo menos 3 jogadores.", false);
+
+            return IniciarPartida(sala, jogadoresSala);
+        }
+
+        private Operacao IniciarPartida(Sala sala, List<JogadorSala> jogadoresSala)
+        {
+            var armas = _armaBusiness.Listar();
+            var locais = _localBusiness.Listar();
+            var suspeitos = _suspeitoBusiness.Listar();
+
+            if (armas == null || locais == null || suspeitos == null || !armas.Any() || !locais.Any() || !suspeitos.Any())
+                return new Operacao("Ocorreu um problema ao carregar as cartas.", false);
+
+            var crime = _crimeBusiness.Adicionar(sala);
+
+            armas = armas.Where(a => a.Id != crime.IdArma).ToList();
+            locais = locais.Where(l => l.Id != crime.IdLocal).ToList();
+            suspeitos = suspeitos.Where(s => s.Id != crime.IdSuspeito).ToList();
+
+            DistribuirCartasJogadores(jogadoresSala, armas, locais, suspeitos);
+            DefinirOrdemJogadoresSalaETurnoInicial(jogadoresSala);
+
+            return new Operacao("Partida iniciada com sucesso!");
+        }
+
+        private void DefinirOrdemJogadoresSalaETurnoInicial(List<JogadorSala> jogadoresSala)
+        {
+            jogadoresSala = jogadoresSala.OrderBy(_ => Guid.NewGuid()).ToList();
+            
+            int i = 1;
+            jogadoresSala.ForEach(jogadorSala =>
+            {
+                jogadorSala.NumeroOrdem = i++;
+            });
+            jogadoresSala.First(_ => _.NumeroOrdem == 1).VezJogador = true;
+
+            _jogadorSalaBusiness.Alterar(jogadoresSala);
+        }
+
+        private void DistribuirCartasJogadores(List<JogadorSala> jogadoresSala, List<Arma> armas, List<Local> locais, List<Suspeito> suspeitos)
+        {
+            while (armas.Any() || locais.Any() || suspeitos.Any())
+            {
+                foreach (var jogadorSala in jogadoresSala)
+                {
+                    Random sorteio = new Random();
+                    if (armas.Any())
+                    {
+                        var index = sorteio.Next(armas.Count);
+                        var arma = armas[index];
+
+                        _armaJogadorSalaBusiness.Adicionar(arma.Id, jogadorSala.Id);
+                        armas.RemoveAt(index);
+                    }
+                    else if (locais.Any())
+                    {
+                        var index = sorteio.Next(locais.Count);
+                        var local = locais[index];
+
+                        _localJogadorSalaBusiness.Adicionar(local.Id, jogadorSala.Id);
+                        locais.RemoveAt(index);
+                    }
+                    else if (suspeitos.Any())
+                    {
+                        var index = sorteio.Next(suspeitos.Count);
+                        var suspeito = suspeitos[index];
+
+                        _suspeitoJogadorSalaBusiness.Adicionar(suspeito.Id, jogadorSala.Id);
+                        suspeitos.RemoveAt(index);
+                    }
+                }
+            }
+        }
 
         public Operacao Acusar(int idSala, int idJogadorSala, int idLocal, int idSuspeito, int idArma)
         {

@@ -15,8 +15,8 @@ namespace Detetive.Business.Business
         private readonly IJogadorSalaBusiness _jogadorSalaBusiness;
         private readonly IArmaJogadorSalaRepository _armaJogadorSalaRepository;
 
-        public ArmaJogadorSalaBusiness( ICrimeBusiness crimeBusiness, 
-                                        IJogadorSalaBusiness jogadorSalaBusiness, 
+        public ArmaJogadorSalaBusiness(ICrimeBusiness crimeBusiness,
+                                        IJogadorSalaBusiness jogadorSalaBusiness,
                                         IArmaJogadorSalaRepository armaJogadorSalaRepository)
         {
             _crimeBusiness = crimeBusiness;
@@ -27,10 +27,12 @@ namespace Detetive.Business.Business
         public ArmaJogadorSala Adicionar(int idArma, int idJogadorSala)
         {
             var jogadorSala = _jogadorSalaBusiness.Obter(idJogadorSala);
-            var armasJogadorSala = _armaJogadorSalaRepository.Listar(idJogadorSala);
+            if (jogadorSala == default)
+                throw new InvalidOperationException("Jogador não encotrado.");
 
-            if (armasJogadorSala != null && armasJogadorSala.Any(armaJogadorSala => armaJogadorSala.IdArma == idArma))
-                throw new InvalidOperationException("Este jogador já possui esta carta.");
+            var armasJogadorSala = _armaJogadorSalaRepository.Obter(idArma, idJogadorSala);
+            if (armasJogadorSala != null)
+                return armasJogadorSala;
 
             var crime = _crimeBusiness.Obter(jogadorSala.IdSala);
             if (crime != null && crime.IdArma == idArma)

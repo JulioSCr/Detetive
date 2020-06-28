@@ -32,5 +32,9 @@ namespace Detetive.Data.Repository
             return this.Context.ArmaJogadorSala.AsNoTracking().Where(_ => _.IdJogadorSala == idJogadorSala && _.Ativo).ToList();
         }
 
+        public ArmaJogadorSala Obter(int idArma, int idJogadorSala)
+        {
+            return this.Context.ArmaJogadorSala.AsNoTracking().SingleOrDefault(_ => _.IdJogadorSala == idJogadorSala && _.IdArma == idArma && _.Ativo);
+        }
     }
 }

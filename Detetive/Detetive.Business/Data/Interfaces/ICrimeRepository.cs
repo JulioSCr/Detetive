@@ -11,5 +11,6 @@ namespace Detetive.Business.Data.Interfaces
     {
         Crime Obter(int idSala);
         Crime Alterar(Crime crime);
+        Crime Adicionar(Crime crime);
     }
 }

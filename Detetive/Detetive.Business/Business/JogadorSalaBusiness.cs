@@ -89,5 +89,12 @@ namespace Detetive.Business.Business
             _anotacaoLocalBusiness.CriarAnotacoes(jogadorSala.Id);
             _anotacaoSuspeitoBusiness.CriarAnotacoes(jogadorSala.Id);
         }
+
+        public List<JogadorSala> Alterar(List<JogadorSala> jogadoresSala)
+        {
+            jogadoresSala.ForEach(jogadorSala => this.Alterar(jogadoresSala));
+
+            return jogadoresSala;
+        }
     }
 }
