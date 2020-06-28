@@ -12,6 +12,14 @@
 <input id="inpID_JOGADOR_SALA" type="hidden" name="ID_JOGADOR_SALA" data-id="@ViewBag.ID_JOGADOR_SALA" />
 <div id="divInformaIDSala" data-id="@ViewBag.Sala_ID">
     <h1>ID da Sala: #@ViewBag.Sala_ID</h1>
+
+    @foreach (var suspeito in ViewBag.Suspeitos)
+    {
+        <ul id="lista">
+            @(suspeito.IdJogadorSala == null ? "" : suspeito.NickJogador + " — " + suspeito.Descricao)
+        </ul>
+    }
+
 </div>
 <div class="centralizar" id="Icone">
     <img src="~/Content/Imagens/Shared/imgLogo.svg" alt="Alternate Text" />
@@ -49,7 +57,7 @@
             </button>
         </div>
         <div class="centralizar" id="divVamosAoCaso">
-            <button class="btnPadrao" id="btnVamosAoCaso" onclick="">
+            <button class="btnPadrao" id="btnVamosAoCaso" onclick="Listar.btnVamosAoCaso_OnClick()">
                 Vamos ao caso!
             </button>
         </div>

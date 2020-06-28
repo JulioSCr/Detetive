@@ -23,7 +23,7 @@ namespace Detetive.Hubs
         /// <param name="pColuna" type="int">Número da coluna.</param>
         /// <param name="pIDLocal" type="int">ID do local em que o jogador está.</param>
         /// <returns type="Void"></returns>
-        public void EnviarMovimento(int ID_JOGADOR_SALA, int pLinha, int pColuna, int pIDLocal)
+        public void EnviarMovimento(int ID_JOGADOR_SALA, int pLinha, int pColuna, int? pIDLocal)
         {
             try
             {
@@ -83,11 +83,15 @@ namespace Detetive.Hubs
         /// </summary>
         /// <param name="pIdSala"></param>
         /// <param name="pIdJogadorSala"></param>
-        public void selecaoSuspeito(int pIdSala, int pIdJogadorSala, int pIdSuspeito, string pDescricaoJogador, string pDescricaoSuspeito)
+        /// 
+
+
+        public void selecaoSuspeito(int pIdSala, int pIdJogadorSala, int pIdSuspeito, string pDescricaoJogador, string pDescricaoSuspeito, int playersProntos)
         {
+           
             try
             {
-                Clients.Group(pIdSala.ToString()).TransmitirSelecaoSuspeito(pIdJogadorSala, pIdSuspeito, pDescricaoJogador, pDescricaoSuspeito);
+                Clients.Group(pIdSala.ToString()).TransmitirSelecaoSuspeito(pIdJogadorSala, pIdSuspeito, pDescricaoJogador, pDescricaoSuspeito, playersProntos);
             }
             catch (Exception ex)
             {
@@ -95,11 +99,11 @@ namespace Detetive.Hubs
             }
         }
 
-        public void DesconsiderarSuspeito(int pIdSala, int pIdJogadorSala, string pDescricaoSuspeito)
+        public void DesconsiderarSuspeito(int pIdSala, int pIdJogadorSala, string pDescricaoSuspeito, int playersProntos)
         {
             try
             {
-                Clients.Group(pIdSala.ToString()).TransmitirDesconsideracaoSuspeito(pIdJogadorSala, pDescricaoSuspeito);
+                Clients.Group(pIdSala.ToString()).TransmitirDesconsideracaoSuspeito(pIdJogadorSala, pDescricaoSuspeito, playersProntos);
             }
             catch (Exception ex)
             {

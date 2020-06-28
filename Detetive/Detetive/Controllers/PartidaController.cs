@@ -16,25 +16,25 @@ namespace Detetive.Controllers
     public class PartidaController : Controller
     {
         private readonly ILocalBusiness _localBusiness;
+        private readonly IPartidaBusiness _partidaBusiness;
         private readonly IPortaLocalBusiness _portaLocalBusiness;
         private readonly IJogadorSalaBusiness _jogadorSalaBusiness;
-        private readonly IMovimentacaoBusiness _movimentacaoBusiness;
         private readonly IAnotacaoArmaBusiness _anotacaoArmaBusiness;
         private readonly IAnotacaoLocalBusiness _anotacaoLocalBusiness;
         private readonly IAnotacaoSuspeitoBusiness _anotacaoSuspeitoBusiness;
 
-        public PartidaController(ILocalBusiness localBusiness,
-                                 IJogadorSalaBusiness jogadorSalaBusiness,
-                                 IMovimentacaoBusiness movimentacaoBusiness,
-                                 IAnotacaoArmaBusiness anotacaoArmaBusiness,
-                                 IAnotacaoLocalBusiness anotacaoLocalBusiness,
-                                 IAnotacaoSuspeitoBusiness anotacaoSuspeitoBusiness,
-                                 IPortaLocalBusiness portaLocalBusiness)
+        public PartidaController(ILocalBusiness localBusiness, 
+                                 IPartidaBusiness partidaBusiness, 
+                                 IPortaLocalBusiness portaLocalBusiness, 
+                                 IJogadorSalaBusiness jogadorSalaBusiness, 
+                                 IAnotacaoArmaBusiness anotacaoArmaBusiness, 
+                                 IAnotacaoLocalBusiness anotacaoLocalBusiness, 
+                                 IAnotacaoSuspeitoBusiness anotacaoSuspeitoBusiness)
         {
             _localBusiness = localBusiness;
+            _partidaBusiness = partidaBusiness;
             _portaLocalBusiness = portaLocalBusiness;
             _jogadorSalaBusiness = jogadorSalaBusiness;
-            _movimentacaoBusiness = movimentacaoBusiness;
             _anotacaoArmaBusiness = anotacaoArmaBusiness;
             _anotacaoLocalBusiness = anotacaoLocalBusiness;
             _anotacaoSuspeitoBusiness = anotacaoSuspeitoBusiness;
@@ -45,20 +45,44 @@ namespace Detetive.Controllers
             return View();
         }
 
-        public ActionResult Jogar(/*int idSala*/)
+        public ActionResult Jogar(int idJogadorSala)
         {
-            /// TO DO
-            /// Deve retornar o ID_JOGADOR do jogador principal
-            ViewBag.ID_JOGADOR_SALA = 1;
+            /// Cenário carregar partida
+            /// Dada: 
+            /// uma partida
+            /// Quando: 
+            /// tela da partida for carregada
+            /// Então: 
+            /// todos os jogadores serão posicionados ok
+            /// as cartas de cada jogador deverão ser listadas
+            /// as anotações dos jogadores deverão estar checadas
+            /// o chat deve ser recarregado
 
-            var jogadoresSala = _jogadorSalaBusiness.Listar(1007);
+            var jogadorSala = _jogadorSalaBusiness.Obter(idJogadorSala);
+            int idSala = jogadorSala.IdSala;
+
+            ViewBag.ID_Sala = idSala;
+
+            var jogadoresSala = _jogadorSalaBusiness.Listar(idSala);
             ViewBag.JogadoresSuspeitos = Mapper.Map<List<JogadorSala>, List<JogadorSuspeitoViewModel>>(jogadoresSala);
 
             var locais = _localBusiness.Listar();
             ViewBag.Locais = Mapper.Map<List<Local>, List<LocalViewModel>>(locais);
 
-            // idJogadorSala
-            this.CarregarAnotacoes(11);
+            this.CarregarAnotacoes(jogadorSala.Id);
+
+            var jogadorSalaViewModel = Mapper.Map<JogadorSala, JogadorSalaViewModel>(_jogadorSalaBusiness.Obter(idJogadorSala));
+
+            ViewBag.JogadorSala = jogadorSalaViewModel;
+
+            if (jogadorSalaViewModel.Posicao.IdLocal == 1 || jogadorSalaViewModel.Posicao.IdLocal == 7 || jogadorSalaViewModel.Posicao.IdLocal == 8 || jogadorSalaViewModel.Posicao.IdLocal == 6)
+            {
+                ViewBag.passagemSecreta = true;
+            }
+            else
+            {
+                ViewBag.passagemSecreta = false;
+            }
 
             return View();
         }
@@ -68,16 +92,25 @@ namespace Detetive.Controllers
         /// <param name="linha" type="int">Número da linha.</param>
         /// <param name="coluna" type="int">Número da coluna.</param>
         /// <returns type="Void"></returns>
-        public string Mover(int idJogadorSala, int linha, int coluna)
+        [HttpPost]
+        public string MoverJogador(int idJogadorSala, int novaCoordenadaLinha, int novaCoordenadaColuna)
         {
-            return JsonConvert.SerializeObject(_movimentacaoBusiness.MoverJogador(idJogadorSala, linha, coluna));
+            var operacao = _partidaBusiness.MoverJogador(idJogadorSala, novaCoordenadaLinha, novaCoordenadaColuna);
+
+            if (!operacao.Status)
+            {
+                return JsonConvert.SerializeObject(operacao);
+            }
+
+            var jogadorSalaViewModel = Mapper.Map<JogadorSala, JogadorSalaViewModel>(_jogadorSalaBusiness.Obter(idJogadorSala));
+            return JsonConvert.SerializeObject(new Operacao(JsonConvert.SerializeObject(jogadorSalaViewModel)));
         }
 
 
         /// <summary>
         /// Obtem a posição atual de cada jogador da sala
         /// </summary>
-        /// <returns>Retorna uma lista com ID-JOGADOR_SALA e a sua posição atual</returns>
+        /// <returns> Retorna uma lista com ID-JOGADOR_SALA e a sua posição atual. </returns>
         public string GetPosicaoAtual(/*int idSala*/)
         {
             int idSala = 1007;
@@ -126,12 +159,12 @@ namespace Detetive.Controllers
         /// <returns></returns>
         public string Palpite(int idJogadorSala, int idSala, int idArma, int idLocal, int idSuspeito)
         {
-            return JsonConvert.SerializeObject(_jogadorSalaBusiness.Palpitar(idSala, idJogadorSala, idLocal, idSuspeito, idArma));
+            return JsonConvert.SerializeObject(_partidaBusiness.Palpitar(idSala, idJogadorSala, idLocal, idSuspeito, idArma));
         }
 
         public string Acusar(int idJogadorSala, int idSala, int idArma, int idLocal, int idSuspeito)
-        { 
-            return JsonConvert.SerializeObject(_jogadorSalaBusiness.Acusar(idSala, idJogadorSala, idLocal, idSuspeito, idArma));
+        {
+            return JsonConvert.SerializeObject(_partidaBusiness.Acusar(idSala, idJogadorSala, idLocal, idSuspeito, idArma));
         }
 
         private void CarregarAnotacoes(int idJogadorSala)

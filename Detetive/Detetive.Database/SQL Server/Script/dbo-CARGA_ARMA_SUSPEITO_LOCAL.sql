@@ -9,25 +9,15 @@ INSERT INTO ARMA (DS_ARMA, DS_CAMINHO_IMAGEM, IE_ATIVO) VALUES
 	, ('Pomba', '~/Content/Imagens/CartasArmas/imgCartaPomba.svg', 1)
 
 INSERT INTO "LOCAL" (DS_LOCAL, DS_CAMINHO_IMAGEM, NR_LINHA_1, NR_COLUNA_1, NR_LINHA_2, NR_COLUNA_2, IE_ATIVO) VALUES 
-	  ('Santhiago', '~/Content/Imagens/CartasLocais/imgCartaSanthiago.svg', 1, 1, 2, 2, 1)
-	, ('Centro Acadêmico', '~/Content/Imagens/CartasLocais/imgCartaCentroAcademico.svg', 1, 1, 2, 2, 1)
-	, ('Ginásio', '~/Content/Imagens/CartasLocais/imgCartaGinasio.svg', 1, 1, 2, 2, 1)
-	, ('Prédio A', '~/Content/Imagens/CartasLocais/imgCartaPredioA.svg', 1, 1, 2, 2, 1)
-	, ('Prédio B', '~/Content/Imagens/CartasLocais/imgCartaPredioB.svg', 1, 1, 2, 2, 1)
-	, ('Praça', '~/Content/Imagens/CartasLocais/imgCartaPraca.svg', 1, 1, 2, 2, 1)
-	, ('Etec', '~/Content/Imagens/CartasLocais/imgCartaEtec.svg', 1, 1, 2, 2, 1)
-	, ('Cantina A/B', '~/Content/Imagens/CartasLocais/imgCartaCatinaAB.svg', 1, 1, 2, 2, 1)
-	, ('Auditório', '~/Content/Imagens/CartasLocais/imgCartaAuditorio.svg', 1, 1, 2, 2, 1)
-
-UPDATE "LOCAL" SET NR_LINHA_1 = 1, NR_COLUNA_1 = 7, NR_LINHA_2 = 11, NR_COLUNA_2 = 18 WHERE ID_LOCAL = 4
-UPDATE "LOCAL" SET NR_LINHA_1 = 11, NR_COLUNA_1 = 9, NR_LINHA_2 = 18, NR_COLUNA_2 = 15 WHERE ID_LOCAL = 5
-UPDATE "LOCAL" SET NR_LINHA_1 = 1, NR_COLUNA_1 = 27, NR_LINHA_2 = 10, NR_COLUNA_2 = 33 WHERE ID_LOCAL = 1
-UPDATE "LOCAL" SET NR_LINHA_1 = 20, NR_COLUNA_1 = 16, NR_LINHA_2 = 26, NR_COLUNA_2 = 25 WHERE ID_LOCAL = 6
-UPDATE "LOCAL" SET NR_LINHA_1 = 20, NR_COLUNA_1 = 9, NR_LINHA_2 = 26, NR_COLUNA_2 = 15 WHERE ID_LOCAL = 7
-UPDATE "LOCAL" SET NR_LINHA_1 = 20, NR_COLUNA_1 = 1, NR_LINHA_2 = 26, NR_COLUNA_2 = 7 WHERE ID_LOCAL = 8
-UPDATE "LOCAL" SET NR_LINHA_1 = 12, NR_COLUNA_1 = 27, NR_LINHA_2 = 26, NR_COLUNA_2 = 33 WHERE ID_LOCAL = 2
-UPDATE "LOCAL" SET NR_LINHA_1 = 3, NR_COLUNA_1 = 18, NR_LINHA_2 = 9, NR_COLUNA_2 = 25 WHERE ID_LOCAL = 9
-UPDATE "LOCAL" SET NR_LINHA_1 = 9, NR_COLUNA_1 = 18, NR_LINHA_2 = 18, NR_COLUNA_2 = 25 WHERE ID_LOCAL = 3
+	  ('Santiago', '~/Content/Imagens/CartasLocais/imgCartaSantiago.svg', 1, 27, 9, 32, 1)
+	, ('Centro Acadêmico', '~/Content/Imagens/CartasLocais/imgCartaCentroAcademico.svg', 12, 27, 25, 32, 1)
+	, ('Ginásio', '~/Content/Imagens/CartasLocais/imgCartaGinasio.svg', 9, 18, 17, 24, 1)
+	, ('Prédio A', '~/Content/Imagens/CartasLocais/imgCartaPredioA.svg', 11, 1, 17, 6, 1)
+	, ('Prédio B', '~/Content/Imagens/CartasLocais/imgCartaPredioB.svg', 11, 9, 17, 14, 1)
+	, ('Praça', '~/Content/Imagens/CartasLocais/imgCartaPraca.svg', 20, 16, 25, 24, 1)
+	, ('ETESP', '~/Content/Imagens/CartasLocais/imgCartaETESP.svg', 20, 9, 25, 14, 1)
+	, ('Cantina A/B', '~/Content/Imagens/CartasLocais/imgCartaCatinaAB.svg', 20, 1, 25, 6, 1)
+	, ('Auditório', '~/Content/Imagens/CartasLocais/imgCartaAuditorio.svg',	3, 18, 8, 24, 1)
 
 INSERT INTO SUSPEITO (ID_LOCAL, DS_SUSPEITO, DS_CAMINHO_IMAGEM, IE_ATIVO) VALUES 
 	    (1, 'Reitor', '~/Content/Imagens/CartasSuspeitos/imgCartaReitor.svg', 1)

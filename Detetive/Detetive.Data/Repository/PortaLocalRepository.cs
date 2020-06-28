@@ -22,5 +22,11 @@ namespace Detetive.Data.Repository
         {
             return this.Context.PortasLocal.AsNoTracking().Where(_ => _.IdLocal == idLocal && _.Ativo).ToList();
         }
+
+        public PortaLocal Obter(int coordenadaLinha, int coordenadaColuna)
+        {
+            return this.Context.PortasLocal.AsNoTracking().FirstOrDefault(_ => _.CoordenadaLinha == coordenadaLinha && 
+                                                                                _.CoordenadaColuna == coordenadaColuna && _.Ativo);
+        }
     }
 }

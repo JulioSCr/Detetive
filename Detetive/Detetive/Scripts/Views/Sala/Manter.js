@@ -103,11 +103,14 @@ ManterSala.divBtnVamosAoCaso_OnClick = function () {
                     lintIdJogadorSala = lobjRetornoDados.idJogadorSala;
                     location.href = gstrGlobalPath + 'Suspeito/Listar?idSala=' + lintIdSala + '&idJogadorSala=' + lintIdJogadorSala;
                 } catch (ex) {
-                    throw ex;
+                    $("#mensagem").text('Jogador: ' +ex);
+                    $("#divModal").modal("show");
                 }
             }
         });
     } catch (ex) {
-        alert(ex);
+        $("#mensagem").text(ex);
+        $("#divModal").modal("show");
+        //alert(ex);
     }
 }
