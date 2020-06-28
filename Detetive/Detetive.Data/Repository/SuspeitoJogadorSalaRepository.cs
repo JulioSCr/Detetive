@@ -20,7 +20,7 @@ namespace Detetive.Data.Repository
         {
             if (suspeitoJogadorSala != default)
             {
-                this.Context.SuspeitoJogadorSala.Add(suspeitoJogadorSala);
+                this.Context.SuspeitosJogadorSala.Add(suspeitoJogadorSala);
                 this.Context.SaveChanges();
             }
 
@@ -29,8 +29,12 @@ namespace Detetive.Data.Repository
 
         public List<SuspeitoJogadorSala> Listar(int idJogadorSala)
         {
-            return this.Context.SuspeitoJogadorSala.AsNoTracking().Where(_ => _.IdJogadorSala == idJogadorSala && _.Ativo).ToList();
+            return this.Context.SuspeitosJogadorSala.AsNoTracking().Where(_ => _.IdJogadorSala == idJogadorSala && _.Ativo).ToList();
         }
 
+        public SuspeitoJogadorSala Obter(int idSuspeito, int idJogadorSala)
+        {
+            return this.Context.SuspeitosJogadorSala.AsNoTracking().SingleOrDefault(_ => _.IdJogadorSala == idJogadorSala && _.IdSuspeito == idSuspeito && _.Ativo);
+        }
     }
 }

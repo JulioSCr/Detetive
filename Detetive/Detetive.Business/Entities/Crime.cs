@@ -12,9 +12,11 @@ namespace Detetive.Business.Entities
         public int IdSuspeito { get; set; }
         public int IdArma { get; set; }
         public int IdLocal { get; set; }
-        public int IdJogadorSala { get; set; }
+        public int? IdJogadorSala { get; set; }
         public int IdSala { get; set; }
-        
+
+        internal Crime() : base() { }
+
         public Crime(int idSala, int idSuspeito, int idArma, int idLocal)
         {
             IdSala = idSala;

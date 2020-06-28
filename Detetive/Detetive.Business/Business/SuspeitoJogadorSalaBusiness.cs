@@ -30,7 +30,7 @@ namespace Detetive.Business.Business
             if (jogadorSala == default)
                 throw new InvalidOperationException("Jogador não encotrado.");
 
-            var suspeitosJogadorSala = _suspeitoJogadorSalaRepository.Listar(idJogadorSala);
+            var suspeitosJogadorSala = _suspeitoJogadorSalaRepository.Obter(idSuspeito, idJogadorSala);
             if (suspeitosJogadorSala != null)
                 throw new InvalidOperationException("Este jogador já possui esta carta.");
 

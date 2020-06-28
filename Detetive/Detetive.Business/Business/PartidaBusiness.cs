@@ -22,6 +22,9 @@ namespace Detetive.Business.Business
         private readonly IArmaJogadorSalaBusiness _armaJogadorSalaBusiness;
         private readonly ILocalJogadorSalaBusiness _localJogadorSalaBusiness;
         private readonly ISuspeitoJogadorSalaBusiness _suspeitoJogadorSalaBusiness;
+        private readonly IAnotacaoArmaBusiness _anotacaoArmaBusiness;
+        private readonly IAnotacaoLocalBusiness _anotacaoLocalBusiness;
+        private readonly IAnotacaoSuspeitoBusiness _anotacaoSuspeitoBusiness;
 
         public PartidaBusiness(ISalaBusiness salaBusiness,
                                 ICrimeBusiness crimeBusiness,
@@ -32,7 +35,10 @@ namespace Detetive.Business.Business
                                 ISuspeitoBusiness suspeitoBusiness,
                                 IArmaJogadorSalaBusiness armaJogadorSalaBusiness,
                                 ILocalJogadorSalaBusiness localJogadorSalaBusiness,
-                                ISuspeitoJogadorSalaBusiness suspeitoJogadorSalaBusiness)
+                                ISuspeitoJogadorSalaBusiness suspeitoJogadorSalaBusiness,
+                                IAnotacaoArmaBusiness anotacaoArmaBusiness,
+                                IAnotacaoLocalBusiness anotacaoLocalBusiness,
+                                IAnotacaoSuspeitoBusiness anotacaoSuspeitoBusiness)
         {
             _salaBusiness = salaBusiness;
             _crimeBusiness = crimeBusiness;
@@ -44,6 +50,9 @@ namespace Detetive.Business.Business
             _armaJogadorSalaBusiness = armaJogadorSalaBusiness;
             _localJogadorSalaBusiness = localJogadorSalaBusiness;
             _suspeitoJogadorSalaBusiness = suspeitoJogadorSalaBusiness;
+            _anotacaoArmaBusiness = anotacaoArmaBusiness;
+            _anotacaoLocalBusiness = anotacaoLocalBusiness;
+            _anotacaoSuspeitoBusiness = anotacaoSuspeitoBusiness;
         }
 
         public Operacao Iniciar(int idSala)
@@ -80,6 +89,7 @@ namespace Detetive.Business.Business
 
             DistribuirCartasJogadores(jogadoresSala, armas, locais, suspeitos);
             DefinirOrdemJogadoresSalaETurnoInicial(jogadoresSala);
+            GerarAnotacoesJogadores(jogadoresSala);
 
             return new Operacao("Partida iniciada com sucesso!");
         }
@@ -87,7 +97,7 @@ namespace Detetive.Business.Business
         private void DefinirOrdemJogadoresSalaETurnoInicial(List<JogadorSala> jogadoresSala)
         {
             jogadoresSala = jogadoresSala.OrderBy(_ => Guid.NewGuid()).ToList();
-            
+
             int i = 1;
             jogadoresSala.ForEach(jogadorSala =>
             {
@@ -100,6 +110,8 @@ namespace Detetive.Business.Business
 
         private void DistribuirCartasJogadores(List<JogadorSala> jogadoresSala, List<Arma> armas, List<Local> locais, List<Suspeito> suspeitos)
         {
+            jogadoresSala = jogadoresSala.OrderBy(_ => Guid.NewGuid()).ToList();
+
             while (armas.Any() || locais.Any() || suspeitos.Any())
             {
                 foreach (var jogadorSala in jogadoresSala)
@@ -130,6 +142,16 @@ namespace Detetive.Business.Business
                         suspeitos.RemoveAt(index);
                     }
                 }
+            }
+        }
+
+        private void GerarAnotacoesJogadores(List<JogadorSala> jogadoresSala)
+        {
+            foreach (var jogadorSala in jogadoresSala)
+            {
+                _anotacaoArmaBusiness.CriarAnotacoes(jogadorSala.Id);
+                _anotacaoLocalBusiness.CriarAnotacoes(jogadorSala.Id);
+                _anotacaoSuspeitoBusiness.CriarAnotacoes(jogadorSala.Id);
             }
         }
 

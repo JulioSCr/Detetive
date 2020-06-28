@@ -20,7 +20,7 @@ namespace Detetive.Data.Repository
         {
             if (localJogadorSala != default)
             {
-                this.Context.LocalJogadorSala.Add(localJogadorSala);
+                this.Context.LocaisJogadorSala.Add(localJogadorSala);
                 this.Context.SaveChanges();
             }
 
@@ -29,12 +29,12 @@ namespace Detetive.Data.Repository
 
         public List<LocalJogadorSala> Listar(int idJogadorSala)
         {
-            return this.Context.LocalJogadorSala.AsNoTracking().Where(_ => _.IdJogadorSala == idJogadorSala && _.Ativo).ToList();
+            return this.Context.LocaisJogadorSala.AsNoTracking().Where(_ => _.IdJogadorSala == idJogadorSala && _.Ativo).ToList();
         }
 
         public LocalJogadorSala Obter(int idLocal, int idJogadorSala)
         {
-            return this.Context.LocalJogadorSala.AsNoTracking().SingleOrDefault(_ => _.IdJogadorSala == idJogadorSala && _.IdLocal == idLocal && _.Ativo);
+            return this.Context.LocaisJogadorSala.AsNoTracking().SingleOrDefault(_ => _.IdJogadorSala == idJogadorSala && _.IdLocal == idLocal && _.Ativo);
         }
     }
 }
