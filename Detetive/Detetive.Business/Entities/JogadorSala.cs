@@ -16,6 +16,7 @@ namespace Detetive.Business.Entities
         public int? QuantidadeMovimento { get; set; }
         public int CoordenadaLinha { get; set; }
         public int CoordenadaColuna { get; set; }
+        public int? IdLocal { get; set; }
         public int IdJogador { get; set; }
         public int? IdSuspeito { get; set; }
         public virtual Suspeito Suspeito { get; set; }
@@ -45,8 +46,9 @@ namespace Detetive.Business.Entities
             return QuantidadeMovimento > 0 && quantidadeMovimentosNecessarios <= QuantidadeMovimento;
         }
 
-        public void Mover(int coordenadaLinha, int coordenadaColuna)
+        public void Mover(int coordenadaLinha, int coordenadaColuna, int? idLocal = null)
         {
+            IdLocal = idLocal;
             CoordenadaLinha = coordenadaLinha;
             CoordenadaColuna = coordenadaColuna;
 
@@ -70,8 +72,9 @@ namespace Detetive.Business.Entities
             QuantidadeMovimento = jogadorSala.QuantidadeMovimento;
             CoordenadaLinha = jogadorSala.CoordenadaLinha;
             CoordenadaColuna = jogadorSala.CoordenadaColuna;
+            IdLocal = jogadorSala.IdLocal;
             IdSuspeito = jogadorSala.IdSuspeito;
-        }
+    }
 
         public void AlterarSuspeito(int? idSuspeito)
         {

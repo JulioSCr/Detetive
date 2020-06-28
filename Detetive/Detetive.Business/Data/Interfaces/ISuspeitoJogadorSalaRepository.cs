@@ -7,10 +7,9 @@ using System.Threading.Tasks;
 
 namespace Detetive.Business.Data.Interfaces
 {
-    public interface IPortaLocalRepository
+    public interface ISuspeitoJogadorSalaRepository
     {
-        PortaLocal Obter(int coordenadaLinha, int coordenadaColuna);
-        List<PortaLocal> Listar();
-        List<PortaLocal> Listar(int idLocal);
+        SuspeitoJogadorSala Adicionar(SuspeitoJogadorSala suspeitoJogadorSala);
+        List<SuspeitoJogadorSala> Listar(int idJogadorSala);
     }
 }

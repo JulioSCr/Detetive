@@ -1,6 +1,5 @@
 ﻿using Detetive.Business.Entities;
 using System;
-using System.CodeDom.Compiler;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -8,8 +7,9 @@ using System.Threading.Tasks;
 
 namespace Detetive.Business.Business.Interfaces
 {
-    public interface IMovimentacaoBusiness
+    public interface IArmaJogadorSalaBusiness
     {
-        Operacao MoverJogador(int idJogadorSala, int novaCoordenadaLinha, int novaCoordenadaColuna);
+        ArmaJogadorSala Adicionar(int idArma, int idJogadorSala);
+        List<ArmaJogadorSala> Listar(int idJogadorSala);
     }
 }

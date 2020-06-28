@@ -27,5 +27,10 @@ namespace Detetive.Business.Business
         {
             return _portaLocalRepository.Listar(idLocal);
         }
+
+        public PortaLocal Obter(int coordenadaLinha, int coordenadaColuna)
+        {
+            return _portaLocalRepository.Obter(coordenadaLinha, coordenadaColuna);
+        }
     }
 }

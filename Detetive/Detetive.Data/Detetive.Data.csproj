@@ -54,6 +54,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Context\DetetiveContext.cs" />
+    <Compile Include="Context\EntityConfig\ArmaJogadorSalaConfig.cs" />
+    <Compile Include="Context\EntityConfig\LocalJogadorSalaConfig.cs" />
     <Compile Include="Context\EntityConfig\PortaLocalConfig.cs" />
     <Compile Include="Context\EntityConfig\CrimeConfig.cs" />
     <Compile Include="Context\EntityConfig\AnotacaoArmaConfig.cs" />
@@ -65,12 +67,16 @@
     <Compile Include="Context\EntityConfig\LocalConfig.cs" />
     <Compile Include="Context\EntityConfig\ArmaConfig.cs" />
     <Compile Include="Context\EntityConfig\SuspeitoConfig.cs" />
+    <Compile Include="Context\EntityConfig\SuspeitoJogadorSalaConfig.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Repository\AnotacaoArmaRepository.cs" />
     <Compile Include="Repository\AnotacaoLocalRepository.cs" />
     <Compile Include="Repository\AnotacaoSuspeitoRepository.cs" />
     <Compile Include="Repository\ArmaRepository.cs" />
+    <Compile Include="Repository\ArmaJogadorSalaRepository.cs" />
     <Compile Include="Repository\Base\BaseRepository.cs" />
+    <Compile Include="Repository\LocalJogadorSalaRepository.cs" />
+    <Compile Include="Repository\SuspeitoJogadorSalaRepository.cs" />
     <Compile Include="Repository\CrimeRepository.cs" />
     <Compile Include="Repository\JogadorSalaRepository.cs" />
     <Compile Include="Repository\JogadorRepository.cs" />

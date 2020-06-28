@@ -176,24 +176,39 @@ Sala.EnviarMensagem = function (apelido, mensagem) {
 /// <param name="pColuna" type="Number">Número da coluna.</param>
 /// <param name="pIDLocal" type="Number">ID do local onde o jogador está.</param>
 /// <returns type="Void"></returns>
-Sala.EnviarMovimento = function (pLinha, pColuna, pIDLocal) {
+Sala.EnviarMovimento = function (pLinha, pColuna) {
     try {
+        Jogar.DesativarBotoes(true);
         $.ajax({
-            url: gstrGlobalPath + 'Partida/Mover',
+            url: gstrGlobalPath + 'Partida/MoverJogador',
+            type: 'post',
             data: {
                 idJogadorSala: Sala.mID_JOGADOR_SALA,
-                linha: pLinha,
-                coluna: pColuna
+                novaCoordenadaLinha: pLinha,
+                novaCoordenadaColuna: pColuna
             },
             success: function (data, textStatus, XMLHttpRequest) {
+                var lobjResultado = new Object();
+                var lobjRetorno = new Object();
+                var lintLinha = new Number();
+                var lintColuna = new Number();
+                var lintIdLocal = new Number();
                 try {
-                    if (!JSON.parse(data.toLowerCase())) { throw 'Movimento inválido'; }
-
-                    //Movimentar para os outros usuários
-                    Sala.mHubSala.server.enviarMovimento(Sala.mID_JOGADOR_SALA, pLinha, pColuna, pIDLocal).done(function () { });
+                    Jogar.DesativarBotoes(false);
+                    lobjResultado = JSON.parse(data);
+                    if (!lobjResultado.Status) { throw lobjResultado.Retorno; }
+                    lobjRetorno = JSON.parse(lobjResultado.Retorno);
+                    lintLinha = lobjRetorno.Posicao.Linha;
+                    lintColuna = lobjRetorno.Posicao.Coluna;
+                    lintIdLocal = lobjRetorno.Posicao.IdLocal;
+                    Sala.mHubSala.server.enviarMovimento(Sala.mID_JOGADOR_SALA, lintLinha, lintColuna, lintIdLocal).done(function () { });
                 } catch (ex) {
-                    throw ex;
+                    alert(ex);
                 }
+            },
+            error: function (data, textStatus, XMLHttpRequest) {
+                Jogar.DesativarBotoes(false);
+                alert("Erro na chamada da movimentação.");
             }
         });
     } catch (ex) {
