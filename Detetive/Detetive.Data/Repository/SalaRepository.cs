@@ -30,7 +30,7 @@ namespace Detetive.Data.Repository
 
         public Sala Obter(int idSala)
         {
-            return this.Context.Salas.SingleOrDefault(_ => _.Id == idSala);
+            return this.Context.Salas.AsNoTracking().SingleOrDefault(_ => _.Id == idSala && _.Ativo);
         }
     }
 }

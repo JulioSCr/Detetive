@@ -1,4 +1,15 @@
-﻿#Icone {
+﻿#divInformaIDSala {
+    float: right;
+}
+
+    #divInformaIDSala h1 {
+        color: #E9E9E9;
+        font-family: 'Roboto Slab', serif;
+        font-weight: bold;
+        font-size: 1.2em;
+    }
+
+#Icone {
     width: 100%;
     padding-top: 4.5%;
 }
@@ -18,6 +29,10 @@
 
 .cartaSuspeito {
     width: 100px;
+}
+
+.selected {
+    opacity: 0.5;
 }
 
 @media (min-height: 630px) {
@@ -49,4 +64,38 @@
         font-size: 2.7em;
         letter-spacing: -3px;
     }
+
+    .btnPadrao {
+        background-color: blue;
+    }
+}
+
+#divBotoes {
+    width: 100%;
+    display: flex;
+}
+
+.btnPadrao {
+    width: 300px;
+    height: 50px;
+    background-color: #B80E0F;
+    border: 0;
+    border-radius: 5px;
+    font-family: Roboto Slab;
+    color: #FFF;
+    font-style: normal;
+    font-weight: bold;
+    font-size: 35px;
+    align-items: center;
+    text-align: center;
+}
+
+#divVoltar {
+    float: left;
+    width: 50%
+}
+
+#divVamosAoCaso {
+    float: right;
+    width: 50%;
 }

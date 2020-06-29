@@ -12,8 +12,9 @@ namespace Detetive.Business.Business.Interfaces
         Operacao Adicionar(Sala sala, int idJogador);
         JogadorSala Obter(int idJogadorSala);
         JogadorSala Obter(int idJogador, int idSala);
+        JogadorSala Alterar(JogadorSala jogadorSala);
         List<JogadorSala> Listar(int idSala);
-        JogadorSala Mover(JogadorSala jogadorSala, int novaCoordenadaLinha, int novaCoordenadaColuna);
-        Operacao Acusar(int idSala, int idJogadorSala, int idLocal, int idSuspeito, int idArma);
+        JogadorSala ObterPorSuspeito(int idSuspeito, int idSala);
+        List<JogadorSala> Alterar(List<JogadorSala> jogadoresSala);
     }
 }

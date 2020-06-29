@@ -9,19 +9,25 @@
 @section scripts{
     <script src="@Url.Content("~/Scripts/Views/Suspeito/Listar.js?" + DateTimeOffset.Now)"></script>
 }
+<input id="inpID_JOGADOR_SALA" type="hidden" name="ID_JOGADOR_SALA" data-id="@ViewBag.ID_JOGADOR_SALA" />
+<div id="divInformaIDSala" data-id="@ViewBag.Sala_ID">
+    <h1>ID da Sala: #@ViewBag.Sala_ID</h1>
+</div>
 <div class="centralizar" id="Icone">
     <img src="~/Content/Imagens/Shared/imgLogo.svg" alt="Alternate Text" />
 </div>
 <div class="centralizar" id="divSuspeitos">
-    <label>Escolha seu personagem:</label>
+    <label>@ViewBag.NomeJogador escolha seu personagem:</label>
 </div>
 <div id="carouselSuspeitos" class="carousel slide" data-ride="carousel">
     <div class="carousel-inner">
         @foreach (var suspeito in ViewBag.Suspeitos)
         {
-            <div class="carousel-item @(suspeito.Id == ViewBag.Suspeitos[0].Id? "active": "")">
+            <div class="carousel-item @(suspeito.Id == ViewBag.Suspeitos[0].Id ? "active" : "")">
                 <div class="centralizar">
-                    <img data-id="@suspeito.Id" class="d-block cartaSuspeito" title="@suspeito.Descricao" src="@Url.Content(suspeito.UrlImagem)">
+                    <a href="#" onclick="Listar.Suspeito_OnClick(event)">
+                        <img data-idjogadorsala="@(suspeito.IdJogadorSala == null ? 0 : suspeito.IdJogadorSala)" data-id="@suspeito.Id" class="d-block cartaSuspeito @(suspeito.IdJogadorSala == null ? "" : "selected")" title="@(suspeito.IdJogadorSala == null ? suspeito.Descricao : suspeito.NickJogador)" src="@Url.Content(suspeito.UrlImagem)">
+                    </a>
                 </div>
             </div>
         }
@@ -35,3 +41,17 @@
         <span class="sr-only">Next</span>
     </a>
 </div>
+<section id="secBotoes" class="centralizar">
+    <div id="divBotoes">
+        <div class="centralizar" id="divVoltar">
+            <button class="btnPadrao" id="btnVoltar" onclick="location.href='/Sala/Manter'">
+                Voltar
+            </button>
+        </div>
+        <div class="centralizar" id="divVamosAoCaso">
+            <button class="btnPadrao" id="btnVamosAoCaso" onclick="Listar.btnVamosAoCaso_OnClick()">
+                Vamos ao caso!
+            </button>
+        </div>
+    </div>
+</section>

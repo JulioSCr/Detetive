@@ -1,7 +1,8 @@
 ﻿var Sala = window.Sala || {
     mHubSala: new Object(),                             // Objeto do SignalR
     mWebSocketTryingToReconnect: new Boolean(false),    // Flag tentando reconectar
-    mID_JOGADOR_SALA: new Number()                      // Id do jogador sala
+    mID_JOGADOR_SALA: new Number(),                     // Id do jogador sala
+    mintIdSala: new Number()                            // Id da sala
 };
 
 $(document).ready(function () {
@@ -55,30 +56,24 @@ Sala.Configurar = function () {
         Jogar.TransmitirTeletransporte(pintID_JOGADOR_SALA, pintIDLocal);
     }
 
-    //Sala.mHubSala.client.erro = function (vstrMensagem, vstrMensagemTecnica) {
-    //    console.log(vstrMensagemTecnica);
-    //};
+    Sala.mHubSala.client.TransmitirSelecaoSuspeito = function (pintIdJogadorSala, pintIdSuspeito, pstrDescricaoJogador, pstrDescricaoSuspeito) {
+        Listar.TransmitirSelecaoSuspeito(pintIdJogadorSala, pintIdSuspeito, pstrDescricaoJogador, pstrDescricaoSuspeito);
+    }
 
-    //Sala.mHubSala.client.AtualizarListaUsuarios = function (vobjTBUPUSER, vstrUPUSER_NS_Online, vstrUPUSER_NS_Offline) {
-    //    UPCHAT.ListaUsuarios_SignalR(vobjTBUPUSER, vstrUPUSER_NS_Online, vstrUPUSER_NS_Offline);
-    //};
+    Sala.mHubSala.client.TransmitirDesconsideracaoSuspeito = function (pintIdJogadorSala, pDescricaoSuspeito) {
+        Listar.TransmitirDesconsideracaoSuspeito(pintIdJogadorSala, pDescricaoSuspeito);
+    }
 
-    //Sala.mHubSala.client.ReceberMensagem = function (vintUPCHAT_NR_LOTE, vintUPUSER_NS_REMET, vintUPUSER_NS_DESTIN, vintATACPJ_NS, vintUPENCM_NS, vstrJobLabel, vstrUPCHAT_DS_MSG, vstrTimeStamp) {
-    //    UPCHAT.ReceberMensagem(vintUPCHAT_NR_LOTE, vintUPUSER_NS_REMET, vintUPUSER_NS_DESTIN, vintATACPJ_NS, vintUPENCM_NS, vstrJobLabel, vstrUPCHAT_DS_MSG, vstrTimeStamp);
-    //};
-
-    //Sala.mHubSala.client.RetornarListaUsariosOn = function (vobjTBUPUSER) { };
-
+    Sala.mHubSala.client.erro = function (vstrMensagem, vstrMensagemTecnica) {
+        console.log(vstrMensagemTecnica);
+    };
 };
 
 Sala.Conectar = function () {
     try {
         Sala.mHubSala.connection.start().done(function () {
-            try {
-                Sala.mHubSala.server.iniciarSessao().done(function () { });
-            } catch (ex) {
-                //msgExibir(ex);
-                //UPCHAT.Desconectar();
+            if (Sala.mintIdSala > 0 && Sala.mintIdSala != undefined && Sala.mintIdSala != null) {
+                Sala.IngressarGrupo(Sala.mintIdSala.toString());
             }
         });
     } catch (ex) {
@@ -90,25 +85,87 @@ Sala.Desconectar = function () {
     try {
         Sala.mWebSocketTryingToReconnect = false;
         $.connection.hub.stop();
-        Sala.mHubSala.server.FinalizarSessao().done(function () {
-            try {
-                Sala.mWebSocketTryingToReconnect = false;
-                if (Sala.mHubSala.connection.state == $.signalR.connectionState.connected) {
-                    Sala.mHubSala.connection.stop();
-                }
-            } catch (ex) {
-                console.log(ex);
-            }
-        });
+        Sala.DeixarGrupo(Sala.mintIdSala.toString());
     } catch (ex) {
         console.log(ex);
     }
 };
 
 
+Sala.IngressarGrupo = function (pstrNomeGrupo) {
+    Sala.mHubSala.server.ingressarGrupo(pstrNomeGrupo).done(function () { });
+}
+
+Sala.DeixarGrupo = function (pstrNomeGrupo) {
+    Sala.mHubSala.server.deixarGrupo(pstrNomeGrupo).done(function () { });
+}
+
+//#region Suspeitos/Listar
+
+Sala.SelecionarSuspeito = function (pintIdSala, pintIdJogadorSala, pintIdSuspeito) {
+    try {
+        $.ajax({
+            url: gstrGlobalPath + 'Suspeito/SelecionarSuspeito',
+            type: 'post',
+            data: {
+                idSala: pintIdSala,
+                idJogadorSala: pintIdJogadorSala,
+                idSuspeito: pintIdSuspeito
+            },
+            success: function (data, textStatus, XMLHttpRequest) {
+                var lobjResltado = new Object();
+                var lstrDescricaoJogador = new String();
+                var lstrDescricaoSuspeito = new String();
+                try {
+                    lobjResltado = JSON.parse(data);
+                    if (!lobjResltado.Status) { throw data.Retorno; }
+                    lstrDescricaoJogador = JSON.parse(lobjResltado.Retorno).Data.DescricaoJogador;
+                    lstrDescricaoSuspeito = JSON.parse(lobjResltado.Retorno).Data.DescricaoSuspeito
+                    Sala.mHubSala.server.selecaoSuspeito(pintIdSala, pintIdJogadorSala, pintIdSuspeito, lstrDescricaoJogador, lstrDescricaoSuspeito).done(function () { });
+                } catch (ex) {
+                    throw ex;
+                }
+            },
+            error: function (request, status, error) {
+                alert(request.responseText);
+            }
+        });
+    } catch (ex) {
+        throw ex;
+    }
+}
+
+Sala.DesconsiderarSuspeito = function (pintIdSala, pintIdJogadorSala) {
+    try {
+        $.ajax({
+            url: gstrGlobalPath + 'Suspeito/DesconsiderarSuspeito',
+            type: 'post',
+            data: {
+                idJogadorSala: pintIdJogadorSala
+            },
+            success: function (data, textStatus, XMLHttpRequest) {
+                var lobjResltado = new Object();
+                var lstrDescricaoSuspeito = new String();
+                try {
+                    lobjResltado = JSON.parse(data);
+                    if (!lobjResltado.Status) { throw data.Retorno; }
+                    lstrDescricaoSuspeito = JSON.parse(lobjResltado.Retorno).DescricaoSuspeito
+                    Sala.mHubSala.server.desconsiderarSuspeito(pintIdSala, pintIdJogadorSala, lstrDescricaoSuspeito).done(function () { });
+                } catch (ex) {
+                    throw ex;
+                }
+            }
+        });
+    } catch (ex) {
+        throw ex;
+    }
+}
+
+//#endregion
+
 Sala.EnviarMensagem = function (apelido, mensagem) {
     try {
-        Sala.mHubSala.server.enviarMensagem(apelido, mensagem).done(function () { });;
+        Sala.mHubSala.server.enviarMensagem(apelido, mensagem).done(function () { });
     } catch (ex) {
         console.log(ex);
     }
@@ -119,24 +176,39 @@ Sala.EnviarMensagem = function (apelido, mensagem) {
 /// <param name="pColuna" type="Number">Número da coluna.</param>
 /// <param name="pIDLocal" type="Number">ID do local onde o jogador está.</param>
 /// <returns type="Void"></returns>
-Sala.EnviarMovimento = function (pLinha, pColuna, pIDLocal) {
+Sala.EnviarMovimento = function (pLinha, pColuna) {
     try {
+        Jogar.DesativarBotoes(true);
         $.ajax({
-            url: gstrGlobalPath + 'Partida/Mover',
+            url: gstrGlobalPath + 'Partida/MoverJogador',
+            type: 'post',
             data: {
                 idJogadorSala: Sala.mID_JOGADOR_SALA,
-                linha: pLinha,
-                coluna: pColuna
+                novaCoordenadaLinha: pLinha,
+                novaCoordenadaColuna: pColuna
             },
             success: function (data, textStatus, XMLHttpRequest) {
+                var lobjResultado = new Object();
+                var lobjRetorno = new Object();
+                var lintLinha = new Number();
+                var lintColuna = new Number();
+                var lintIdLocal = new Number();
                 try {
-                    if (!JSON.parse(data.toLowerCase())) { throw 'Movimento inválido'; }
-
-                    //Movimentar para os outros usuários
-                    Sala.mHubSala.server.enviarMovimento(Sala.mID_JOGADOR_SALA, pLinha, pColuna, pIDLocal).done(function () { });
+                    Jogar.DesativarBotoes(false);
+                    lobjResultado = JSON.parse(data);
+                    if (!lobjResultado.Status) { throw lobjResultado.Retorno; }
+                    lobjRetorno = JSON.parse(lobjResultado.Retorno);
+                    lintLinha = lobjRetorno.Posicao.Linha;
+                    lintColuna = lobjRetorno.Posicao.Coluna;
+                    lintIdLocal = lobjRetorno.Posicao.IdLocal;
+                    Sala.mHubSala.server.enviarMovimento(Sala.mID_JOGADOR_SALA, lintLinha, lintColuna, lintIdLocal).done(function () { });
                 } catch (ex) {
-                    throw ex;
+                    alert(ex);
                 }
+            },
+            error: function (data, textStatus, XMLHttpRequest) {
+                Jogar.DesativarBotoes(false);
+                alert("Erro na chamada da movimentação.");
             }
         });
     } catch (ex) {

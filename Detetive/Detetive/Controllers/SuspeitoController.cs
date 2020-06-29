@@ -2,6 +2,7 @@
 using Detetive.Business.Business.Interfaces;
 using Detetive.Business.Entities;
 using Detetive.ViewModel;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -32,26 +33,115 @@ namespace Detetive.Controllers
         {
             var sala = _salaBusiness.Obter(idSala);
 
-            if (sala != default)
+            if (sala == default)
                 return RedirectToAction("Manter", "Sala", new Operacao("Sala não encontrada.", false));
 
-            var jogadorSala = _jogadorSalaBusiness.Obter(idJogadorSala, idSala);
-            
-            if (jogadorSala != default)
+            var jogadoresSala = _jogadorSalaBusiness.Listar(idSala);
+            var jogadorSala = jogadoresSala.SingleOrDefault(_ => _.Id == idJogadorSala);
+
+            if (jogadorSala == default || jogadorSala.IdSala != sala.Id)
                 return RedirectToAction("Manter", "Sala", new Operacao("Jogador não encontrada.", false));
 
-            var jogaodor = _jogadorBusiness.Obter(jogadorSala.IdJogador);
+            var jogador = _jogadorBusiness.Obter(jogadorSala.IdJogador);
 
             ViewBag.Sala_ID = sala.Id;
-            ViewBag.NomeJogador = jogaodor.Descricao;
-            ViewBag.Suspeitos = Mapper.Map<List<Suspeito>, List<SuspeitoViewModel>>(_suspeitoBusiness.Listar());
+            ViewBag.ID_JOGADOR_SALA = idJogadorSala;
+            ViewBag.NomeJogador = jogador.Descricao;
+
+            var suspeitosViewModel = Mapper.Map<List<Suspeito>, List<SuspeitoViewModel>>(_suspeitoBusiness.Listar());
+            suspeitosViewModel.ForEach(suspeitoViewModel =>
+            {
+                jogadorSala = jogadoresSala.FirstOrDefault(_ => _.IdSuspeito == suspeitoViewModel.Id);
+
+                if (jogadorSala != default)
+                {
+                    suspeitoViewModel.IdJogadorSala = jogadorSala.Id;
+                    suspeitoViewModel.NickJogador = jogadorSala != null ? _jogadorBusiness.Obter(jogadorSala.IdJogador).Descricao : "";
+                }
+            });
+
+            ViewBag.Suspeitos = suspeitosViewModel;
 
             return View();
         }
 
-        public ActionResult Teste()
+        [HttpPost]
+        public string SelecionarSuspeito(int idSala, int idJogadorSala, int idSuspeito)
         {
-            return View();
+            try
+            {
+                var sala = _salaBusiness.Obter(idSala);
+                if (sala == default)
+                    return JsonConvert.SerializeObject(new Operacao("Sala não encontrada.", false));
+
+                var jogadorSala = _jogadorSalaBusiness.Obter(idJogadorSala);
+                if (jogadorSala == default)
+                    return JsonConvert.SerializeObject(new Operacao("Jogador Sala não encontrado.", false));
+
+                var suspeito = _suspeitoBusiness.Obter(idSuspeito);
+                if (suspeito == default)
+                    return JsonConvert.SerializeObject(new Operacao("Suspeito não encontrado.", false));
+
+                if (jogadorSala.IdSala != sala.Id)
+                    return JsonConvert.SerializeObject(new Operacao("Jogador Sala não pertence a sala passada.", false));
+
+                string descricaoSuspeito = String.Empty;
+
+                if (jogadorSala.IdSuspeito.HasValue)
+                {
+                    var suspeitoSelecionado = _suspeitoBusiness.Obter(jogadorSala.IdSuspeito.Value);
+                    descricaoSuspeito = suspeitoSelecionado.Descricao;
+                }
+
+                jogadorSala.AlterarSuspeito(suspeito.Id);
+                _jogadorSalaBusiness.Alterar(jogadorSala);
+
+                var jogador = _jogadorBusiness.Obter(jogadorSala.IdJogador);
+                var retorno = Json(new
+                {
+                    DescricaoJogador = jogador.Descricao,
+                    DescricaoSuspeito = descricaoSuspeito
+                }, "json");
+
+                var operacao = new Operacao(JsonConvert.SerializeObject(retorno), true);
+
+                return JsonConvert.SerializeObject(operacao);
+            }
+            catch (Exception ex)
+            {
+                return JsonConvert.SerializeObject(new Operacao(ex.Message, false));
+            }
+        }
+
+        [HttpPost]
+        public string DesconsiderarSuspeito(int idJogadorSala)
+        {
+            try
+            {
+                var jogadorSala = _jogadorSalaBusiness.Obter(idJogadorSala);
+
+                if (jogadorSala == default)
+                    return JsonConvert.SerializeObject(new Operacao("Jogador não encontrado!", false));
+
+                if (!jogadorSala.IdSuspeito.HasValue)
+                    return JsonConvert.SerializeObject(new Operacao("Jogador ainda não selecionou nenhum jogador.", false));
+
+                var suspeito = _suspeitoBusiness.Obter(jogadorSala.IdSuspeito.GetValueOrDefault());
+
+                var retorno = new
+                {
+                    DescricaoSuspeito = suspeito.Descricao
+                };
+
+                jogadorSala.AlterarSuspeito(null);
+                _jogadorSalaBusiness.Alterar(jogadorSala);
+
+                return JsonConvert.SerializeObject(new Operacao(JsonConvert.SerializeObject(retorno), true));
+            }
+            catch (Exception ex)
+            {
+                return JsonConvert.SerializeObject(new Operacao(ex.Message, false));
+            }
         }
     }
 }

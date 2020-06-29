@@ -9,6 +9,8 @@ namespace Detetive.Business.Data.Interfaces
 {
     public interface IPortaLocalRepository
     {
+        PortaLocal Obter(int coordenadaLinha, int coordenadaColuna);
+        List<PortaLocal> Listar();
         List<PortaLocal> Listar(int idLocal);
     }
 }

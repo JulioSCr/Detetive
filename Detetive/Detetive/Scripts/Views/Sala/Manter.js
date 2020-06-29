@@ -43,6 +43,7 @@ ManterSala.IngressarSala = function () {
         }
         $('#txtIdSala').attr('placeholer', 'Digite o #idSala aqui');
         $('#lblIdSala').text('Informe o ID da Sala:');
+        $('#txtIdSala').attr('readOnly', false);
     }
     catch (ex) {
         alert(ex);
@@ -64,6 +65,8 @@ ManterSala.CriarSala = function () {
                     lstrIdSala = '#' + data;
                     $('#lblIdSala').text('ID da sala:');
                     $('#txtIdSala').val(lstrIdSala);
+                    $('#txtIdSala').attr('readOnly', true);
+                    
                 } catch (ex) {
                     throw ex;
                 }
@@ -72,5 +75,42 @@ ManterSala.CriarSala = function () {
     }
     catch (ex) {
         throw ex;
+    }
+}
+
+ManterSala.divBtnVamosAoCaso_OnClick = function () {
+    var lintIdSala = new Number();
+    var lintIdJogadorSala = new Number();
+    var lstrDsJogdor = new String();
+    var lobjRetorno = new Object();
+    var lobjRetornoDados = new Object();
+    try {
+        lintIdSala = parseInt(($('#txtIdSala').val()).replace('#', ''));
+        lstrDsJogdor = $('#txtNick').val();
+        if (lstrDsJogdor == '') { throw 'Erro: Obrigatório inserir um nick para o jogador.'; }
+        $.ajax({
+            url: gstrGlobalPath + 'Sala/Ingressar',
+            type: 'post',
+            data: {
+                idSala: lintIdSala,
+                dsJogador: lstrDsJogdor
+            },
+            success: function (data, textStatus, XMLHttpRequest) {
+                try {
+                    lobjRetorno = JSON.parse(data);
+                    if (!lobjRetorno.Status) { throw lobjRetorno.Retorno; }
+                    lobjRetornoDados = JSON.parse(lobjRetorno.Retorno).Data;
+                    lintIdJogadorSala = lobjRetornoDados.idJogadorSala;
+                    location.href = gstrGlobalPath + 'Suspeito/Listar?idSala=' + lintIdSala + '&idJogadorSala=' + lintIdJogadorSala;
+                } catch (ex) {
+                    $("#mensagem").text('Jogador: ' +ex);
+                    $("#divModal").modal("show");
+                }
+            }
+        });
+    } catch (ex) {
+        $("#mensagem").text(ex);
+        $("#divModal").modal("show");
+        //alert(ex);
     }
 }

@@ -21,7 +21,7 @@ namespace Detetive.Data.Repository
             if (anotacao != default)
             {
                 this.Context.AnotacaoSuspeitos.Add(anotacao);
-                this.Context.SaveChangesAsync();
+                this.Context.SaveChanges();
             }
 
             return anotacao;

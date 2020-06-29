@@ -20,6 +20,11 @@ namespace Detetive.Data.Context
         public DbSet<AnotacaoLocal> AnotacaoLocais { get; set; }
         public DbSet<AnotacaoSuspeito> AnotacaoSuspeitos { get; set; }
 
+        // Cartas
+        public DbSet<ArmaJogadorSala> ArmasJogadorSala { get; set; }
+        public DbSet<LocalJogadorSala> LocaisJogadorSala { get; set; }
+        public DbSet<SuspeitoJogadorSala> SuspeitosJogadorSala { get; set; }
+
         // Jogador
         public DbSet<Jogador> Jogadores { get; set; }
         public DbSet<JogadorSala> JogadoresSala { get; set; }
@@ -35,6 +40,9 @@ namespace Detetive.Data.Context
             modelBuilder.Configurations.Add(new AnotacaoArmaConfig());
             modelBuilder.Configurations.Add(new AnotacaoLocalConfig());
             modelBuilder.Configurations.Add(new AnotacaoSuspeitoConfig());
+            modelBuilder.Configurations.Add(new ArmaJogadorSalaConfig());
+            modelBuilder.Configurations.Add(new LocalJogadorSalaConfig());
+            modelBuilder.Configurations.Add(new SuspeitoJogadorSalaConfig());
             modelBuilder.Configurations.Add(new JogadorConfig());
             modelBuilder.Configurations.Add(new JogadorSalaConfig());
             modelBuilder.Configurations.Add(new CrimeConfig());

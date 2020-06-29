@@ -8,7 +8,7 @@ namespace Detetive.Business.Data.Interfaces
     public interface IJogadorSalaRepository
     {
         JogadorSala Obter(int idJogadorSala);
-        JogadorSala Obter(int idJogadorSala, int idSala);
+        JogadorSala Obter(int idJogador, int idSala);
         JogadorSala ObterPorSuspeito(int idSuspeito, int idSala);
         JogadorSala Alterar(JogadorSala jogador);
         List<JogadorSala> Listar(int idSala);
