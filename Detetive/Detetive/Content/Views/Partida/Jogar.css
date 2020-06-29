@@ -70,6 +70,9 @@
 
 #divCartas {
     background: #C4C4C4;
+    display: block;
+    width: 90%;
+    margin: 0 auto;
 }
 
 #divAcoes {
@@ -237,6 +240,31 @@
     font-family: 'Risque', cursive;
     font-size: 0.95em;
 }
+
+
+.action {
+    display: block;
+    margin: 100px auto;
+    width: 100%;
+    text-align: center;
+}
+
+.action a {
+    display: inline-block;
+    padding: 5px 10px;
+    background: #f30;
+    color: #fff;
+    text-decoration: none;
+}
+
+.action a:hover {
+    background: #000;
+}
+
+.carta img {
+    width: 80%;
+}
+
 
 /*#endregion*/
 @media (min-width: 630px) {
