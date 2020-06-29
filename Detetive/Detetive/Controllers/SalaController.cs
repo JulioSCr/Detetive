@@ -30,22 +30,28 @@ namespace Detetive.Controllers
         [HttpPost]
         public string Ingressar(int idSala, string dsJogador)
         {
-            var jogador = _jogadorBusiness.Adicionar(dsJogador);
-            var sala = _salaBusiness.Obter(idSala);
+            try
+            {
+                var jogador = _jogadorBusiness.Adicionar(dsJogador);
+                var sala = _salaBusiness.Obter(idSala);
 
-            if (sala == default)
-                return JsonConvert.SerializeObject(new Operacao("Sala não encontrada.", false));
+                if (sala == default)
+                    return JsonConvert.SerializeObject(new Operacao("Sala não encontrada.", false));
 
-            var operacao = _jogadorSalaBusiness.Adicionar(sala, jogador.Id);
+                var operacao = _jogadorSalaBusiness.Adicionar(sala, jogador.Id);
 
-            if (!operacao.Status)
-                return JsonConvert.SerializeObject(operacao);
+                if (!operacao.Status)
+                    return JsonConvert.SerializeObject(operacao);
 
-            var jogadorSala = _jogadorSalaBusiness.Obter(jogador.Id, sala.Id);
-            
-            var retorno = Json(new { idSala = sala.Id, idJogadorSala = jogadorSala.Id }, "json");
+                var jogadorSala = _jogadorSalaBusiness.Obter(jogador.Id, sala.Id);
+                var retorno = Json(new { idSala = sala.Id, idJogadorSala = jogadorSala.Id }, "json");
 
-            return JsonConvert.SerializeObject(new Operacao(JsonConvert.SerializeObject(retorno)));
+                return JsonConvert.SerializeObject(new Operacao(JsonConvert.SerializeObject(retorno)));
+            }
+            catch (Exception ex)
+            {
+                return JsonConvert.SerializeObject(new Operacao(ex.Message, false));
+            }
         }
 
         public int CriarSala()

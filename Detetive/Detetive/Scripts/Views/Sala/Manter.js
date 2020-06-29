@@ -43,6 +43,7 @@ ManterSala.IngressarSala = function () {
         }
         $('#txtIdSala').attr('placeholer', 'Digite o #idSala aqui');
         $('#lblIdSala').text('Informe o ID da Sala:');
+        $('#txtIdSala').attr('readOnly', false);
     }
     catch (ex) {
         alert(ex);
@@ -64,6 +65,8 @@ ManterSala.CriarSala = function () {
                     lstrIdSala = '#' + data;
                     $('#lblIdSala').text('ID da sala:');
                     $('#txtIdSala').val(lstrIdSala);
+                    $('#txtIdSala').attr('readOnly', true);
+                    
                 } catch (ex) {
                     throw ex;
                 }
@@ -82,7 +85,6 @@ ManterSala.divBtnVamosAoCaso_OnClick = function () {
     var lobjRetorno = new Object();
     var lobjRetornoDados = new Object();
     try {
-        debugger;
         lintIdSala = parseInt(($('#txtIdSala').val()).replace('#', ''));
         lstrDsJogdor = $('#txtNick').val();
         if (lstrDsJogdor == '') { throw 'Erro: Obrigatório inserir um nick para o jogador.'; }
@@ -101,11 +103,14 @@ ManterSala.divBtnVamosAoCaso_OnClick = function () {
                     lintIdJogadorSala = lobjRetornoDados.idJogadorSala;
                     location.href = gstrGlobalPath + 'Suspeito/Listar?idSala=' + lintIdSala + '&idJogadorSala=' + lintIdJogadorSala;
                 } catch (ex) {
-                    throw ex;
+                    $("#mensagem").text('Jogador: ' +ex);
+                    $("#divModal").modal("show");
                 }
             }
         });
     } catch (ex) {
-        alert(ex);
+        $("#mensagem").text(ex);
+        $("#divModal").modal("show");
+        //alert(ex);
     }
 }

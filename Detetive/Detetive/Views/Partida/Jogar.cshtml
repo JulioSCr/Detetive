@@ -14,21 +14,83 @@
         @*gID_JOGADOR_SALA = @lID_JOGADOR_SALA;*@
     </script>
 }
-<input id="inpID_JOGADOR_SALA" type="hidden" name="ID_JOGADOR_SALA" value="@ViewBag.ID_JOGADOR_SALA" />
+<input id="inpID_JOGADOR_SALA" type="hidden" name="ID_JOGADOR_SALA" value="@ViewBag.JogadorSala.Id" />
 <section id="secPrimeiraLinha">
     <div id="divTabuleiro" class="esquerda">
         @foreach (var local in ViewBag.Locais)
         {
-            <div id=@($"div{local.IdDescricao}") idLocal="@local.Id"></div>
+            <div id=@($"div{local.IdDescricao}") idLocal="@local.Id" class="Local" style="grid-row:@local.CoordenadaALinha/@(local.CoordenadaBLinha+1);grid-column:@local.CoordenadaAColuna/@(local.CoordenadaBColuna+1);">
+                @foreach (var jogadorSuspeito in ViewBag.JogadoresSuspeitos)
+                {
+                    if (jogadorSuspeito.IdLocal != null && jogadorSuspeito.IdLocal == local.Id)
+                    {
+                        <div id=@($"div{jogadorSuspeito.IdDescricao}") title="@jogadorSuspeito.DescricaoSuspeito" idJogadorSala="@jogadorSuspeito.IdJogadorSala" class="suspeito dentro" style="grid-column:@jogadorSuspeito.CoordenadaColuna;grid-row:@jogadorSuspeito.CoordenadaLinha;"></div>
+                    }
+                }
+            </div>
         }
 
         @foreach (var jogadorSuspeito in ViewBag.JogadoresSuspeitos)
         {
-            <div id=@($"div{jogadorSuspeito.IdDescricao}") title="@jogadorSuspeito.IdDescricao" idJogadorSala="@jogadorSuspeito.IdJogadorSala" class="suspeito"></div>
+            if (jogadorSuspeito.IdLocal == null){
+            <div id=@($"div{jogadorSuspeito.IdDescricao}") title="@jogadorSuspeito.DescricaoSuspeito" idJogadorSala="@jogadorSuspeito.IdJogadorSala" class="suspeito" style="grid-column:@jogadorSuspeito.CoordenadaColuna;grid-row:@jogadorSuspeito.CoordenadaLinha"></div>
+            }
         }
     </div>
     <div id="divAnotacoes" class="direita">
-
+        <div class="centralizar" id="divTabelaAnotacoes">
+            Anotações
+        </div>
+        <div class="centralizar">
+            <div id="divColunasTabelaAnotacoes">
+                <div class="centralizar" id="divTituloColunas"> Armas </div>
+                <div id="divItemColuna">
+                    @if (ViewBag.AnotacaoArma != null)
+                    {
+                        foreach (var anotacaoArma in ViewBag.AnotacaoArma)
+                        {
+                            <label class="container">
+                                @anotacaoArma.Descricao
+                                <input type="checkbox" onchange="Jogar.AnotacaoArma_OnChange(this)" idArma="@anotacaoArma.Id" @(@anotacaoArma.Selecionado ? "checked=\"checked\"" : "")>
+                                <span class="check"></span>
+                            </label>
+                        }
+                    }
+                </div>
+            </div>
+            <div id="divColunasTabelaAnotacoes">
+                <div class="centralizar" id="divTituloColunas"> Locais </div>
+                <div id="divItemColuna" class=".checkItem">
+                    @if (ViewBag.AnotacaoLocal != null)
+                    {
+                        foreach (var anotacaoLocal in ViewBag.AnotacaoLocal)
+                        {
+                            <label class="container">
+                                @anotacaoLocal.Descricao
+                                <input type="checkbox" onchange="Jogar.AnotacaoLocal_OnChange(this)" idLocal="@anotacaoLocal.Id" @(anotacaoLocal.Selecionado ? "checked=\"checked\"" : "")>
+                                <span class="check"></span>
+                            </label>
+                        }
+                    }
+                </div>
+            </div>
+            <div id="divColunasTabelaAnotacoes">
+                <div class="centralizar" id="divTituloColunas"> Suspeitos </div>
+                <div id="divItemColuna">
+                    @if (ViewBag.AnotacaoSuspeito != null)
+                    {
+                        foreach (var anotacaoSuspeito in ViewBag.AnotacaoSuspeito)
+                        {
+                            <label class="container">
+                                @anotacaoSuspeito.Descricao
+                                <input type="checkbox" onchange="Jogar.AnotacaoSuspeito_OnChange(this)" idSuspeito="@anotacaoSuspeito.Id" @(anotacaoSuspeito.Selecionado ? "checked=\"checked\"" : "")>
+                                <span class="check"></span>
+                            </label>
+                        }
+                    }
+                </div>
+            </div>
+        </div>
     </div>
 </section>
 <section id="secSegundaLinha">
@@ -43,13 +105,13 @@
             <button type="button" title="Mover para baixo" id="btnAbaixo" class="botoes btnSetaVertical centralizarBotoes" onclick="Jogar.btnAbaixo_OnClick()"></button>
             <button type="button" title="Rolar os dados" id="btnLancarDados" class="botoes centralizarBotoes"></button>
 
-            <button type="button" title="Palpitar" id="btnPalpite" class="botoes centralizarBotoes botoesOpcoes" onclick="Jogar.btnPalpite_OnClick()">Palpite</button>
-            <button type="button" title="Acusar" id="btnAcusar" class="botoes centralizarBotoes botoesOpcoes" onclick="Jogar.btnAcusar_OnClick()">Acusar</button>
-            <button type="button" title="Usar passagem secreta" id="btnPassagemSecreta" class="botoes centralizarBotoes botoesOpcoes" onclick="Jogar.btnPassagemSecreta_OnClick()">Passagem</button>
+            <button type="button" title="Palpitar" id="btnPalpite" class="botoes centralizarBotoes botoesOpcoes" onclick="Jogar.btnPalpite_OnClick()" style="@(ViewBag.JogadorSala.Posicao.IdLocal == null ? "visibility: hidden" : "visibility: visible")">Palpite</button>
+            <button type="button" title="Acusar" id="btnAcusar" class="botoes centralizarBotoes botoesOpcoes" onclick="Jogar.btnAcusar_OnClick()" style="@(ViewBag.JogadorSala.Posicao.IdLocal == null ? "visibility: hidden" : "visibility: visible")">Acusar</button>
+            <button type="button" title="Usar passagem secreta" id="btnPassagemSecreta" class="botoes centralizarBotoes botoesOpcoes" onclick="Jogar.btnPassagemSecreta_OnClick()" style="@(ViewBag.passagemSecreta == false ? "visibility: hidden" : "visibility: visible")"></button>
         </div>
         <div id="divInformacoesContainer">
             <div id="divInformacoes">
-                <label id="lblSala">#ID Sala: 17539</label>
+                <label id="lblSala">#ID Sala: @ViewBag.ID_Sala</label>
                 <button type="button" title="Finalizar turno" id="btnFinalizarTurno" class="botoes centralizarBotoes" onclick="Jogar.btnFinalizarTurno_OnClick()"></button>
                 <div id="divCaixaInformacoes">
                     <label class="informacao">É a sua vez! Role o dado!</label>

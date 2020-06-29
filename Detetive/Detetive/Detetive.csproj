@@ -235,6 +235,7 @@
     <Compile Include="App_Start\Startup.cs" />
     <Compile Include="Controllers\AnotacaoController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\PropagandaController.cs" />
     <Compile Include="Controllers\SalaController.cs" />
     <Compile Include="Controllers\PartidaController.cs" />
     <Compile Include="Controllers\SobreController.cs" />
@@ -245,19 +246,26 @@
     </Compile>
     <Compile Include="Hubs\HubSala.cs" />
     <Compile Include="Mappers\AutoMapperConfig.cs" />
+    <Compile Include="Mappers\MapperAnotacaoArmaToAnotacaoArmaViewModel.cs" />
+    <Compile Include="Mappers\MapperAnotacaoSuspeitoToAnotacaoLocalViewModel.cs" />
+    <Compile Include="Mappers\MapperAnotacaoLocalToAnotacaoLocalViewModel.cs" />
+    <Compile Include="Mappers\MapperJogadorSalaToJogadorSalaViewModel.cs" />
     <Compile Include="Mappers\MapperSuspeitoToSuspeitoViewModel.cs" />
     <Compile Include="Mappers\MapperArmaToArmaViewModel.cs" />
     <Compile Include="Mappers\MapperJogadorSalaToJogadorSuspeitoViewModel.cs" />
     <Compile Include="Mappers\MapperLocalToLocalViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="ViewModel\AnotacaoViewModel.cs" />
+    <Compile Include="ViewModel\Anotacao\AnotacaoArmaViewModel.cs" />
+    <Compile Include="ViewModel\Anotacao\AnotacaoSuspeitoViewModel.cs" />
+    <Compile Include="ViewModel\Anotacao\AnotacaoLocalViewModel.cs" />
     <Compile Include="ViewModel\ArmaViewModel.cs" />
     <Compile Include="ViewModel\BaseViewModel.cs" />
     <Compile Include="ViewModel\JogadorSuspeitoViewModel.cs" />
+    <Compile Include="ViewModel\LocalPortaViewModel.cs" />
     <Compile Include="ViewModel\LocalViewModel.cs" />
     <Compile Include="ViewModel\SuspeitoViewModel.cs" />
     <Compile Include="ViewModel\Tabuleiro\PartidaViewModel.cs" />
-    <Compile Include="ViewModel\Tabuleiro\JogadorViewModel.cs" />
+    <Compile Include="ViewModel\Tabuleiro\JogadorSalaViewModel.cs" />
     <Compile Include="ViewModel\Tabuleiro\LocalViewModew.cs" />
     <Compile Include="ViewModel\Tabuleiro\PosicaoViewModel.cs" />
   </ItemGroup>
@@ -297,8 +305,8 @@
     <Content Include="Content\Site.css" />
     <Content Include="Content\Views\Home\Index.css" />
     <Content Include="Content\Views\Partida\Jogar.css" />
-    <Content Include="Content\Views\Partida\Manter.css" />
     <Content Include="Content\Views\Partida\ModalAcusar.css" />
+    <Content Include="Content\Views\Propaganda\Ad.css" />
     <Content Include="Content\Views\Sala\Manter.css" />
     <Content Include="Content\Views\Sobre\Exibir.css" />
     <Content Include="Content\Views\Partida\ModalPalpite.css" />
@@ -423,6 +431,7 @@
     <Content Include="Scripts\Libs\umd\popper.js" />
     <Content Include="Scripts\Libs\umd\popper.min.js" />
     <Content Include="Scripts\Views\Partida\ModalAcusar.js" />
+    <Content Include="Scripts\Views\Propaganda\Ad.js" />
     <Content Include="Scripts\Views\Sala\Manter.js" />
     <Content Include="Scripts\Views\Partida\Jogar.js" />
     <Content Include="Scripts\Views\Partida\ModalPalpite.js" />
@@ -449,8 +458,6 @@
     <Content Include="Scripts\Libs\Popper\popper-utils.min.js.map" />
     <Content Include="Scripts\Libs\Popper\popper-utils.js.map" />
     <Content Include="Views\Suspeito\Listar.cshtml" />
-    <Content Include="Views\Suspeito\Teste.cshtml" />
-    <Content Include="Views\Partida\Manter.cshtml" />
     <Content Include="Views\Anotacao\Anotacao.cshtml" />
     <Content Include="Views\Sobre\Exibir.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />
@@ -459,9 +466,9 @@
     <Content Include="Views\Shared\_LayoutModal.cshtml" />
     <Content Include="Views\Partida\ModalAcusar.cshtml" />
     <Content Include="Views\Home1\Index.cshtml" />
-    <Content Include="Views\Partida\Jogar.cshtml" />
     <Content Include="Views\Home1\Index.cshtml" />
     <Content Include="Views\Sala\Manter.cshtml" />
+    <Content Include="Views\Propaganda\Ad.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -518,6 +525,7 @@
           <SaveServerSettingsInUserFile>False</SaveServerSettingsInUserFile>
         </WebProjectProperties>
       </FlavorProperties>
+      <UserProperties content_4bootstrap-grid_1css_1map__JsonSchema="" />
     </VisualStudio>
   </ProjectExtensions>
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">

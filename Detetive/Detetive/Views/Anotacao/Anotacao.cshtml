@@ -12,32 +12,32 @@
     <div class="col-4">
         <h5 class="text-center"> Armas </h5>
 
-        @foreach (var arma in Model.Armas)
+        @*@foreach (var arma in Model.Armas)
         {
             <div class="custom-control custom-checkbox">
                 @Html.CheckBox(arma.Descricao, arma.Selecionado, new { id = arma.Id, @class = "custom-control-input", onchance = "AnotarArma(this)" })
                 @Html.Label(arma.Descricao, new { @class = "custom-control-label" })
             </div>
-        }
+        }*@
     </div>
     <div class="col-4">
         <h5 class="text-center"> Locais </h5>
-        @foreach (var local in Model.Locais)
+        @*@foreach (var local in Model.Locais)
         {
             <div class="custom-control custom-checkbox">
                 @Html.CheckBox(local.Descricao, local.Selecionado, new { id = local.Id, @class = "custom-control-input", onchance = "AnotarLocal(this)" })
                 @Html.Label(local.Descricao, new { @class = "custom-control-label" })
             </div>
-        }
+        }*@
     </div>
     <div class="col-4">
         <h5 class="text-center"> Suspeitos </h5>
-        @foreach (var suspeito in Model.Suspeitos)
+        @*@foreach (var suspeito in Model.Suspeitos)
         {
             <div class="custom-control custom-checkbox">
                 @Html.CheckBox(suspeito.Descricao, suspeito.Selecionado, new { id = suspeito.Id, @class = "custom-control-input", onchance = "AnotarSuspeito(this)" })
                 @Html.Label(suspeito.Descricao, new { @class = "custom-control-label" })
             </div>
-        }
+        }*@
     </div>
 </div>

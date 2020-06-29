@@ -17,10 +17,20 @@ namespace Detetive.Business.Business
         {
             _portaLocalRepository = portaLocalRepository;
         }
+        
+        public List<PortaLocal> Listar()
+        {
+            return _portaLocalRepository.Listar();
+        }
 
         public List<PortaLocal> Listar(int idLocal)
         {
             return _portaLocalRepository.Listar(idLocal);
+        }
+
+        public PortaLocal Obter(int coordenadaLinha, int coordenadaColuna)
+        {
+            return _portaLocalRepository.Obter(coordenadaLinha, coordenadaColuna);
         }
     }
 }
