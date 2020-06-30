@@ -319,6 +319,8 @@
     <Content Include="Content\Libs\Detetive\Global.css" />
     <Content Include="Content\Libs\Detetive\Modal.css" />
     <Content Include="Content\Libs\Material\material-icons.css" />
+    <Content Include="Content\Libs\Slick\slick-theme.css" />
+    <Content Include="Content\Libs\Slick\slick.css" />
     <Content Include="Content\Site.css" />
     <Content Include="Content\Views\Home\Index.css" />
     <Content Include="Content\Views\Partida\Jogar.css" />
@@ -380,6 +382,8 @@
     <Content Include="Scripts\Libs\Popper\popper-utils.min.js" />
     <Content Include="Scripts\Libs\Popper\popper.js" />
     <Content Include="Scripts\Libs\Popper\popper.min.js" />
+    <Content Include="Scripts\Libs\Slick\slick.js" />
+    <Content Include="Scripts\Libs\Slick\slick.min.js" />
     <Content Include="Scripts\Libs\src\index.js" />
     <Content Include="Scripts\Libs\src\methods\defaults.js" />
     <Content Include="Scripts\Libs\src\methods\destroy.js" />

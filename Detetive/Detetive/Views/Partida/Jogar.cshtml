@@ -6,9 +6,12 @@
 
 @section head{
     <link rel="stylesheet" href="@Url.Content("~/Content/Views/Partida/Jogar.css?" + DateTimeOffset.Now)" />
+    <link rel="stylesheet" href="@Url.Content("~/Content/Libs/Slick/slick.css?" + DateTimeOffset.Now)" />
+    <link rel="stylesheet" href="@Url.Content("~/Content/Libs/Slick/slick-theme.css?" + DateTimeOffset.Now)" />
 }
 
 @section scripts{
+    <script src="@Url.Content("~/Scripts/Libs/Slick/slick.js?" + DateTimeOffset.Now)"></script>
     <script src="@Url.Content("~/Scripts/Views/Partida/Jogar.js?" + DateTimeOffset.Now)"></script>
     <script>
         @*gID_JOGADOR_SALA = @lID_JOGADOR_SALA;*@
@@ -32,8 +35,9 @@
 
         @foreach (var jogadorSuspeito in ViewBag.JogadoresSuspeitos)
         {
-            if (jogadorSuspeito.IdLocal == null){
-            <div id=@($"div{jogadorSuspeito.IdDescricao}") title="@jogadorSuspeito.DescricaoSuspeito" idJogadorSala="@jogadorSuspeito.IdJogadorSala" class="suspeito" style="grid-column:@jogadorSuspeito.CoordenadaColuna;grid-row:@jogadorSuspeito.CoordenadaLinha"></div>
+            if (jogadorSuspeito.IdLocal == null)
+            {
+                <div id=@($"div{jogadorSuspeito.IdDescricao}") title="@jogadorSuspeito.DescricaoSuspeito" idJogadorSala="@jogadorSuspeito.IdJogadorSala" class="suspeito" style="grid-column:@jogadorSuspeito.CoordenadaColuna;grid-row:@jogadorSuspeito.CoordenadaLinha"></div>
             }
         }
     </div>
@@ -94,55 +98,57 @@
     </div>
 </section>
 <section id="secSegundaLinha">
-    <div id="divCartas" class="esquerda">
-        <div class="slider slider-nav">
-            <div class="carta">
-                <img src="~/Content/Imagens/CartasArmas/imgCartaCadeiraQuebrada.svg" />
-            </div>
-            <div class="carta">
-                <img src="~/Content/Imagens/CartasArmas/imgCartaCadeiraQuebrada.svg" />
-            </div>
-            <div class="carta">
-                <img src="~/Content/Imagens/CartasArmas/imgCartaCadeiraQuebrada.svg" />
-            </div>
-            <div class="carta">
-                <img src="~/Content/Imagens/CartasArmas/imgCartaCadeiraQuebrada.svg" />
-            </div>
-            <div class="carta">
-                <img src="~/Content/Imagens/CartasArmas/imgCartaCadeiraQuebrada.svg" />
-            </div>
-            <div class="carta">
-                <img src="~/Content/Imagens/CartasArmas/imgCartaCadeiraQuebrada.svg" />
-            </div>
-        </div>
-    </div>
-        <div id="divAcoes" class="direita">
-            <div id="divBotoes">
-                <button type="button" title="Mover para direita" id="btnDireita" class="botoes btnSetaHorizontal centralizarBotoes" onclick="Jogar.btnDireita_OnClick()"></button>
-                <button type="button" title="Mover para esquerda" id="btnEsquerda" class="botoes btnSetaHorizontal centralizarBotoes" onclick="Jogar.btnEsquerda_OnClick()"></button>
-                <button type="button" title="Mover para cima" id="btnAcima" class="botoes btnSetaVertical centralizarBotoes" onclick="Jogar.btnAcima_OnClick()"></button>
-                <button type="button" title="Mover para baixo" id="btnAbaixo" class="botoes btnSetaVertical centralizarBotoes" onclick="Jogar.btnAbaixo_OnClick()"></button>
-                <button type="button" title="Rolar os dados" id="btnLancarDados" class="botoes centralizarBotoes"></button>
-
-                <button type="button" title="Palpitar" id="btnPalpite" class="botoes centralizarBotoes botoesOpcoes" onclick="Jogar.btnPalpite_OnClick()" style="@(ViewBag.JogadorSala.Posicao.IdLocal == null ? "visibility: hidden" : "visibility: visible")">Palpite</button>
-                <button type="button" title="Acusar" id="btnAcusar" class="botoes centralizarBotoes botoesOpcoes" onclick="Jogar.btnAcusar_OnClick()" style="@(ViewBag.JogadorSala.Posicao.IdLocal == null ? "visibility: hidden" : "visibility: visible")">Acusar</button>
-                <button type="button" title="Usar passagem secreta" id="btnPassagemSecreta" class="botoes centralizarBotoes botoesOpcoes" onclick="Jogar.btnPassagemSecreta_OnClick()" style="@(ViewBag.passagemSecreta == false ? "visibility: hidden" : "visibility: visible")"></button>
-            </div>
-            <div id="divInformacoesContainer">
-                <div id="divInformacoes">
-                    <label id="lblSala">#ID Sala: @ViewBag.ID_Sala</label>
-                    <button type="button" title="Finalizar turno" id="btnFinalizarTurno" class="botoes centralizarBotoes" onclick="Jogar.btnFinalizarTurno_OnClick()"></button>
-                    <div id="divCaixaInformacoes">
-                        <label class="informacao">É a sua vez! Role o dado!</label>
-                        <label class="informacao">Valor do dado = 5. Avance até 5 casas!</label>
-                        <label class="informacao">Voce adentrou o CA! O que deseja fazer? (Palpite/Acusar)</label>
-                        <label class="informacao">Voce palpitou a blibliotecária, no CA com o Pendrive!</label>
-                        <label class="informacao">O jogador 2 revelou a carta Pendrive!</label>
-                        <label class="informacao">Sua vez terminou! Jogador 2 está fazendo sua jogada...</label>
-                    </div>
+    <div id="divCartasContainer" class="esquerda centralizar">
+        <div id="divCartas">
+            <div class="slider slider-nav">
+                <div class="carta centralizar">
+                    <img src="~/Content/Imagens/CartasArmas/imgCartaCadeiraQuebrada.svg" />
+                </div>
+                <div class="carta centralizar">
+                    <img src="~/Content/Imagens/CartasArmas/imgCartaCadeiraQuebrada.svg" />
+                </div>
+                <div class="carta centralizar">
+                    <img src="~/Content/Imagens/CartasArmas/imgCartaCadeiraQuebrada.svg" />
+                </div>
+                <div class="carta centralizar">
+                    <img src="~/Content/Imagens/CartasArmas/imgCartaCadeiraQuebrada.svg" />
+                </div>
+                <div class="carta centralizar">
+                    <img src="~/Content/Imagens/CartasArmas/imgCartaCadeiraQuebrada.svg" />
+                </div>
+                <div class="carta centralizar">
+                    <img src="~/Content/Imagens/CartasArmas/imgCartaCadeiraQuebrada.svg" />
                 </div>
             </div>
         </div>
+    </div>
+    <div id="divAcoes" class="direita">
+        <div id="divBotoes">
+            <button type="button" title="Mover para direita" id="btnDireita" class="botoes btnSetaHorizontal centralizarBotoes" onclick="Jogar.btnDireita_OnClick()"></button>
+            <button type="button" title="Mover para esquerda" id="btnEsquerda" class="botoes btnSetaHorizontal centralizarBotoes" onclick="Jogar.btnEsquerda_OnClick()"></button>
+            <button type="button" title="Mover para cima" id="btnAcima" class="botoes btnSetaVertical centralizarBotoes" onclick="Jogar.btnAcima_OnClick()"></button>
+            <button type="button" title="Mover para baixo" id="btnAbaixo" class="botoes btnSetaVertical centralizarBotoes" onclick="Jogar.btnAbaixo_OnClick()"></button>
+            <button type="button" title="Rolar os dados" id="btnLancarDados" class="botoes centralizarBotoes"></button>
+
+            <button type="button" title="Palpitar" id="btnPalpite" class="botoes centralizarBotoes botoesOpcoes" onclick="Jogar.btnPalpite_OnClick()" style="@(ViewBag.JogadorSala.Posicao.IdLocal == null ? "visibility: hidden" : "visibility: visible")">Palpite</button>
+            <button type="button" title="Acusar" id="btnAcusar" class="botoes centralizarBotoes botoesOpcoes" onclick="Jogar.btnAcusar_OnClick()" style="@(ViewBag.JogadorSala.Posicao.IdLocal == null ? "visibility: hidden" : "visibility: visible")">Acusar</button>
+            <button type="button" title="Usar passagem secreta" id="btnPassagemSecreta" class="botoes centralizarBotoes botoesOpcoes" onclick="Jogar.btnPassagemSecreta_OnClick()" style="@(ViewBag.passagemSecreta == false ? "visibility: hidden" : "visibility: visible")"></button>
+        </div>
+        <div id="divInformacoesContainer">
+            <div id="divInformacoes">
+                <label id="lblSala">#ID Sala: @ViewBag.ID_Sala</label>
+                <button type="button" title="Finalizar turno" id="btnFinalizarTurno" class="botoes centralizarBotoes" onclick="Jogar.btnFinalizarTurno_OnClick()"></button>
+                <div id="divCaixaInformacoes">
+                    <label class="informacao">É a sua vez! Role o dado!</label>
+                    <label class="informacao">Valor do dado = 5. Avance até 5 casas!</label>
+                    <label class="informacao">Voce adentrou o CA! O que deseja fazer? (Palpite/Acusar)</label>
+                    <label class="informacao">Voce palpitou a blibliotecária, no CA com o Pendrive!</label>
+                    <label class="informacao">O jogador 2 revelou a carta Pendrive!</label>
+                    <label class="informacao">Sua vez terminou! Jogador 2 está fazendo sua jogada...</label>
+                </div>
+            </div>
+        </div>
+    </div>
 </section>
 
 <div id="ModalPalpite" data-url='@Url.Action("ModalPalpite", "Partida")'></div>
