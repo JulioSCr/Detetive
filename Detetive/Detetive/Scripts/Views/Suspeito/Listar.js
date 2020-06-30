@@ -13,7 +13,7 @@ Listar.MontarTela = function () {
         Listar.mintIdSala = $('#divInformaIDSala').data().id;
         Listar.mintIdJogadorSala = $('#inpID_JOGADOR_SALA').data().id;
         if (Listar.mintIdSala == null || Listar.mintIdSala == undefined) { throw 'Sala não encontrada.' }
-        Sala.mintIdSala = Listar.mintIdSala;
+        Sala.mIdSala = Listar.mintIdSala;
     } catch (ex) {
         alert(ex);
     }
