@@ -2,12 +2,15 @@
     mHubSala: new Object(),                             // Objeto do SignalR
     mWebSocketTryingToReconnect: new Boolean(false),    // Flag tentando reconectar
     mID_JOGADOR_SALA: new Number(),                     // Id do jogador sala
-    mintIdSala: new Number()                            // Id da sala
+    mIdSala: new Number()                            // Id da sala
 };
 
 $(document).ready(function () {
     Sala.Iniciar();
     Sala.mID_JOGADOR_SALA = $('#inpID_JOGADOR_SALA').val();
+    if (Sala.mIdSala == 0 || Sala.mIdSala == null || Sala.mIdSala == undefined) {
+        Sala.mIdSala = $('#inpID_SALA').val();
+    }
 });
 
 Sala.Iniciar = function () {
@@ -64,6 +67,10 @@ Sala.Configurar = function () {
         Listar.TransmitirDesconsideracaoSuspeito(pintIdJogadorSala, pDescricaoSuspeito);
     }
 
+    Sala.mHubSala.client.TransmitirMensagem = function (pintIdJogadorSalaRemetente, pintIdJogadorSalaDestinatario, pstrDescricaoMensagem) {
+        Jogar.TransmitirMensagem(pintIdJogadorSalaRemetente, pintIdJogadorSalaDestinatario, pstrDescricaoMensagem);
+    }
+
     Sala.mHubSala.client.erro = function (vstrMensagem, vstrMensagemTecnica) {
         console.log(vstrMensagemTecnica);
     };
@@ -72,8 +79,8 @@ Sala.Configurar = function () {
 Sala.Conectar = function () {
     try {
         Sala.mHubSala.connection.start().done(function () {
-            if (Sala.mintIdSala > 0 && Sala.mintIdSala != undefined && Sala.mintIdSala != null) {
-                Sala.IngressarGrupo(Sala.mintIdSala.toString());
+            if (Sala.mIdSala > 0 && Sala.mIdSala != undefined && Sala.mIdSala != null) {
+                Sala.IngressarGrupo(Sala.mIdSala.toString());
             }
         });
     } catch (ex) {
@@ -85,7 +92,7 @@ Sala.Desconectar = function () {
     try {
         Sala.mWebSocketTryingToReconnect = false;
         $.connection.hub.stop();
-        Sala.DeixarGrupo(Sala.mintIdSala.toString());
+        Sala.DeixarGrupo(Sala.mIdSala.toString());
     } catch (ex) {
         console.log(ex);
     }
@@ -163,9 +170,30 @@ Sala.DesconsiderarSuspeito = function (pintIdSala, pintIdJogadorSala) {
 
 //#endregion
 
-Sala.EnviarMensagem = function (apelido, mensagem) {
+Sala.EnviarMensagem = function (pIdJogadorSalaRemetente, pIdJogadorSalaDestinatario, pDescricaoMensagem) {
     try {
-        Sala.mHubSala.server.enviarMensagem(apelido, mensagem).done(function () { });
+        $.ajax({
+            url: gstrGlobalPath + 'Agaga/Agaga',
+            type: 'Post',
+            data: {
+                Agaga: agaga
+            },
+            success: function (data, textStatus, XMLHttpRequest) {
+                var lobjResultado = new Object();
+                var lobjRetorno = new Object();
+                try {
+                    lobjResultado = JSON.parse(data);
+                    if (!lobjResultado.Status) { throw lobjResultado.Retorno; }
+                    lobjRetorno = JSON.parse(lobjResultado.Retorno);
+                    Sala.mHubSala.server.enviarMensagem(Sala.mIdSala, pIdJogadorSalaRemetente, pIdJogadorSalaDestinatario, pDescricaoMensagem).done(function () { });
+                } catch (ex) {
+                    alert(ex);
+                }
+            },
+            error: function (data, textStatus, XMLHttpRequest) {
+                alert("Erro no envio da mensagem.");
+            }
+        });
     } catch (ex) {
         console.log(ex);
     }
@@ -201,7 +229,7 @@ Sala.EnviarMovimento = function (pLinha, pColuna) {
                     lintLinha = lobjRetorno.Posicao.Linha;
                     lintColuna = lobjRetorno.Posicao.Coluna;
                     lintIdLocal = lobjRetorno.Posicao.IdLocal;
-                    Sala.mHubSala.server.enviarMovimento(Sala.mID_JOGADOR_SALA, lintLinha, lintColuna, lintIdLocal).done(function () { });
+                    Sala.mHubSala.server.enviarMovimento(Sala.mIdSala, Sala.mID_JOGADOR_SALA, lintLinha, lintColuna, lintIdLocal).done(function () { });
                 } catch (ex) {
                     alert(ex);
                 }

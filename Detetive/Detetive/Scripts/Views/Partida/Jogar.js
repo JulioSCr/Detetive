@@ -1,12 +1,12 @@
 ﻿var Jogar = window.Jogar || {
     mID_JOGADOR_SALA: new Number(),     // ID do jogador sala
+    mID_SALA: new Number(),     // ID do jogador sala
     marrMapeamento: new Array()         // Mapeamento do tabuleiro
 };
 
 Jogar.MontarTela = function () {
+    Jogar.mID_SALA = $('#inpID_SALA').val();
     Jogar.mID_JOGADOR_SALA = $('#inpID_JOGADOR_SALA').val();
-    // Mapeia tabuleiro
-    Jogar.MapearTabuleiro();
     // Cria a modal palpite
     $('#ModalPalpite').Detetive_Modal({
         Titulo: 'Palpite'
@@ -196,172 +196,6 @@ Jogar.Posicao = function (lLinha, lColuna) {
     return { lLinha, lColuna };
 }
 
-Jogar.MapearTabuleiro = function () {
-    try {
-        //$.ajax({
-        //    url: gstrGlobalPath + 'Partida/MapearTabuleiro',
-        //    success: function (data, textStatus, XMLHttpRequest) {
-        //        try {
-        //            //if (!JSON.parse(data.toLowerCase())) { throw 'Movimento inválido'; }
-
-        //        } catch (ex) {
-        //            throw ex;
-        //        }
-        //    }
-        //});
-        //Jogar.marrMapeamento = [
-        //    {
-        //        Nome: 'PredioA',
-        //        ID: 1,
-        //        Linhas: [11, 18],
-        //        Colunas: [1, 7],
-        //        Portas: [
-        //            {
-        //                Linha: 14,
-        //                Coluna: 6,
-        //                Direcao: 'direita'
-        //            }
-        //        ],
-        //        PassagemSecreta: 7
-        //    },
-        //    {
-        //        Nome: 'PredioB',
-        //        ID: 2,
-        //        Linhas: [11, 18],
-        //        Colunas: [9, 15],
-        //        Portas: [
-        //            {
-        //                Linha: 14,
-        //                Coluna: 9,
-        //                Direcao: 'esquerda'
-        //            }
-        //        ],
-        //        PassagemSecreta: 0
-        //    },
-        //    {
-        //        Nome: 'Santiago',
-        //        ID: 3,
-        //        Linhas: [1, 10],
-        //        Colunas: [27, 33],
-        //        Portas: [
-        //            {
-        //                Linha: 9,
-        //                Coluna: 29,
-        //                Direcao: 'baixo'
-        //            }
-        //        ],
-        //        PassagemSecreta: 0
-        //    },
-        //    {
-        //        Nome: 'Praca',
-        //        ID: 4,
-        //        Linhas: [20, 26],
-        //        Colunas: [16, 25],
-        //        Portas: [
-        //            {
-        //                Linha: 25,
-        //                Coluna: 16,
-        //                Direcao: 'esquerda'
-        //            },
-        //            {
-        //                Linha: 20,
-        //                Coluna: 23,
-        //                Direcao: 'cima'
-        //            }
-        //        ],
-        //        PassagemSecreta: 0
-        //    },
-        //    {
-        //        Nome: 'Etesp',
-        //        ID: 5,
-        //        Linhas: [20, 26],
-        //        Colunas: [9, 15],
-        //        Portas: [
-        //            {
-        //                Linha: 24,
-        //                Coluna: 9,
-        //                Direcao: 'esquerda'
-        //            },
-        //            {
-        //                Linha: 22,
-        //                Coluna: 14,
-        //                Direcao: 'direita'
-        //            }
-        //        ],
-        //        PassagemSecreta: 0
-        //    },
-        //    {
-        //        Nome: 'CantinaAB',
-        //        ID: 6,
-        //        Linhas: [20, 26],
-        //        Colunas: [1, 7],
-        //        Portas: [
-        //            {
-        //                Linha: 20,
-        //                Coluna: 1,
-        //                Direcao: 'cima'
-        //            }
-        //        ],
-        //        PassagemSecreta: 8
-        //    },
-        //    {
-        //        Nome: 'CA',
-        //        ID: 7,
-        //        Linhas: [12, 26],
-        //        Colunas: [27, 33],
-        //        Portas: [
-        //            {
-        //                Linha: 12,
-        //                Coluna: 31,
-        //                Direcao: 'cima'
-        //            },
-        //            {
-        //                Linha: 24,
-        //                Coluna: 27,
-        //                Direcao: 'esquerda'
-        //            }
-        //        ],
-        //        PassagemSecreta: 1
-        //    },
-        //    {
-        //        Nome: 'Auditorio',
-        //        ID: 8,
-        //        Linhas: [3, 9],
-        //        Colunas: [18, 25],
-        //        Portas: [
-        //            {
-        //                Linha: 4,
-        //                Coluna: 18,
-        //                Direcao: 'esquerda'
-        //            },
-        //            {
-        //                Linha: 3,
-        //                Coluna: 24,
-        //                Direcao: 'cima'
-        //            }
-        //        ],
-        //        PassagemSecreta: 6
-        //    },
-        //    {
-        //        Nome: 'Ginasio',
-        //        ID: 9,
-        //        Linhas: [9, 18],
-        //        Colunas: [18, 25],
-        //        Portas: [
-        //            {
-        //                Linha: 17,
-        //                Coluna: 18,
-        //                Direcao: 'esquerda'
-        //            }
-        //        ],
-        //        PassagemSecreta: 0
-        //    }
-        //];
-    } catch (ex) {
-        alert(ex);
-    }
-}
-
 Jogar.SairLocal = function (lIDLocal, lLinha, lColuna, lstrDirecao) {
     var larrLocal = new Array();
     var larrPorta = new Array();
@@ -509,4 +343,22 @@ Jogar.AnotacaoSuspeito_OnChange = function (input) {
     } catch (ex) {
         alert(ex);
     }
-} 
+}
+
+//#region Chat
+
+Jogar.TransmitirMensagem = function (pintIdJogadorSalaRemetente, pintIdJogadorSalaDestinatario, pstrDescricaoMensagem) {
+    var lstrHtml = new String();
+    try {
+        lstrHtml = '<label class="informacao">' + pstrDescricaoMensagem + '</label>';
+        if (pintIdJogadorSalaDestinatario == Jogar.mID_JOGADOR_SALA) {
+            $('#divCaixaInformacoes').append(lstrHtml);
+        } else if (pintIdJogadorSalaDestinatario == 0 || pintIdJogadorSalaDestinatario == null) {
+            $('#divCaixaInformacoes').append(lstrHtml);
+        }
+    } catch (ex) {
+        alert(ex);
+    }
+}
+
+//#endregion
