@@ -276,6 +276,23 @@
     <Content Include="Content\bootstrap-reboot.min.css" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
+    <Content Include="Content\Imagens\CartasArmas\imgCartaCadeiraQuebrada.svg" />
+    <Content Include="Content\Imagens\CartasArmas\imgCartaCaixaDeGiz.svg" />
+    <Content Include="Content\Imagens\CartasArmas\imgCartaMonitor.svg" />
+    <Content Include="Content\Imagens\CartasArmas\imgCartaPendrive.svg" />
+    <Content Include="Content\Imagens\CartasArmas\imgCartaPomba.svg" />
+    <Content Include="Content\Imagens\CartasArmas\imgCartaProjetor.svg" />
+    <Content Include="Content\Imagens\CartasArmas\imgCartaListaDeExercicios.svg" />
+    <Content Include="Content\Imagens\CartasArmas\imgCartaTeclado.svg" />
+    <Content Include="Content\Imagens\CartasLocais\imgCartaAuditorio.svg" />
+    <Content Include="Content\Imagens\CartasLocais\imgCartaCentroAcademico.svg" />
+    <Content Include="Content\Imagens\CartasLocais\imgCartaCantinaAB.svg" />
+    <Content Include="Content\Imagens\CartasLocais\imgCartaETESP.svg" />
+    <Content Include="Content\Imagens\CartasLocais\imgCartaGinasio.svg" />
+    <Content Include="Content\Imagens\CartasLocais\imgCartaPraca.svg" />
+    <Content Include="Content\Imagens\CartasLocais\imgCartaPredioA.svg" />
+    <Content Include="Content\Imagens\CartasLocais\imgCartaPrédioB.svg" />
+    <Content Include="Content\Imagens\CartasLocais\imgCartaSantiago.svg" />
     <Content Include="Content\Imagens\CartasSuspeitos\imgCartaBibliotecaria.svg" />
     <Content Include="Content\Imagens\CartasSuspeitos\imgCartaDiretora.svg" />
     <Content Include="Content\Imagens\CartasSuspeitos\imgCartaEstudante.svg" />
@@ -472,8 +489,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Content\Imagens\CartasArmas\" />
-    <Folder Include="Content\Imagens\CartasLocais\" />
     <Folder Include="Models\" />
     <Folder Include="Views\Teste\" />
   </ItemGroup>
@@ -525,6 +540,7 @@
           <SaveServerSettingsInUserFile>False</SaveServerSettingsInUserFile>
         </WebProjectProperties>
       </FlavorProperties>
+      <UserProperties content_4bootstrap-grid_1css_1map__JsonSchema="" />
     </VisualStudio>
   </ProjectExtensions>
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">

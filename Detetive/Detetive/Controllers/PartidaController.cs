@@ -58,8 +58,12 @@ namespace Detetive.Controllers
             /// as anotações dos jogadores deverão estar checadas
             /// o chat deve ser recarregado
 
+            //int idJogadorSala = 20;
+
             var jogadorSala = _jogadorSalaBusiness.Obter(idJogadorSala);
             int idSala = jogadorSala.IdSala;
+
+            var operacao = _partidaBusiness.Iniciar(idSala);
 
             ViewBag.ID_Sala = idSala;
 

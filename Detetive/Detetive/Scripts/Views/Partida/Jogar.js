@@ -497,3 +497,16 @@ Jogar.AnotacaoSuspeito_OnChange = function (input) {
         alert(ex);
     }
 } 
+
+$('.slider-nav').slick({
+    slidesToShow: 5,
+    slidesToScroll: 1,
+    dots: false,
+    focusOnSelect: true
+});
+
+$('a[data-slide]').click(function (e) {
+    e.preventDefault();
+    var slideno = $(this).data('slide');
+    $('.slider-nav').slick('slickGoTo', slideno - 1);
+});
