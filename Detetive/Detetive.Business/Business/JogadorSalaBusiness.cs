@@ -63,8 +63,6 @@ namespace Detetive.Business.Business
 
             var jogadorSala = _jogadorSalaRepository.Adicionar(new JogadorSala(idJogador, sala.Id));
 
-            GerarAnotacoesJogador(jogadorSala);
-
             return new Operacao("Jogador ingressado com sucesso!");
         }
 
@@ -83,11 +81,11 @@ namespace Detetive.Business.Business
             return listaJogadores;
         }
 
-        private void GerarAnotacoesJogador(JogadorSala jogadorSala)
+        public List<JogadorSala> Alterar(List<JogadorSala> jogadoresSala)
         {
-            _anotacaoArmaBusiness.CriarAnotacoes(jogadorSala.Id);
-            _anotacaoLocalBusiness.CriarAnotacoes(jogadorSala.Id);
-            _anotacaoSuspeitoBusiness.CriarAnotacoes(jogadorSala.Id);
+            jogadoresSala.ForEach(jogadorSala => this.Alterar(jogadorSala));
+
+            return jogadoresSala;
         }
     }
 }

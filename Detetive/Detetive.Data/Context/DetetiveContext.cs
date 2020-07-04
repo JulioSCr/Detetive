@@ -21,9 +21,9 @@ namespace Detetive.Data.Context
         public DbSet<AnotacaoSuspeito> AnotacaoSuspeitos { get; set; }
 
         // Cartas
-        public DbSet<ArmaJogadorSala> ArmaJogadorSala { get; set; }
-        public DbSet<LocalJogadorSala> LocalJogadorSala { get; set; }
-        public DbSet<SuspeitoJogadorSala> SuspeitoJogadorSala { get; set; }
+        public DbSet<ArmaJogadorSala> ArmasJogadorSala { get; set; }
+        public DbSet<LocalJogadorSala> LocaisJogadorSala { get; set; }
+        public DbSet<SuspeitoJogadorSala> SuspeitosJogadorSala { get; set; }
 
         // Jogador
         public DbSet<Jogador> Jogadores { get; set; }

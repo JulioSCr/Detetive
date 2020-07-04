@@ -13,13 +13,11 @@ Listar.MontarTela = function () {
         Listar.mintIdSala = $('#divInformaIDSala').data().id;
         Listar.mintIdJogadorSala = $('#inpID_JOGADOR_SALA').data().id;
         if (Listar.mintIdSala == null || Listar.mintIdSala == undefined) { throw 'Sala não encontrada.' }
-        Sala.mintIdSala = Listar.mintIdSala;
-        document.getElementById("btnVamosAoCaso").disabled = true;
+        Sala.mIdSala = Listar.mintIdSala;
     } catch (ex) {
         alert(ex);
     }
 }
-var playersProntos = 0;
 
 Listar.Suspeito_OnClick = function (e) {
     try {
@@ -48,12 +46,6 @@ Listar.TransmitirSelecaoSuspeito = function (pintIdJogadorSala, pintIdSuspeito, 
         $('.cartaSuspeito[data-id=' + pintIdSuspeito + ']').addClass('selected');
         $('.cartaSuspeito[data-id=' + pintIdSuspeito + ']').data().idjogadorsala = pintIdJogadorSala;
         $('.cartaSuspeito[data-id=' + pintIdSuspeito + ']').attr('data-idjogadorsala', pintIdJogadorSala);
-
-        playersProntos++;
-        if (playersProntos >= 3) {
-            document.getElementById("btnVamosAoCaso").disabled = false;
-        }
-
     } catch (ex) {
         alert(ex);
     }
@@ -66,7 +58,6 @@ Listar.TransmitirDesconsideracaoSuspeito = function (pintIdJogadorSala, pstrDesc
             $('.cartaSuspeito[data-idjogadorsala=' + pintIdJogadorSala + ']').removeClass('selected');
             $('.cartaSuspeito[data-idjogadorsala=' + pintIdJogadorSala + ']').data().idjogadorsala = 0;
             $('.cartaSuspeito[data-idjogadorsala=' + pintIdJogadorSala + ']').attr('data-idjogadorsala', 0);
-            playersProntos--;
         }
     } catch (ex) {
         alert(ex);

@@ -33,5 +33,13 @@ namespace Detetive.Data.Repository
 
             return crimeSala;
         }
+
+        public Crime Adicionar(Crime crime)
+        {
+            this.Context.Crimes.Add(crime);
+            this.Context.SaveChanges();
+
+            return crime;
+        }
     }
 }

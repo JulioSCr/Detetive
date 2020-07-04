@@ -23,11 +23,11 @@ namespace Detetive.Hubs
         /// <param name="pColuna" type="int">Número da coluna.</param>
         /// <param name="pIDLocal" type="int">ID do local em que o jogador está.</param>
         /// <returns type="Void"></returns>
-        public void EnviarMovimento(int ID_JOGADOR_SALA, int pLinha, int pColuna, int? pIDLocal)
+        public void EnviarMovimento(int pIdSala, int ID_JOGADOR_SALA, int pLinha, int pColuna, int? pIDLocal)
         {
             try
             {
-                Clients.All.TransmitirMovimento(ID_JOGADOR_SALA, pLinha, pColuna, pIDLocal);
+                Clients.Group(pIdSala.ToString()).TransmitirMovimento(ID_JOGADOR_SALA, pLinha, pColuna, pIDLocal);
             }
             catch (Exception ex)
             {
@@ -46,6 +46,22 @@ namespace Detetive.Hubs
                 Clients.Caller.erro(ex.Message, ex.ToString());
             }
         }
+
+        #region Chat
+
+        public void EnviaMensagem(int pIdSala, int pIdJogadorSalaRemetente, int pIdJogadorSalaDestinatario, string pDescricaoMensagem)
+        {
+            try
+            {
+                Clients.Group(pIdSala.ToString()).TransmitirMensagem(pIdJogadorSalaRemetente, pIdJogadorSalaDestinatario, pDescricaoMensagem);
+            }
+            catch (Exception ex)
+            {
+                Clients.Caller.erro(ex.Message, ex.ToString());
+            }
+        }
+
+        #endregion
 
         #region Sala/Manter
 
