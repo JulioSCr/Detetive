@@ -99,11 +99,11 @@ namespace Detetive.Hubs
         /// </summary>
         /// <param name="pIdSala"></param>
         /// <param name="pIdJogadorSala"></param>
-        public void selecaoSuspeito(int pIdSala, int pIdJogadorSala, int pIdSuspeito, string pDescricaoJogador, string pDescricaoSuspeito)
+        public void selecaoSuspeito(int pIdSala, int pIdJogadorSala, int pIdSuspeito, string pDescricaoJogador, string pDescricaoSuspeitoSelecionado, string pDescricaoSuspeitoDesconsiderado)
         {
             try
             {
-                Clients.Group(pIdSala.ToString()).TransmitirSelecaoSuspeito(pIdJogadorSala, pIdSuspeito, pDescricaoJogador, pDescricaoSuspeito);
+                Clients.Group(pIdSala.ToString()).TransmitirSelecaoSuspeito(pIdJogadorSala, pIdSuspeito, pDescricaoJogador, pDescricaoSuspeitoSelecionado, pDescricaoSuspeitoDesconsiderado);
             }
             catch (Exception ex)
             {
