@@ -13,7 +13,6 @@
     <div class="form-group">
         <label class="lblModal" for="ddlModalAcusar_Suspeito">Selecione um suspeito</label>
         <select class="form-control" id="ddlModalAcusar_Suspeito">
-            <option value="1">Reitor</option>
             @if (ViewBag.Suspeitos != null && ViewBag.Suspeitos.Any())
             {
                 foreach (var suspeito in ViewBag.Suspeitos)
