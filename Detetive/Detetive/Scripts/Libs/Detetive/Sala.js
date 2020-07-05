@@ -246,7 +246,7 @@ Sala.EnviarMovimento = function (pLinha, pColuna) {
 
 Sala.Teletransporte = function (pintIdJogadorSala, pintIdLocal) {
     try {
-        Sala.mHubSala.server.teletransporte(pintIdJogadorSala, pintIdLocal).done(function () { });
+        Sala.mHubSala.server.teletransporte(pintIdJogadorSala, pintIdLocal, Sala.mIdSala).done(function () { });
     } catch (ex) {
         alert(ex);
     }

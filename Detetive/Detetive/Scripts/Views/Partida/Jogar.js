@@ -345,6 +345,17 @@ Jogar.AnotacaoSuspeito_OnChange = function (input) {
     }
 }
 
+Jogar.SuspeitoToJogadorSala = function (pintIdSuspeito) {
+    var lintIdJogadorSala = new Number();
+    try {
+        
+
+
+    } catch (ex) {
+        alert(ex);
+    }
+}
+
 //#region Chat
 
 Jogar.TransmitirMensagem = function (pintIdJogadorSalaRemetente, pintIdJogadorSalaDestinatario, pstrDescricaoMensagem) {

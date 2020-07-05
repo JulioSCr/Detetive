@@ -145,12 +145,18 @@ namespace Detetive.Controllers
         [HttpGet]
         public ActionResult ModalPalpite()
         {
+            // To Do
+            ViewBag.Armas = null;
+            ViewBag.Suspeitos = null;
             return PartialView();
         }
 
         [HttpGet]
         public ActionResult ModalAcusar()
         {
+            // To Do
+            ViewBag.Armas = null;
+            ViewBag.Suspeitos = null;
             return PartialView();
         }
 

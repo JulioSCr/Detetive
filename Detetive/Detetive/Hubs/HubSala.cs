@@ -35,11 +35,11 @@ namespace Detetive.Hubs
             }
         }
 
-        public void Teletransporte(int ID_JOGADOR_SALA, int pIDLocal)
+        public void Teletransporte(int ID_JOGADOR_SALA, int pIDLocal, int pIdSala)
         {
             try
             {
-                Clients.All.TransmitirTeletransporte(ID_JOGADOR_SALA, pIDLocal);
+                Clients.Group(pIdSala.ToString()).TransmitirTeletransporte(ID_JOGADOR_SALA, pIDLocal);
             }
             catch (Exception ex)
             {

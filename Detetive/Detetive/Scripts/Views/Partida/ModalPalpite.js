@@ -6,28 +6,47 @@ ModalPalpite.Palpitar = function () {
     var lintIdJogadorSala = new Number();
     var lintIdArma = new Number();
     var lintIdLocal = new Number();
+    var lobjSuspeito = new Object();
     try {
-        lintIdJogadorSala = $('#lslbJogador').val();
         lintIdArma = $('#lslbArmas').val();
         lintIdLocal = Jogar.GetLocalAtual(Jogar.mID_JOGADOR_SALA);
+        lintIdJogadorSala = Jogar.mID_JOGADOR_SALA;
+        lintIdSala = Jogar.mID_SALA;
+        lobjSuspeito.Id = $('#ddlModalPalpite_Suspeito').val();
+        lobjSuspeito.Descricao = $('#ddlModalPalpite_Suspeito').text().trim()
+
         $.ajax({
             url: gstrGlobalPath + 'Partida/Palpite',
             data: {
                 idJogadorSala: lintIdJogadorSala,
+                idSala: lintIdSala,
                 idArma: lintIdArma,
-                idLocal: lintIdLocal
+                idLocal: lintIdLocal,
+                idSuspeito: lobjSuspeito.Id
             },
             success: function (data, textStatus, XMLHttpRequest) {
+                var leleSuspeito = new Object();
+                var lintIdJogadorSalaAcusado = new Number();
+                var lobjRetorno = new Object();
                 try {
-                    //if (!JSON.parse(data.toLowerCase())) { throw 'Movimento inválido'; }
-                    
-                    //Jogar.RemoveDoLocal(Jogar.mID_JOGADOR_SALA, 0, 0);
-                    //Jogar.TransmitirMovimento(Jogar.mID_JOGADOR_SALA, 0, 0, lintIdLocal);
-                    Sala.Teletransporte(lintIdJogadorSala, lintIdLocal);
+                    lobjRetorno = JSON.parse(data);
+                    if (!lobjRetorno.Status) { throw lobjRetorno.Retorno; }
+
+                    leleSuspeito = $('#divTabuleiro > #div' + removeAcentos(lobjSuspeito.Descricao)).length == 0 ? $('#divTabuleiro >> #div' + removeAcentos(lobjSuspeito.Descricao)) : $('#divTabuleiro > #div' + removeAcentos(lobjSuspeito.Descricao));
+                    if (leleSuspeito.length != 0) {
+                        lintIdJogadorSalaAcusado = $(leleSuspeito).attr('idJogadorSala');
+                        Sala.Teletransporte(lintIdJogadorSalaAcusado, lintIdLocal);
+                    }
+
                     $('#ModalPalpite').Detetive_Modal('hide');
                 } catch (ex) {
-                    throw ex;
+                    $('#ModalPalpite').Detetive_Modal('hide');
+                    alert(ex);
                 }
+            },
+            error: function (data, textStatus, XMLHttpRequest) {
+                $('#ModalPalpite').Detetive_Modal('hide');
+                alert('Erro na chamada da Acusação');
             }
         });
 
