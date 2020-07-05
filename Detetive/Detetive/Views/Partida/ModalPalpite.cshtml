@@ -10,42 +10,29 @@
     <script src="@Url.Content("~/Scripts/Views/Partida/ModalPalpite.js?" + DateTimeOffset.Now)"></script>
 }
 <div>
-    @*<div class="form-group">
-        <label class="lblModal" for="lstLocais">Selecione um local</label>
-        <select class="form-control" id="lstLocais">
-            <option value="1">Prédio A</option>
-            <option value="2">Prédio B</option>
-            <option value="3">Santhiago</option>
-            <option value="4">Praça</option>
-            <option value="5">ETESP</option>
-            <option value="6">Cantina A/B</option>
-            <option value="7">CA</option>
-            <option value="8">Ginásio</option>
-        </select>
-    </div>*@
     <div class="form-group">
-        <label class="lblModal" for="lstSuspeitos">Selecione um suspeito</label>
-        <select class="form-control" id="lslbJogador">
-            <option value="2">Diretora</option>
-            <option value="3">Professora</option>
-            <option value="4">Estudante</option>
-            <option value="5">Zelador</option>
-            <option value="6">Policial</option>
-            <option value="7">Reporter</option>
-            <option value="8">Bibliotecária</option>
+        <label class="lblModal" for="ddlModalPalpite_Suspeito">Selecione um suspeito</label>
+        <select class="form-control" id="ddlModalPalpite_Suspeito">
+            @if (ViewBag.Suspeitos != null && ViewBag.Suspeitos.Any())
+            {
+                foreach (var suspeito in ViewBag.Suspeitos)
+                {
+                    <option value="@suspeito.Id">@suspeito.Descricao</option>
+                }
+            }
         </select>
     </div>
     <div class="form-group">
         <label class="lblModal" for="lstArmas">Selecione uma arma</label>
         <select class="form-control" id="lslbArmas">
-            <option value="1">Caixa de Giz</option>
-            <option value="2">Monitor</option>
-            <option value="3">Teclado</option>
-            <option value="4">Projetor</option>
-            <option value="5">Lista de Exercícios</option>
-            <option value="6">Pendrive</option>
-            <option value="7">Cadeira Quebrada</option>
-            <option value="8">Pomba</option>
+            <option value="1">AgagaArma</option>
+            @if (ViewBag.Armas != null && ViewBag.Armas.Any())
+            {
+                foreach (var arma in ViewBag.Armas)
+                {
+                    <option value="@arma.Id">@arma.Descricao</option>
+                }
+            }
         </select>
     </div>
     <div class="centralizar">
