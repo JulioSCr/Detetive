@@ -60,6 +60,8 @@ namespace Detetive.Controllers
                 }
             });
 
+            ViewBag.QtdeJogadorPronto = suspeitosViewModel.Where(x => x.IdJogadorSala != null).Count();
+
             ViewBag.Suspeitos = suspeitosViewModel;
 
             return View();
@@ -85,13 +87,7 @@ namespace Detetive.Controllers
                 if (jogadorSala.IdSala != sala.Id)
                     return JsonConvert.SerializeObject(new Operacao("Jogador Sala não pertence a sala passada.", false));
 
-                string descricaoSuspeito = String.Empty;
-
-                if (jogadorSala.IdSuspeito.HasValue)
-                {
-                    var suspeitoSelecionado = _suspeitoBusiness.Obter(jogadorSala.IdSuspeito.Value);
-                    descricaoSuspeito = suspeitoSelecionado.Descricao;
-                }
+                var suspeitoDesconsiderado = jogadorSala.IdSuspeito == null ? null : _suspeitoBusiness.Obter(jogadorSala.IdSuspeito.Value);
 
                 jogadorSala.AlterarSuspeito(suspeito.Id);
                 _jogadorSalaBusiness.Alterar(jogadorSala);
@@ -100,7 +96,8 @@ namespace Detetive.Controllers
                 var retorno = Json(new
                 {
                     DescricaoJogador = jogador.Descricao,
-                    DescricaoSuspeito = descricaoSuspeito
+                    DescricaoSuspeitoSelecionado = suspeito.Descricao,
+                    DescricaoSuspeitoDesconsiderado = suspeitoDesconsiderado == null ? "" : suspeitoDesconsiderado.Descricao
                 }, "json");
 
                 var operacao = new Operacao(JsonConvert.SerializeObject(retorno), true);

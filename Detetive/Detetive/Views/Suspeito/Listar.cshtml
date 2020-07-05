@@ -15,9 +15,12 @@
 
     @foreach (var suspeito in ViewBag.Suspeitos)
     {
-        <ul id="listaJogadores">
-            @(suspeito.IdJogadorSala == null ? "" : suspeito.NickJogador + " — " + suspeito.Descricao)
-        </ul>
+        if (suspeito.IdJogadorSala != null)
+        {
+            <ul id="lista">
+                @(suspeito.IdJogadorSala == null ? "" : suspeito.NickJogador + " — " + suspeito.Descricao)
+            </ul>
+        }
     }
 
 </div>
@@ -57,9 +60,7 @@
             </button>
         </div>
         <div class="centralizar" id="divVamosAoCaso">
-            <button class="btnPadrao" id="btnVamosAoCaso" onclick="Listar.btnVamosAoCaso_OnClick()">
-                Vamos ao caso!
-            </button>
+            <input  type="button" class="btnPadrao" id="btnVamosAoCaso" onclick="Listar.btnVamosAoCaso_OnClick()" value="Vamos ao caso!" @(ViewBag.QtdeJogadorPronto >= 3 ? "" : "disabled") />
         </div>
     </div>
 </section>

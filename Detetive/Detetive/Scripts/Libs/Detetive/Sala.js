@@ -59,8 +59,8 @@ Sala.Configurar = function () {
         Jogar.TransmitirTeletransporte(pintID_JOGADOR_SALA, pintIDLocal);
     }
 
-    Sala.mHubSala.client.TransmitirSelecaoSuspeito = function (pintIdJogadorSala, pintIdSuspeito, pstrDescricaoJogador, pstrDescricaoSuspeito) {
-        Listar.TransmitirSelecaoSuspeito(pintIdJogadorSala, pintIdSuspeito, pstrDescricaoJogador, pstrDescricaoSuspeito);
+    Sala.mHubSala.client.TransmitirSelecaoSuspeito = function (pintIdJogadorSala, pintIdSuspeito, pstrDescricaoJogador, pstrDescricaoSuspeitoSelecionado,pstrDescricaoSuspeitoDesconsiderado) {
+        Listar.TransmitirSelecaoSuspeito(pintIdJogadorSala, pintIdSuspeito, pstrDescricaoJogador, pstrDescricaoSuspeitoSelecionado, pstrDescricaoSuspeitoDesconsiderado);
     }
 
     Sala.mHubSala.client.TransmitirDesconsideracaoSuspeito = function (pintIdJogadorSala, pDescricaoSuspeito) {
@@ -122,13 +122,15 @@ Sala.SelecionarSuspeito = function (pintIdSala, pintIdJogadorSala, pintIdSuspeit
             success: function (data, textStatus, XMLHttpRequest) {
                 var lobjResltado = new Object();
                 var lstrDescricaoJogador = new String();
-                var lstrDescricaoSuspeito = new String();
+                var lstrDescricaoSuspeitoSelecionado = new String();
+                var lstrDescricaoSuspeitoDesconsiderado = new String();
                 try {
                     lobjResltado = JSON.parse(data);
                     if (!lobjResltado.Status) { throw data.Retorno; }
                     lstrDescricaoJogador = JSON.parse(lobjResltado.Retorno).Data.DescricaoJogador;
-                    lstrDescricaoSuspeito = JSON.parse(lobjResltado.Retorno).Data.DescricaoSuspeito
-                    Sala.mHubSala.server.selecaoSuspeito(pintIdSala, pintIdJogadorSala, pintIdSuspeito, lstrDescricaoJogador, lstrDescricaoSuspeito).done(function () { });
+                    lstrDescricaoSuspeitoSelecionado = JSON.parse(lobjResltado.Retorno).Data.DescricaoSuspeitoSelecionado;
+                    lstrDescricaoSuspeitoDesconsiderado = JSON.parse(lobjResltado.Retorno).Data.DescricaoSuspeitoDesconsiderado;
+                    Sala.mHubSala.server.selecaoSuspeito(pintIdSala, pintIdJogadorSala, pintIdSuspeito, lstrDescricaoJogador, lstrDescricaoSuspeitoSelecionado, lstrDescricaoSuspeitoDesconsiderado).done(function () { });
                 } catch (ex) {
                     throw ex;
                 }
@@ -246,7 +248,7 @@ Sala.EnviarMovimento = function (pLinha, pColuna) {
 
 Sala.Teletransporte = function (pintIdJogadorSala, pintIdLocal) {
     try {
-        Sala.mHubSala.server.teletransporte(pintIdJogadorSala, pintIdLocal).done(function () { });
+        Sala.mHubSala.server.teletransporte(pintIdJogadorSala, pintIdLocal, Sala.mIdSala).done(function () { });
     } catch (ex) {
         alert(ex);
     }

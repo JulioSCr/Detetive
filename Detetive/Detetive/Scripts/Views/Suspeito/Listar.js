@@ -1,13 +1,11 @@
 ﻿var Listar = window.Listar || {
     mintIdSuspeito: new Number(),
     mintIdSala: new Number(),
-    mintIdJogadorSala: new Number(),
-    playersOnline: new Number()
+    mintIdJogadorSala: new Number()
 };
 
 $(document).ready(function () {
     Listar.MontarTela();
-    document.getElementById("btnVamosAoCaso").disabled = true;
 });
 
 Listar.MontarTela = function () {
@@ -38,36 +36,74 @@ Listar.Suspeito_OnClick = function (e) {
         alert(ex);
     }
 }
-var playersOnline =0;
-Listar.TransmitirSelecaoSuspeito = function (pintIdJogadorSala, pintIdSuspeito, pstrDescricaoJogador, pstrDescricaoSuspeito) {
+
+Listar.TransmitirSelecaoSuspeito = function (pintIdJogadorSala, pintIdSuspeito, pstrDescricaoJogador, pstrDescricaoSuspeitoSelecionado, pstrDescricaoSuspeitoDesconsiderado) {
+    var lstrJogadorSuspeito = new String();
     try {
+
+        //#region Cartas
+
         if ($('.cartaSuspeito[data-idjogadorsala=' + pintIdJogadorSala + ']').length > 0) {
-            Listar.TransmitirDesconsideracaoSuspeito(pintIdJogadorSala, pstrDescricaoSuspeito);
-            playersOnline--;
+            Listar.TransmitirDesconsideracaoSuspeito(pintIdJogadorSala, pstrDescricaoSuspeitoDesconsiderado);
         }
         $('.cartaSuspeito[data-id=' + pintIdSuspeito + ']').attr('title', pstrDescricaoJogador);
         $('.cartaSuspeito[data-id=' + pintIdSuspeito + ']').addClass('selected');
         $('.cartaSuspeito[data-id=' + pintIdSuspeito + ']').data().idjogadorsala = pintIdJogadorSala;
         $('.cartaSuspeito[data-id=' + pintIdSuspeito + ']').attr('data-idjogadorsala', pintIdJogadorSala);
-        playersOnline++;
-        if (playersOnline >= 3)
-        {
-            document.getElementById("btnVamosAoCaso").disabled = false;
+
+        //#endregion 
+        
+        //#region Listagem de seleção de personagens
+
+        lstrJogadorSuspeito = '<ul id="lista"> ' + pstrDescricaoJogador + ' — ' + pstrDescricaoSuspeitoSelecionado + ' </ul>';
+        $('#divInformaIDSala').append(lstrJogadorSuspeito);
+
+        leleSuspeitosSelecionados = $('#divInformaIDSala').children('ul');
+        if (leleSuspeitosSelecionados.length < 3) {
+            $('#btnVamosAoCaso').prop('disabled', true);
+        } else {
+            $('#btnVamosAoCaso').prop('disabled', false);
         }
 
+        //#endregion
+        
     } catch (ex) {
         alert(ex);
     }
 }
 
 Listar.TransmitirDesconsideracaoSuspeito = function (pintIdJogadorSala, pstrDescricaoSuspeito) {
+    var leleSuspeitosSelecionados = Array();
     try {
+
+        //#region Cartas
+
         if ($('.cartaSuspeito[data-idjogadorsala=' + pintIdJogadorSala + ']').length > 0) {
             $('.cartaSuspeito[data-idjogadorsala=' + pintIdJogadorSala + ']').attr('title', pstrDescricaoSuspeito);
             $('.cartaSuspeito[data-idjogadorsala=' + pintIdJogadorSala + ']').removeClass('selected');
             $('.cartaSuspeito[data-idjogadorsala=' + pintIdJogadorSala + ']').data().idjogadorsala = 0;
             $('.cartaSuspeito[data-idjogadorsala=' + pintIdJogadorSala + ']').attr('data-idjogadorsala', 0);
         }
+
+        //#endregion 
+        
+        //#region Listagem de seleção de personagens
+
+        leleSuspeitosSelecionados = $('#divInformaIDSala').children('ul');
+        for (var i = 0; i < leleSuspeitosSelecionados.length; i++) {
+            if (leleSuspeitosSelecionados[i].textContent.trim().includes(pstrDescricaoSuspeito)) {
+                $(leleSuspeitosSelecionados[i]).remove();
+                leleSuspeitosSelecionados.splice(i);
+                break;
+            }
+        }
+        
+        if (leleSuspeitosSelecionados.length < 3) {
+            $('#btnVamosAoCaso').prop('disabled', true);
+        }
+
+        //#endregion 
+
     } catch (ex) {
         alert(ex);
     }
