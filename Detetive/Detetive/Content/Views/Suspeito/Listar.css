@@ -1,5 +1,7 @@
 ﻿#divInformaIDSala {
-    float: right;
+    position: absolute;
+    right: 0;
+    
 }
 
     #divInformaIDSala h1 {
@@ -7,6 +9,12 @@
         font-family: 'Roboto Slab', serif;
         font-weight: bold;
         font-size: 1.2em;
+    }
+
+    #divInformaIDSala ul {
+        color: #E9E9E9;
+        font-family: 'Roboto Slab', serif;
+        font-size: 1.0em;
     }
 
 #Icone {
