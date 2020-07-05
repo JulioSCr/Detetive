@@ -15,7 +15,7 @@
 
     @foreach (var suspeito in ViewBag.Suspeitos)
     {
-        <ul id="lista">
+        <ul id="listaJogadores">
             @(suspeito.IdJogadorSala == null ? "" : suspeito.NickJogador + " — " + suspeito.Descricao)
         </ul>
     }

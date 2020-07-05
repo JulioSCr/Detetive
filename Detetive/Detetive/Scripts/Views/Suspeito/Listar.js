@@ -1,11 +1,13 @@
 ﻿var Listar = window.Listar || {
     mintIdSuspeito: new Number(),
     mintIdSala: new Number(),
-    mintIdJogadorSala: new Number()
+    mintIdJogadorSala: new Number(),
+    playersOnline: new Number()
 };
 
 $(document).ready(function () {
     Listar.MontarTela();
+    document.getElementById("btnVamosAoCaso").disabled = true;
 });
 
 Listar.MontarTela = function () {
@@ -36,16 +38,23 @@ Listar.Suspeito_OnClick = function (e) {
         alert(ex);
     }
 }
-
+var playersOnline =0;
 Listar.TransmitirSelecaoSuspeito = function (pintIdJogadorSala, pintIdSuspeito, pstrDescricaoJogador, pstrDescricaoSuspeito) {
     try {
         if ($('.cartaSuspeito[data-idjogadorsala=' + pintIdJogadorSala + ']').length > 0) {
             Listar.TransmitirDesconsideracaoSuspeito(pintIdJogadorSala, pstrDescricaoSuspeito);
+            playersOnline--;
         }
         $('.cartaSuspeito[data-id=' + pintIdSuspeito + ']').attr('title', pstrDescricaoJogador);
         $('.cartaSuspeito[data-id=' + pintIdSuspeito + ']').addClass('selected');
         $('.cartaSuspeito[data-id=' + pintIdSuspeito + ']').data().idjogadorsala = pintIdJogadorSala;
         $('.cartaSuspeito[data-id=' + pintIdSuspeito + ']').attr('data-idjogadorsala', pintIdJogadorSala);
+        playersOnline++;
+        if (playersOnline >= 3)
+        {
+            document.getElementById("btnVamosAoCaso").disabled = false;
+        }
+
     } catch (ex) {
         alert(ex);
     }
