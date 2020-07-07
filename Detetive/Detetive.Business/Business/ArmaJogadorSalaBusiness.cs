@@ -38,14 +38,6 @@ namespace Detetive.Business.Business
             if (crime != null && crime.IdArma == idArma)
                 throw new InvalidOperationException("Esta carta faz parte do crime e não pode ser dada ao jogador.");
 
-            var jogadoresSala = _jogadorSalaBusiness.Listar(jogadorSala.IdSala).Where(x => x.Id != idJogadorSala);
-            foreach (var outroJogadorSala in jogadoresSala)
-            {
-                var armasOutroJogadorSala = _armaJogadorSalaRepository.Listar(outroJogadorSala.Id);
-                if (armasOutroJogadorSala != null && armasOutroJogadorSala.Any(armaOutroJogadorSala => armaOutroJogadorSala.IdArma == idArma))
-                    throw new InvalidOperationException("Esta carta já faz parte do baralho de outro jogador.");
-            }
-
             return _armaJogadorSalaRepository.Adicionar(new ArmaJogadorSala(idArma, idJogadorSala));
         }
 

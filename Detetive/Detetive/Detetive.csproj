@@ -247,6 +247,7 @@
     <Compile Include="Hubs\HubSala.cs" />
     <Compile Include="Mappers\AutoMapperConfig.cs" />
     <Compile Include="Mappers\MapperAnotacaoArmaToAnotacaoArmaViewModel.cs" />
+    <Compile Include="Mappers\MapperHistoricoToHistoricoViewModel.cs" />
     <Compile Include="Mappers\MapperAnotacaoSuspeitoToAnotacaoLocalViewModel.cs" />
     <Compile Include="Mappers\MapperAnotacaoLocalToAnotacaoLocalViewModel.cs" />
     <Compile Include="Mappers\MapperJogadorSalaToJogadorSalaViewModel.cs" />
@@ -260,6 +261,7 @@
     <Compile Include="ViewModel\Anotacao\AnotacaoLocalViewModel.cs" />
     <Compile Include="ViewModel\ArmaViewModel.cs" />
     <Compile Include="ViewModel\BaseViewModel.cs" />
+    <Compile Include="ViewModel\HistoricoViewModel.cs" />
     <Compile Include="ViewModel\JogadorSuspeitoViewModel.cs" />
     <Compile Include="ViewModel\LocalPortaViewModel.cs" />
     <Compile Include="ViewModel\LocalViewModel.cs" />

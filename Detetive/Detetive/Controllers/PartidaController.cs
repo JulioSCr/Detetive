@@ -22,14 +22,16 @@ namespace Detetive.Controllers
         private readonly IAnotacaoArmaBusiness _anotacaoArmaBusiness;
         private readonly IAnotacaoLocalBusiness _anotacaoLocalBusiness;
         private readonly IAnotacaoSuspeitoBusiness _anotacaoSuspeitoBusiness;
+        private readonly IHistoricoBusiness _historicoBusiness;
 
-        public PartidaController(ILocalBusiness localBusiness, 
-                                 IPartidaBusiness partidaBusiness, 
-                                 IPortaLocalBusiness portaLocalBusiness, 
-                                 IJogadorSalaBusiness jogadorSalaBusiness, 
-                                 IAnotacaoArmaBusiness anotacaoArmaBusiness, 
-                                 IAnotacaoLocalBusiness anotacaoLocalBusiness, 
-                                 IAnotacaoSuspeitoBusiness anotacaoSuspeitoBusiness)
+        public PartidaController(ILocalBusiness localBusiness,
+                                 IPartidaBusiness partidaBusiness,
+                                 IPortaLocalBusiness portaLocalBusiness,
+                                 IJogadorSalaBusiness jogadorSalaBusiness,
+                                 IAnotacaoArmaBusiness anotacaoArmaBusiness,
+                                 IAnotacaoLocalBusiness anotacaoLocalBusiness,
+                                 IAnotacaoSuspeitoBusiness anotacaoSuspeitoBusiness, 
+                                 IHistoricoBusiness historicoBusiness)
         {
             _localBusiness = localBusiness;
             _partidaBusiness = partidaBusiness;
@@ -38,6 +40,7 @@ namespace Detetive.Controllers
             _anotacaoArmaBusiness = anotacaoArmaBusiness;
             _anotacaoLocalBusiness = anotacaoLocalBusiness;
             _anotacaoSuspeitoBusiness = anotacaoSuspeitoBusiness;
+            _historicoBusiness = historicoBusiness;
         }
 
         public ActionResult Manter()
@@ -175,6 +178,11 @@ namespace Detetive.Controllers
         public string Acusar(int idJogadorSala, int idSala, int idArma, int idLocal, int idSuspeito)
         {
             return JsonConvert.SerializeObject(_partidaBusiness.Acusar(idSala, idJogadorSala, idLocal, idSuspeito, idArma));
+        }
+
+        public string HistoricoPartida(int idSala)
+        {
+            return JsonConvert.SerializeObject(Mapper.Map<List<Historico>, List<HistoricoViewModel>>(_historicoBusiness.Listar(idSala).OrderBy(_ => _.DataCriacao).ToList()));
         }
 
         private void CarregarAnotacoes(int idJogadorSala)

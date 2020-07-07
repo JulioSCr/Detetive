@@ -31,6 +31,9 @@ namespace Detetive.Data.Context
         
         public DbSet<Crime> Crimes { get; set; }
 
+        // Chat
+        public DbSet<Historico> Historicos { get; set; }
+
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
             modelBuilder.Configurations.Add(new ArmaConfig());
@@ -47,6 +50,7 @@ namespace Detetive.Data.Context
             modelBuilder.Configurations.Add(new JogadorSalaConfig());
             modelBuilder.Configurations.Add(new CrimeConfig());
             modelBuilder.Configurations.Add(new PortaLocalConfig());
+            modelBuilder.Configurations.Add(new HistoricoConfig());
 
             Database.SetInitializer<DetetiveContext>(null);
         }
