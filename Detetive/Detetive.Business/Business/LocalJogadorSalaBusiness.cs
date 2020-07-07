@@ -27,10 +27,12 @@ namespace Detetive.Business.Business
         public LocalJogadorSala Adicionar(int idLocal, int idJogadorSala)
         {
             var jogadorSala = _jogadorSalaBusiness.Obter(idJogadorSala);
-            var locaisJogadorSala = _localJogadorSalaRepository.Listar(idJogadorSala);
+            if (jogadorSala == default)
+                throw new InvalidOperationException("Jogador não encotrado.");
 
-            if (locaisJogadorSala != null && locaisJogadorSala.Any(localJogadorSala => localJogadorSala.IdLocal == idLocal))
-                throw new InvalidOperationException("Este jogador já possui esta carta.");
+            var locaisJogadorSala = _localJogadorSalaRepository.Obter(idLocal, idJogadorSala);
+            if (locaisJogadorSala != null)
+                return locaisJogadorSala;
 
             var crime = _crimeBusiness.Obter(jogadorSala.IdSala);
             if (crime != null && crime.IdLocal == idLocal)

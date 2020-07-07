@@ -6,26 +6,29 @@
 
 @section head{
     <link rel="stylesheet" href="@Url.Content("~/Content/Views/Partida/Jogar.css?" + DateTimeOffset.Now)" />
+    <link rel="stylesheet" href="@Url.Content("~/Content/Libs/Slick/slick.css?" + DateTimeOffset.Now)" />
+    <link rel="stylesheet" href="@Url.Content("~/Content/Libs/Slick/slick-theme.css?" + DateTimeOffset.Now)" />
 }
 
 @section scripts{
+    <script src="@Url.Content("~/Scripts/Libs/Slick/slick.js?" + DateTimeOffset.Now)"></script>
     <script src="@Url.Content("~/Scripts/Views/Partida/Jogar.js?" + DateTimeOffset.Now)"></script>
     <script>
         @*gID_JOGADOR_SALA = @lID_JOGADOR_SALA;*@
     </script>
 }
 <input id="inpID_JOGADOR_SALA" type="hidden" name="ID_JOGADOR_SALA" value="@ViewBag.JogadorSala.Id" />
+<input id="inpID_SALA" type="hidden" name="inpID_SALA" value="@ViewBag.ID_Sala" />
 <section id="secPrimeiraLinha">
     <div id="divTabuleiro" class="esquerda">
         @foreach (var local in ViewBag.Locais)
         {
-            <div id=@($"div{local.IdDescricao}") idLocal="@local.Id">
+            <div id=@($"div{local.IdDescricao}") idLocal="@local.Id" class="Local" style="grid-row:@local.CoordenadaALinha/@(local.CoordenadaBLinha+1);grid-column:@local.CoordenadaAColuna/@(local.CoordenadaBColuna+1);">
                 @foreach (var jogadorSuspeito in ViewBag.JogadoresSuspeitos)
                 {
-                    if ((jogadorSuspeito.CoordenadaLinha >= local.CoordenadaALinha && jogadorSuspeito.CoordenadaLinha <= local.CoordenadaBLinha)
-                        && (jogadorSuspeito.CoordenadaColuna >= local.CoordenadaAColuna && jogadorSuspeito.CoordenadaColuna <= local.CoordenadaBColuna))
+                    if (jogadorSuspeito.IdLocal != null && jogadorSuspeito.IdLocal == local.Id)
                     {
-                        <div id=@($"div{jogadorSuspeito.IdDescricao}") title="@jogadorSuspeito.DescricaoSuspeito" idJogadorSala="@jogadorSuspeito.IdJogadorSala" class="suspeito dentro"></div>
+                        <div id=@($"div{jogadorSuspeito.IdDescricao}") title="@jogadorSuspeito.DescricaoSuspeito" idJogadorSala="@jogadorSuspeito.IdJogadorSala" class="suspeito dentro" style="grid-column:@jogadorSuspeito.CoordenadaColuna;grid-row:@jogadorSuspeito.CoordenadaLinha;"></div>
                     }
                 }
             </div>
@@ -33,17 +36,7 @@
 
         @foreach (var jogadorSuspeito in ViewBag.JogadoresSuspeitos)
         {
-            bool foraLocal = false;
-            foreach (var local in ViewBag.Locais)
-            {
-                if (!(jogadorSuspeito.CoordenadaLinha >= local.CoordenadaALinha && jogadorSuspeito.CoordenadaLinha <= local.CoordenadaBLinha)
-                    && !(jogadorSuspeito.CoordenadaColuna >= local.CoordenadaAColuna && jogadorSuspeito.CoordenadaColuna <= local.CoordenadaBColuna))
-                {
-                    foraLocal = true;
-                    break;
-                }
-            }
-            if (foraLocal)
+            if (jogadorSuspeito.IdLocal == null)
             {
                 <div id=@($"div{jogadorSuspeito.IdDescricao}") title="@jogadorSuspeito.DescricaoSuspeito" idJogadorSala="@jogadorSuspeito.IdJogadorSala" class="suspeito" style="grid-column:@jogadorSuspeito.CoordenadaColuna;grid-row:@jogadorSuspeito.CoordenadaLinha"></div>
             }
@@ -106,8 +99,29 @@
     </div>
 </section>
 <section id="secSegundaLinha">
-    <div id="divCartas" class="esquerda">
-
+    <div id="divCartasContainer" class="esquerda centralizar">
+        <div id="divCartas">
+            <div class="slider slider-nav">
+                <div class="carta centralizar">
+                    <img src="~/Content/Imagens/CartasArmas/imgCartaCadeiraQuebrada.svg" />
+                </div>
+                <div class="carta centralizar">
+                    <img src="~/Content/Imagens/CartasArmas/imgCartaCadeiraQuebrada.svg" />
+                </div>
+                <div class="carta centralizar">
+                    <img src="~/Content/Imagens/CartasArmas/imgCartaCadeiraQuebrada.svg" />
+                </div>
+                <div class="carta centralizar">
+                    <img src="~/Content/Imagens/CartasArmas/imgCartaCadeiraQuebrada.svg" />
+                </div>
+                <div class="carta centralizar">
+                    <img src="~/Content/Imagens/CartasArmas/imgCartaCadeiraQuebrada.svg" />
+                </div>
+                <div class="carta centralizar">
+                    <img src="~/Content/Imagens/CartasArmas/imgCartaCadeiraQuebrada.svg" />
+                </div>
+            </div>
+        </div>
     </div>
     <div id="divAcoes" class="direita">
         <div id="divBotoes">
@@ -116,10 +130,10 @@
             <button type="button" title="Mover para cima" id="btnAcima" class="botoes btnSetaVertical centralizarBotoes" onclick="Jogar.btnAcima_OnClick()"></button>
             <button type="button" title="Mover para baixo" id="btnAbaixo" class="botoes btnSetaVertical centralizarBotoes" onclick="Jogar.btnAbaixo_OnClick()"></button>
             <button type="button" title="Rolar os dados" id="btnLancarDados" class="botoes centralizarBotoes"></button>
-            
+
             <button type="button" title="Palpitar" id="btnPalpite" class="botoes centralizarBotoes botoesOpcoes" onclick="Jogar.btnPalpite_OnClick()" style="@(ViewBag.JogadorSala.Posicao.IdLocal == null ? "visibility: hidden" : "visibility: visible")">Palpite</button>
             <button type="button" title="Acusar" id="btnAcusar" class="botoes centralizarBotoes botoesOpcoes" onclick="Jogar.btnAcusar_OnClick()" style="@(ViewBag.JogadorSala.Posicao.IdLocal == null ? "visibility: hidden" : "visibility: visible")">Acusar</button>
-            <button type="button" title="Usar passagem secreta" id="btnPassagemSecreta" class="botoes centralizarBotoes botoesOpcoes" onclick="Jogar.btnPassagemSecreta_OnClick()" style="@(ViewBag.passagemSecreta == false ? "visibility: hidden" : "visibility: visible")"></button> 
+            <button type="button" title="Usar passagem secreta" id="btnPassagemSecreta" class="botoes centralizarBotoes botoesOpcoes" onclick="Jogar.btnPassagemSecreta_OnClick()" style="@(ViewBag.passagemSecreta == false ? "visibility: hidden" : "visibility: visible")"></button>
         </div>
         <div id="divInformacoesContainer">
             <div id="divInformacoes">

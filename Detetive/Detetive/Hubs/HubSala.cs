@@ -23,11 +23,11 @@ namespace Detetive.Hubs
         /// <param name="pColuna" type="int">Número da coluna.</param>
         /// <param name="pIDLocal" type="int">ID do local em que o jogador está.</param>
         /// <returns type="Void"></returns>
-        public void EnviarMovimento(int ID_JOGADOR_SALA, int pLinha, int pColuna, int? pIDLocal)
+        public void EnviarMovimento(int pIdSala, int ID_JOGADOR_SALA, int pLinha, int pColuna, int? pIDLocal)
         {
             try
             {
-                Clients.All.TransmitirMovimento(ID_JOGADOR_SALA, pLinha, pColuna, pIDLocal);
+                Clients.Group(pIdSala.ToString()).TransmitirMovimento(ID_JOGADOR_SALA, pLinha, pColuna, pIDLocal);
             }
             catch (Exception ex)
             {
@@ -35,17 +35,33 @@ namespace Detetive.Hubs
             }
         }
 
-        public void Teletransporte(int ID_JOGADOR_SALA, int pIDLocal)
+        public void Teletransporte(int ID_JOGADOR_SALA, int pIDLocal, int pIdSala)
         {
             try
             {
-                Clients.All.TransmitirTeletransporte(ID_JOGADOR_SALA, pIDLocal);
+                Clients.Group(pIdSala.ToString()).TransmitirTeletransporte(ID_JOGADOR_SALA, pIDLocal);
             }
             catch (Exception ex)
             {
                 Clients.Caller.erro(ex.Message, ex.ToString());
             }
         }
+
+        #region Chat
+
+        public void EnviaMensagem(int pIdSala, int pIdJogadorSalaRemetente, int pIdJogadorSalaDestinatario, string pDescricaoMensagem)
+        {
+            try
+            {
+                Clients.Group(pIdSala.ToString()).TransmitirMensagem(pIdJogadorSalaRemetente, pIdJogadorSalaDestinatario, pDescricaoMensagem);
+            }
+            catch (Exception ex)
+            {
+                Clients.Caller.erro(ex.Message, ex.ToString());
+            }
+        }
+
+        #endregion
 
         #region Sala/Manter
 
@@ -83,11 +99,11 @@ namespace Detetive.Hubs
         /// </summary>
         /// <param name="pIdSala"></param>
         /// <param name="pIdJogadorSala"></param>
-        public void selecaoSuspeito(int pIdSala, int pIdJogadorSala, int pIdSuspeito, string pDescricaoJogador, string pDescricaoSuspeito)
+        public void selecaoSuspeito(int pIdSala, int pIdJogadorSala, int pIdSuspeito, string pDescricaoJogador, string pDescricaoSuspeitoSelecionado, string pDescricaoSuspeitoDesconsiderado)
         {
             try
             {
-                Clients.Group(pIdSala.ToString()).TransmitirSelecaoSuspeito(pIdJogadorSala, pIdSuspeito, pDescricaoJogador, pDescricaoSuspeito);
+                Clients.Group(pIdSala.ToString()).TransmitirSelecaoSuspeito(pIdJogadorSala, pIdSuspeito, pDescricaoJogador, pDescricaoSuspeitoSelecionado, pDescricaoSuspeitoDesconsiderado);
             }
             catch (Exception ex)
             {

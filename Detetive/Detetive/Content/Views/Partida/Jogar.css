@@ -46,76 +46,12 @@
     justify-self: center;
 }
 
-#divPredioA {
+.Local {
     display: flex;
     justify-content: center;
     align-items: center;
-    grid-row: 11/18;
-    grid-column: 1/7;
-}
-
-#divPredioB {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    grid-row: 11/18;
-    grid-column: 9/15;
-}
-
-#divSantiago {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    grid-row: 1/10;
-    grid-column: 27/33;
-}
-
-#divPraca {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    grid-row: 20/26;
-    grid-column: 16/25;
-}
-
-#divEtesp {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    grid-row: 20/26;
-    grid-column: 9/15;
-}
-
-#divCantinaAB {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    grid-row: 20/26;
-    grid-column: 1/7;
-}
-
-#divCA {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    grid-row: 12/26;
-    grid-column: 27/33;
-}
-
-#divAuditorio {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    grid-row: 3/9;
-    grid-column: 18/25;
-}
-
-#divGinasio {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    grid-row: 9/18;
-    grid-column: 18/25;
+    /*grid-row: 11/18;
+    grid-column: 1/7;*/
 }
 
 .dentro {
@@ -132,8 +68,48 @@
     margin-top: 5px;
 }
 
-#divCartas {
+#divCartasContainer {
     background: #C4C4C4;
+    display: block;
+    margin: 0 auto;
+}
+
+#divCartas{
+    width: 80%;
+    height: 100%;
+    padding-top: 20px;
+}
+
+.slick-prev.slick-arrow,
+.slick-next.slick-arrow {
+    background: #827071;
+    border-radius: 5rem;
+    width: 35px;
+    height: 35px;
+    -webkit-filter: invert(1) !important;
+}
+
+.action {
+    display: block;
+    margin: 100px auto;
+    width: 100%;
+    text-align: center;
+}
+
+    .action a {
+        display: inline-block;
+        padding: 5px 10px;
+        background: #f30;
+        color: #fff;
+        text-decoration: none;
+    }
+
+        .action a:hover {
+            background: #000;
+        }
+
+.carta img {
+    width: 45%;
 }
 
 #divAcoes {
@@ -283,7 +259,7 @@
     font-size: 1.15em;
 }
 
-#btnFinalizarTurno{
+#btnFinalizarTurno {
     float: right;
 }
 
@@ -315,52 +291,57 @@
         font-size: 0.95em;
         /*padding-bottom: 30px;*/
     }
+
     #divTituloColunas {
         font-family: 'Risque', cursive;
         font-size: 1.5em;
         font-weight: bold;
         margin-bottom: 12px;
     }
+
     #divTabelaAnotacoes {
         font-family: 'Risque', cursive;
         font-size: 2.82em;
         font-weight: bold;
         margin-bottom: 10px;
     }
-    #divItemColuna{
+
+    #divItemColuna {
         padding: 3px;
     }
-    .container{
-        display:block;
-        position:relative;
+
+    .container {
+        display: block;
+        position: relative;
         padding-left: 20px;
         margin-bottom: 10px;
         cursor: pointer;
         font-size: 1.1em;
     }
 
-    .container input{
-        position: absolute;
-        opacity: 0;
-        cursor: pointer;
-    }
+        .container input {
+            position: absolute;
+            opacity: 0;
+            cursor: pointer;
+        }
 
     .check {
         left: 0;
         top: 2px;
-        width:14px;
+        width: 14px;
         height: 14px;
         background: #FFFFFF;
         position: absolute;
         border: solid #000000;
         border-width: 1px 1px 1px 1px;
     }
-    .container input:checked ~ .check{
+
+    .container input:checked ~ .check {
         background: #FFFFFF;
     }
 
     .container .check:after {
-        top:-2px;
+        top: -2px;
         left: 2.35px;
         width: 8px;
         height: 14px;
@@ -370,16 +351,17 @@
         -ms-transform: rotate(35deg);
         transform: rotate(35deg);
     }
-    .check:after{
-        content:"";
+
+    .check:after {
+        content: "";
         position: absolute;
         display: none;
     }
 
-    .container input:checked ~ .check:after{
+    .container input:checked ~ .check:after {
         display: block;
     }
-   
+
     /*#divAnotacoes {
         background: blue;
     }*/

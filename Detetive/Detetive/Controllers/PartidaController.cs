@@ -58,8 +58,12 @@ namespace Detetive.Controllers
             /// as anotações dos jogadores deverão estar checadas
             /// o chat deve ser recarregado
 
+            //int idJogadorSala = 20;
+
             var jogadorSala = _jogadorSalaBusiness.Obter(idJogadorSala);
             int idSala = jogadorSala.IdSala;
+
+            var operacao = _partidaBusiness.Iniciar(idSala);
 
             ViewBag.ID_Sala = idSala;
 
@@ -141,12 +145,18 @@ namespace Detetive.Controllers
         [HttpGet]
         public ActionResult ModalPalpite()
         {
+            // To Do
+            ViewBag.Armas = null;
+            ViewBag.Suspeitos = null;
             return PartialView();
         }
 
         [HttpGet]
         public ActionResult ModalAcusar()
         {
+            // To Do
+            ViewBag.Armas = null;
+            ViewBag.Suspeitos = null;
             return PartialView();
         }
 

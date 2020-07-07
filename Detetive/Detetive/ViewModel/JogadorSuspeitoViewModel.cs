@@ -12,6 +12,7 @@ namespace Detetive.ViewModel
         public int CoordenadaLinha { get; set; }
         public int CoordenadaColuna { get; set; }
         public int? IdSuspeito { get; set; }
+        public int? IdLocal { get; set; }
         public string DescricaoSuspeito { get; set; }
     }
 }

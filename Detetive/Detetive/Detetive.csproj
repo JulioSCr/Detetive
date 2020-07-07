@@ -276,6 +276,23 @@
     <Content Include="Content\bootstrap-reboot.min.css" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
+    <Content Include="Content\Imagens\CartasArmas\imgCartaCadeiraQuebrada.svg" />
+    <Content Include="Content\Imagens\CartasArmas\imgCartaCaixaDeGiz.svg" />
+    <Content Include="Content\Imagens\CartasArmas\imgCartaMonitor.svg" />
+    <Content Include="Content\Imagens\CartasArmas\imgCartaPendrive.svg" />
+    <Content Include="Content\Imagens\CartasArmas\imgCartaPomba.svg" />
+    <Content Include="Content\Imagens\CartasArmas\imgCartaProjetor.svg" />
+    <Content Include="Content\Imagens\CartasArmas\imgCartaListaDeExercicios.svg" />
+    <Content Include="Content\Imagens\CartasArmas\imgCartaTeclado.svg" />
+    <Content Include="Content\Imagens\CartasLocais\imgCartaAuditorio.svg" />
+    <Content Include="Content\Imagens\CartasLocais\imgCartaCentroAcademico.svg" />
+    <Content Include="Content\Imagens\CartasLocais\imgCartaCantinaAB.svg" />
+    <Content Include="Content\Imagens\CartasLocais\imgCartaETESP.svg" />
+    <Content Include="Content\Imagens\CartasLocais\imgCartaGinasio.svg" />
+    <Content Include="Content\Imagens\CartasLocais\imgCartaPraca.svg" />
+    <Content Include="Content\Imagens\CartasLocais\imgCartaPredioA.svg" />
+    <Content Include="Content\Imagens\CartasLocais\imgCartaPrédioB.svg" />
+    <Content Include="Content\Imagens\CartasLocais\imgCartaSantiago.svg" />
     <Content Include="Content\Imagens\CartasSuspeitos\imgCartaBibliotecaria.svg" />
     <Content Include="Content\Imagens\CartasSuspeitos\imgCartaDiretora.svg" />
     <Content Include="Content\Imagens\CartasSuspeitos\imgCartaEstudante.svg" />
@@ -302,6 +319,8 @@
     <Content Include="Content\Libs\Detetive\Global.css" />
     <Content Include="Content\Libs\Detetive\Modal.css" />
     <Content Include="Content\Libs\Material\material-icons.css" />
+    <Content Include="Content\Libs\Slick\slick-theme.css" />
+    <Content Include="Content\Libs\Slick\slick.css" />
     <Content Include="Content\Site.css" />
     <Content Include="Content\Views\Home\Index.css" />
     <Content Include="Content\Views\Partida\Jogar.css" />
@@ -363,6 +382,8 @@
     <Content Include="Scripts\Libs\Popper\popper-utils.min.js" />
     <Content Include="Scripts\Libs\Popper\popper.js" />
     <Content Include="Scripts\Libs\Popper\popper.min.js" />
+    <Content Include="Scripts\Libs\Slick\slick.js" />
+    <Content Include="Scripts\Libs\Slick\slick.min.js" />
     <Content Include="Scripts\Libs\src\index.js" />
     <Content Include="Scripts\Libs\src\methods\defaults.js" />
     <Content Include="Scripts\Libs\src\methods\destroy.js" />
@@ -472,8 +493,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Content\Imagens\CartasArmas\" />
-    <Folder Include="Content\Imagens\CartasLocais\" />
     <Folder Include="Models\" />
     <Folder Include="Views\Teste\" />
   </ItemGroup>
