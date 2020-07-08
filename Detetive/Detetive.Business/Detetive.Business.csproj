@@ -49,12 +49,14 @@
     <Compile Include="Business\ArmaBusiness.cs" />
     <Compile Include="Business\ArmaJogadorSalaBusiness.cs" />
     <Compile Include="Business\CrimeBusiness.cs" />
+    <Compile Include="Business\HistoricoBusiness.cs" />
     <Compile Include="Business\Interfaces\IAnotacaoArmaBusiness.cs" />
     <Compile Include="Business\Interfaces\IAnotacaoLocalBusiness.cs" />
     <Compile Include="Business\Interfaces\IAnotacaoSuspeitoBusiness.cs" />
     <Compile Include="Business\Interfaces\IArmaBusiness.cs" />
     <Compile Include="Business\Interfaces\IArmaJogadorSalaBusiness.cs" />
     <Compile Include="Business\Interfaces\ICrimeBusiness.cs" />
+    <Compile Include="Business\Interfaces\IHistoricoBusiness.cs" />
     <Compile Include="Business\Interfaces\IJogadorBusiness.cs" />
     <Compile Include="Business\Interfaces\IJogadorSalaBusiness.cs" />
     <Compile Include="Business\Interfaces\ILocalBusiness.cs" />
@@ -79,6 +81,7 @@
     <Compile Include="Data\Interfaces\IArmaJogadorSalaRepository.cs" />
     <Compile Include="Data\Interfaces\IArmaRepository.cs" />
     <Compile Include="Data\Interfaces\ICrimeRepository.cs" />
+    <Compile Include="Data\Interfaces\IHistoricoRepository.cs" />
     <Compile Include="Data\Interfaces\IJogadorSalaRepository.cs" />
     <Compile Include="Data\Interfaces\ILocalJogadorSalaRepository.cs" />
     <Compile Include="Data\Interfaces\ILocalRepository.cs" />
@@ -97,6 +100,7 @@
     <Compile Include="Entities\Base\CartaBaseEntity.cs" />
     <Compile Include="Entities\Crime.cs" />
     <Compile Include="Entities\Enum\DirecaoEnum.cs" />
+    <Compile Include="Entities\Historico.cs" />
     <Compile Include="Entities\Jogador.cs" />
     <Compile Include="Entities\JogadorSala.cs" />
     <Compile Include="Entities\Local.cs" />

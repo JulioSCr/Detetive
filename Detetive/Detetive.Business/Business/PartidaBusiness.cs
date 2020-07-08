@@ -1,4 +1,5 @@
 ﻿using Detetive.Business.Business.Interfaces;
+using Detetive.Business.Data.Interfaces;
 using Detetive.Business.Entities;
 using Detetive.Business.Entities.Enum;
 using System;
@@ -25,6 +26,7 @@ namespace Detetive.Business.Business
         private readonly IAnotacaoArmaBusiness _anotacaoArmaBusiness;
         private readonly IAnotacaoLocalBusiness _anotacaoLocalBusiness;
         private readonly IAnotacaoSuspeitoBusiness _anotacaoSuspeitoBusiness;
+        private readonly IHistoricoBusiness _historicoBusiness;
 
         public PartidaBusiness(ISalaBusiness salaBusiness,
                                 ICrimeBusiness crimeBusiness,
@@ -38,7 +40,8 @@ namespace Detetive.Business.Business
                                 ISuspeitoJogadorSalaBusiness suspeitoJogadorSalaBusiness,
                                 IAnotacaoArmaBusiness anotacaoArmaBusiness,
                                 IAnotacaoLocalBusiness anotacaoLocalBusiness,
-                                IAnotacaoSuspeitoBusiness anotacaoSuspeitoBusiness)
+                                IAnotacaoSuspeitoBusiness anotacaoSuspeitoBusiness,
+                                IHistoricoBusiness historicoBusiness)
         {
             _salaBusiness = salaBusiness;
             _crimeBusiness = crimeBusiness;
@@ -53,6 +56,7 @@ namespace Detetive.Business.Business
             _anotacaoArmaBusiness = anotacaoArmaBusiness;
             _anotacaoLocalBusiness = anotacaoLocalBusiness;
             _anotacaoSuspeitoBusiness = anotacaoSuspeitoBusiness;
+            _historicoBusiness = historicoBusiness;
         }
 
         public Operacao Iniciar(int idSala)
@@ -91,6 +95,7 @@ namespace Detetive.Business.Business
             DefinirOrdemJogadoresSalaETurnoInicial(jogadoresSala);
             GerarAnotacoesJogadores(jogadoresSala);
 
+            _historicoBusiness.Adicionar(new Historico(sala.Id, $"Partida #{sala.Id} Iniciada."));
             return new Operacao("Partida iniciada com sucesso!");
         }
 
