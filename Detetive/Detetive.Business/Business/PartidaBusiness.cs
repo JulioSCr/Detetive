@@ -259,7 +259,7 @@ namespace Detetive.Business.Business
                 return;
 
             var portas = _portaLocalBusiness.Listar(idLocal);
-
+            //ToDo
             if (portas != null && portas.Any())
                 return;
 
