@@ -11,17 +11,20 @@ namespace Detetive.Business.Business
 {
     public class ArmaJogadorSalaBusiness : IArmaJogadorSalaBusiness
     {
+        private readonly IArmaBusiness _armaBusiness;
         private readonly ICrimeBusiness _crimeBusiness;
         private readonly IJogadorSalaBusiness _jogadorSalaBusiness;
         private readonly IArmaJogadorSalaRepository _armaJogadorSalaRepository;
 
         public ArmaJogadorSalaBusiness(ICrimeBusiness crimeBusiness,
                                         IJogadorSalaBusiness jogadorSalaBusiness,
-                                        IArmaJogadorSalaRepository armaJogadorSalaRepository)
+                                        IArmaJogadorSalaRepository armaJogadorSalaRepository,
+                                        IArmaBusiness armaBusiness)
         {
             _crimeBusiness = crimeBusiness;
             _jogadorSalaBusiness = jogadorSalaBusiness;
             _armaJogadorSalaRepository = armaJogadorSalaRepository;
+            _armaBusiness = armaBusiness;
         }
 
         public ArmaJogadorSala Adicionar(int idArma, int idJogadorSala)
@@ -43,7 +46,14 @@ namespace Detetive.Business.Business
 
         public List<ArmaJogadorSala> Listar(int idJogadorSala)
         {
-            return _armaJogadorSalaRepository.Listar(idJogadorSala);
+            var armasJogadorSala = _armaJogadorSalaRepository.Listar(idJogadorSala);
+            if (armasJogadorSala != null && armasJogadorSala.Any())
+            {
+                var armas = _armaBusiness.Listar();
+                armasJogadorSala.ForEach(armaJogadorSala => armaJogadorSala.Arma = armas.First(_ => _.Id == armaJogadorSala.IdArma));
+            }
+
+            return armasJogadorSala;
         }
     }
 }

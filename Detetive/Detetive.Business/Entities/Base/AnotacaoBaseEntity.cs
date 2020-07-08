@@ -16,7 +16,7 @@ namespace Detetive.Business.Entities.Base
         protected AnotacaoBaseEntity(int idJogadorSala) 
         {
             IdJogadorSala = idJogadorSala;
-            Marcado = true;
+            Marcado = false;
         }
 
         public void Sinalar(bool valor)

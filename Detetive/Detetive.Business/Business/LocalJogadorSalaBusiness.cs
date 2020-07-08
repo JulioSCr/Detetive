@@ -14,14 +14,17 @@ namespace Detetive.Business.Business
         private readonly ICrimeBusiness _crimeBusiness;
         private readonly IJogadorSalaBusiness _jogadorSalaBusiness;
         private readonly ILocalJogadorSalaRepository _localJogadorSalaRepository;
+        private readonly ILocalBusiness _localBusiness;
 
-        public LocalJogadorSalaBusiness(ICrimeBusiness crimeBusiness, 
-                                        IJogadorSalaBusiness jogadorSalaBusiness, 
-                                        ILocalJogadorSalaRepository localJogadorSalaRepository)
+        public LocalJogadorSalaBusiness(ICrimeBusiness crimeBusiness,
+                                        IJogadorSalaBusiness jogadorSalaBusiness,
+                                        ILocalJogadorSalaRepository localJogadorSalaRepository,
+                                        ILocalBusiness localBusiness)
         {
             _crimeBusiness = crimeBusiness;
             _jogadorSalaBusiness = jogadorSalaBusiness;
             _localJogadorSalaRepository = localJogadorSalaRepository;
+            _localBusiness = localBusiness;
         }
 
         public LocalJogadorSala Adicionar(int idLocal, int idJogadorSala)
@@ -51,7 +54,14 @@ namespace Detetive.Business.Business
 
         public List<LocalJogadorSala> Listar(int idJogadorSala)
         {
-            return _localJogadorSalaRepository.Listar(idJogadorSala);
+            var locaisJogadorSala = _localJogadorSalaRepository.Listar(idJogadorSala);
+            if (locaisJogadorSala != null && locaisJogadorSala.Any())
+            {
+                var locais = _localBusiness.Listar();
+                locaisJogadorSala.ForEach(localJogadorSala => localJogadorSala.Local = locais.First(_ => _.Id == localJogadorSala.IdLocal));
+            }
+
+            return locaisJogadorSala;
         }
     }
 }
