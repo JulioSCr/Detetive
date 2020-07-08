@@ -123,6 +123,19 @@ namespace Detetive.Hubs
             }
         }
 
+        public void IniciarPartida(int pIdSala, int pIdJogadorSala)
+        {
+            try
+            {
+                Clients.Group(pIdSala.ToString()).TransmitirIniciarPartida(pIdJogadorSala);
+            }
+            catch (Exception ex)
+            {
+                Clients.Caller.erro(ex.Message, ex.ToString());
+                throw;
+            }
+        }
+
         #endregion
     }
 }
