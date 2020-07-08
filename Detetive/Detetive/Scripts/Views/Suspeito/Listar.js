@@ -52,7 +52,7 @@ Listar.TransmitirSelecaoSuspeito = function (pintIdJogadorSala, pintIdSuspeito, 
         $('.cartaSuspeito[data-id=' + pintIdSuspeito + ']').attr('data-idjogadorsala', pintIdJogadorSala);
 
         //#endregion 
-        
+
         //#region Listagem de seleção de personagens
 
         lstrJogadorSuspeito = '<ul id="lista"> ' + pstrDescricaoJogador + ' — ' + pstrDescricaoSuspeitoSelecionado + ' </ul>';
@@ -66,7 +66,7 @@ Listar.TransmitirSelecaoSuspeito = function (pintIdJogadorSala, pintIdSuspeito, 
         }
 
         //#endregion
-        
+
     } catch (ex) {
         alert(ex);
     }
@@ -86,7 +86,7 @@ Listar.TransmitirDesconsideracaoSuspeito = function (pintIdJogadorSala, pstrDesc
         }
 
         //#endregion 
-        
+
         //#region Listagem de seleção de personagens
 
         leleSuspeitosSelecionados = $('#divInformaIDSala').children('ul');
@@ -97,7 +97,7 @@ Listar.TransmitirDesconsideracaoSuspeito = function (pintIdJogadorSala, pstrDesc
                 break;
             }
         }
-        
+
         if (leleSuspeitosSelecionados.length < 3) {
             $('#btnVamosAoCaso').prop('disabled', true);
         }
@@ -111,17 +111,44 @@ Listar.TransmitirDesconsideracaoSuspeito = function (pintIdJogadorSala, pstrDesc
 
 Listar.btnVamosAoCaso_OnClick = function () {
     try {
-        //$.ajax({
-        //    url: gstrGlobalPath + 'Suspeito/Ingressar',
-        //    data: {
-        //        idJogadorSala: Listar.mintIdJogadorSala
-        //    },
-        //    type: 'post',
-        //    success: function (data, textStatus, XMLHttpRequest) {
+        if ($('.cartaSuspeito[data-idjogadorsala="' + Listar.mintIdJogadorSala + '"]').length == 0) { throw 'Selecione um suspeito antes de iniciar a partida!'; }
 
-        //    }
-        //});
-        location.href = '/Partida/Jogar?idJogadorSala=' + Listar.mintIdJogadorSala;
+        PopUp.Visualizar({
+            TipoPopUp: 'Questao',
+            Mensagem: 'A partida vai começar, seus amigos não poderão ingressar caso não tenham selecionado um suspeito.\nDeseja continuar?',
+            Evento: function () {
+                try {
+                    debugger;
+                    Sala.IniciarPartida(Listar.mintIdSala, Listar.mintIdJogadorSala);
+                    $('#divPopUp').Detetive_Modal('hide');
+                    location.href = '/Partida/Jogar?idJogadorSala=' + Listar.mintIdJogadorSala;
+                } catch (ex) {
+                    alert(ex);
+                }
+            }
+        });
+    } catch (ex) {
+        PopUp.Erro(ex);
+    }
+}
+
+
+Listar.TransmitirIniciarPartida = function (pidJogadorSala) {
+    try {
+        if (pidJogadorSala != Listar.mintIdJogadorSala) {
+            PopUp.Visualizar({
+                TipoPopUp: 'Alerta',
+                Mensagem: 'A partida vai iniciar, clique em ok para prosseguir.',
+                Evento: function () {
+                    try {
+                        $('#divPopUp').Detetive_Modal('hide');
+                        location.href = '/Partida/Jogar?idJogadorSala=' + pidJogadorSala;
+                    } catch (ex) {
+                        alert(ex);
+                    }
+                }
+            });
+        }
     } catch (ex) {
         alert(ex);
     }

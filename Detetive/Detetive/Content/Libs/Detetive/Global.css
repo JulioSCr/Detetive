@@ -72,6 +72,10 @@ button:focus {
     align-items: center;
 }
 
+.fontePadrao {
+    font-family: 'Risque', cursive;
+}
+
 /*.click-especial {
     -webkit-transition: background-color 500ms !important;
     transition: background-color 500ms !important;

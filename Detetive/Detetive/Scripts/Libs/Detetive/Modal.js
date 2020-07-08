@@ -1,6 +1,9 @@
 ﻿$.fn.Detetive_Modal = function (vobjMetodosOuParametros) {
     if (typeof vobjMetodosOuParametros === 'string') {
         switch (vobjMetodosOuParametros.toUpperCase()) {
+            case 'POPUP':
+                return popup(this);
+                break;
             case 'SHOW':
                 return show(this);
                 break;
@@ -18,15 +21,63 @@
         var lobjComponente = this;
         var lstrComponenteID = new String('');
         var lstrPopUpID = new String('');
-        //Parâmetros de Configuração
+        //Parâmetros de Conteúdo
+        var lblnMudarTitulo = false;
         var lstrExibirTitulo = new String();
+        var lblnMudarImagem = false;
+        var lstrImagem = new String('');
+
         if (vobjMetodosOuParametros != undefined) {
             lstrExibirTitulo = vobjMetodosOuParametros.Titulo == undefined ? '' : vobjMetodosOuParametros.Titulo;
-        }
-        //Parâmetros de Conteúdo
+
+            lstrImagem = vobjMetodosOuParametros.Imagem == undefined ? '' : vobjMetodosOuParametros.Imagem;
+            switch (lstrImagem.toUpperCase()) {
+                case 'ALERTA':
+                    lstrImagem = 'Content/Imagens/Shared/imgAlerta.svg';
+                    break;
+                case 'ERRO':
+                    lstrImagem = 'Content/Imagens/Shared/imgErro.svg';
+                    break;
+                case 'QUESTAO':
+                    lstrImagem = 'Content/Imagens/Shared/imgQuestion.svg';
+                    break;
+                default:
+                    break;
+            }
+
+            if (vobjMetodosOuParametros.SetTitulo == null || vobjMetodosOuParametros.SetTitulo == undefined) {
+                lblnMudarTitulo = false;
+            } else {
+                lblnMudarTitulo = vobjMetodosOuParametros.SetTitulo;
+            }
+
+            if (vobjMetodosOuParametros.SetImagem == null || vobjMetodosOuParametros.SetImagem == undefined) {
+                lblnMudarImagem = false
+            } else {
+                lblnMudarImagem = vobjMetodosOuParametros.SetImagem;
+            }
+
+        }       
+        //Parâmetros de Configuração
 
         lstrComponenteID = $(lobjComponente).attr('id');
         var lstrUrl = $('#' + lstrComponenteID).data('url');
+
+        if (lblnMudarImagem && lstrImagem != '' && lblnMudarTitulo) {
+            SetTitulo(lstrComponenteID, lstrExibirTitulo);
+            SetImagem(lstrComponenteID, lstrImagem);
+            return;
+        }
+
+        if (lblnMudarTitulo) {
+            SetTitulo(lstrComponenteID, lstrExibirTitulo);
+            return;
+        }
+
+        if (lblnMudarImagem && lstrImagem != '') {
+            SetImagem(lstrComponenteID, lstrImagem);
+            return;
+        }
 
         $.ajax({
             url: lstrUrl,
@@ -34,6 +85,9 @@
                 $('#' + lstrComponenteID).html(data);
                 if (lstrExibirTitulo != '') {
                     SetTitulo(lstrComponenteID, lstrExibirTitulo)
+                }
+                if (lstrImagem != '') {
+                    SetImagem(lstrComponenteID, lstrImagem)
                 }
             }
         });
@@ -55,6 +109,16 @@ function show(vobjComponente) {
     }
 }
 
+function popup(vobjComponente) {
+    var lobjModalID = new String();
+    try {
+        lobjModalID = $(vobjComponente).attr('id');
+        $('#' + lobjModalID + ' .modal-container').addClass('mostrar');
+    } catch (ex) {
+        alert(ex);
+    }
+}
+
 function hide(vobjComponente) {
     try {
         lobjModalID = $(vobjComponente).attr('id');
@@ -67,6 +131,18 @@ function hide(vobjComponente) {
 function SetTitulo(pstrComponenteID, pstrTitulo) {
     try {
         $('#' + pstrComponenteID + ' #lblDetetiveModalTitulo').text(pstrTitulo);
+    } catch (ex) {
+        alert(ex);
+    }
+}
+
+function SetImagem(pstrComponenteID, pstrImagem) {
+    var lstrElementoImagem = new String();
+    try {
+        pstrImagem = gstrGlobalPath +  pstrImagem.replace(/^(~\\|\\)/, '');
+        lstrElementoImagem = '<img id="imgPopUp" src="' + pstrImagem + '"/>';
+
+        $('#' + pstrComponenteID + ' #divImagem').html(lstrElementoImagem);
     } catch (ex) {
         alert(ex);
     }

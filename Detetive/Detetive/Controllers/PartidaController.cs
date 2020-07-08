@@ -61,20 +61,13 @@ namespace Detetive.Controllers
 
         public ActionResult Jogar(int idJogadorSala)
         {
-            /// Cenário carregar partida
-            /// Dada: 
-            /// uma partida
-            /// Quando: 
-            /// tela da partida for carregada
-            /// Então: 
-            /// todos os jogadores serão posicionados ok
-            /// as cartas de cada jogador deverão ser listadas
-            /// as anotações dos jogadores deverão estar checadas
-            /// o chat deve ser recarregado
-
-            //int idJogadorSala = 20;
-
             var jogadorSala = _jogadorSalaBusiness.Obter(idJogadorSala);
+
+            if (jogadorSala.IdSuspeito == null)
+            {
+                return RedirectToAction("Manter", "Sala");
+            }
+
             int idSala = jogadorSala.IdSala;
 
             var operacao = _partidaBusiness.Iniciar(idSala);
