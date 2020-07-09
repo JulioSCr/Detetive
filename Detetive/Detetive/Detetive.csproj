@@ -310,10 +310,13 @@
     <Content Include="Content\Imagens\ManterSala\imgTxtIdSala.svg" />
     <Content Include="Content\Imagens\Shared\imgAlerta.svg" />
     <Content Include="Content\Imagens\Shared\imgBtnVoltar.svg" />
+    <Content Include="Content\Imagens\Shared\imgDados.svg" />
     <Content Include="Content\Imagens\Shared\imgErro.svg" />
     <Content Include="Content\Imagens\Shared\imgLogo.svg" />
     <Content Include="Content\Imagens\Shared\imgQuestion.svg" />
     <Content Include="Content\Imagens\Shared\imgTurno.svg" />
+    <Content Include="Content\Imagens\Shared\SetaHorizontal.svg" />
+    <Content Include="Content\Imagens\Shared\SetaVertical.svg" />
     <Content Include="Content\Imagens\Tabuleiro\imgTabuleiro.svg" />
     <Content Include="Content\Imagens\Tabuleiro\imgTabuleiroQuadrada.svg" />
     <Content Include="Content\Libs\Bootstrap\bootstrap-grid.css" />
@@ -355,6 +358,7 @@
     <Content Include="Content\Libs\Bootstrap\bootstrap-grid.min.css.map" />
     <Content Include="Content\Libs\Bootstrap\bootstrap-grid.css.map" />
     <Content Include="Scripts\Libs\Detetive\Global.js" />
+    <Content Include="Scripts\Libs\Detetive\Loader.js" />
     <Content Include="Scripts\Libs\Detetive\Modal.js" />
     <Content Include="Scripts\Libs\Detetive\Sala.js" />
     <Content Include="Scripts\Libs\esm\popper-utils.js" />

@@ -15,7 +15,7 @@ Listar.MontarTela = function () {
         if (Listar.mintIdSala == null || Listar.mintIdSala == undefined) { throw 'Sala não encontrada.' }
         Sala.mIdSala = Listar.mintIdSala;
     } catch (ex) {
-        alert(ex);
+        PopUp.Erro(ex);
     }
 }
 
@@ -33,7 +33,7 @@ Listar.Suspeito_OnClick = function (e) {
             }
         }
     } catch (ex) {
-        alert(ex);
+        PopUp.Erro(ex);
     }
 }
 
@@ -68,7 +68,7 @@ Listar.TransmitirSelecaoSuspeito = function (pintIdJogadorSala, pintIdSuspeito, 
         //#endregion
 
     } catch (ex) {
-        alert(ex);
+        PopUp.Erro(ex);
     }
 }
 
@@ -105,7 +105,7 @@ Listar.TransmitirDesconsideracaoSuspeito = function (pintIdJogadorSala, pstrDesc
         //#endregion 
 
     } catch (ex) {
-        alert(ex);
+        PopUp.Erro(ex);
     }
 }
 
@@ -123,7 +123,7 @@ Listar.btnVamosAoCaso_OnClick = function () {
                     $('#divPopUp').Detetive_Modal('hide');
                     location.href = '/Partida/Jogar?idJogadorSala=' + Listar.mintIdJogadorSala;
                 } catch (ex) {
-                    alert(ex);
+                    PopUp.Erro(ex);
                 }
             }
         });
@@ -142,14 +142,14 @@ Listar.TransmitirIniciarPartida = function (pidJogadorSala) {
                 Evento: function () {
                     try {
                         $('#divPopUp').Detetive_Modal('hide');
-                        location.href = '/Partida/Jogar?idJogadorSala=' + pidJogadorSala;
+                        location.href = '/Partida/Jogar?idJogadorSala=' + Listar.mintIdJogadorSala;
                     } catch (ex) {
-                        alert(ex);
+                        PopUp.Erro(ex);
                     }
                 }
             });
         }
     } catch (ex) {
-        alert(ex);
+        PopUp.Erro(ex);
     }
 }
