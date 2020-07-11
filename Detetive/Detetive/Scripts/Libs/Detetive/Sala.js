@@ -2,12 +2,15 @@
     mHubSala: new Object(),                             // Objeto do SignalR
     mWebSocketTryingToReconnect: new Boolean(false),    // Flag tentando reconectar
     mID_JOGADOR_SALA: new Number(),                     // Id do jogador sala
-    mintIdSala: new Number()                            // Id da sala
+    mIdSala: new Number()                            // Id da sala
 };
 
 $(document).ready(function () {
     Sala.Iniciar();
     Sala.mID_JOGADOR_SALA = $('#inpID_JOGADOR_SALA').val();
+    if (Sala.mIdSala == 0 || Sala.mIdSala == null || Sala.mIdSala == undefined) {
+        Sala.mIdSala = $('#inpID_SALA').val();
+    }
 });
 
 Sala.Iniciar = function () {
@@ -56,12 +59,20 @@ Sala.Configurar = function () {
         Jogar.TransmitirTeletransporte(pintID_JOGADOR_SALA, pintIDLocal);
     }
 
-    Sala.mHubSala.client.TransmitirSelecaoSuspeito = function (pintIdJogadorSala, pintIdSuspeito, pstrDescricaoJogador, pstrDescricaoSuspeito) {
-        Listar.TransmitirSelecaoSuspeito(pintIdJogadorSala, pintIdSuspeito, pstrDescricaoJogador, pstrDescricaoSuspeito);
+    Sala.mHubSala.client.TransmitirSelecaoSuspeito = function (pintIdJogadorSala, pintIdSuspeito, pstrDescricaoJogador, pstrDescricaoSuspeitoSelecionado,pstrDescricaoSuspeitoDesconsiderado) {
+        Listar.TransmitirSelecaoSuspeito(pintIdJogadorSala, pintIdSuspeito, pstrDescricaoJogador, pstrDescricaoSuspeitoSelecionado, pstrDescricaoSuspeitoDesconsiderado);
+    }
+
+    Sala.mHubSala.client.TransmitirIniciarPartida = function (pIdJogadorSala) {
+        Listar.TransmitirIniciarPartida(pIdJogadorSala);
     }
 
     Sala.mHubSala.client.TransmitirDesconsideracaoSuspeito = function (pintIdJogadorSala, pDescricaoSuspeito) {
         Listar.TransmitirDesconsideracaoSuspeito(pintIdJogadorSala, pDescricaoSuspeito);
+    }
+
+    Sala.mHubSala.client.TransmitirMensagem = function (pintIdJogadorSalaRemetente, pintIdJogadorSalaDestinatario, pstrDescricaoMensagem) {
+        Jogar.TransmitirMensagem(pintIdJogadorSalaRemetente, pintIdJogadorSalaDestinatario, pstrDescricaoMensagem);
     }
 
     Sala.mHubSala.client.erro = function (vstrMensagem, vstrMensagemTecnica) {
@@ -72,8 +83,8 @@ Sala.Configurar = function () {
 Sala.Conectar = function () {
     try {
         Sala.mHubSala.connection.start().done(function () {
-            if (Sala.mintIdSala > 0 && Sala.mintIdSala != undefined && Sala.mintIdSala != null) {
-                Sala.IngressarGrupo(Sala.mintIdSala.toString());
+            if (Sala.mIdSala > 0 && Sala.mIdSala != undefined && Sala.mIdSala != null) {
+                Sala.IngressarGrupo(Sala.mIdSala.toString());
             }
         });
     } catch (ex) {
@@ -85,7 +96,7 @@ Sala.Desconectar = function () {
     try {
         Sala.mWebSocketTryingToReconnect = false;
         $.connection.hub.stop();
-        Sala.DeixarGrupo(Sala.mintIdSala.toString());
+        Sala.DeixarGrupo(Sala.mIdSala.toString());
     } catch (ex) {
         console.log(ex);
     }
@@ -115,13 +126,15 @@ Sala.SelecionarSuspeito = function (pintIdSala, pintIdJogadorSala, pintIdSuspeit
             success: function (data, textStatus, XMLHttpRequest) {
                 var lobjResltado = new Object();
                 var lstrDescricaoJogador = new String();
-                var lstrDescricaoSuspeito = new String();
+                var lstrDescricaoSuspeitoSelecionado = new String();
+                var lstrDescricaoSuspeitoDesconsiderado = new String();
                 try {
                     lobjResltado = JSON.parse(data);
                     if (!lobjResltado.Status) { throw data.Retorno; }
                     lstrDescricaoJogador = JSON.parse(lobjResltado.Retorno).Data.DescricaoJogador;
-                    lstrDescricaoSuspeito = JSON.parse(lobjResltado.Retorno).Data.DescricaoSuspeito
-                    Sala.mHubSala.server.selecaoSuspeito(pintIdSala, pintIdJogadorSala, pintIdSuspeito, lstrDescricaoJogador, lstrDescricaoSuspeito).done(function () { });
+                    lstrDescricaoSuspeitoSelecionado = JSON.parse(lobjResltado.Retorno).Data.DescricaoSuspeitoSelecionado;
+                    lstrDescricaoSuspeitoDesconsiderado = JSON.parse(lobjResltado.Retorno).Data.DescricaoSuspeitoDesconsiderado;
+                    Sala.mHubSala.server.selecaoSuspeito(pintIdSala, pintIdJogadorSala, pintIdSuspeito, lstrDescricaoJogador, lstrDescricaoSuspeitoSelecionado, lstrDescricaoSuspeitoDesconsiderado).done(function () { });
                 } catch (ex) {
                     throw ex;
                 }
@@ -163,9 +176,30 @@ Sala.DesconsiderarSuspeito = function (pintIdSala, pintIdJogadorSala) {
 
 //#endregion
 
-Sala.EnviarMensagem = function (apelido, mensagem) {
+Sala.EnviarMensagem = function (pIdJogadorSalaRemetente, pIdJogadorSalaDestinatario, pDescricaoMensagem) {
     try {
-        Sala.mHubSala.server.enviarMensagem(apelido, mensagem).done(function () { });
+        $.ajax({
+            url: gstrGlobalPath + 'Agaga/Agaga',
+            type: 'Post',
+            data: {
+                Agaga: agaga
+            },
+            success: function (data, textStatus, XMLHttpRequest) {
+                var lobjResultado = new Object();
+                var lobjRetorno = new Object();
+                try {
+                    lobjResultado = JSON.parse(data);
+                    if (!lobjResultado.Status) { throw lobjResultado.Retorno; }
+                    lobjRetorno = JSON.parse(lobjResultado.Retorno);
+                    Sala.mHubSala.server.enviarMensagem(Sala.mIdSala, pIdJogadorSalaRemetente, pIdJogadorSalaDestinatario, pDescricaoMensagem).done(function () { });
+                } catch (ex) {
+                    alert(ex);
+                }
+            },
+            error: function (data, textStatus, XMLHttpRequest) {
+                alert("Erro no envio da mensagem.");
+            }
+        });
     } catch (ex) {
         console.log(ex);
     }
@@ -201,7 +235,7 @@ Sala.EnviarMovimento = function (pLinha, pColuna) {
                     lintLinha = lobjRetorno.Posicao.Linha;
                     lintColuna = lobjRetorno.Posicao.Coluna;
                     lintIdLocal = lobjRetorno.Posicao.IdLocal;
-                    Sala.mHubSala.server.enviarMovimento(Sala.mID_JOGADOR_SALA, lintLinha, lintColuna, lintIdLocal).done(function () { });
+                    Sala.mHubSala.server.enviarMovimento(Sala.mIdSala, Sala.mID_JOGADOR_SALA, lintLinha, lintColuna, lintIdLocal).done(function () { });
                 } catch (ex) {
                     alert(ex);
                 }
@@ -218,8 +252,16 @@ Sala.EnviarMovimento = function (pLinha, pColuna) {
 
 Sala.Teletransporte = function (pintIdJogadorSala, pintIdLocal) {
     try {
-        Sala.mHubSala.server.teletransporte(pintIdJogadorSala, pintIdLocal).done(function () { });
+        Sala.mHubSala.server.teletransporte(pintIdJogadorSala, pintIdLocal, Sala.mIdSala).done(function () { });
     } catch (ex) {
         alert(ex);
+    }
+}
+
+Sala.IniciarPartida = function (pintIdSala, pintIdJogadorSala) {
+    try {
+        Sala.mHubSala.server.iniciarPartida(pintIdSala, pintIdJogadorSala).done(function () { });
+    } catch (ex) {
+        PopUp.Erro(ex);
     }
 }

@@ -1,12 +1,12 @@
 ﻿var Jogar = window.Jogar || {
     mID_JOGADOR_SALA: new Number(),     // ID do jogador sala
+    mID_SALA: new Number(),     // ID do jogador sala
     marrMapeamento: new Array()         // Mapeamento do tabuleiro
 };
 
 Jogar.MontarTela = function () {
+    Jogar.mID_SALA = $('#inpID_SALA').val();
     Jogar.mID_JOGADOR_SALA = $('#inpID_JOGADOR_SALA').val();
-    // Mapeia tabuleiro
-    Jogar.MapearTabuleiro();
     // Cria a modal palpite
     $('#ModalPalpite').Detetive_Modal({
         Titulo: 'Palpite'
@@ -38,10 +38,52 @@ $(document).ready(function () {
 
 Jogar.btnFinalizarTurno_OnClick = function () {
     try {
+        //$("#btnEsquerda").attr("disabled", true);
+        //$("#btnEsquerda").css('background', 'darkgrey');
+
+        //$("#btnDireita").attr("disabled", true);
+        //$("#btnDireita").css('background', 'darkgrey');
+
+        //$("#btnAcima").attr("disabled", true);
+        //$("#btnAcima").css('background', 'darkgrey');
+
+        //$("#btnAbaixo").attr("disabled", true);
+        //$("#btnAbaixo").css('background', 'darkgrey');
+
+        //$("#btnLancarDados").attr("disabled", true);
+        //$("#btnLancarDados").css('background', 'darkgrey');
+
+        //$("#btnPalpite").attr("disabled", true);
+        //$("#btnAcusar").attr("disabled", true);
+        //$("#btnPassagemSecreta").attr("disabled", true);
+
+        //$("#btnFinalizarTurno").attr("disabled", true);
+        //$("#btnFinalizarTurno").css('background', 'darkgrey');
+
+        //$("#divCaixaInformacoes").append("Você finalizou seu turno!");
+
+        $.ajax({
+            url: gstrGlobalPath + 'Partida/Finalizar',
+            type: 'post',
+            data: {
+                idJogadorSala: Jogar.mID_JOGADOR_SALA
+            },
+            success: function (data, textStatus, XMLHttpRequest) {
+                var retorno = alert(JSON.parse(data).Retorno);
+
+                if (!retorno.Status) {
+                    alert(retorno.Retorno)
+                }
+            },
+            error: function (data, textStatus, XMLHttpRequest) {
+                alert(data.Retorno);
+            }
+        });
 
     } catch (ex) {
-        alert(ex);
+        PopUp.Erro(ex);
     }
+    
 }
 
 Jogar.btnDireita_OnClick = function () {
@@ -53,7 +95,7 @@ Jogar.btnDireita_OnClick = function () {
         //({ lIDLocal, lLinha, lColuna } = Jogar.SairLocal(lIDLocal, lLinha, lColuna, 'direita'));
         Sala.EnviarMovimento(lLinha, lColuna + 1);
     } catch (ex) {
-        alert(ex);
+        PopUp.Erro(ex);
     }
 };
 
@@ -66,7 +108,7 @@ Jogar.btnEsquerda_OnClick = function () {
         //({ lIDLocal, lLinha, lColuna } = Jogar.SairLocal(lIDLocal, lLinha, lColuna, 'esquerda'));
         Sala.EnviarMovimento(lLinha, lColuna - 1);
     } catch (ex) {
-        alert(ex);
+        PopUp.Erro(ex);
     }
 };
 
@@ -79,7 +121,7 @@ Jogar.btnAcima_OnClick = function () {
         //({ lIDLocal, lLinha, lColuna } = Jogar.SairLocal(lIDLocal, lLinha, lColuna, 'cima'));
         Sala.EnviarMovimento(lLinha - 1, lColuna);
     } catch (ex) {
-        alert(ex);
+        PopUp.Erro(ex);
     }
 };
 
@@ -92,7 +134,7 @@ Jogar.btnAbaixo_OnClick = function () {
         //({ lIDLocal, lLinha, lColuna } = Jogar.SairLocal(lIDLocal, lLinha, lColuna, 'baixo'));
         Sala.EnviarMovimento(lLinha + 1, lColuna);
     } catch (ex) {
-        alert(ex);
+        PopUp.Erro(ex);
     }
 };
 
@@ -108,7 +150,7 @@ Jogar.btnPassagemSecreta_OnClick = function () {
         if (lintLocalIDDestino <= 0) { throw 'Você não está em um local com passagem secreta.'; }
         Sala.Teletransporte(Jogar.mID_JOGADOR_SALA, lintLocalIDDestino);
     } catch (ex) {
-        alert(ex);
+        PopUp.Erro(ex);
     }
 }
 
@@ -116,7 +158,7 @@ Jogar.btnPalpite_OnClick = function () {
     try {
         $('#ModalPalpite').Detetive_Modal('show');
     } catch (ex) {
-        alert(ex);
+        PopUp.Erro(ex);
     }
 }
 
@@ -124,7 +166,7 @@ Jogar.btnAcusar_OnClick = function () {
     try {
         $('#ModalAcusar').Detetive_Modal('show');
     } catch (ex) {
-        alert(ex);
+        PopUp.Erro(ex);
     }
 }
 
@@ -163,7 +205,7 @@ Jogar.TransmitirTeletransporte = function (pintID_JOGADOR_SALA, pintIDLocal) {
         Jogar.RemoveDoLocal(pintID_JOGADOR_SALA, 0, 0);
         Jogar.TransmitirMovimento(pintID_JOGADOR_SALA, 0, 0, pintIDLocal);
     } catch (ex) {
-        alert(ex);
+        PopUp.Erro(ex);
     }
 }
 
@@ -194,172 +236,6 @@ Jogar.Posicao = function (lLinha, lColuna) {
     //    lColuna = 0;
     //}
     return { lLinha, lColuna };
-}
-
-Jogar.MapearTabuleiro = function () {
-    try {
-        //$.ajax({
-        //    url: gstrGlobalPath + 'Partida/MapearTabuleiro',
-        //    success: function (data, textStatus, XMLHttpRequest) {
-        //        try {
-        //            //if (!JSON.parse(data.toLowerCase())) { throw 'Movimento inválido'; }
-
-        //        } catch (ex) {
-        //            throw ex;
-        //        }
-        //    }
-        //});
-        //Jogar.marrMapeamento = [
-        //    {
-        //        Nome: 'PredioA',
-        //        ID: 1,
-        //        Linhas: [11, 18],
-        //        Colunas: [1, 7],
-        //        Portas: [
-        //            {
-        //                Linha: 14,
-        //                Coluna: 6,
-        //                Direcao: 'direita'
-        //            }
-        //        ],
-        //        PassagemSecreta: 7
-        //    },
-        //    {
-        //        Nome: 'PredioB',
-        //        ID: 2,
-        //        Linhas: [11, 18],
-        //        Colunas: [9, 15],
-        //        Portas: [
-        //            {
-        //                Linha: 14,
-        //                Coluna: 9,
-        //                Direcao: 'esquerda'
-        //            }
-        //        ],
-        //        PassagemSecreta: 0
-        //    },
-        //    {
-        //        Nome: 'Santiago',
-        //        ID: 3,
-        //        Linhas: [1, 10],
-        //        Colunas: [27, 33],
-        //        Portas: [
-        //            {
-        //                Linha: 9,
-        //                Coluna: 29,
-        //                Direcao: 'baixo'
-        //            }
-        //        ],
-        //        PassagemSecreta: 0
-        //    },
-        //    {
-        //        Nome: 'Praca',
-        //        ID: 4,
-        //        Linhas: [20, 26],
-        //        Colunas: [16, 25],
-        //        Portas: [
-        //            {
-        //                Linha: 25,
-        //                Coluna: 16,
-        //                Direcao: 'esquerda'
-        //            },
-        //            {
-        //                Linha: 20,
-        //                Coluna: 23,
-        //                Direcao: 'cima'
-        //            }
-        //        ],
-        //        PassagemSecreta: 0
-        //    },
-        //    {
-        //        Nome: 'Etesp',
-        //        ID: 5,
-        //        Linhas: [20, 26],
-        //        Colunas: [9, 15],
-        //        Portas: [
-        //            {
-        //                Linha: 24,
-        //                Coluna: 9,
-        //                Direcao: 'esquerda'
-        //            },
-        //            {
-        //                Linha: 22,
-        //                Coluna: 14,
-        //                Direcao: 'direita'
-        //            }
-        //        ],
-        //        PassagemSecreta: 0
-        //    },
-        //    {
-        //        Nome: 'CantinaAB',
-        //        ID: 6,
-        //        Linhas: [20, 26],
-        //        Colunas: [1, 7],
-        //        Portas: [
-        //            {
-        //                Linha: 20,
-        //                Coluna: 1,
-        //                Direcao: 'cima'
-        //            }
-        //        ],
-        //        PassagemSecreta: 8
-        //    },
-        //    {
-        //        Nome: 'CA',
-        //        ID: 7,
-        //        Linhas: [12, 26],
-        //        Colunas: [27, 33],
-        //        Portas: [
-        //            {
-        //                Linha: 12,
-        //                Coluna: 31,
-        //                Direcao: 'cima'
-        //            },
-        //            {
-        //                Linha: 24,
-        //                Coluna: 27,
-        //                Direcao: 'esquerda'
-        //            }
-        //        ],
-        //        PassagemSecreta: 1
-        //    },
-        //    {
-        //        Nome: 'Auditorio',
-        //        ID: 8,
-        //        Linhas: [3, 9],
-        //        Colunas: [18, 25],
-        //        Portas: [
-        //            {
-        //                Linha: 4,
-        //                Coluna: 18,
-        //                Direcao: 'esquerda'
-        //            },
-        //            {
-        //                Linha: 3,
-        //                Coluna: 24,
-        //                Direcao: 'cima'
-        //            }
-        //        ],
-        //        PassagemSecreta: 6
-        //    },
-        //    {
-        //        Nome: 'Ginasio',
-        //        ID: 9,
-        //        Linhas: [9, 18],
-        //        Colunas: [18, 25],
-        //        Portas: [
-        //            {
-        //                Linha: 17,
-        //                Coluna: 18,
-        //                Direcao: 'esquerda'
-        //            }
-        //        ],
-        //        PassagemSecreta: 0
-        //    }
-        //];
-    } catch (ex) {
-        alert(ex);
-    }
 }
 
 Jogar.SairLocal = function (lIDLocal, lLinha, lColuna, lstrDirecao) {
@@ -439,14 +315,14 @@ Jogar.AnotacaoArma_OnChange = function (input) {
                 valor: valor
             },
             success: function (data, textStatus, XMLHttpRequest) {
-                var retorno = alert(JSON.parse(data).Retorno);
+                var retorno = PopUp.Erro(JSON.parse(data).Retorno);
 
                 if (!retorno.Status) {
-                    alert(retorno.Retorno)
+                    PopUp.Erro(retorno.Retorno)
                 }
             },
             error: function (data, textStatus, XMLHttpRequest) {
-                alert(data.Retorno);
+                PopUp.Erro('Erro durante chamada da controller MarcarArma');
             }
         });
     } catch (ex) {
@@ -468,18 +344,18 @@ Jogar.AnotacaoLocal_OnChange = function (input) {
                 valor: valor
             },
             success: function (data, textStatus, XMLHttpRequest) {
-                var retorno = alert(JSON.parse(data).Retorno);
+                var retorno = PopUp.Erro(JSON.parse(data).Retorno);
 
                 if (!retorno.Status) {
-                    alert(retorno.Retorno)
+                    PopUp.Erro(retorno.Retorno);
                 }
             },
             error: function (data, textStatus, XMLHttpRequest) {
-                alert(data.Retorno);
+                PopUp.Erro('Erro durante chamada da controller MarcarLocal');
             }
         });
     } catch (ex) {
-        alert(ex);
+        PopUp.Erro(ex);
     }
 }
 
@@ -496,17 +372,35 @@ Jogar.AnotacaoSuspeito_OnChange = function (input) {
                 valor: valor
             },
             success: function (data, textStatus, XMLHttpRequest) {
-                var retorno = alert(JSON.parse(data).Retorno);
+                var retorno = PopUp.Erro(JSON.parse(data).Retorno);
 
                 if (!retorno.Status) {
-                    alert(retorno.Retorno)
+                    PopUp.Erro(retorno.Retorno);
                 }
             },
             error: function (data, textStatus, XMLHttpRequest) {
-                alert(data.Retorno);
+                PopUp.Erro('Erro durante chamada da controller MarcarSuspeito');
             }
         });
     } catch (ex) {
+        PopUp.Erro(ex);
+    }
+}
+
+//#region Chat
+
+Jogar.TransmitirMensagem = function (pintIdJogadorSalaRemetente, pintIdJogadorSalaDestinatario, pstrDescricaoMensagem) {
+    var lstrHtml = new String();
+    try {
+        lstrHtml = '<label class="informacao">' + pstrDescricaoMensagem + '</label>';
+        if (pintIdJogadorSalaDestinatario == Jogar.mID_JOGADOR_SALA) {
+            $('#divCaixaInformacoes').append(lstrHtml);
+        } else if (pintIdJogadorSalaDestinatario == 0 || pintIdJogadorSalaDestinatario == null) {
+            $('#divCaixaInformacoes').append(lstrHtml);
+        }
+    } catch (ex) {
         alert(ex);
     }
-} 
+}
+
+//#endregion

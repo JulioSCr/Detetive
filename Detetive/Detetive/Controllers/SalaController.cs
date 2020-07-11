@@ -14,12 +14,14 @@ namespace Detetive.Controllers
         private readonly ISalaBusiness _salaBusiness;
         private readonly IJogadorBusiness _jogadorBusiness;
         private readonly IJogadorSalaBusiness _jogadorSalaBusiness;
+        private readonly ICrimeBusiness _crimeBusiness;
 
-        public SalaController(ISalaBusiness salaBusiness, IJogadorBusiness jogadorBusiness, IJogadorSalaBusiness jogadorSalaBusiness)
+        public SalaController(ISalaBusiness salaBusiness, IJogadorBusiness jogadorBusiness, IJogadorSalaBusiness jogadorSalaBusiness, ICrimeBusiness crimeBusiness)
         {
             _salaBusiness = salaBusiness;
             _jogadorBusiness = jogadorBusiness;
             _jogadorSalaBusiness = jogadorSalaBusiness;
+            _crimeBusiness = crimeBusiness;
         }
 
         public ActionResult Manter()
@@ -32,6 +34,10 @@ namespace Detetive.Controllers
         {
             try
             {
+                var crime = _crimeBusiness.Obter(idSala);
+                if (crime != null)
+                    return JsonConvert.SerializeObject(new Operacao("A partida já foi iniciada.", false));
+
                 var jogador = _jogadorBusiness.Adicionar(dsJogador);
                 var sala = _salaBusiness.Obter(idSala);
 
@@ -44,6 +50,10 @@ namespace Detetive.Controllers
                     return JsonConvert.SerializeObject(operacao);
 
                 var jogadorSala = _jogadorSalaBusiness.Obter(jogador.Id, sala.Id);
+                
+                sala.AlterarJogador(jogadorSala.Id);
+                _salaBusiness.Alterar(sala);
+
                 var retorno = Json(new { idSala = sala.Id, idJogadorSala = jogadorSala.Id }, "json");
 
                 return JsonConvert.SerializeObject(new Operacao(JsonConvert.SerializeObject(retorno)));

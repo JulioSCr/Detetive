@@ -23,6 +23,22 @@ namespace Detetive.Data.Repository
             return sala;
         }
 
+        public Sala Alterar(Sala sala)
+        {
+            if (sala != default)
+            {
+                var salaBD = this.Context.Salas.FirstOrDefault(_ => _.Id == sala.Id && _.Ativo);
+
+                if (salaBD.IdJogadorSala.HasValue && salaBD.IdJogadorSala.Value > 0)
+                    return salaBD;
+
+                salaBD.AlterarJogador(sala.IdJogadorSala);
+                this.Context.SaveChanges();
+            }
+
+            return sala;
+        }
+
         public List<Sala> Listar()
         {
             return this.Context.Salas.ToList();

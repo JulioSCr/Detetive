@@ -12,6 +12,7 @@ namespace Detetive.Data.Context.EntityConfig
             HasKey(p => p.Id);
             Property(p => p.Id).HasDatabaseGeneratedOption(DatabaseGeneratedOption.Identity);
             Property(p => p.Id).HasColumnName("ID_SALA");
+            Property(p => p.IdJogadorSala).HasColumnName("ID_JOGADOR_SALA");
             Property(p => p.DataCriacao).HasColumnName("DT_CRIACAO");
             Property(p => p.Ativo).HasColumnName("IE_ATIVO");
         }

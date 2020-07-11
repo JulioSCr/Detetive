@@ -32,13 +32,10 @@ namespace Detetive.Business.Business
                 locais = locais.Where(local => !anotacoesLocais.Any(anotacao => anotacao.IdLocal == local.Id)).ToList();
             }
 
-            // Adiciona os locais que ainda não foram cadastradas.
-            locais.ForEach(local => Adicionar(local.Id, idJogadorSala));
-        }
-
-        private AnotacaoLocal Adicionar(int idLocal, int idJogadorSala)
-        {
-            return _anotacaoLocalRepository.Adicionar(new AnotacaoLocal(idLocal, idJogadorSala));
+            // Adiciona as locais que ainda não foram cadastradas.
+            var anotacoes = new List<AnotacaoLocal>();
+            locais.ForEach(local => anotacoes.Add(new AnotacaoLocal(local.Id, idJogadorSala)));
+            _anotacaoLocalRepository.Adicionar(anotacoes);
         }
 
         public List<AnotacaoLocal> Listar(int idJogadorSala)

@@ -1,8 +1,10 @@
 ﻿using Detetive.Business.Business.Interfaces;
+using Detetive.Business.Data.Interfaces;
 using Detetive.Business.Entities;
 using Detetive.Business.Entities.Enum;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Security.Cryptography.X509Certificates;
 using System.Text;
@@ -16,6 +18,7 @@ namespace Detetive.Business.Business
         private readonly ICrimeBusiness _crimeBusiness;
         private readonly IPortaLocalBusiness _portaLocalBusiness;
         private readonly IJogadorSalaBusiness _jogadorSalaBusiness;
+        private readonly IJogadorBusiness _jogadorBusiness;
         private readonly IArmaBusiness _armaBusiness;
         private readonly ILocalBusiness _localBusiness;
         private readonly ISuspeitoBusiness _suspeitoBusiness;
@@ -25,6 +28,8 @@ namespace Detetive.Business.Business
         private readonly IAnotacaoArmaBusiness _anotacaoArmaBusiness;
         private readonly IAnotacaoLocalBusiness _anotacaoLocalBusiness;
         private readonly IAnotacaoSuspeitoBusiness _anotacaoSuspeitoBusiness;
+        private readonly IHistoricoBusiness _historicoBusiness;
+        private readonly Dado _dado;
 
         public PartidaBusiness(ISalaBusiness salaBusiness,
                                 ICrimeBusiness crimeBusiness,
@@ -38,7 +43,9 @@ namespace Detetive.Business.Business
                                 ISuspeitoJogadorSalaBusiness suspeitoJogadorSalaBusiness,
                                 IAnotacaoArmaBusiness anotacaoArmaBusiness,
                                 IAnotacaoLocalBusiness anotacaoLocalBusiness,
-                                IAnotacaoSuspeitoBusiness anotacaoSuspeitoBusiness)
+                                IAnotacaoSuspeitoBusiness anotacaoSuspeitoBusiness,
+                                IHistoricoBusiness historicoBusiness,
+                                IJogadorBusiness jogadorBusiness, Dado dado)
         {
             _salaBusiness = salaBusiness;
             _crimeBusiness = crimeBusiness;
@@ -53,13 +60,19 @@ namespace Detetive.Business.Business
             _anotacaoArmaBusiness = anotacaoArmaBusiness;
             _anotacaoLocalBusiness = anotacaoLocalBusiness;
             _anotacaoSuspeitoBusiness = anotacaoSuspeitoBusiness;
+            _historicoBusiness = historicoBusiness;
+            _jogadorBusiness = jogadorBusiness;
+            _dado = dado;
         }
 
-        public Operacao Iniciar(int idSala)
+        public Operacao Iniciar(int idJogadorSala, int idSala)
         {
             var sala = _salaBusiness.Obter(idSala);
             if (sala == default)
                 return new Operacao("Sala não encontrada.", false);
+
+            if (sala.IdJogadorSala != idJogadorSala)
+                return new Operacao("Esse jogador não pode iniciar a partida", false);
 
             var crimeSala = _crimeBusiness.Obter(idSala);
             if (crimeSala != default)
@@ -70,6 +83,27 @@ namespace Detetive.Business.Business
                 return new Operacao("Para iniciar a partida, é necessário que haja pelo menos 3 jogadores.", false);
 
             return IniciarPartida(sala, jogadoresSala);
+        }
+
+        public Operacao RolarDados(int idJogadorSala, int idSala)
+        {
+            var jogadorSala = _jogadorSalaBusiness.Obter(idJogadorSala);
+            if (jogadorSala == default && jogadorSala.IdSala != idSala)
+                return new Operacao("Jogador não encontrado", false);
+
+            if (!jogadorSala.MinhaVez())
+                return new Operacao("Não está na vez desse jogador.", false);
+
+            if (jogadorSala.RolouDados)
+                return new Operacao("O jogador já rolou os dados.", false);
+
+            jogadorSala.AlterarQuantidadeMovimento(_dado.Rolar());
+            var jogador = _jogadorBusiness.Obter(jogadorSala.IdJogador);
+
+            _historicoBusiness.Adicionar(new Historico(idSala, $"O jogador {jogador.Descricao} obteve {jogadorSala.QuantidadeMovimento} na rolagem dos dados."));
+            _jogadorSalaBusiness.Alterar(jogadorSala);
+
+            return new Operacao("Operação realizada com sucesso.");
         }
 
         private Operacao IniciarPartida(Sala sala, List<JogadorSala> jogadoresSala)
@@ -89,8 +123,8 @@ namespace Detetive.Business.Business
 
             DistribuirCartasJogadores(jogadoresSala, armas, locais, suspeitos);
             DefinirOrdemJogadoresSalaETurnoInicial(jogadoresSala);
-            GerarAnotacoesJogadores(jogadoresSala);
 
+            _historicoBusiness.Adicionar(new Historico(sala.Id, $"Partida #{sala.Id} Iniciada."));
             return new Operacao("Partida iniciada com sucesso!");
         }
 
@@ -145,14 +179,68 @@ namespace Detetive.Business.Business
             }
         }
 
-        private void GerarAnotacoesJogadores(List<JogadorSala> jogadoresSala)
+        public Operacao Finalizar(int idJogadorSala)
+        {        
+            if (idJogadorSala <= 0)
+                return new Operacao("Id do jogador não informado", false);
+
+            return FinalizarTurno(idJogadorSala);
+        }
+
+        private Operacao FinalizarTurno(int idJogadorSala)
         {
-            foreach (var jogadorSala in jogadoresSala)
+            var jogadorSala = _jogadorSalaBusiness.Obter(idJogadorSala);
+
+            if (jogadorSala == default)
+                return new Operacao("Jogador não encontrado", false);
+
+            if (!jogadorSala.MinhaVez())
+                return new Operacao("Não está na vez desse jogador.", false);
+
+            this.AlteraVezJogadores(idJogadorSala);
+
+            return null;
+        }
+
+        private void AlteraVezJogadores(int idJogadorSala)
+        {
+            var jogadorSala = _jogadorSalaBusiness.Obter(idJogadorSala);
+
+            if (jogadorSala == default) return;
+            
+            jogadorSala.FinalizarTurno(false);
+            _jogadorSalaBusiness.Alterar(jogadorSala);
+
+            var Jogadores = _jogadorSalaBusiness.Listar(jogadorSala.IdSala);
+
+            int NroOrdemProximo =99; 
+            foreach(var jogador in Jogadores)
             {
-                _anotacaoArmaBusiness.CriarAnotacoes(jogadorSala.Id);
-                _anotacaoLocalBusiness.CriarAnotacoes(jogadorSala.Id);
-                _anotacaoSuspeitoBusiness.CriarAnotacoes(jogadorSala.Id);
+                if (jogador.IdJogador == jogadorSala.IdJogador)
+                {
+                    NroOrdemProximo = jogador.NumeroOrdem + 1;
+                    break;
+                }
             }
+
+            int idProximoJogador = 0;
+            int idDefault = 0; 
+            foreach (var jogador in Jogadores)
+            {
+                if (jogador.NumeroOrdem == 1) idDefault = jogador.IdJogador; 
+
+                if((NroOrdemProximo) == jogador.NumeroOrdem)
+                {
+                    idProximoJogador = jogador.IdJogador;
+                    break;
+                }
+
+                idProximoJogador = idDefault;
+            }
+
+            var proximoJogadorSala = _jogadorSalaBusiness.Obter(idProximoJogador, jogadorSala.IdSala);
+            proximoJogadorSala.FinalizarTurno(true);
+            _jogadorSalaBusiness.Alterar(proximoJogadorSala);
         }
 
         public Operacao Acusar(int idSala, int idJogadorSala, int idLocal, int idSuspeito, int idArma)
@@ -190,15 +278,17 @@ namespace Detetive.Business.Business
             if (crime == default)
                 return new Operacao("Crime da sala informada não encontrado", false);
 
+            var jogador = _jogadorBusiness.Obter(jogadorSala.IdJogador);
+
             this.MoverJogadorSalaParaLocal(idSuspeito, idSala, idLocal);
 
             bool casoSolucionado = crime.ValidarAcusacaoCrime(idSuspeito, idArma, idLocal);
-
             if (casoSolucionado)
             {
                 crime.AlterarJogadorSala(jogadorSala.Id);
                 _crimeBusiness.Alterar(crime);
 
+                _historicoBusiness.Adicionar(new Historico(idSala, $"Partida #{idSala} acabou. O jogador {jogador.Descricao} solucionou o caso."));
                 return new Operacao("Caso Solucionado! Você é um verdadeiro Sherlock Holmes.");
             }
             else
@@ -206,6 +296,7 @@ namespace Detetive.Business.Business
                 jogadorSala.DefinirAtivo(false);
                 _jogadorSalaBusiness.Alterar(jogadorSala);
 
+                _historicoBusiness.Adicionar(new Historico(idSala, $"O jogador {jogador.Descricao} errou a acusação e perdeu o jogo."));
                 return new Operacao("Acusação errada! Você não é um Sherlock Holmes.");
             }
         }
@@ -259,7 +350,7 @@ namespace Detetive.Business.Business
                 return;
 
             var portas = _portaLocalBusiness.Listar(idLocal);
-
+            //ToDo
             if (portas != null && portas.Any())
                 return;
 

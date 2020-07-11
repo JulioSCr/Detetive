@@ -33,12 +33,10 @@ namespace Detetive.Business.Business
             }
 
             // Adiciona as armas que ainda não foram cadastradas.
-            armas.ForEach(arma => Adicionar(arma.Id, idJogadorSala));
-        }
+            var anotacoes = new List<AnotacaoArma>();
+            armas.ForEach(arma => anotacoes.Add(new AnotacaoArma(arma.Id, idJogadorSala)));
 
-        private AnotacaoArma Adicionar(int idArma, int idJogadorSala)
-        {
-            return _anotacaoArmaRepository.Adicionar(new AnotacaoArma(idArma, idJogadorSala));
+            _anotacaoArmaRepository.Adicionar(anotacoes);
         }
 
         public List<AnotacaoArma> Listar(int idJogadorSala)
