@@ -1,0 +1,43 @@
+﻿@{
+    Layout = "~/Views/Shared/_LayoutModal.cshtml";
+}
+
+@section head{
+    <link rel="stylesheet" href="@Url.Content("~/Content/Views/Partida/ModalAcusar.css?" + DateTimeOffset.Now)" />
+}
+
+@section scripts{
+    <script src="@Url.Content("~/Scripts/Views/Partida/ModalAcusar.js?" + DateTimeOffset.Now)"></script>
+}
+<div>
+    <div class="form-group">
+        <label class="lblModal" for="ddlModalAcusar_Suspeito">Selecione um suspeito</label>
+        <select class="form-control" id="ddlModalAcusar_Suspeito">
+            @if (ViewBag.Suspeitos != null && ViewBag.Suspeitos.Any())
+            {
+                foreach (var suspeito in ViewBag.Suspeitos)
+                {
+                    <option value="@suspeito.Id">@suspeito.Descricao</option>
+                }
+            }
+        </select>
+    </div>
+    <div class="form-group">
+        <label class="lblModal" for="ddlModalAcusar_Armas">Selecione uma arma</label>
+        <select class="form-control" id="ddlModalAcusar_Armas">
+            @if (ViewBag.Armas != null && ViewBag.Armas.Any())
+            {
+                foreach (var arma in ViewBag.Armas)
+                {
+                    <option value="@arma.Id">@arma.Descricao</option>
+                }
+            }
+        </select>
+    </div>
+    <div class="centralizar">
+        <button type="submit" class="btn btn-primary" onclick="ModalAcusar.Acusar()">Confirmar</button>
+    </div>
+ </div>
+
+
+
