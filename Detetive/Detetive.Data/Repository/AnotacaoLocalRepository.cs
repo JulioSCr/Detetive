@@ -27,6 +27,17 @@ namespace Detetive.Data.Repository
             return anotacao;
         }
 
+        public List<AnotacaoLocal> Adicionar(List<AnotacaoLocal> anotacoes)
+        {
+            if (anotacoes != null && anotacoes.Any())
+            {
+                this.Context.AnotacaoLocais.AddRange(anotacoes);
+                this.Context.SaveChanges();
+            }
+
+            return anotacoes;
+        }
+
         public List<AnotacaoLocal> Listar(int idJogadorSala)
         {
             return this.Context.AnotacaoLocais.AsNoTracking().Where(_ => _.IdJogadorSala == idJogadorSala && _.Ativo).ToList();
