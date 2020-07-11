@@ -241,6 +241,10 @@ namespace Detetive.Controllers
 
         private void CarregarAnotacoes(int idJogadorSala)
         {
+            _anotacaoArmaBusiness.CriarAnotacoes(idJogadorSala);
+            _anotacaoLocalBusiness.CriarAnotacoes(idJogadorSala);
+            _anotacaoSuspeitoBusiness.CriarAnotacoes(idJogadorSala);
+
             ViewBag.AnotacaoArma = Mapper.Map<List<AnotacaoArma>, List<AnotacaoArmaViewModel>>(_anotacaoArmaBusiness.Listar(idJogadorSala));
             ViewBag.AnotacaoLocal = Mapper.Map<List<AnotacaoLocal>, List<AnotacaoLocalViewModel>>(_anotacaoLocalBusiness.Listar(idJogadorSala));
             ViewBag.AnotacaoSuspeito = Mapper.Map<List<AnotacaoSuspeito>, List<AnotacaoSuspeitoViewModel>>(_anotacaoSuspeitoBusiness.Listar(idJogadorSala));

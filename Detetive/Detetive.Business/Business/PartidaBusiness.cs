@@ -123,7 +123,6 @@ namespace Detetive.Business.Business
 
             DistribuirCartasJogadores(jogadoresSala, armas, locais, suspeitos);
             DefinirOrdemJogadoresSalaETurnoInicial(jogadoresSala);
-            GerarAnotacoesJogadores(jogadoresSala);
 
             _historicoBusiness.Adicionar(new Historico(sala.Id, $"Partida #{sala.Id} Iniciada."));
             return new Operacao("Partida iniciada com sucesso!");
@@ -177,16 +176,6 @@ namespace Detetive.Business.Business
                         suspeitos.RemoveAt(index);
                     }
                 }
-            }
-        }
-
-        private void GerarAnotacoesJogadores(List<JogadorSala> jogadoresSala)
-        {
-            foreach (var jogadorSala in jogadoresSala)
-            {
-                _anotacaoArmaBusiness.CriarAnotacoes(jogadorSala.Id);
-                _anotacaoLocalBusiness.CriarAnotacoes(jogadorSala.Id);
-                _anotacaoSuspeitoBusiness.CriarAnotacoes(jogadorSala.Id);
             }
         }
 
