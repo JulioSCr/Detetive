@@ -103,11 +103,11 @@
     <div id="divCartasContainer" class="esquerda centralizar">
         <div id="divCartas">
             <div class="slider slider-nav">
-                foreach (var carta in ViewBag.AnotacaoSuspeito)
+                @foreach (var carta in ViewBag.Cartas)
                 {
-                    <div class="carta centralizar">
-                        <img src= carta.DS_CAMINHO_IMAGEM />
-                    </div>
+                <div class="carta centralizar">
+                    <img src="@Url.Content(carta)" />
+                </div>
                 }
             </div>
         </div>

@@ -16,7 +16,7 @@ INSERT INTO "LOCAL" (DS_LOCAL, DS_CAMINHO_IMAGEM, NR_LINHA_1, NR_COLUNA_1, NR_LI
 	, ('Prédio B', '~/Content/Imagens/CartasLocais/imgCartaPredioB.svg', 11, 9, 17, 14, 1)
 	, ('Praça', '~/Content/Imagens/CartasLocais/imgCartaPraca.svg', 20, 16, 25, 24, 1)
 	, ('ETESP', '~/Content/Imagens/CartasLocais/imgCartaETESP.svg', 20, 9, 25, 14, 1)
-	, ('Cantina A/B', '~/Content/Imagens/CartasLocais/imgCartaCatinaAB.svg', 20, 1, 25, 6, 1)
+	, ('Cantina A/B', '~/Content/Imagens/CartasLocais/imgCartaCantinaAB.svg', 20, 1, 25, 6, 1)
 	, ('Auditório', '~/Content/Imagens/CartasLocais/imgCartaAuditorio.svg',	3, 18, 8, 24, 1)
 
 INSERT INTO SUSPEITO (ID_LOCAL, DS_SUSPEITO, DS_CAMINHO_IMAGEM, DS_CAMINHO_IMAGEM_TOKEN, IE_ATIVO) VALUES

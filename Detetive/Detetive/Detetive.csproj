@@ -294,7 +294,7 @@
     <Content Include="Content\Imagens\CartasLocais\imgCartaGinasio.svg" />
     <Content Include="Content\Imagens\CartasLocais\imgCartaPraca.svg" />
     <Content Include="Content\Imagens\CartasLocais\imgCartaPredioA.svg" />
-    <Content Include="Content\Imagens\CartasLocais\imgCartaPrédioB.svg" />
+    <Content Include="Content\Imagens\CartasLocais\imgCartaPredioB.svg" />
     <Content Include="Content\Imagens\CartasLocais\imgCartaSantiago.svg" />
     <Content Include="Content\Imagens\CartasSuspeitos\imgCartaBibliotecaria.svg" />
     <Content Include="Content\Imagens\CartasSuspeitos\imgCartaDiretora.svg" />
