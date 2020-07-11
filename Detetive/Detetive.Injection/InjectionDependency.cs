@@ -31,6 +31,10 @@ namespace Detetive.Injection
             container.Register<ISuspeitoBusiness, SuspeitoBusiness>(Lifestyle.Scoped);
             container.Register<IArmaBusiness, ArmaBusiness>(Lifestyle.Scoped);
             container.Register<IPartidaBusiness, PartidaBusiness>(Lifestyle.Scoped);
+            container.Register<IArmaJogadorSalaBusiness, ArmaJogadorSalaBusiness>(Lifestyle.Scoped);
+            container.Register<ILocalJogadorSalaBusiness, LocalJogadorSalaBusiness>(Lifestyle.Scoped);
+            container.Register<ISuspeitoJogadorSalaBusiness, SuspeitoJogadorSalaBusiness>(Lifestyle.Scoped);
+            container.Register<IHistoricoBusiness, HistoricoBusiness>(Lifestyle.Scoped);
 
             // Data
             container.Register<IAnotacaoArmaRepository, AnotacaoArmaRepository>(Lifestyle.Scoped);
@@ -44,7 +48,10 @@ namespace Detetive.Injection
             container.Register<IPortaLocalRepository, PortaLocalRepository>(Lifestyle.Scoped);
             container.Register<ISalaRepository, SalaRepository>(Lifestyle.Scoped);
             container.Register<ISuspeitoRepository, SuspeitoRepository>(Lifestyle.Scoped);
-
+            container.Register<IArmaJogadorSalaRepository, ArmaJogadorSalaRepository>(Lifestyle.Scoped);
+            container.Register<ILocalJogadorSalaRepository, LocalJogadorSalaRepository>(Lifestyle.Scoped);
+            container.Register<ISuspeitoJogadorSalaRepository, SuspeitoJogadorSalaRepository>(Lifestyle.Scoped);
+            container.Register<IHistoricoRepository, HistoricoRepository>(Lifestyle.Scoped);
 
             container.RegisterMvcControllers(Assembly.GetExecutingAssembly());
             container.Verify();

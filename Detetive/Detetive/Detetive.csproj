@@ -235,6 +235,7 @@
     <Compile Include="App_Start\Startup.cs" />
     <Compile Include="Controllers\AnotacaoController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\PopUpController.cs" />
     <Compile Include="Controllers\PropagandaController.cs" />
     <Compile Include="Controllers\SalaController.cs" />
     <Compile Include="Controllers\PartidaController.cs" />
@@ -247,6 +248,7 @@
     <Compile Include="Hubs\HubSala.cs" />
     <Compile Include="Mappers\AutoMapperConfig.cs" />
     <Compile Include="Mappers\MapperAnotacaoArmaToAnotacaoArmaViewModel.cs" />
+    <Compile Include="Mappers\MapperHistoricoToHistoricoViewModel.cs" />
     <Compile Include="Mappers\MapperAnotacaoSuspeitoToAnotacaoLocalViewModel.cs" />
     <Compile Include="Mappers\MapperAnotacaoLocalToAnotacaoLocalViewModel.cs" />
     <Compile Include="Mappers\MapperJogadorSalaToJogadorSalaViewModel.cs" />
@@ -260,6 +262,7 @@
     <Compile Include="ViewModel\Anotacao\AnotacaoLocalViewModel.cs" />
     <Compile Include="ViewModel\ArmaViewModel.cs" />
     <Compile Include="ViewModel\BaseViewModel.cs" />
+    <Compile Include="ViewModel\HistoricoViewModel.cs" />
     <Compile Include="ViewModel\JogadorSuspeitoViewModel.cs" />
     <Compile Include="ViewModel\LocalPortaViewModel.cs" />
     <Compile Include="ViewModel\LocalViewModel.cs" />
@@ -276,6 +279,23 @@
     <Content Include="Content\bootstrap-reboot.min.css" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
+    <Content Include="Content\Imagens\CartasArmas\imgCartaCadeiraQuebrada.svg" />
+    <Content Include="Content\Imagens\CartasArmas\imgCartaCaixaDeGiz.svg" />
+    <Content Include="Content\Imagens\CartasArmas\imgCartaMonitor.svg" />
+    <Content Include="Content\Imagens\CartasArmas\imgCartaPendrive.svg" />
+    <Content Include="Content\Imagens\CartasArmas\imgCartaPomba.svg" />
+    <Content Include="Content\Imagens\CartasArmas\imgCartaProjetor.svg" />
+    <Content Include="Content\Imagens\CartasArmas\imgCartaListaDeExercicios.svg" />
+    <Content Include="Content\Imagens\CartasArmas\imgCartaTeclado.svg" />
+    <Content Include="Content\Imagens\CartasLocais\imgCartaAuditorio.svg" />
+    <Content Include="Content\Imagens\CartasLocais\imgCartaCentroAcademico.svg" />
+    <Content Include="Content\Imagens\CartasLocais\imgCartaCantinaAB.svg" />
+    <Content Include="Content\Imagens\CartasLocais\imgCartaETESP.svg" />
+    <Content Include="Content\Imagens\CartasLocais\imgCartaGinasio.svg" />
+    <Content Include="Content\Imagens\CartasLocais\imgCartaPraca.svg" />
+    <Content Include="Content\Imagens\CartasLocais\imgCartaPredioA.svg" />
+    <Content Include="Content\Imagens\CartasLocais\imgCartaPrédioB.svg" />
+    <Content Include="Content\Imagens\CartasLocais\imgCartaSantiago.svg" />
     <Content Include="Content\Imagens\CartasSuspeitos\imgCartaBibliotecaria.svg" />
     <Content Include="Content\Imagens\CartasSuspeitos\imgCartaDiretora.svg" />
     <Content Include="Content\Imagens\CartasSuspeitos\imgCartaEstudante.svg" />
@@ -288,9 +308,15 @@
     <Content Include="Content\Imagens\ManterSala\imgBtnIngressar.svg" />
     <Content Include="Content\Imagens\ManterSala\imgBtnVamosAoCaso.svg" />
     <Content Include="Content\Imagens\ManterSala\imgTxtIdSala.svg" />
+    <Content Include="Content\Imagens\Shared\imgAlerta.svg" />
     <Content Include="Content\Imagens\Shared\imgBtnVoltar.svg" />
+    <Content Include="Content\Imagens\Shared\imgDados.svg" />
+    <Content Include="Content\Imagens\Shared\imgErro.svg" />
     <Content Include="Content\Imagens\Shared\imgLogo.svg" />
+    <Content Include="Content\Imagens\Shared\imgQuestion.svg" />
     <Content Include="Content\Imagens\Shared\imgTurno.svg" />
+    <Content Include="Content\Imagens\Shared\SetaHorizontal.svg" />
+    <Content Include="Content\Imagens\Shared\SetaVertical.svg" />
     <Content Include="Content\Imagens\Tabuleiro\imgTabuleiro.svg" />
     <Content Include="Content\Imagens\Tabuleiro\imgTabuleiroQuadrada.svg" />
     <Content Include="Content\Libs\Bootstrap\bootstrap-grid.css" />
@@ -302,10 +328,13 @@
     <Content Include="Content\Libs\Detetive\Global.css" />
     <Content Include="Content\Libs\Detetive\Modal.css" />
     <Content Include="Content\Libs\Material\material-icons.css" />
+    <Content Include="Content\Libs\Slick\slick-theme.css" />
+    <Content Include="Content\Libs\Slick\slick.css" />
     <Content Include="Content\Site.css" />
     <Content Include="Content\Views\Home\Index.css" />
     <Content Include="Content\Views\Partida\Jogar.css" />
     <Content Include="Content\Views\Partida\ModalAcusar.css" />
+    <Content Include="Content\Views\PopUp\PopUp.css" />
     <Content Include="Content\Views\Propaganda\Ad.css" />
     <Content Include="Content\Views\Sala\Manter.css" />
     <Content Include="Content\Views\Sobre\Exibir.css" />
@@ -329,6 +358,7 @@
     <Content Include="Content\Libs\Bootstrap\bootstrap-grid.min.css.map" />
     <Content Include="Content\Libs\Bootstrap\bootstrap-grid.css.map" />
     <Content Include="Scripts\Libs\Detetive\Global.js" />
+    <Content Include="Scripts\Libs\Detetive\Loader.js" />
     <Content Include="Scripts\Libs\Detetive\Modal.js" />
     <Content Include="Scripts\Libs\Detetive\Sala.js" />
     <Content Include="Scripts\Libs\esm\popper-utils.js" />
@@ -363,6 +393,8 @@
     <Content Include="Scripts\Libs\Popper\popper-utils.min.js" />
     <Content Include="Scripts\Libs\Popper\popper.js" />
     <Content Include="Scripts\Libs\Popper\popper.min.js" />
+    <Content Include="Scripts\Libs\Slick\slick.js" />
+    <Content Include="Scripts\Libs\Slick\slick.min.js" />
     <Content Include="Scripts\Libs\src\index.js" />
     <Content Include="Scripts\Libs\src\methods\defaults.js" />
     <Content Include="Scripts\Libs\src\methods\destroy.js" />
@@ -431,12 +463,15 @@
     <Content Include="Scripts\Libs\umd\popper.js" />
     <Content Include="Scripts\Libs\umd\popper.min.js" />
     <Content Include="Scripts\Views\Partida\ModalAcusar.js" />
+    <Content Include="Scripts\Views\PopUp\PopUp.js" />
     <Content Include="Scripts\Views\Propaganda\Ad.js" />
     <Content Include="Scripts\Views\Sala\Manter.js" />
     <Content Include="Scripts\Views\Partida\Jogar.js" />
     <Content Include="Scripts\Views\Partida\ModalPalpite.js" />
     <Content Include="Scripts\Views\Suspeito\Listar.js" />
-    <Content Include="Web.config" />
+    <Content Include="Web.config">
+      <SubType>Designer</SubType>
+    </Content>
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </Content>
@@ -469,11 +504,10 @@
     <Content Include="Views\Home1\Index.cshtml" />
     <Content Include="Views\Sala\Manter.cshtml" />
     <Content Include="Views\Propaganda\Ad.cshtml" />
+    <Content Include="Views\PopUp\PopUp.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Content\Imagens\CartasArmas\" />
-    <Folder Include="Content\Imagens\CartasLocais\" />
     <Folder Include="Models\" />
     <Folder Include="Views\Teste\" />
   </ItemGroup>

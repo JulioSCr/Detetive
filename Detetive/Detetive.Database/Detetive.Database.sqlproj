@@ -76,5 +76,6 @@
     <Build Include="SQL Server\Table\dbo-SUSPEITO_JOGADOR_SALA.sql" />
     <Build Include="SQL Server\Table\dbo-LOCAL_PORTA.sql" />
     <None Include="SQL Server\Script\dbo-CARGA_ARMA_SUSPEITO_LOCAL.sql" />
+    <Build Include="SQL Server\Table\dbo-HISTORICO.sql" />
   </ItemGroup>
 </Project>

@@ -19,6 +19,7 @@ namespace Detetive.Mappers
                 x.AddProfile<MapperAnotacaoLocalToAnotacaoLocalViewModel>();
                 x.AddProfile<MapperAnotacaoSuspeitoToAnotacaoLocalViewModel>();
                 x.AddProfile<MapperJogadorSalaToJogadorSalaViewModel>();
+                x.AddProfile<MapperHistoricoToHistoricoViewModel>();
             });
         }
     }

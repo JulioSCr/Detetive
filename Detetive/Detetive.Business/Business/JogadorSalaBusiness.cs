@@ -15,23 +15,14 @@ namespace Detetive.Business.Business
         private readonly IJogadorBusiness _jogadorBusiness;
         private readonly ISuspeitoBusiness _suspeitoBusiness;
         private readonly IJogadorSalaRepository _jogadorSalaRepository;
-        private readonly IAnotacaoArmaBusiness _anotacaoArmaBusiness;
-        private readonly IAnotacaoLocalBusiness _anotacaoLocalBusiness;
-        private readonly IAnotacaoSuspeitoBusiness _anotacaoSuspeitoBusiness;
 
         public JogadorSalaBusiness(IJogadorBusiness jogadorBusiness, 
                                    ISuspeitoBusiness suspeitoBusiness, 
-                                   IJogadorSalaRepository jogadorSalaRepository, 
-                                   IAnotacaoArmaBusiness anotacaoArmaBusiness, 
-                                   IAnotacaoLocalBusiness anotacaoLocalBusiness, 
-                                   IAnotacaoSuspeitoBusiness anotacaoSuspeitoBusiness)
+                                   IJogadorSalaRepository jogadorSalaRepository)
         {
             _jogadorBusiness = jogadorBusiness;
             _suspeitoBusiness = suspeitoBusiness;
             _jogadorSalaRepository = jogadorSalaRepository;
-            _anotacaoArmaBusiness = anotacaoArmaBusiness;
-            _anotacaoLocalBusiness = anotacaoLocalBusiness;
-            _anotacaoSuspeitoBusiness = anotacaoSuspeitoBusiness;
         }
 
         public JogadorSala Obter(int idJogadorSala)
@@ -63,8 +54,6 @@ namespace Detetive.Business.Business
 
             var jogadorSala = _jogadorSalaRepository.Adicionar(new JogadorSala(idJogador, sala.Id));
 
-            GerarAnotacoesJogador(jogadorSala);
-
             return new Operacao("Jogador ingressado com sucesso!");
         }
 
@@ -83,11 +72,11 @@ namespace Detetive.Business.Business
             return listaJogadores;
         }
 
-        private void GerarAnotacoesJogador(JogadorSala jogadorSala)
+        public List<JogadorSala> Alterar(List<JogadorSala> jogadoresSala)
         {
-            _anotacaoArmaBusiness.CriarAnotacoes(jogadorSala.Id);
-            _anotacaoLocalBusiness.CriarAnotacoes(jogadorSala.Id);
-            _anotacaoSuspeitoBusiness.CriarAnotacoes(jogadorSala.Id);
+            jogadoresSala.ForEach(jogadorSala => this.Alterar(jogadorSala));
+
+            return jogadoresSala;
         }
     }
 }

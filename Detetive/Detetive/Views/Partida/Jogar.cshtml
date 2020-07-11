@@ -6,15 +6,20 @@
 
 @section head{
     <link rel="stylesheet" href="@Url.Content("~/Content/Views/Partida/Jogar.css?" + DateTimeOffset.Now)" />
+    <link rel="stylesheet" href="@Url.Content("~/Content/Libs/Slick/slick.css?" + DateTimeOffset.Now)" />
+    <link rel="stylesheet" href="@Url.Content("~/Content/Libs/Slick/slick-theme.css?" + DateTimeOffset.Now)" />
 }
 
 @section scripts{
+    <script src="@Url.Content("~/Scripts/Libs/Slick/slick.js?" + DateTimeOffset.Now)"></script>
     <script src="@Url.Content("~/Scripts/Views/Partida/Jogar.js?" + DateTimeOffset.Now)"></script>
     <script>
         @*gID_JOGADOR_SALA = @lID_JOGADOR_SALA;*@
     </script>
 }
 <input id="inpID_JOGADOR_SALA" type="hidden" name="ID_JOGADOR_SALA" value="@ViewBag.JogadorSala.Id" />
+<input id="inpID_SALA" type="hidden" name="inpID_SALA" value="@ViewBag.ID_Sala" />
+
 <section id="secPrimeiraLinha">
     <div id="divTabuleiro" class="esquerda">
         @foreach (var local in ViewBag.Locais)
@@ -32,8 +37,9 @@
 
         @foreach (var jogadorSuspeito in ViewBag.JogadoresSuspeitos)
         {
-            if (jogadorSuspeito.IdLocal == null){
-            <div id=@($"div{jogadorSuspeito.IdDescricao}") title="@jogadorSuspeito.DescricaoSuspeito" idJogadorSala="@jogadorSuspeito.IdJogadorSala" class="suspeito" style="grid-column:@jogadorSuspeito.CoordenadaColuna;grid-row:@jogadorSuspeito.CoordenadaLinha"></div>
+            if (jogadorSuspeito.IdLocal == null)
+            {
+                <div id=@($"div{jogadorSuspeito.IdDescricao}") title="@jogadorSuspeito.DescricaoSuspeito" idJogadorSala="@jogadorSuspeito.IdJogadorSala" class="suspeito" style="grid-column:@jogadorSuspeito.CoordenadaColuna;grid-row:@jogadorSuspeito.CoordenadaLinha"></div>
             }
         }
     </div>
@@ -94,8 +100,29 @@
     </div>
 </section>
 <section id="secSegundaLinha">
-    <div id="divCartas" class="esquerda">
-
+    <div id="divCartasContainer" class="esquerda centralizar">
+        <div id="divCartas">
+            <div class="slider slider-nav">
+                <div class="carta centralizar">
+                    <img src="~/Content/Imagens/CartasArmas/imgCartaCadeiraQuebrada.svg" />
+                </div>
+                <div class="carta centralizar">
+                    <img src="~/Content/Imagens/CartasArmas/imgCartaCadeiraQuebrada.svg" />
+                </div>
+                <div class="carta centralizar">
+                    <img src="~/Content/Imagens/CartasArmas/imgCartaCadeiraQuebrada.svg" />
+                </div>
+                <div class="carta centralizar">
+                    <img src="~/Content/Imagens/CartasArmas/imgCartaCadeiraQuebrada.svg" />
+                </div>
+                <div class="carta centralizar">
+                    <img src="~/Content/Imagens/CartasArmas/imgCartaCadeiraQuebrada.svg" />
+                </div>
+                <div class="carta centralizar">
+                    <img src="~/Content/Imagens/CartasArmas/imgCartaCadeiraQuebrada.svg" />
+                </div>
+            </div>
+        </div>
     </div>
     <div id="divAcoes" class="direita">
         <div id="divBotoes">

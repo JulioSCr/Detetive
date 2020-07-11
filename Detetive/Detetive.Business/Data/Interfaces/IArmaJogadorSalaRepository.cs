@@ -9,6 +9,7 @@ namespace Detetive.Business.Data.Interfaces
 {
     public interface IArmaJogadorSalaRepository
     {
+        ArmaJogadorSala Obter(int idArma, int idJogadorSala);
         ArmaJogadorSala Adicionar(ArmaJogadorSala armaJogadorSala);
         List<ArmaJogadorSala> Listar(int idJogadorSala);
     }

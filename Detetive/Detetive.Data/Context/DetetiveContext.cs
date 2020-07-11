@@ -21,15 +21,18 @@ namespace Detetive.Data.Context
         public DbSet<AnotacaoSuspeito> AnotacaoSuspeitos { get; set; }
 
         // Cartas
-        public DbSet<ArmaJogadorSala> ArmaJogadorSala { get; set; }
-        public DbSet<LocalJogadorSala> LocalJogadorSala { get; set; }
-        public DbSet<SuspeitoJogadorSala> SuspeitoJogadorSala { get; set; }
+        public DbSet<ArmaJogadorSala> ArmasJogadorSala { get; set; }
+        public DbSet<LocalJogadorSala> LocaisJogadorSala { get; set; }
+        public DbSet<SuspeitoJogadorSala> SuspeitosJogadorSala { get; set; }
 
         // Jogador
         public DbSet<Jogador> Jogadores { get; set; }
         public DbSet<JogadorSala> JogadoresSala { get; set; }
         
         public DbSet<Crime> Crimes { get; set; }
+
+        // Chat
+        public DbSet<Historico> Historicos { get; set; }
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
@@ -47,6 +50,7 @@ namespace Detetive.Data.Context
             modelBuilder.Configurations.Add(new JogadorSalaConfig());
             modelBuilder.Configurations.Add(new CrimeConfig());
             modelBuilder.Configurations.Add(new PortaLocalConfig());
+            modelBuilder.Configurations.Add(new HistoricoConfig());
 
             Database.SetInitializer<DetetiveContext>(null);
         }
