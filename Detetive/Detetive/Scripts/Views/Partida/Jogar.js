@@ -25,33 +25,52 @@ $(document).ready(function () {
 
 Jogar.btnFinalizarTurno_OnClick = function () {
     try {
-        $("#btnEsquerda").attr("disabled", true);
-        $("#btnEsquerda").css('background', 'darkgrey');
+        //$("#btnEsquerda").attr("disabled", true);
+        //$("#btnEsquerda").css('background', 'darkgrey');
 
-        $("#btnDireita").attr("disabled", true);
-        $("#btnDireita").css('background', 'darkgrey');
+        //$("#btnDireita").attr("disabled", true);
+        //$("#btnDireita").css('background', 'darkgrey');
 
-        $("#btnAcima").attr("disabled", true);
-        $("#btnAcima").css('background', 'darkgrey');
+        //$("#btnAcima").attr("disabled", true);
+        //$("#btnAcima").css('background', 'darkgrey');
 
-        $("#btnAbaixo").attr("disabled", true);
-        $("#btnAbaixo").css('background', 'darkgrey');
+        //$("#btnAbaixo").attr("disabled", true);
+        //$("#btnAbaixo").css('background', 'darkgrey');
 
-        $("#btnLancarDados").attr("disabled", true);
-        $("#btnLancarDados").css('background', 'darkgrey');
+        //$("#btnLancarDados").attr("disabled", true);
+        //$("#btnLancarDados").css('background', 'darkgrey');
 
-        $("#btnPalpite").attr("disabled", true);
-        $("#btnAcusar").attr("disabled", true);
-        $("#btnPassagemSecreta").attr("disabled", true);
+        //$("#btnPalpite").attr("disabled", true);
+        //$("#btnAcusar").attr("disabled", true);
+        //$("#btnPassagemSecreta").attr("disabled", true);
 
-        $("#btnFinalizarTurno").attr("disabled", true);
-        $("#btnFinalizarTurno").css('background', 'darkgrey');
+        //$("#btnFinalizarTurno").attr("disabled", true);
+        //$("#btnFinalizarTurno").css('background', 'darkgrey');
 
-        $("#divCaixaInformacoes").append("Você finalizou seu turno!");
+        //$("#divCaixaInformacoes").append("Você finalizou seu turno!");
+
+        $.ajax({
+            url: gstrGlobalPath + 'Partida/Finalizar',
+            type: 'post',
+            data: {
+                idJogadorSala: Jogar.mID_JOGADOR_SALA
+            },
+            success: function (data, textStatus, XMLHttpRequest) {
+                var retorno = alert(JSON.parse(data).Retorno);
+
+                if (!retorno.Status) {
+                    alert(retorno.Retorno)
+                }
+            },
+            error: function (data, textStatus, XMLHttpRequest) {
+                alert(data.Retorno);
+            }
+        });
 
     } catch (ex) {
         alert(ex);
     }
+    
 }
 
 Jogar.btnDireita_OnClick = function () {

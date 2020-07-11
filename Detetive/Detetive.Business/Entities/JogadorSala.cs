@@ -56,6 +56,11 @@ namespace Detetive.Business.Entities
                                                     Math.Abs(CoordenadaColuna - coordenadaColuna);
 
             QuantidadeMovimento -= quantidadeMovimentosNecessarios;
+        } 
+
+        public void FinalizarTurno (bool fim)
+        {
+            VezJogador = fim;
         }
 
         public void AlterarCoordenadas(int coordenadaLinha, int coordenadaColuna)
