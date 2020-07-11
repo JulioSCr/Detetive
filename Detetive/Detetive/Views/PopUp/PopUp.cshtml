@@ -1,0 +1,17 @@
+﻿
+@{
+    Layout = "~/Views/Shared/_LayoutModal.cshtml";
+}
+@section head{
+    <link rel="stylesheet" href="@Url.Content("~/Content/Views/PopUp/PopUp.css?" + DateTimeOffset.Now)" />
+}
+@section scripts{
+    <script src="@Url.Content("~/Scripts/Views/PopUp/PopUp.js?" + DateTimeOffset.Now)"></script>
+}
+
+<div class="centralizar">
+    <label id="lblMensagem" class="fontePadrao"></label>
+</div>
+<div id="btnAcao" class="centralizar">
+    <button id="btnOk" class="btn btn-primary" title="Ingressar na partida" onclick="PopUp.btnOk_OnClick()">Ok</button>
+</div>

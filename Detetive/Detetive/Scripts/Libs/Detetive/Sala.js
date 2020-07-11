@@ -63,6 +63,10 @@ Sala.Configurar = function () {
         Listar.TransmitirSelecaoSuspeito(pintIdJogadorSala, pintIdSuspeito, pstrDescricaoJogador, pstrDescricaoSuspeitoSelecionado, pstrDescricaoSuspeitoDesconsiderado);
     }
 
+    Sala.mHubSala.client.TransmitirIniciarPartida = function (pIdJogadorSala) {
+        Listar.TransmitirIniciarPartida(pIdJogadorSala);
+    }
+
     Sala.mHubSala.client.TransmitirDesconsideracaoSuspeito = function (pintIdJogadorSala, pDescricaoSuspeito) {
         Listar.TransmitirDesconsideracaoSuspeito(pintIdJogadorSala, pDescricaoSuspeito);
     }
@@ -251,5 +255,13 @@ Sala.Teletransporte = function (pintIdJogadorSala, pintIdLocal) {
         Sala.mHubSala.server.teletransporte(pintIdJogadorSala, pintIdLocal, Sala.mIdSala).done(function () { });
     } catch (ex) {
         alert(ex);
+    }
+}
+
+Sala.IniciarPartida = function (pintIdSala, pintIdJogadorSala) {
+    try {
+        Sala.mHubSala.server.iniciarPartida(pintIdSala, pintIdJogadorSala).done(function () { });
+    } catch (ex) {
+        PopUp.Erro(ex);
     }
 }

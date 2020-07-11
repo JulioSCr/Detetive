@@ -12,6 +12,7 @@ namespace Detetive.Business.Entities
         public int IdArma { get; set; }
         public virtual Crime Crime { get; set; }
         public virtual JogadorSala JogadorSala { get; set; }
+        public virtual Arma Arma { get; set; }
         internal ArmaJogadorSala() { }
         public ArmaJogadorSala(int idArma, int idJogadorSala) : base(idJogadorSala)
         {

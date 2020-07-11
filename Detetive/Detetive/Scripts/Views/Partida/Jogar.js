@@ -38,10 +38,52 @@ $(document).ready(function () {
 
 Jogar.btnFinalizarTurno_OnClick = function () {
     try {
+        //$("#btnEsquerda").attr("disabled", true);
+        //$("#btnEsquerda").css('background', 'darkgrey');
+
+        //$("#btnDireita").attr("disabled", true);
+        //$("#btnDireita").css('background', 'darkgrey');
+
+        //$("#btnAcima").attr("disabled", true);
+        //$("#btnAcima").css('background', 'darkgrey');
+
+        //$("#btnAbaixo").attr("disabled", true);
+        //$("#btnAbaixo").css('background', 'darkgrey');
+
+        //$("#btnLancarDados").attr("disabled", true);
+        //$("#btnLancarDados").css('background', 'darkgrey');
+
+        //$("#btnPalpite").attr("disabled", true);
+        //$("#btnAcusar").attr("disabled", true);
+        //$("#btnPassagemSecreta").attr("disabled", true);
+
+        //$("#btnFinalizarTurno").attr("disabled", true);
+        //$("#btnFinalizarTurno").css('background', 'darkgrey');
+
+        //$("#divCaixaInformacoes").append("Você finalizou seu turno!");
+
+        $.ajax({
+            url: gstrGlobalPath + 'Partida/Finalizar',
+            type: 'post',
+            data: {
+                idJogadorSala: Jogar.mID_JOGADOR_SALA
+            },
+            success: function (data, textStatus, XMLHttpRequest) {
+                var retorno = alert(JSON.parse(data).Retorno);
+
+                if (!retorno.Status) {
+                    alert(retorno.Retorno)
+                }
+            },
+            error: function (data, textStatus, XMLHttpRequest) {
+                alert(data.Retorno);
+            }
+        });
 
     } catch (ex) {
-        alert(ex);
+        PopUp.Erro(ex);
     }
+    
 }
 
 Jogar.btnDireita_OnClick = function () {
@@ -53,7 +95,7 @@ Jogar.btnDireita_OnClick = function () {
         //({ lIDLocal, lLinha, lColuna } = Jogar.SairLocal(lIDLocal, lLinha, lColuna, 'direita'));
         Sala.EnviarMovimento(lLinha, lColuna + 1);
     } catch (ex) {
-        alert(ex);
+        PopUp.Erro(ex);
     }
 };
 
@@ -66,7 +108,7 @@ Jogar.btnEsquerda_OnClick = function () {
         //({ lIDLocal, lLinha, lColuna } = Jogar.SairLocal(lIDLocal, lLinha, lColuna, 'esquerda'));
         Sala.EnviarMovimento(lLinha, lColuna - 1);
     } catch (ex) {
-        alert(ex);
+        PopUp.Erro(ex);
     }
 };
 
@@ -79,7 +121,7 @@ Jogar.btnAcima_OnClick = function () {
         //({ lIDLocal, lLinha, lColuna } = Jogar.SairLocal(lIDLocal, lLinha, lColuna, 'cima'));
         Sala.EnviarMovimento(lLinha - 1, lColuna);
     } catch (ex) {
-        alert(ex);
+        PopUp.Erro(ex);
     }
 };
 
@@ -92,7 +134,7 @@ Jogar.btnAbaixo_OnClick = function () {
         //({ lIDLocal, lLinha, lColuna } = Jogar.SairLocal(lIDLocal, lLinha, lColuna, 'baixo'));
         Sala.EnviarMovimento(lLinha + 1, lColuna);
     } catch (ex) {
-        alert(ex);
+        PopUp.Erro(ex);
     }
 };
 
@@ -108,7 +150,7 @@ Jogar.btnPassagemSecreta_OnClick = function () {
         if (lintLocalIDDestino <= 0) { throw 'Você não está em um local com passagem secreta.'; }
         Sala.Teletransporte(Jogar.mID_JOGADOR_SALA, lintLocalIDDestino);
     } catch (ex) {
-        alert(ex);
+        PopUp.Erro(ex);
     }
 }
 
@@ -116,7 +158,7 @@ Jogar.btnPalpite_OnClick = function () {
     try {
         $('#ModalPalpite').Detetive_Modal('show');
     } catch (ex) {
-        alert(ex);
+        PopUp.Erro(ex);
     }
 }
 
@@ -124,7 +166,7 @@ Jogar.btnAcusar_OnClick = function () {
     try {
         $('#ModalAcusar').Detetive_Modal('show');
     } catch (ex) {
-        alert(ex);
+        PopUp.Erro(ex);
     }
 }
 
@@ -163,7 +205,7 @@ Jogar.TransmitirTeletransporte = function (pintID_JOGADOR_SALA, pintIDLocal) {
         Jogar.RemoveDoLocal(pintID_JOGADOR_SALA, 0, 0);
         Jogar.TransmitirMovimento(pintID_JOGADOR_SALA, 0, 0, pintIDLocal);
     } catch (ex) {
-        alert(ex);
+        PopUp.Erro(ex);
     }
 }
 
@@ -273,14 +315,14 @@ Jogar.AnotacaoArma_OnChange = function (input) {
                 valor: valor
             },
             success: function (data, textStatus, XMLHttpRequest) {
-                var retorno = alert(JSON.parse(data).Retorno);
+                var retorno = PopUp.Erro(JSON.parse(data).Retorno);
 
                 if (!retorno.Status) {
-                    alert(retorno.Retorno)
+                    PopUp.Erro(retorno.Retorno)
                 }
             },
             error: function (data, textStatus, XMLHttpRequest) {
-                alert(data.Retorno);
+                PopUp.Erro('Erro durante chamada da controller MarcarArma');
             }
         });
     } catch (ex) {
@@ -302,18 +344,18 @@ Jogar.AnotacaoLocal_OnChange = function (input) {
                 valor: valor
             },
             success: function (data, textStatus, XMLHttpRequest) {
-                var retorno = alert(JSON.parse(data).Retorno);
+                var retorno = PopUp.Erro(JSON.parse(data).Retorno);
 
                 if (!retorno.Status) {
-                    alert(retorno.Retorno)
+                    PopUp.Erro(retorno.Retorno);
                 }
             },
             error: function (data, textStatus, XMLHttpRequest) {
-                alert(data.Retorno);
+                PopUp.Erro('Erro durante chamada da controller MarcarLocal');
             }
         });
     } catch (ex) {
-        alert(ex);
+        PopUp.Erro(ex);
     }
 }
 
@@ -330,29 +372,18 @@ Jogar.AnotacaoSuspeito_OnChange = function (input) {
                 valor: valor
             },
             success: function (data, textStatus, XMLHttpRequest) {
-                var retorno = alert(JSON.parse(data).Retorno);
+                var retorno = PopUp.Erro(JSON.parse(data).Retorno);
 
                 if (!retorno.Status) {
-                    alert(retorno.Retorno)
+                    PopUp.Erro(retorno.Retorno);
                 }
             },
             error: function (data, textStatus, XMLHttpRequest) {
-                alert(data.Retorno);
+                PopUp.Erro('Erro durante chamada da controller MarcarSuspeito');
             }
         });
     } catch (ex) {
-        alert(ex);
-    }
-}
-
-Jogar.SuspeitoToJogadorSala = function (pintIdSuspeito) {
-    var lintIdJogadorSala = new Number();
-    try {
-        
-
-
-    } catch (ex) {
-        alert(ex);
+        PopUp.Erro(ex);
     }
 }
 
