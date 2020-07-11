@@ -19,15 +19,15 @@ INSERT INTO "LOCAL" (DS_LOCAL, DS_CAMINHO_IMAGEM, NR_LINHA_1, NR_COLUNA_1, NR_LI
 	, ('Cantina A/B', '~/Content/Imagens/CartasLocais/imgCartaCatinaAB.svg', 20, 1, 25, 6, 1)
 	, ('Auditório', '~/Content/Imagens/CartasLocais/imgCartaAuditorio.svg',	3, 18, 8, 24, 1)
 
-INSERT INTO SUSPEITO (ID_LOCAL, DS_SUSPEITO, DS_CAMINHO_IMAGEM, IE_ATIVO) VALUES 
-	    (1, 'Reitor', '~/Content/Imagens/CartasSuspeitos/imgCartaReitor.svg', 1)
-	  , (1, 'Diretora', '~/Content/Imagens/CartasSuspeitos/imgCartaDiretora.svg', 1)
-	  , (1, 'Professora', '~/Content/Imagens/CartasSuspeitos/imgCartaProfessora.svg', 1)
-	  , (1, 'Estudante', '~/Content/Imagens/CartasSuspeitos/imgCartaEstudante.svg', 1)
-	  , (1, 'Zelador', '~/Content/Imagens/CartasSuspeitos/imgCartaZelador.svg', 1)
-	  , (1, 'Policial', '~/Content/Imagens/CartasSuspeitos/imgCartaPolicial.svg', 1)
-	  , (1, 'Repóter', '~/Content/Imagens/CartasSuspeitos/imgCartaReporter.svg', 1)
-	  , (1, 'Bibliotecária','~/Content/Imagens/CartasSuspeitos/imgCartaBibliotecaria.svg', 1)
+INSERT INTO SUSPEITO (ID_LOCAL, DS_SUSPEITO, DS_CAMINHO_IMAGEM, DS_CAMINHO_IMAGEM_TOKEN, IE_ATIVO) VALUES
+	    (1, 'Reitor', '~/Content/Imagens/CartasSuspeitos/imgCartaReitor.svg', '~/Content/Imagens/TokenSuspeitos/imgTokenReitor.png', 1)
+	  , (1, 'Diretora', '~/Content/Imagens/CartasSuspeitos/imgCartaDiretora.svg', '~/Content/Imagens/TokenSuspeitos/imgTokenDiretora.png', 1)
+	  , (1, 'Professora', '~/Content/Imagens/CartasSuspeitos/imgCartaProfessora.svg', '~/Content/Imagens/TokenSuspeitos/imgTokenProfessora.png', 1)
+	  , (1, 'Estudante', '~/Content/Imagens/CartasSuspeitos/imgCartaEstudante.svg', '~/Content/Imagens/TokenSuspeitos/imgTokenEstudante.png', 1)
+	  , (1, 'Zelador', '~/Content/Imagens/CartasSuspeitos/imgCartaZelador.svg', '~/Content/Imagens/TokenSuspeitos/imgTokenZelador.png', 1)
+	  , (1, 'Policial', '~/Content/Imagens/CartasSuspeitos/imgCartaPolicial.svg', '~/Content/Imagens/TokenSuspeitos/imgTokenPolicial.png', 1)
+	  , (1, 'Repóter', '~/Content/Imagens/CartasSuspeitos/imgCartaReporter.svg', '~/Content/Imagens/TokenSuspeitos/imgTokenReporter.png', 1)
+	  , (1, 'Bibliotecária','~/Content/Imagens/CartasSuspeitos/imgCartaBibliotecaria.svg', '~/Content/Imagens/TokenSuspeitos/imgTokenBibliotecaria.png', 1)
 
 INSERT INTO LOCAL_PORTA (ID_LOCAL, NR_LINHA, NR_COLUNA, DS_DIRECAO, IE_ATIVO) VALUES
 		(4, 14, 6, 'direita', 1)

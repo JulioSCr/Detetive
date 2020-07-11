@@ -15,6 +15,7 @@ namespace Detetive.Data.Context.EntityConfig
             Property(p => p.Descricao).HasColumnName("DS_SUSPEITO");
             Property(p => p.IdLocal).HasColumnName("ID_LOCAL");
             Property(p => p.UrlImagem).HasColumnName("DS_CAMINHO_IMAGEM");
+            Property(p => p.UrlImagemToken).HasColumnName("DS_CAMINHO_IMAGEM_TOKEN");
             Property(p => p.Ativo).HasColumnName("IE_ATIVO");
         }
     }
