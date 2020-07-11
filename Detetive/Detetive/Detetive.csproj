@@ -319,6 +319,14 @@
     <Content Include="Content\Imagens\Shared\SetaVertical.svg" />
     <Content Include="Content\Imagens\Tabuleiro\imgTabuleiro.svg" />
     <Content Include="Content\Imagens\Tabuleiro\imgTabuleiroQuadrada.svg" />
+    <Content Include="Content\Imagens\TokenSuspeitos\imgTokenBibliotecaria.png" />
+    <Content Include="Content\Imagens\TokenSuspeitos\imgTokenDiretora.png" />
+    <Content Include="Content\Imagens\TokenSuspeitos\imgTokenEstudante.png" />
+    <Content Include="Content\Imagens\TokenSuspeitos\imgTokenPolicial.png" />
+    <Content Include="Content\Imagens\TokenSuspeitos\imgTokenProfessora.png" />
+    <Content Include="Content\Imagens\TokenSuspeitos\imgTokenReitor.png" />
+    <Content Include="Content\Imagens\TokenSuspeitos\imgTokenReporter.png" />
+    <Content Include="Content\Imagens\TokenSuspeitos\imgTokenZelador.png" />
     <Content Include="Content\Libs\Bootstrap\bootstrap-grid.css" />
     <Content Include="Content\Libs\Bootstrap\bootstrap-grid.min.css" />
     <Content Include="Content\Libs\Bootstrap\bootstrap-reboot.css" />
