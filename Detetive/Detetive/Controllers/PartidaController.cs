@@ -203,6 +203,11 @@ namespace Detetive.Controllers
         /// <param name="idArma"></param>
         /// <param name="idLocal"></param>
         /// <returns></returns>
+        public string Finalizar(int idJogadorSala)
+        {
+            return JsonConvert.SerializeObject(_partidaBusiness.Finalizar(idJogadorSala));
+        }
+
         public string Palpite(int idJogadorSala, int idSala, int idArma, int idLocal, int idSuspeito)
         {
             return JsonConvert.SerializeObject(_partidaBusiness.Palpitar(idSala, idJogadorSala, idLocal, idSuspeito, idArma));
