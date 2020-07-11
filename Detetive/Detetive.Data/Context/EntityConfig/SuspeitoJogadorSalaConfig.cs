@@ -17,6 +17,7 @@ namespace Detetive.Data.Context.EntityConfig
             Property(p => p.Ativo).HasColumnName("IE_ATIVO");
             Ignore(p => p.Crime);
             Ignore(p => p.JogadorSala);
+            Ignore(p => p.Suspeito);
         }
     }
 }

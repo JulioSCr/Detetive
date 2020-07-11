@@ -30,7 +30,21 @@
 </head>
 <body>
     <main>
+        <div id="divLoadContainer" class="centralizar">
+            <div>
+                <div class="centralizar">
+                    <div class="Loader"></div>
+                </div>
+                <div class="centralizar">
+                    <label class="fontePadrao">Carregando . . .</label>
+                </div>
+            </div>
+        </div>
+
         @RenderBody()
+
+        <div id="divPopUp" data-url="@Url.Action("PopUp", "PopUp")"></div>
+
     </main>
 
     <script src="@Url.Content("~/Scripts/Libs/JQuery/jquery-3.5.1.min.js?" + DateTimeOffset.Now)"></script>
@@ -43,6 +57,21 @@
     <script src="@Url.Content("~/Scripts/Libs/Detetive/Modal.js?" + DateTimeOffset.Now)"></script>
     <script>
         gstrGlobalPath = '@lGlobalPath';
+
+        $(document).ready(function () {
+            // Inicia popup de Alerta
+            $('#divPopUp').Detetive_Modal();
+            $(document).on({
+                ajaxStart: function () { PopUp.Carregamento(true); },
+                ajaxStop: function () { debugger; PopUp.Carregamento(false); }
+            });
+        });
+
+        window.addEventListener('load', function () {
+            const loader = document.querySelector('#divLoadContainer');
+            loader.className += ' ocultar';
+        });
+
     </script>
     @RenderSection("scripts", required: false)
 </body>

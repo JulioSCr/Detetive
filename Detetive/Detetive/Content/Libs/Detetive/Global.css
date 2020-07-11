@@ -56,13 +56,13 @@ body {
     z-index: 1;
 }
 
-button{
+button {
     cursor: pointer;
 }
 
-button:focus {
-    outline: none;
-}
+    button:focus {
+        outline: none;
+    }
 
 /*#endregion Global*/
 
@@ -70,6 +70,10 @@ button:focus {
     display: flex !important;
     justify-content: center;
     align-items: center;
+}
+
+.fontePadrao {
+    font-family: 'Risque', cursive;
 }
 
 /*.click-especial {
@@ -113,3 +117,65 @@ button:focus {
     z-index: 1041;
 }*/
 /*#endregion Modal*/
+
+/*#region Load*/
+
+#divLoadContainer {
+    position: fixed;
+    z-index: 10000;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: #333;
+}
+
+    #divLoadContainer.ocultar {
+        animation: ocultar 2s;
+        animation-fill-mode: forwards;
+    }
+
+@keyframes ocultar {
+    100% {
+        opacity: 0;
+        visibility: hidden;
+    }
+}
+
+.Loader {
+    display: flex;
+    width: 100px;
+    height: 100px;
+    position: relative;
+    background-image: url(../../Imagens/Shared/imgLogo.svg);
+    background-repeat: no-repeat;
+    background-size: 100px;
+    background-position: center center;
+    background-attachment: inherit;
+    transition: transform 0.8s;
+    transform-style: preserve-3d;
+    animation-name: animacaoLoad;
+    animation-duration: 2s;
+    animation-iteration-count: infinite;
+}
+
+@keyframes animacaoLoad {
+    0% {
+        transform: rotateY(0deg);
+    }
+
+    50% {
+        transform: rotateY(180deg);
+    }
+
+    100% {
+        transform: rotateY(0deg);
+    }
+}
+
+#divLoadContainer label {
+    color: #BDA1B0;
+    font-size: 1.8em;
+}
+
+/*#endregion*/

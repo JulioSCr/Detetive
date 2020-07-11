@@ -15,23 +15,14 @@ namespace Detetive.Business.Business
         private readonly IJogadorBusiness _jogadorBusiness;
         private readonly ISuspeitoBusiness _suspeitoBusiness;
         private readonly IJogadorSalaRepository _jogadorSalaRepository;
-        private readonly IAnotacaoArmaBusiness _anotacaoArmaBusiness;
-        private readonly IAnotacaoLocalBusiness _anotacaoLocalBusiness;
-        private readonly IAnotacaoSuspeitoBusiness _anotacaoSuspeitoBusiness;
 
         public JogadorSalaBusiness(IJogadorBusiness jogadorBusiness, 
                                    ISuspeitoBusiness suspeitoBusiness, 
-                                   IJogadorSalaRepository jogadorSalaRepository, 
-                                   IAnotacaoArmaBusiness anotacaoArmaBusiness, 
-                                   IAnotacaoLocalBusiness anotacaoLocalBusiness, 
-                                   IAnotacaoSuspeitoBusiness anotacaoSuspeitoBusiness)
+                                   IJogadorSalaRepository jogadorSalaRepository)
         {
             _jogadorBusiness = jogadorBusiness;
             _suspeitoBusiness = suspeitoBusiness;
             _jogadorSalaRepository = jogadorSalaRepository;
-            _anotacaoArmaBusiness = anotacaoArmaBusiness;
-            _anotacaoLocalBusiness = anotacaoLocalBusiness;
-            _anotacaoSuspeitoBusiness = anotacaoSuspeitoBusiness;
         }
 
         public JogadorSala Obter(int idJogadorSala)

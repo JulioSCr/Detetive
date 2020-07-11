@@ -1,8 +1,10 @@
 ﻿using Detetive.Business.Business.Interfaces;
+using Detetive.Business.Data.Interfaces;
 using Detetive.Business.Entities;
 using Detetive.Business.Entities.Enum;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Security.Cryptography.X509Certificates;
 using System.Text;
@@ -25,6 +27,7 @@ namespace Detetive.Business.Business
         private readonly IAnotacaoArmaBusiness _anotacaoArmaBusiness;
         private readonly IAnotacaoLocalBusiness _anotacaoLocalBusiness;
         private readonly IAnotacaoSuspeitoBusiness _anotacaoSuspeitoBusiness;
+        private readonly IHistoricoBusiness _historicoBusiness;
 
         public PartidaBusiness(ISalaBusiness salaBusiness,
                                 ICrimeBusiness crimeBusiness,
@@ -38,7 +41,8 @@ namespace Detetive.Business.Business
                                 ISuspeitoJogadorSalaBusiness suspeitoJogadorSalaBusiness,
                                 IAnotacaoArmaBusiness anotacaoArmaBusiness,
                                 IAnotacaoLocalBusiness anotacaoLocalBusiness,
-                                IAnotacaoSuspeitoBusiness anotacaoSuspeitoBusiness)
+                                IAnotacaoSuspeitoBusiness anotacaoSuspeitoBusiness,
+                                IHistoricoBusiness historicoBusiness)
         {
             _salaBusiness = salaBusiness;
             _crimeBusiness = crimeBusiness;
@@ -53,6 +57,7 @@ namespace Detetive.Business.Business
             _anotacaoArmaBusiness = anotacaoArmaBusiness;
             _anotacaoLocalBusiness = anotacaoLocalBusiness;
             _anotacaoSuspeitoBusiness = anotacaoSuspeitoBusiness;
+            _historicoBusiness = historicoBusiness;
         }
 
         public Operacao Iniciar(int idSala)
@@ -91,6 +96,7 @@ namespace Detetive.Business.Business
             DefinirOrdemJogadoresSalaETurnoInicial(jogadoresSala);
             GerarAnotacoesJogadores(jogadoresSala);
 
+            _historicoBusiness.Adicionar(new Historico(sala.Id, $"Partida #{sala.Id} Iniciada."));
             return new Operacao("Partida iniciada com sucesso!");
         }
 
@@ -153,6 +159,70 @@ namespace Detetive.Business.Business
                 _anotacaoLocalBusiness.CriarAnotacoes(jogadorSala.Id);
                 _anotacaoSuspeitoBusiness.CriarAnotacoes(jogadorSala.Id);
             }
+        }
+
+        public Operacao Finalizar(int idJogadorSala)
+        {        
+            if (idJogadorSala <= 0)
+                return new Operacao("Id do jogador não informado", false);
+
+            return FinalizarTurno(idJogadorSala);
+        }
+
+        private Operacao FinalizarTurno(int idJogadorSala)
+        {
+            var jogadorSala = _jogadorSalaBusiness.Obter(idJogadorSala);
+
+            if (jogadorSala == default)
+                return new Operacao("Jogador não encontrado", false);
+
+            if (!jogadorSala.MinhaVez())
+                return new Operacao("Não está na vez desse jogador.", false);
+
+            this.AlteraVezJogadores(idJogadorSala);
+
+            return null;
+        }
+
+        private void AlteraVezJogadores(int idJogadorSala)
+        {
+            var jogadorSala = _jogadorSalaBusiness.Obter(idJogadorSala);
+
+            if (jogadorSala == default) return;
+            
+            jogadorSala.FinalizarTurno(false);
+            _jogadorSalaBusiness.Alterar(jogadorSala);
+
+            var Jogadores = _jogadorSalaBusiness.Listar(jogadorSala.IdSala);
+
+            int NroOrdemProximo =99; 
+            foreach(var jogador in Jogadores)
+            {
+                if (jogador.IdJogador == jogadorSala.IdJogador)
+                {
+                    NroOrdemProximo = jogador.NumeroOrdem + 1;
+                    break;
+                }
+            }
+
+            int idProximoJogador = 0;
+            int idDefault = 0; 
+            foreach (var jogador in Jogadores)
+            {
+                if (jogador.NumeroOrdem == 1) idDefault = jogador.IdJogador; 
+
+                if((NroOrdemProximo) == jogador.NumeroOrdem)
+                {
+                    idProximoJogador = jogador.IdJogador;
+                    break;
+                }
+
+                idProximoJogador = idDefault;
+            }
+
+            var proximoJogadorSala = _jogadorSalaBusiness.Obter(idProximoJogador, jogadorSala.IdSala);
+            proximoJogadorSala.FinalizarTurno(true);
+            _jogadorSalaBusiness.Alterar(proximoJogadorSala);
         }
 
         public Operacao Acusar(int idSala, int idJogadorSala, int idLocal, int idSuspeito, int idArma)
@@ -259,7 +329,7 @@ namespace Detetive.Business.Business
                 return;
 
             var portas = _portaLocalBusiness.Listar(idLocal);
-
+            //ToDo
             if (portas != null && portas.Any())
                 return;
 

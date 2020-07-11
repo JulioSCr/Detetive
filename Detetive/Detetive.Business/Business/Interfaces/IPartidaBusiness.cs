@@ -13,5 +13,7 @@ namespace Detetive.Business.Business.Interfaces
         Operacao Acusar(int idSala, int idJogadorSala, int idLocal, int idSuspeito, int idArma);
         Operacao Palpitar(int idSala, int idJogadorSala, int idLocal, int idSuspeito, int idArma);
         Operacao MoverJogador(int idJogadorSala, int novaCoordenadaLinha, int novaCoordenadaColuna);
+        Operacao Finalizar(int idJogadorSala);
+
     }
 }
