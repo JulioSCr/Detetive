@@ -122,13 +122,15 @@ namespace Detetive.Business.Business
             suspeitos = suspeitos.Where(s => s.Id != crime.IdSuspeito).ToList();
 
             DistribuirCartasJogadores(jogadoresSala, armas, locais, suspeitos);
-            DefinirOrdemJogadoresSalaETurnoInicial(jogadoresSala);
+            jogadoresSala = DefinirOrdemJogadoresSalaETurnoInicial(jogadoresSala);
 
-            _historicoBusiness.Adicionar(new Historico(sala.Id, $"Partida #{sala.Id} Iniciada."));
+            var jogador = _jogadorBusiness.Obter(jogadoresSala.First(_ => _.VezJogador && _.Ativo).IdJogador);
+
+            _historicoBusiness.Adicionar(new Historico(sala.Id, $"Partida #{sala.Id} Iniciada. O jogador {jogador.Descricao} inicia"));
             return new Operacao("Partida iniciada com sucesso!");
         }
 
-        private void DefinirOrdemJogadoresSalaETurnoInicial(List<JogadorSala> jogadoresSala)
+        private List<JogadorSala> DefinirOrdemJogadoresSalaETurnoInicial(List<JogadorSala> jogadoresSala)
         {
             jogadoresSala = jogadoresSala.OrderBy(_ => Guid.NewGuid()).ToList();
 
@@ -139,7 +141,7 @@ namespace Detetive.Business.Business
             });
             jogadoresSala.First(_ => _.NumeroOrdem == 1).VezJogador = true;
 
-            _jogadorSalaBusiness.Alterar(jogadoresSala);
+            return _jogadorSalaBusiness.Alterar(jogadoresSala);
         }
 
         private void DistribuirCartasJogadores(List<JogadorSala> jogadoresSala, List<Arma> armas, List<Local> locais, List<Suspeito> suspeitos)
