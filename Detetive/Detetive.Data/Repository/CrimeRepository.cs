@@ -18,7 +18,7 @@ namespace Detetive.Data.Repository
 
         public Crime Obter(int idSala)
         {
-            return this.Context.Crimes.AsNoTracking().SingleOrDefault(_ => _.IdSala == idSala && _.Ativo);
+            return this.Context.Crimes.AsNoTracking().FirstOrDefault(_ => _.IdSala == idSala && _.Ativo);
         }
 
         public Crime Alterar(Crime crime)

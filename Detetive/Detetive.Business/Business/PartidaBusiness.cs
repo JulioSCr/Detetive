@@ -65,11 +65,14 @@ namespace Detetive.Business.Business
             _dado = dado;
         }
 
-        public Operacao Iniciar(int idSala)
+        public Operacao Iniciar(int idJogadorSala, int idSala)
         {
             var sala = _salaBusiness.Obter(idSala);
             if (sala == default)
                 return new Operacao("Sala não encontrada.", false);
+
+            if (sala.IdJogadorSala != idJogadorSala)
+                return new Operacao("Esse jogador não pode iniciar a partida", false);
 
             var crimeSala = _crimeBusiness.Obter(idSala);
             if (crimeSala != default)

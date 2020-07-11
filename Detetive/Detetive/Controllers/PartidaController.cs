@@ -70,7 +70,7 @@ namespace Detetive.Controllers
 
             int idSala = jogadorSala.IdSala;
 
-            var operacao = _partidaBusiness.Iniciar(idSala);
+            var operacao = _partidaBusiness.Iniciar(idJogadorSala, idSala);
 
             ViewBag.ID_Sala = idSala;
 
@@ -169,9 +169,6 @@ namespace Detetive.Controllers
 
         public string CarregarCartas(int idJogadorSala)
         {
-            // Remover linha abaixo quando finalizar o desenvolvimento.
-            idJogadorSala = 251;
-
             try
             {
                 var armas = _armaJogadorSalaBusiness.Listar(idJogadorSala);
