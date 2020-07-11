@@ -118,7 +118,6 @@ Listar.btnVamosAoCaso_OnClick = function () {
             Mensagem: 'A partida vai começar, seus amigos não poderão ingressar caso não tenham selecionado um suspeito.\nDeseja continuar?',
             Evento: function () {
                 try {
-                    debugger;
                     Sala.IniciarPartida(Listar.mintIdSala, Listar.mintIdJogadorSala);
                     $('#divPopUp').Detetive_Modal('hide');
                     location.href = '/Partida/Jogar?idJogadorSala=' + Listar.mintIdJogadorSala;
