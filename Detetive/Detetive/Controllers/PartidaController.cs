@@ -88,6 +88,7 @@ namespace Detetive.Controllers
             ViewBag.Locais = Mapper.Map<List<Local>, List<LocalViewModel>>(locais);
 
             this.CarregarAnotacoes(jogadorSala.Id);
+            this.CarregarCartas(jogadorSala.Id);
 
             var jogadorSalaViewModel = Mapper.Map<JogadorSala, JogadorSalaViewModel>(_jogadorSalaBusiness.Obter(idJogadorSala));
 
@@ -156,9 +157,10 @@ namespace Detetive.Controllers
             return JsonConvert.SerializeObject("");
         }
 
-        public string CarregarCartas(/*int idJogadorSala*/)
+        public string CarregarCartas(int idJogadorSala)
         {
-            int idJogadorSala = 251;
+            // Remover linha abaixo quando finalizar o desenvolvimento.
+            idJogadorSala = 251;
 
             try
             {
