@@ -46,7 +46,7 @@ PopUp.Erro = function (pstrMensagem) {
 PopUp.Carregamento = function (pblnCarregar) {
     try {
         if (pblnCarregar) {
-            $('#lblMensagem').text('Carregando');
+            $('#lblMensagem').text('Carregando . . .');
             $('#btnAcao').css('visibility', 'hidden');
             $('#DetetiveModal #divImagem').html('<div class="Loader"></div>')
             $('#DetetiveModal .fecha').css('visibility', 'hidden');
