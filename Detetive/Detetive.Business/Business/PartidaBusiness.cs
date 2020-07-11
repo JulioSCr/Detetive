@@ -28,6 +28,7 @@ namespace Detetive.Business.Business
         private readonly IAnotacaoLocalBusiness _anotacaoLocalBusiness;
         private readonly IAnotacaoSuspeitoBusiness _anotacaoSuspeitoBusiness;
         private readonly IHistoricoBusiness _historicoBusiness;
+        private readonly Dado _dado;
 
         public PartidaBusiness(ISalaBusiness salaBusiness,
                                 ICrimeBusiness crimeBusiness,
@@ -42,8 +43,8 @@ namespace Detetive.Business.Business
                                 IAnotacaoArmaBusiness anotacaoArmaBusiness,
                                 IAnotacaoLocalBusiness anotacaoLocalBusiness,
                                 IAnotacaoSuspeitoBusiness anotacaoSuspeitoBusiness,
-                                IHistoricoBusiness historicoBusiness, 
-                                IJogadorBusiness jogadorBusiness)
+                                IHistoricoBusiness historicoBusiness,
+                                IJogadorBusiness jogadorBusiness, Dado dado)
         {
             _salaBusiness = salaBusiness;
             _crimeBusiness = crimeBusiness;
@@ -60,6 +61,7 @@ namespace Detetive.Business.Business
             _anotacaoSuspeitoBusiness = anotacaoSuspeitoBusiness;
             _historicoBusiness = historicoBusiness;
             _jogadorBusiness = jogadorBusiness;
+            _dado = dado;
         }
 
         public Operacao Iniciar(int idSala)
@@ -77,6 +79,27 @@ namespace Detetive.Business.Business
                 return new Operacao("Para iniciar a partida, é necessário que haja pelo menos 3 jogadores.", false);
 
             return IniciarPartida(sala, jogadoresSala);
+        }
+
+        public Operacao RolarDados(int idJogadorSala, int idSala)
+        {
+            var jogadorSala = _jogadorSalaBusiness.Obter(idJogadorSala);
+            if (jogadorSala == default && jogadorSala.IdSala != idSala)
+                return new Operacao("Jogador não encontrado", false);
+
+            if (!jogadorSala.MinhaVez())
+                return new Operacao("Não está na vez desse jogador.", false);
+
+            if (jogadorSala.RolouDados)
+                return new Operacao("O jogador já rolou os dados.", false);
+
+            jogadorSala.AlterarQuantidadeMovimento(_dado.Rolar());
+            var jogador = _jogadorBusiness.Obter(jogadorSala.IdJogador);
+
+            _historicoBusiness.Adicionar(new Historico(idSala, $"O jogador {jogador.Descricao} obteve {jogadorSala.QuantidadeMovimento} na rolagem dos dados."));
+            _jogadorSalaBusiness.Alterar(jogadorSala);
+
+            return new Operacao("Operação realizada com sucesso.");
         }
 
         private Operacao IniciarPartida(Sala sala, List<JogadorSala> jogadoresSala)
@@ -197,7 +220,7 @@ namespace Detetive.Business.Business
 
             if (crime == default)
                 return new Operacao("Crime da sala informada não encontrado", false);
-            
+
             var jogador = _jogadorBusiness.Obter(jogadorSala.IdJogador);
 
             this.MoverJogadorSalaParaLocal(idSuspeito, idSala, idLocal);
