@@ -24,6 +24,8 @@ namespace Detetive.Controllers
         private readonly IAnotacaoLocalBusiness _anotacaoLocalBusiness;
         private readonly IAnotacaoSuspeitoBusiness _anotacaoSuspeitoBusiness;
         private readonly IHistoricoBusiness _historicoBusiness;
+        private readonly IArmaBusiness _armaBusiness;
+        private readonly ISuspeitoBusiness _suspeitoBusiness;
 
         private readonly IArmaJogadorSalaBusiness _armaJogadorSalaBusiness;
         private readonly ISuspeitoJogadorSalaBusiness _suspeitoJogadorSalaBusiness;
@@ -37,6 +39,8 @@ namespace Detetive.Controllers
                                  IAnotacaoLocalBusiness anotacaoLocalBusiness,
                                  IAnotacaoSuspeitoBusiness anotacaoSuspeitoBusiness,
                                  IHistoricoBusiness historicoBusiness,
+                                 IArmaBusiness armaBusiness,
+                                 ISuspeitoBusiness suspeitoBusiness,
                                  IArmaJogadorSalaBusiness armaJogadorSalaBusiness,
                                  ISuspeitoJogadorSalaBusiness suspeitoJogadorSalaBusiness,
                                  ILocalJogadorSalaBusiness localJogadorSalaBusiness)
@@ -49,6 +53,8 @@ namespace Detetive.Controllers
             _anotacaoLocalBusiness = anotacaoLocalBusiness;
             _anotacaoSuspeitoBusiness = anotacaoSuspeitoBusiness;
             _historicoBusiness = historicoBusiness;
+            _armaBusiness = armaBusiness;
+            _suspeitoBusiness = suspeitoBusiness;
             _armaJogadorSalaBusiness = armaJogadorSalaBusiness;
             _suspeitoJogadorSalaBusiness = suspeitoJogadorSalaBusiness;
             _localJogadorSalaBusiness = localJogadorSalaBusiness;
@@ -84,8 +90,10 @@ namespace Detetive.Controllers
             this.CarregarCartas(jogadorSala.Id);
 
             var jogadorSalaViewModel = Mapper.Map<JogadorSala, JogadorSalaViewModel>(_jogadorSalaBusiness.Obter(idJogadorSala));
+            var historicoPartidaViewModel = Mapper.Map<List<Historico>, List<HistoricoViewModel>>(_historicoBusiness.Listar(idSala));
 
             ViewBag.JogadorSala = jogadorSalaViewModel;
+            ViewBag.Historicos = historicoPartidaViewModel;
 
             if (jogadorSalaViewModel.Posicao.IdLocal == 1 || jogadorSalaViewModel.Posicao.IdLocal == 7 || jogadorSalaViewModel.Posicao.IdLocal == 8 || jogadorSalaViewModel.Posicao.IdLocal == 6)
             {
@@ -197,9 +205,8 @@ namespace Detetive.Controllers
         [HttpGet]
         public ActionResult ModalPalpite()
         {
-            // To Do
-            ViewBag.Armas = null;
-            ViewBag.Suspeitos = null;
+            ViewBag.Armas = Mapper.Map<List<Arma>, List<ArmaViewModel>>(_armaBusiness.Listar());
+            ViewBag.Suspeitos = Mapper.Map<List<Suspeito>, List<SuspeitoViewModel>>(_suspeitoBusiness.Listar());
             return PartialView();
         }
 

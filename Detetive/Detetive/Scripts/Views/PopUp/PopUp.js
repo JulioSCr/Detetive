@@ -45,12 +45,13 @@ PopUp.Erro = function (pstrMensagem) {
 
 PopUp.Carregamento = function (pblnCarregar) {
     try {
+        debugger;
         if (pblnCarregar) {
             $('#lblMensagem').text('Carregando . . .');
             $('#btnAcao').css('visibility', 'hidden');
             $('#DetetiveModal #divImagem').html('<div class="Loader"></div>')
             $('#DetetiveModal .fecha').css('visibility', 'hidden');
-            $('#divPopUp').Detetive_Modal('popup');
+            $('#divPopUp').Detetive_Modal('carregar');
         } else {
             $('#divPopUp').Detetive_Modal('hide');
             $('#btnAcao').css('visibility', 'visible');
