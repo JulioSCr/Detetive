@@ -101,24 +101,12 @@
     <div id="divCartasContainer" class="esquerda centralizar">
         <div id="divCartas">
             <div class="slider slider-nav">
-                <div class="carta centralizar">
-                    <img src="~/Content/Imagens/CartasArmas/imgCartaCadeiraQuebrada.svg" />
-                </div>
-                <div class="carta centralizar">
-                    <img src="~/Content/Imagens/CartasArmas/imgCartaCadeiraQuebrada.svg" />
-                </div>
-                <div class="carta centralizar">
-                    <img src="~/Content/Imagens/CartasArmas/imgCartaCadeiraQuebrada.svg" />
-                </div>
-                <div class="carta centralizar">
-                    <img src="~/Content/Imagens/CartasArmas/imgCartaCadeiraQuebrada.svg" />
-                </div>
-                <div class="carta centralizar">
-                    <img src="~/Content/Imagens/CartasArmas/imgCartaCadeiraQuebrada.svg" />
-                </div>
-                <div class="carta centralizar">
-                    <img src="~/Content/Imagens/CartasArmas/imgCartaCadeiraQuebrada.svg" />
-                </div>
+                foreach (var carta in ViewBag.AnotacaoSuspeito)
+                {
+                    <div class="carta centralizar">
+                        <img src= carta.DS_CAMINHO_IMAGEM />
+                    </div>
+                }
             </div>
         </div>
     </div>
