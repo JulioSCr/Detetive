@@ -35,21 +35,22 @@ namespace Detetive.Business.Business
 
             var suspeitosJogadorSala = _suspeitoJogadorSalaRepository.Obter(idSuspeito, idJogadorSala);
             if (suspeitosJogadorSala != null)
-                throw new InvalidOperationException("Este jogador já possui esta carta.");
+                return suspeitosJogadorSala;
 
             var crime = _crimeBusiness.Obter(jogadorSala.IdSala);
             if (crime != null && crime.IdSuspeito == idSuspeito)
                 throw new InvalidOperationException("Esta carta faz parte do crime e não pode ser dada ao jogador.");
 
-            var jogadoresSala = _jogadorSalaBusiness.Listar(jogadorSala.IdSala).Where(x => x.Id != idJogadorSala);
-            foreach (var outroJogadorSala in jogadoresSala)
-            {
-                var suspeitosOutroJogadorSala = _suspeitoJogadorSalaRepository.Listar(outroJogadorSala.Id);
-                if (suspeitosOutroJogadorSala != null && suspeitosOutroJogadorSala.Any(suspeitoOutroJogadorSala => suspeitoOutroJogadorSala.IdSuspeito == idSuspeito))
-                    throw new InvalidOperationException("Esta carta já faz parte do baralho de outro jogador.");
-            }
-
             return _suspeitoJogadorSalaRepository.Adicionar(new SuspeitoJogadorSala(idSuspeito, idJogadorSala));
+        }
+
+        public void DesabilitarSuspeitosJogador(int idJogadorSala)
+        {
+            var suspeitos = _suspeitoJogadorSalaRepository.Listar(idJogadorSala);
+
+            suspeitos.ForEach(suspeito => suspeito.Ativo = false);
+
+            _suspeitoJogadorSalaRepository.Alterar(suspeitos);
         }
 
         public List<SuspeitoJogadorSala> Listar(int idJogadorSala)
@@ -62,6 +63,11 @@ namespace Detetive.Business.Business
             }
 
             return suspeitosJogadorSala;
+        }
+
+        public SuspeitoJogadorSala Obter(int idSuspeito, int idJogadorSala)
+        {
+            return _suspeitoJogadorSalaRepository.Obter(idSuspeito, idJogadorSala);
         }
     }
 }

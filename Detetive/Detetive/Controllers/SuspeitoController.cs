@@ -44,9 +44,11 @@ namespace Detetive.Controllers
 
             var jogador = _jogadorBusiness.Obter(jogadorSala.IdJogador);
 
-            ViewBag.Sala_ID = sala.Id;
+            ViewBag.Sala = Mapper.Map<Sala, SalaViewModel>(sala);
             ViewBag.ID_JOGADOR_SALA = idJogadorSala;
             ViewBag.NomeJogador = jogador.Descricao;
+            var jogadorSalaDono = _jogadorSalaBusiness.Obter(sala.IdJogadorSala.Value);
+            ViewBag.NomeJogadorDono = _jogadorBusiness.Obter(jogadorSalaDono.IdJogador).Descricao;
 
             var suspeitosViewModel = Mapper.Map<List<Suspeito>, List<SuspeitoViewModel>>(_suspeitoBusiness.Listar());
             suspeitosViewModel.ForEach(suspeitoViewModel =>

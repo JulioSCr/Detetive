@@ -11,6 +11,7 @@ namespace Detetive.Business.Data.Interfaces
     {
         List<AnotacaoArma> Listar(int idJogadorSala);
         AnotacaoArma Adicionar(AnotacaoArma anotacao);
+        List<AnotacaoArma> Adicionar(List<AnotacaoArma> anotacoes);
         AnotacaoArma Marcar(int idArma, int idJogadorSala, bool valor);
     }
 }

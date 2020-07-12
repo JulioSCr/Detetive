@@ -11,5 +11,7 @@ namespace Detetive.Business.Business.Interfaces
     {
         SuspeitoJogadorSala Adicionar(int idSuspeito, int idJogadorSala);
         List<SuspeitoJogadorSala> Listar(int idJogadorSala);
+        SuspeitoJogadorSala Obter(int idSuspeito, int idJogadorSala);
+        void DesabilitarSuspeitosJogador(int idJogadorSala);
     }
 }

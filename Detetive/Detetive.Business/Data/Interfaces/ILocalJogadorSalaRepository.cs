@@ -12,5 +12,6 @@ namespace Detetive.Business.Data.Interfaces
         LocalJogadorSala Adicionar(LocalJogadorSala localJogadorSala);
         List<LocalJogadorSala> Listar(int idJogadorSala);
         LocalJogadorSala Obter(int idLocal, int idJogadorSala);
+        List<LocalJogadorSala> Alterar(List<LocalJogadorSala> locais);
     }
 }

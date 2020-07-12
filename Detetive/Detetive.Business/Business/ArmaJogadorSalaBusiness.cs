@@ -44,6 +44,15 @@ namespace Detetive.Business.Business
             return _armaJogadorSalaRepository.Adicionar(new ArmaJogadorSala(idArma, idJogadorSala));
         }
 
+        public void DesabilitarArmasJogador(int idJogadorSala)
+        {
+            var armas = _armaJogadorSalaRepository.Listar(idJogadorSala);
+
+            armas.ForEach(arma => arma.Ativo = false);
+
+            _armaJogadorSalaRepository.Alterar(armas);
+        }
+
         public List<ArmaJogadorSala> Listar(int idJogadorSala)
         {
             var armasJogadorSala = _armaJogadorSalaRepository.Listar(idJogadorSala);
@@ -54,6 +63,11 @@ namespace Detetive.Business.Business
             }
 
             return armasJogadorSala;
+        }
+
+        public ArmaJogadorSala Obter(int idArma, int idJogadorSala)
+        {
+            return _armaJogadorSalaRepository.Obter(idArma, idJogadorSala);
         }
     }
 }

@@ -4,6 +4,7 @@ using Detetive.Data.Context;
 using Detetive.Data.Repository.Base;
 using System;
 using System.Collections.Generic;
+using System.Data.Entity;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -27,6 +28,14 @@ namespace Detetive.Data.Repository
             return armaJogadorSala;
         }
 
+        public List<ArmaJogadorSala> Alterar(List<ArmaJogadorSala> armas)
+        {
+            armas.ForEach(arma => Context.Entry(arma).State = EntityState.Modified);
+            Context.SaveChanges();
+
+            return armas;
+        }
+
         public List<ArmaJogadorSala> Listar(int idJogadorSala)
         {
             return this.Context.ArmasJogadorSala.AsNoTracking().Where(_ => _.IdJogadorSala == idJogadorSala && _.Ativo).ToList();
@@ -34,7 +43,7 @@ namespace Detetive.Data.Repository
 
         public ArmaJogadorSala Obter(int idArma, int idJogadorSala)
         {
-            return this.Context.ArmasJogadorSala.AsNoTracking().SingleOrDefault(_ => _.IdJogadorSala == idJogadorSala && _.IdArma == idArma && _.Ativo);
+            return this.Context.ArmasJogadorSala.AsNoTracking().FirstOrDefault(_ => _.IdJogadorSala == idJogadorSala && _.IdArma == idArma && _.Ativo);
         }
     }
 }

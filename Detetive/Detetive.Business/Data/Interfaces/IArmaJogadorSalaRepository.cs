@@ -12,5 +12,6 @@ namespace Detetive.Business.Data.Interfaces
         ArmaJogadorSala Obter(int idArma, int idJogadorSala);
         ArmaJogadorSala Adicionar(ArmaJogadorSala armaJogadorSala);
         List<ArmaJogadorSala> Listar(int idJogadorSala);
+        List<ArmaJogadorSala> Alterar(List<ArmaJogadorSala> armas);
     }
 }

@@ -19,6 +19,7 @@ namespace Detetive.Business.Entities
         public int? IdLocal { get; set; }
         public int IdJogador { get; set; }
         public int? IdSuspeito { get; set; }
+        public bool RolouDados { get; set; }
         public virtual Suspeito Suspeito { get; set; }
 
         internal JogadorSala() : base()
@@ -48,18 +49,21 @@ namespace Detetive.Business.Entities
 
         public void Mover(int coordenadaLinha, int coordenadaColuna, int? idLocal = null)
         {
-            IdLocal = idLocal;
-            CoordenadaLinha = coordenadaLinha;
-            CoordenadaColuna = coordenadaColuna;
-
             int quantidadeMovimentosNecessarios = Math.Abs(CoordenadaLinha - coordenadaLinha) +
                                                     Math.Abs(CoordenadaColuna - coordenadaColuna);
 
             QuantidadeMovimento -= quantidadeMovimentosNecessarios;
-        } 
 
-        public void FinalizarTurno (bool fim)
+            IdLocal = idLocal;
+            CoordenadaLinha = coordenadaLinha;
+            CoordenadaColuna = coordenadaColuna;
+        }
+
+        public void FinalizarTurno(bool fim)
         {
+            if (fim)
+                RolouDados = false;
+
             VezJogador = fim;
         }
 
@@ -79,11 +83,18 @@ namespace Detetive.Business.Entities
             CoordenadaColuna = jogadorSala.CoordenadaColuna;
             IdLocal = jogadorSala.IdLocal;
             IdSuspeito = jogadorSala.IdSuspeito;
-    }
+            RolouDados = jogadorSala.RolouDados;
+        }
 
         public void AlterarSuspeito(int? idSuspeito)
         {
             IdSuspeito = idSuspeito;
+        }
+
+        public void AlterarQuantidadeMovimento(int quantidadeMovimento)
+        {
+            QuantidadeMovimento = quantidadeMovimento;
+            RolouDados = true;
         }
     }
 }

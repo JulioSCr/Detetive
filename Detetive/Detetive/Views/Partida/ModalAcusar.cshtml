@@ -13,7 +13,7 @@
     <div class="form-group">
         <label class="lblModal" for="ddlModalAcusar_Suspeito">Selecione um suspeito</label>
         <select class="form-control" id="ddlModalAcusar_Suspeito">
-            @if (ViewBag.Suspeitos != null && ViewBag.Suspeitos.Any())
+            @if (ViewBag.Suspeitos != null)
             {
                 foreach (var suspeito in ViewBag.Suspeitos)
                 {
@@ -25,7 +25,7 @@
     <div class="form-group">
         <label class="lblModal" for="ddlModalAcusar_Armas">Selecione uma arma</label>
         <select class="form-control" id="ddlModalAcusar_Armas">
-            @if (ViewBag.Armas != null && ViewBag.Armas.Any())
+            @if (ViewBag.Armas != null)
             {
                 foreach (var arma in ViewBag.Armas)
                 {

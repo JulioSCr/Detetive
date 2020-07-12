@@ -4,6 +4,7 @@ using Detetive.Data.Context;
 using Detetive.Data.Repository.Base;
 using System;
 using System.Collections.Generic;
+using System.Data.Entity;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -25,6 +26,14 @@ namespace Detetive.Data.Repository
             }
 
             return localJogadorSala;
+        }
+
+        public List<LocalJogadorSala> Alterar(List<LocalJogadorSala> locais)
+        {
+            locais.ForEach(local => Context.Entry(local).State = EntityState.Modified);
+            Context.SaveChanges();
+
+            return locais;
         }
 
         public List<LocalJogadorSala> Listar(int idJogadorSala)

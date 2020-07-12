@@ -21,6 +21,7 @@ namespace Detetive
                 defaults: new { controller = "Home", action = "Index", id = UrlParameter.Optional }
                 //defaults: new { controller = "Sala", action = "Ingressar", id = UrlParameter.Optional }
                 //defaults: new { controller = "Partida", action = "Jogar", id = UrlParameter.Optional }
+                //defaults: new { controller = "Partida", action = "Rolardados", id = UrlParameter.Optional }
             );
         }
     }
