@@ -1,6 +1,6 @@
 ﻿var Jogar = window.Jogar || {
     mID_JOGADOR_SALA: new Number(),     // ID do jogador sala
-    mID_SALA: new Number(),     // ID do jogador sala
+    mID_SALA: new Number(),             // ID do jogador sala
     marrMapeamento: new Array()         // Mapeamento do tabuleiro
 };
 
@@ -119,7 +119,7 @@ Jogar.btnFinalizarTurno_OnClick = function () {
     } catch (ex) {
         PopUp.Erro(ex);
     }
-    
+
 }
 
 Jogar.btnDireita_OnClick = function () {
@@ -215,6 +215,37 @@ Jogar.DesativarBotoes = function (pblnAtivar) {
     $('#btnPalpite').prop('disabled', pblnAtivar);
     $('#btnAcusar').prop('disabled', pblnAtivar);
     $('#btnPassagemSecreta').prop('disabled', pblnAtivar);
+}
+
+Jogar.btnLancarDados_OnClick = function () {
+    try {
+        $.ajax({
+            url: gstrGlobalPath + 'Partida/RolarDados',
+            type: 'post',
+            data: {
+                idJogadorSala: Jogar.mID_JOGADOR_SALA,
+                idSala: Jogar.mID_SALA
+            },
+            success: function (data, textStatus, XMLHttpRequest) {
+                var lobjResltado = new Object();
+                var lstrDescricaoJogador = new String();
+                var lstrDescricaoSuspeitoSelecionado = new String();
+                var lstrDescricaoSuspeitoDesconsiderado = new String();
+                try {
+                    lobjResltado = JSON.parse(data);
+                    if (!lobjResltado.Status) { throw data.Retorno; }
+                    Sala.AtualizarHistorico(Jogar.mID_SALA);
+                } catch (ex) {
+                    PopUp.Erro(ex);
+                }
+            },
+            error: function (request, status, error) {
+                PopUp.Erro(request.responseText);
+            }
+        });
+    } catch (ex) {
+        PopUp.Erro(ex);
+    }
 }
 
 //#endregion

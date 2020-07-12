@@ -126,11 +126,8 @@ namespace Detetive.Controllers
             return JsonConvert.SerializeObject(new Operacao(JsonConvert.SerializeObject(jogadorSalaViewModel)));
         }
 
-        public string Rolardados(/*int idJogadorSala, int idSala*/)
+        public string RolarDados(int idJogadorSala, int idSala)
         {
-            // Remover linha abaixo e descomentar parâmetros do método quando finalizar o desenvolvimento.
-            int idJogadorSala = 16, idSala = 1010;
-
             try
             {
                 var operacao = _partidaBusiness.RolarDados(idJogadorSala, idSala);
