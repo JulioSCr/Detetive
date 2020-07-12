@@ -80,6 +80,7 @@ namespace Detetive.Business.Entities
             CoordenadaColuna = jogadorSala.CoordenadaColuna;
             IdLocal = jogadorSala.IdLocal;
             IdSuspeito = jogadorSala.IdSuspeito;
+            RolouDados = jogadorSala.RolouDados;
     }
 
         public void AlterarSuspeito(int? idSuspeito)
