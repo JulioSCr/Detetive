@@ -140,7 +140,7 @@ Sala.SelecionarSuspeito = function (pintIdSala, pintIdJogadorSala, pintIdSuspeit
                 }
             },
             error: function (request, status, error) {
-                alert(request.responseText);
+                PopUp.Erro(request.responseText);
             }
         });
     } catch (ex) {
@@ -197,11 +197,11 @@ Sala.EnviarMensagem = function (pIdJogadorSalaRemetente, pIdJogadorSalaDestinata
                 }
             },
             error: function (data, textStatus, XMLHttpRequest) {
-                alert("Erro no envio da mensagem.");
+                PopUp.Erro('Erro no envio da mensagem.');
             }
         });
     } catch (ex) {
-        console.log(ex);
+        PopUp.Erro(ex);
     }
 }
 
@@ -212,6 +212,7 @@ Sala.EnviarMensagem = function (pIdJogadorSalaRemetente, pIdJogadorSalaDestinata
 /// <returns type="Void"></returns>
 Sala.EnviarMovimento = function (pLinha, pColuna) {
     try {
+        debugger;
         Jogar.DesativarBotoes(true);
         $.ajax({
             url: gstrGlobalPath + 'Partida/MoverJogador',
@@ -237,12 +238,13 @@ Sala.EnviarMovimento = function (pLinha, pColuna) {
                     lintIdLocal = lobjRetorno.Posicao.IdLocal;
                     Sala.mHubSala.server.enviarMovimento(Sala.mIdSala, Sala.mID_JOGADOR_SALA, lintLinha, lintColuna, lintIdLocal).done(function () { });
                 } catch (ex) {
-                    alert(ex);
+                    //PopUp.Erro(ex);
+                    PopUp.Erro(ex);
                 }
             },
             error: function (data, textStatus, XMLHttpRequest) {
                 Jogar.DesativarBotoes(false);
-                alert("Erro na chamada da movimentação.");
+                PopUp.Erro('Erro na chamada da movimentação.');
             }
         });
     } catch (ex) {
@@ -254,7 +256,7 @@ Sala.Teletransporte = function (pintIdJogadorSala, pintIdLocal) {
     try {
         Sala.mHubSala.server.teletransporte(pintIdJogadorSala, pintIdLocal, Sala.mIdSala).done(function () { });
     } catch (ex) {
-        alert(ex);
+        PopUp.Erro(ex);
     }
 }
 

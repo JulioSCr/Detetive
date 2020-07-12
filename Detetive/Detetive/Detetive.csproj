@@ -235,6 +235,7 @@
     <Compile Include="App_Start\Startup.cs" />
     <Compile Include="Controllers\AnotacaoController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\LoadingController.cs" />
     <Compile Include="Controllers\PopUpController.cs" />
     <Compile Include="Controllers\PropagandaController.cs" />
     <Compile Include="Controllers\SalaController.cs" />
@@ -342,6 +343,7 @@
     <Content Include="Content\Libs\Slick\slick.css" />
     <Content Include="Content\Site.css" />
     <Content Include="Content\Views\Home\Index.css" />
+    <Content Include="Content\Views\Loading\Loading.css" />
     <Content Include="Content\Views\Partida\Jogar.css" />
     <Content Include="Content\Views\Partida\ModalAcusar.css" />
     <Content Include="Content\Views\PopUp\PopUp.css" />
@@ -475,6 +477,7 @@
     <Content Include="Scripts\Libs\umd\popper-utils.min.js" />
     <Content Include="Scripts\Libs\umd\popper.js" />
     <Content Include="Scripts\Libs\umd\popper.min.js" />
+    <Content Include="Scripts\Views\Loading\Loading.js" />
     <Content Include="Scripts\Views\Partida\ModalAcusar.js" />
     <Content Include="Scripts\Views\PopUp\PopUp.js" />
     <Content Include="Scripts\Views\Propaganda\Ad.js" />
@@ -518,6 +521,7 @@
     <Content Include="Views\Sala\Manter.cshtml" />
     <Content Include="Views\Propaganda\Ad.cshtml" />
     <Content Include="Views\PopUp\PopUp.cshtml" />
+    <Content Include="Views\Loading\Loading.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
