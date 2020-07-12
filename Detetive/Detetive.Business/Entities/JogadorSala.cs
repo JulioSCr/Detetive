@@ -67,10 +67,11 @@ namespace Detetive.Business.Entities
             VezJogador = fim;
         }
 
-        public void AlterarCoordenadas(int coordenadaLinha, int coordenadaColuna)
+        public void AlterarCoordenadas(int coordenadaLinha, int coordenadaColuna, int idLocal)
         {
             CoordenadaLinha = coordenadaLinha;
             CoordenadaColuna = coordenadaColuna;
+            IdLocal = idLocal;
         }
 
         public void Alterar(JogadorSala jogadorSala)
