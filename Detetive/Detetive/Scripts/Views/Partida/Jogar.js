@@ -229,6 +229,9 @@ Jogar.btnLancarDados_OnClick = function () {
                     if (!lobjResltado.Status) { throw data.Retorno; }
                     Sala.EnviarMensagem(Jogar.mID_SALA);
                 } catch (ex) {
+                    if (ex == null) {
+                        ex = 'Você não pode lançar os dados.'
+                    }
                     PopUp.Erro(ex);
                 }
             },
