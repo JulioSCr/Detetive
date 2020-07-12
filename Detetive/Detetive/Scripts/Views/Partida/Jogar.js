@@ -80,29 +80,7 @@ $(document).ready(function () {
 
 Jogar.btnFinalizarTurno_OnClick = function () {
     try {
-        //$("#btnEsquerda").attr("disabled", true);
-        //$("#btnEsquerda").css('background', 'darkgrey');
-
-        //$("#btnDireita").attr("disabled", true);
-        //$("#btnDireita").css('background', 'darkgrey');
-
-        //$("#btnAcima").attr("disabled", true);
-        //$("#btnAcima").css('background', 'darkgrey');
-
-        //$("#btnAbaixo").attr("disabled", true);
-        //$("#btnAbaixo").css('background', 'darkgrey');
-
-        //$("#btnLancarDados").attr("disabled", true);
-        //$("#btnLancarDados").css('background', 'darkgrey');
-
-        //$("#btnPalpite").attr("disabled", true);
-        //$("#btnAcusar").attr("disabled", true);
-        //$("#btnPassagemSecreta").attr("disabled", true);
-
-        //$("#btnFinalizarTurno").attr("disabled", true);
-        //$("#btnFinalizarTurno").css('background', 'darkgrey');
-
-        //$("#divCaixaInformacoes").append("Você finalizou seu turno!");
+        
         $.ajax({
             url: gstrGlobalPath + 'Partida/Finalizar',
             type: 'post',
@@ -112,11 +90,7 @@ Jogar.btnFinalizarTurno_OnClick = function () {
             success: function (data, textStatus, XMLHttpRequest) {
                 Loading.Carregamento(false);
                 var retorno = JSON.parse(data);
-
-                if (!retorno.Status) {
-                    PopUp.Erro(retorno.Retorno)
-                }
-                Sala.FinalizarTurno();
+                Sala.mHubSala.server.finalizarTurno(Jogar.mID_SALA, retorno.Retorno).done(function () { });
                 Sala.EnviarMensagem(Jogar.mID_SALA);
             },
             error: function (data, textStatus, XMLHttpRequest) {
@@ -264,6 +238,7 @@ Jogar.DesativarBotoes = function (pblnAtivar) {
     $('#btnPalpite').prop('disabled', pblnAtivar);
     $('#btnAcusar').prop('disabled', pblnAtivar);
     $('#btnPassagemSecreta').prop('disabled', pblnAtivar);
+    $('#btnFinalizarTurno').prop('disabled', pblnAtivar);
 }
 
 Jogar.btnLancarDados_OnClick = function () {

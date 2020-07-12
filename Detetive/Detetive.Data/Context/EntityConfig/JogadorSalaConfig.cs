@@ -28,6 +28,7 @@ namespace Detetive.Data.Context.EntityConfig
             Property(p => p.QuantidadeMovimento).HasColumnName("QT_MOVIMENTO");
             Property(p => p.IdSuspeito).HasColumnName("ID_SUSPEITO");
             Property(p => p.RolouDados).HasColumnName("IE_ROLARDADOS");
+            Property(p => p.RealizouPalpite).HasColumnName("IE_REALIZARPALPITE");
             Property(p => p.Ativo).HasColumnName("IE_ATIVO");
             Ignore(p => p.Suspeito);
         }

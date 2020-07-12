@@ -27,6 +27,7 @@ namespace Detetive.Business.Business
         private readonly ILocalJogadorSalaBusiness _localJogadorSalaBusiness;
         private readonly ISuspeitoJogadorSalaBusiness _suspeitoJogadorSalaBusiness;
         private readonly IHistoricoBusiness _historicoBusiness;
+        private readonly IJogadorSalaRepository _jogadorSalaRepository;
         private readonly Dado _dado;
 
         public PartidaBusiness(ISalaBusiness salaBusiness,
@@ -40,6 +41,7 @@ namespace Detetive.Business.Business
                                 ILocalJogadorSalaBusiness localJogadorSalaBusiness,
                                 ISuspeitoJogadorSalaBusiness suspeitoJogadorSalaBusiness,
                                 IHistoricoBusiness historicoBusiness,
+                                IJogadorSalaRepository jogadorSalaRepository,
                                 IJogadorBusiness jogadorBusiness, Dado dado)
         {
             _salaBusiness = salaBusiness;
@@ -54,6 +56,7 @@ namespace Detetive.Business.Business
             _suspeitoJogadorSalaBusiness = suspeitoJogadorSalaBusiness;
             _historicoBusiness = historicoBusiness;
             _jogadorBusiness = jogadorBusiness;
+            _jogadorSalaRepository = jogadorSalaRepository;
             _dado = dado;
         }
 
@@ -193,9 +196,9 @@ namespace Detetive.Business.Business
                 if (!jogadorSala.MinhaVez())
                     return new Operacao("Não está na vez desse jogador.", false);
 
-                this.AlteraVezJogadores(idJogadorSala);
+                string idProximoJogadorSala = this.AlteraVezJogadores(idJogadorSala);
 
-                return new Operacao("Vez passada com sucesso!");
+                return new Operacao(idProximoJogadorSala);
             }
             catch (Exception ex)
             {
@@ -203,12 +206,12 @@ namespace Detetive.Business.Business
             }
         }
 
-        private void AlteraVezJogadores(int idJogadorSala)
+        private string AlteraVezJogadores(int idJogadorSala)
         {
             // Altera termina a vez do jogador atual 
             var jogadorSala = _jogadorSalaBusiness.Obter(idJogadorSala);
 
-            if (jogadorSala == default) return;
+            if (jogadorSala == default) return "";
 
             jogadorSala.FinalizarTurno(false);
             _jogadorSalaBusiness.Alterar(jogadorSala);
@@ -249,8 +252,12 @@ namespace Detetive.Business.Business
             //Mensagem para o histórico
             var nickJogador = _jogadorBusiness.Obter(jogadorSala.IdJogador);
             var nickProximoJogador = _jogadorBusiness.Obter(proximoJogadorSala.IdJogador); 
-
+            
             _historicoBusiness.Adicionar(new Historico(proximoJogadorSala.IdSala, $"Player {nickJogador.Descricao} finalizou a rodada, {nickProximoJogador.Descricao}, é a sua vez!"));
+            proximoJogadorSala.HabilitarPalpite();
+            var idProximoJogadorSala = _jogadorSalaRepository.Obter(proximoJogadorSala.IdJogador, jogadorSala.IdSala);
+            return idProximoJogadorSala.Id.ToString(); 
+            
             
         }
 
@@ -364,6 +371,9 @@ namespace Detetive.Business.Business
             if (!jogadorSala.MinhaVez())
                 return new Operacao("Não está na vez desse jogador.", false);
 
+            if(jogadorSala.RealizouPalpite)
+                return new Operacao("Só é permitido realizar 1 palpite por rodada.", false);
+
             MoverJogadorSalaParaLocal(idSuspeito, idSala, idLocal);
 
             var armaPaupite = _armaBusiness.Obter(idArma);
@@ -373,6 +383,9 @@ namespace Detetive.Business.Business
             // Registra palpite no histórico da sala.
             var jogador = _jogadorBusiness.Obter(jogadorSala.IdJogador);
             _historicoBusiness.Adicionar(new Historico(idSala, $"O jogador {jogador.Descricao} palpitou as seguintes as cartas {armaPaupite.Descricao} (arma), {suspeitoPaupite.Descricao} (suspeito) e {localPaupite.Descricao} (local)"));
+            
+            jogadorSala.PalpiteRealizado();
+            _jogadorSalaBusiness.Alterar(jogadorSala);
 
             // Ordena jogadores à esquerda do jogador
             var jogadoresSala = _jogadorSalaBusiness.Listar(idSala);
@@ -437,128 +450,179 @@ namespace Detetive.Business.Business
             _jogadorSalaBusiness.Alterar(jogadorSala);
         }
 
+        //public Operacao MoverJogador(int idJogadorSala, int novaCoordenadaLinha, int novaCoordenadaColuna)
+        //{
+        //    try
+        //    {
+        //        var jogadorSala = _jogadorSalaBusiness.Obter(idJogadorSala);
+
+        //        if (jogadorSala == default)
+        //            return new Operacao("Jogador não encotrado.", false);
+
+        //        if (!jogadorSala.MinhaVez())
+        //            return new Operacao("Não está na vez desse jogador.", false);
+
+        //        if (!jogadorSala.PossoMeMovimentar(novaCoordenadaLinha, novaCoordenadaColuna))
+        //            return new Operacao("Não há movimentos suficientes para ir ao destino desejado.", false);
+
+        //        var operacao = ValidarMovimento(jogadorSala.IdLocal, jogadorSala.CoordenadaLinha, jogadorSala.CoordenadaColuna, novaCoordenadaLinha, novaCoordenadaColuna);
+
+        //        string direcao = DirecaoMovimento(jogadorSala.CoordenadaLinha, jogadorSala.CoordenadaColuna, novaCoordenadaLinha, novaCoordenadaColuna);
+        //        if (jogadorSala.IdLocal.HasValue)
+        //        {
+        //            var portas = _portaLocalBusiness.Listar(jogadorSala.IdLocal.Value);
+        //            if (portas == null || !portas.Any())
+        //            {
+        //                operacao.Retorno = "Porta não cadastrada.";
+        //                operacao.Status = false;
+        //            }
+        //            else
+        //            {
+        //                var porta = portas.Where(x => x.Direcao.Equals(direcao) && x.IdLocal == jogadorSala.IdLocal).FirstOrDefault();
+        //                if (porta == null)
+        //                {
+        //                    operacao.Retorno = "Esta não é uma saída possível para este local, mova-se para outra direção.";
+        //                    operacao.Status = false;
+        //                }
+        //                else
+        //                {
+        //                    if (porta.Direcao == "direita")
+        //                    {
+        //                        novaCoordenadaLinha = porta.CoordenadaLinha;
+        //                        novaCoordenadaColuna = porta.CoordenadaColuna + 1;
+        //                    }
+        //                    if (porta.Direcao == "esquerda")
+        //                    {
+        //                        novaCoordenadaLinha = porta.CoordenadaLinha;
+        //                        novaCoordenadaColuna = porta.CoordenadaColuna - 1;
+        //                    }
+        //                    if (porta.Direcao == "baixo")
+        //                    {
+        //                        novaCoordenadaLinha = porta.CoordenadaLinha + 1;
+        //                        novaCoordenadaColuna = porta.CoordenadaColuna;
+        //                    }
+        //                    if (porta.Direcao == "cima")
+        //                    {
+        //                        novaCoordenadaLinha = porta.CoordenadaLinha - 1;
+        //                        novaCoordenadaColuna = porta.CoordenadaColuna;
+        //                    }
+        //                }
+        //            }
+        //        }
+
+        //        if (operacao.Status)
+        //        {
+        //            var porta = _portaLocalBusiness.Obter(novaCoordenadaLinha, novaCoordenadaColuna);
+        //            jogadorSala.Mover(novaCoordenadaLinha, novaCoordenadaColuna, porta?.IdLocal);
+
+        //            _jogadorSalaBusiness.Alterar(jogadorSala);
+        //        }
+
+        //        return operacao;
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        return new Operacao(ex.Message, false);
+        //    }
+        //}
+
+        //private Operacao ValidarMovimento(int? idLocal, int coordenadaOrigemLinha, int coordenadaOrigemColuna, int coordenadaDestinoLinha, int coordenadaDestinoColuna)
+        //{
+        //    if (!idLocal.HasValue)
+        //    {
+        //        var locais = _localBusiness.Listar();
+        //        string direcao = DirecaoMovimento(coordenadaOrigemLinha, coordenadaOrigemColuna, coordenadaDestinoLinha, coordenadaDestinoColuna, true);
+        //        if (locais.Any(l => !l.DentroLocal(coordenadaOrigemLinha, coordenadaOrigemColuna) && l.DentroLocal(coordenadaDestinoLinha, coordenadaDestinoColuna) &&
+        //                             !l.PortaLocal(coordenadaDestinoLinha, coordenadaDestinoColuna, direcao)))
+        //        {
+        //            return new Operacao("Não é possível entrar no local por esse quadrado.", false);
+        //        }
+
+        //        return new Operacao("Operação válida.");
+        //    }
+
+        //    return new Operacao("Operação válida.");
+        //}
+
+        //public string DirecaoMovimento(int coordenadaOrigemLinha, int coordenadaOrigemColuna, int coordenadaDestinoLinha, int coordenadaDestinoColuna, bool oposta = false)
+        //{
+
+        //    if (coordenadaOrigemLinha == coordenadaDestinoLinha && coordenadaOrigemColuna > coordenadaDestinoColuna)
+        //    {
+        //        if (oposta)
+        //            return "direita";
+        //        return "esquerda";
+        //    }
+        //    if (coordenadaOrigemLinha == coordenadaDestinoLinha && coordenadaOrigemColuna < coordenadaDestinoColuna)
+        //    {
+        //        if (oposta)
+        //            return "esquerda";
+        //        return "direita";
+        //    }
+        //    if (coordenadaOrigemLinha > coordenadaDestinoLinha && coordenadaOrigemColuna == coordenadaDestinoColuna)
+        //    {
+        //        if (oposta)
+        //            return "baixo";
+        //        return "cima";
+        //    }
+        //    if (coordenadaOrigemLinha < coordenadaDestinoLinha && coordenadaOrigemColuna == coordenadaDestinoColuna)
+        //    {
+        //        if (oposta)
+        //            return "cima";
+        //        return "baixo";
+        //    }
+        //    throw new InvalidOperationException("Direção do movimento não encontrada.");
+        //}
+
+
         public Operacao MoverJogador(int idJogadorSala, int novaCoordenadaLinha, int novaCoordenadaColuna)
         {
-            try
+            var jogadorSala = _jogadorSalaBusiness.Obter(idJogadorSala);
+            if (jogadorSala == default)
+                return new Operacao("Jogador não encotrado.", false);
+
+            if (!jogadorSala.MinhaVez())
+                return new Operacao("Não está na vez desse jogador.", false);
+
+            if (!jogadorSala.PossoMeMovimentar(novaCoordenadaLinha, novaCoordenadaColuna))
+                return new Operacao("Não há movimentos suficientes para ir ao destino desejado.", false);
+
+            var operacao = ValidarMovimento(jogadorSala.IdLocal, jogadorSala.CoordenadaLinha, jogadorSala.CoordenadaColuna, novaCoordenadaLinha, novaCoordenadaColuna);
+            if (operacao.Status)
             {
-                var jogadorSala = _jogadorSalaBusiness.Obter(idJogadorSala);
+                var porta = _portaLocalBusiness.Obter(novaCoordenadaLinha, novaCoordenadaColuna);
+                jogadorSala.Mover(novaCoordenadaLinha, novaCoordenadaColuna, porta?.IdLocal);
 
-                if (jogadorSala == default)
-                    return new Operacao("Jogador não encotrado.", false);
-
-                if (!jogadorSala.MinhaVez())
-                    return new Operacao("Não está na vez desse jogador.", false);
-
-                if (!jogadorSala.PossoMeMovimentar(novaCoordenadaLinha, novaCoordenadaColuna))
-                    return new Operacao("Não há movimentos suficientes para ir ao destino desejado.", false);
-
-                var operacao = ValidarMovimento(jogadorSala.IdLocal, jogadorSala.CoordenadaLinha, jogadorSala.CoordenadaColuna, novaCoordenadaLinha, novaCoordenadaColuna);
-
-                string direcao = DirecaoMovimento(jogadorSala.CoordenadaLinha, jogadorSala.CoordenadaColuna, novaCoordenadaLinha, novaCoordenadaColuna);
-                if (jogadorSala.IdLocal.HasValue)
-                {
-                    var portas = _portaLocalBusiness.Listar(jogadorSala.IdLocal.Value);
-                    if (portas == null || !portas.Any())
-                    {
-                        operacao.Retorno = "Porta não cadastrada.";
-                        operacao.Status = false;
-                    }
-                    else
-                    {
-                        var porta = portas.Where(x => x.Direcao.Equals(direcao) && x.IdLocal == jogadorSala.IdLocal).FirstOrDefault();
-                        if (porta == null)
-                        {
-                            operacao.Retorno = "Esta não é uma saída possível para este local, mova-se para outra direção.";
-                            operacao.Status = false;
-                        }
-                        else
-                        {
-                            if (porta.Direcao == "direita")
-                            {
-                                novaCoordenadaLinha = porta.CoordenadaLinha;
-                                novaCoordenadaColuna = porta.CoordenadaColuna + 1;
-                            }
-                            if (porta.Direcao == "esquerda")
-                            {
-                                novaCoordenadaLinha = porta.CoordenadaLinha;
-                                novaCoordenadaColuna = porta.CoordenadaColuna - 1;
-                            }
-                            if (porta.Direcao == "baixo")
-                            {
-                                novaCoordenadaLinha = porta.CoordenadaLinha + 1;
-                                novaCoordenadaColuna = porta.CoordenadaColuna;
-                            }
-                            if (porta.Direcao == "cima")
-                            {
-                                novaCoordenadaLinha = porta.CoordenadaLinha - 1;
-                                novaCoordenadaColuna = porta.CoordenadaColuna;
-                            }
-                        }
-                    }
-                }
-
-                if (operacao.Status)
-                {
-                    var porta = _portaLocalBusiness.Obter(novaCoordenadaLinha, novaCoordenadaColuna);
-                    jogadorSala.Mover(novaCoordenadaLinha, novaCoordenadaColuna, porta?.IdLocal);
-
-                    _jogadorSalaBusiness.Alterar(jogadorSala);
-                }
-
-                return operacao;
+                _jogadorSalaBusiness.Alterar(jogadorSala);
             }
-            catch (Exception ex)
-            {
-                return new Operacao(ex.Message, false);
-            }
+
+            return operacao;
         }
 
         private Operacao ValidarMovimento(int? idLocal, int coordenadaOrigemLinha, int coordenadaOrigemColuna, int coordenadaDestinoLinha, int coordenadaDestinoColuna)
         {
             if (!idLocal.HasValue)
             {
-                var locais = _localBusiness.Listar();
-                string direcao = DirecaoMovimento(coordenadaOrigemLinha, coordenadaOrigemColuna, coordenadaDestinoLinha, coordenadaDestinoColuna, true);
-                if (locais.Any(l => !l.DentroLocal(coordenadaOrigemLinha, coordenadaOrigemColuna) && l.DentroLocal(coordenadaDestinoLinha, coordenadaDestinoColuna) &&
-                                     !l.PortaLocal(coordenadaDestinoLinha, coordenadaDestinoColuna, direcao)))
+                var local = _localBusiness.Obter(coordenadaDestinoLinha, coordenadaDestinoColuna);
+                if (local != default && !local.DentroLocal(coordenadaOrigemLinha, coordenadaOrigemColuna) && local.DentroLocal(coordenadaDestinoLinha, coordenadaDestinoColuna) &&
+                    !local.PortaLocal(coordenadaOrigemLinha, coordenadaOrigemColuna, coordenadaDestinoLinha, coordenadaDestinoColuna))
                 {
                     return new Operacao("Não é possível entrar no local por esse quadrado.", false);
                 }
 
                 return new Operacao("Operação válida.");
             }
+            else
+            {
+                var portas = _portaLocalBusiness.Listar(idLocal.Value);
+                if (portas == null || !portas.Any())
+                    return new Operacao("Portas da sala não cadastradas.", false);
 
-            return new Operacao("Operação válida.");
-        }
+                if (portas.Any(p => p.ValidarMovimento(coordenadaDestinoLinha, coordenadaDestinoColuna)))
+                    return new Operacao("Operação válida.");
 
-        public string DirecaoMovimento(int coordenadaOrigemLinha, int coordenadaOrigemColuna, int coordenadaDestinoLinha, int coordenadaDestinoColuna, bool oposta = false)
-        {
-
-            if (coordenadaOrigemLinha == coordenadaDestinoLinha && coordenadaOrigemColuna > coordenadaDestinoColuna)
-            {
-                if (oposta)
-                    return "direita";
-                return "esquerda";
+                return new Operacao("Não é possível sair do local por essa direção.", false);
             }
-            if (coordenadaOrigemLinha == coordenadaDestinoLinha && coordenadaOrigemColuna < coordenadaDestinoColuna)
-            {
-                if (oposta)
-                    return "esquerda";
-                return "direita";
-            }
-            if (coordenadaOrigemLinha > coordenadaDestinoLinha && coordenadaOrigemColuna == coordenadaDestinoColuna)
-            {
-                if (oposta)
-                    return "baixo";
-                return "cima";
-            }
-            if (coordenadaOrigemLinha < coordenadaDestinoLinha && coordenadaOrigemColuna == coordenadaDestinoColuna)
-            {
-                if (oposta)
-                    return "cima";
-                return "baixo";
-            }
-            throw new InvalidOperationException("Direção do movimento não encontrada.");
         }
     }
 }
