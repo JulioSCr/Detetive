@@ -33,6 +33,18 @@ ModalPalpite.Palpitar = function () {
                     lobjRetorno = JSON.parse(data);
                     if (!lobjRetorno.Status) { throw lobjRetorno.Retorno; }
 
+                    PopUp.Visualizar({
+                        TipoPopUp: 'Alerta',
+                        Mensagem: lobjRetorno.Retorno,
+                        Evento: function () {
+                            try {
+                                $('#divPopUp').Detetive_Modal('hide');
+                            } catch (ex) {
+                                PopUp.Erro(ex);
+                            }
+                        }
+                    });
+
                     leleSuspeito = $('#divTabuleiro > #div' + removeAcentos(lobjSuspeito.Descricao)).length == 0 ? $('#divTabuleiro >> #div' + removeAcentos(lobjSuspeito.Descricao)) : $('#divTabuleiro > #div' + removeAcentos(lobjSuspeito.Descricao));
                     if (leleSuspeito.length != 0) {
                         lintIdJogadorSalaAcusado = $(leleSuspeito).attr('idJogadorSala');

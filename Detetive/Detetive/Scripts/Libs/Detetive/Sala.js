@@ -250,7 +250,7 @@ Sala.EnviarMovimento = function (pLinha, pColuna) {
             data: {
                 idJogadorSala: Sala.mID_JOGADOR_SALA,
                 novaCoordenadaLinha: pLinha,
-                novaCoordenadaColuna: pColuna
+                novaCoordenadaColuna: pColuna,
             },
             success: function (data, textStatus, XMLHttpRequest) {
                 var lobjResultado = new Object();
