@@ -53,7 +53,11 @@ namespace Detetive.Business.Entities
             int quantidadeMovimentosNecessarios = Math.Abs(CoordenadaLinha - coordenadaLinha) +
                                                     Math.Abs(CoordenadaColuna - coordenadaColuna);
 
-            QuantidadeMovimento -= quantidadeMovimentosNecessarios;
+            if (IdLocal.HasValue && !idLocal.HasValue)
+                QuantidadeMovimento--;
+            else
+                QuantidadeMovimento -= quantidadeMovimentosNecessarios;
+
 
             IdLocal = idLocal;
             CoordenadaLinha = coordenadaLinha;
@@ -68,10 +72,11 @@ namespace Detetive.Business.Entities
             VezJogador = fim;
         }
 
-        public void AlterarCoordenadas(int coordenadaLinha, int coordenadaColuna)
+        public void AlterarCoordenadas(int coordenadaLinha, int coordenadaColuna, int? idLocal)
         {
             CoordenadaLinha = coordenadaLinha;
             CoordenadaColuna = coordenadaColuna;
+            IdLocal = idLocal;
         }
 
         public void Alterar(JogadorSala jogadorSala)

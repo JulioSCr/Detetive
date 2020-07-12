@@ -439,7 +439,7 @@ namespace Detetive.Business.Business
             if (local == default)
                 return;
 
-            jogadorSala.Mover(jogadorSala.CoordenadaLinha, jogadorSala.CoordenadaColuna, idLocal);
+            jogadorSala.AlterarCoordenadas(jogadorSala.CoordenadaLinha, jogadorSala.CoordenadaColuna, idLocal);
             _jogadorSalaBusiness.Alterar(jogadorSala);
         }
 
