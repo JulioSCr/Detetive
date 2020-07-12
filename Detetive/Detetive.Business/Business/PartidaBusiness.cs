@@ -251,7 +251,7 @@ namespace Detetive.Business.Business
             var nickProximoJogador = _jogadorBusiness.Obter(proximoJogadorSala.IdJogador); 
 
             _historicoBusiness.Adicionar(new Historico(proximoJogadorSala.IdSala, $"Player {nickJogador.Descricao} finalizou a rodada, {nickProximoJogador.Descricao}, é a sua vez!"));
-            
+            proximoJogadorSala.HabilitarPalpite();
         }
 
         public Operacao Acusar(int idSala, int idJogadorSala, int idLocal, int idSuspeito, int idArma)
@@ -364,6 +364,9 @@ namespace Detetive.Business.Business
             if (!jogadorSala.MinhaVez())
                 return new Operacao("Não está na vez desse jogador.", false);
 
+            if(jogadorSala.RealizouPalpite)
+                return new Operacao("Só é permitido realizar 1 palpite por rodada.", false);
+
             MoverJogadorSalaParaLocal(idSuspeito, idSala, idLocal);
 
             var armaPaupite = _armaBusiness.Obter(idArma);
@@ -373,6 +376,9 @@ namespace Detetive.Business.Business
             // Registra palpite no histórico da sala.
             var jogador = _jogadorBusiness.Obter(jogadorSala.IdJogador);
             _historicoBusiness.Adicionar(new Historico(idSala, $"O jogador {jogador.Descricao} palpitou as seguintes as cartas {armaPaupite.Descricao} (arma), {suspeitoPaupite.Descricao} (suspeito) e {localPaupite.Descricao} (local)"));
+            
+            jogadorSala.PalpiteRealizado();
+            _jogadorSalaBusiness.Alterar(jogadorSala);
 
             // Ordena jogadores à esquerda do jogador
             var jogadoresSala = _jogadorSalaBusiness.Listar(idSala);
