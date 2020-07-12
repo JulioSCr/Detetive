@@ -21,5 +21,7 @@ namespace Detetive.ViewModel.Tabuleiro
             else
                 Posicao = new PosicaoViewModel();
         }
+
+        public bool Vez { get; set; }
     }
 }

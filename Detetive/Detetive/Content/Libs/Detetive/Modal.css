@@ -14,6 +14,9 @@
     .modal-container.mostrar {
         display: flex;
     }
+    .modal-container.delay {
+        display: flex;
+    }
 
 .modal-customizado {
     background: #404040;
@@ -25,19 +28,37 @@
     position: relative;
 }
 
+.mostrar .modal-customizado {
+    animation: modal-customizado .4s;
+}
+
 @keyframes modal-customizado {
     from {
         opacity: 0;
-        transform: translate3d(0, -60px, 0)
+        transform: translate3d(0, -60px, 0);
     }
 
     to {
         opacity: 1;
-        transform: translate3d(0, 0, 0)
+        transform: translate3d(0, 0, 0);
     }
 }
 
-.mostrar .modal-customizado {
+.modal-container.delay {
+    animation: modal-customizado-carregamento 5s;
+}
+
+@keyframes modal-customizado-carregamento {
+    0% {
+        opacity: 0;
+    }
+
+    100% {
+        opacity: 1;
+    }
+}
+
+.modal-container.delay .modal-customizado {
     animation: modal-customizado .4s;
 }
 
