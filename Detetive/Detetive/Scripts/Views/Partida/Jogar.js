@@ -68,12 +68,6 @@ Jogar.MontarTela = function () {
     $('#divCaixaInformacoes').animate({
         scrollTop: $('#divCaixaInformacoes').get(0).scrollHeight
     }, 500);
-
-    document.getElementById('#divCaixaInformacoes').addEventListener('change', function myfunction() {
-        $('#divCaixaInformacoes').animate({
-            scrollTop: $('#divCaixaInformacoes').get(0).scrollHeight
-        }, 500);
-    });
 };
 
 $(document).ready(function () {
@@ -472,6 +466,9 @@ Jogar.TransmitirMensagem = function (pintIdSala, parrDescricaoMensagem) {
     var lstrHtml = new String();
     var larrDescricao = new Array();
     try {
+        $('#divCaixaInformacoes').animate({
+            scrollTop: $('#divCaixaInformacoes').get(0).scrollHeight
+        }, 500);
         larrDescricao = JSON.parse(parrDescricaoMensagem);
         for (var i = 0; i < larrDescricao.length; i++) {
             lstrHtml += '<label class="informacao">' + larrDescricao[i].Descricao + '</label>';

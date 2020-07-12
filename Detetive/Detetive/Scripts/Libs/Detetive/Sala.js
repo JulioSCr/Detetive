@@ -181,7 +181,6 @@ Sala.EnviarMensagem = function (pintIdSala) {
                 idSala: Sala.mIdSala
             },
             success: function (data, textStatus, XMLHttpRequest) {
-                debugger;
                 var lobjResultado = new Object();
                 var lobjRetorno = new Object();
                 try {
