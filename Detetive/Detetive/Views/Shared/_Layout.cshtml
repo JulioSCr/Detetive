@@ -63,10 +63,6 @@
             // Inicia popup de Alerta
             $('#divLoading').Detetive_Modal();
             $('#divPopUp').Detetive_Modal();
-            //$(document).on({
-            //    ajaxStart: function () { debugger; Loading.Carregamento(true); },
-            //    ajaxStop: function () { debugger; Loading.Carregamento(false); }
-            //});
 
             $(document).bind("ajaxStart.mine", function () {
                 Loading.Carregamento(true);
