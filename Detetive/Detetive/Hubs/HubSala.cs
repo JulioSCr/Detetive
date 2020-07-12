@@ -14,6 +14,18 @@ namespace Detetive.Hubs
     public class HubSala : Hub
     {
       
+        public void FinalizarTurno (int pIdSala, int pIdJogadorSala)
+        {
+            try
+            {
+                Clients.Group(pIdSala.ToString()).TransmitirFinalizarTurno(pIdJogadorSala);
+            }
+            catch (Exception ex)
+            {
+                Clients.Caller.erro(ex.Message, ex.ToString());
+            }
+        }
+        
         /// <summary>Envia o movimento para os outros jogadores da sala.</summary>
         /// <param name="ID_JOGADOR_SALA" type="int">ID do JoggadorSala.</param>
         /// <param name="pLinha" type="int">Número da linha.</param>
