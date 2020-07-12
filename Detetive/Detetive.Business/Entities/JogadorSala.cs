@@ -40,12 +40,9 @@ namespace Detetive.Business.Entities
             return VezJogador;
         }
 
-        public bool PossoMeMovimentar(int linhaMovimento, int colunaMovimento)
-        {
-            int quantidadeMovimentosNecessarios = Math.Abs(CoordenadaLinha - linhaMovimento) +
-                                                    Math.Abs(CoordenadaColuna - colunaMovimento);
-
-            return QuantidadeMovimento > 0 && quantidadeMovimentosNecessarios <= QuantidadeMovimento;
+        public bool PossoMeMovimentar()
+        { 
+            return QuantidadeMovimento > 0;
         }
 
         public void Mover(int coordenadaLinha, int coordenadaColuna, int? idLocal = null)
