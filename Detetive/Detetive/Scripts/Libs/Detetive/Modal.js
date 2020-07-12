@@ -123,7 +123,6 @@ function popup(vobjComponente) {
 }
 
 function carregar(vobjComponente) {
-    debugger;
     var lobjModalID = new String();
     try {
         lobjModalID = $(vobjComponente).attr('id');

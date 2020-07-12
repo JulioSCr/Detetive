@@ -97,21 +97,23 @@ Jogar.btnFinalizarTurno_OnClick = function () {
         //$("#btnFinalizarTurno").css('background', 'darkgrey');
 
         //$("#divCaixaInformacoes").append("Você finalizou seu turno!");
-         $.ajax({
+        $.ajax({
             url: gstrGlobalPath + 'Partida/Finalizar',
             type: 'post',
             data: {
                 idJogadorSala: Jogar.mID_JOGADOR_SALA
             },
             success: function (data, textStatus, XMLHttpRequest) {
+                Loading.Carregamento(false);
                 var retorno = JSON.parse(data);
 
                 if (!retorno.Status) {
                     PopUp.Erro(retorno.Retorno)
                 }
-                Sala.EnviarMensagem(Jogar.mID_SALA).done(function () { });
+                Sala.EnviarMensagem(Jogar.mID_SALA);
             },
             error: function (data, textStatus, XMLHttpRequest) {
+                Loading.Carregamento(false);
                 alert(data.Retorno);
             }
         });
@@ -457,9 +459,8 @@ Jogar.AnotacaoSuspeito_OnChange = function (input) {
 //#region Chat
 
 Jogar.TransmitirMensagem = function (pintIdSala, parrDescricaoMensagem) {
-    debugger;
     var lstrHtml = new String();
-    var larrDescricao = new Array(); 
+    var larrDescricao = new Array();
     try {
         larrDescricao = JSON.parse(parrDescricaoMensagem);
         for (var i = 0; i < larrDescricao.length; i++) {
