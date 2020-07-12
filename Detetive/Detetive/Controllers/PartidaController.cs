@@ -24,6 +24,8 @@ namespace Detetive.Controllers
         private readonly IAnotacaoLocalBusiness _anotacaoLocalBusiness;
         private readonly IAnotacaoSuspeitoBusiness _anotacaoSuspeitoBusiness;
         private readonly IHistoricoBusiness _historicoBusiness;
+        private readonly IArmaBusiness _armaBusiness;
+        private readonly ISuspeitoBusiness _suspeitoBusiness;
 
         private readonly IArmaJogadorSalaBusiness _armaJogadorSalaBusiness;
         private readonly ISuspeitoJogadorSalaBusiness _suspeitoJogadorSalaBusiness;
@@ -37,6 +39,8 @@ namespace Detetive.Controllers
                                  IAnotacaoLocalBusiness anotacaoLocalBusiness,
                                  IAnotacaoSuspeitoBusiness anotacaoSuspeitoBusiness,
                                  IHistoricoBusiness historicoBusiness,
+                                 IArmaBusiness armaBusiness,
+                                 ISuspeitoBusiness suspeitoBusiness,
                                  IArmaJogadorSalaBusiness armaJogadorSalaBusiness,
                                  ISuspeitoJogadorSalaBusiness suspeitoJogadorSalaBusiness,
                                  ILocalJogadorSalaBusiness localJogadorSalaBusiness)
@@ -49,6 +53,8 @@ namespace Detetive.Controllers
             _anotacaoLocalBusiness = anotacaoLocalBusiness;
             _anotacaoSuspeitoBusiness = anotacaoSuspeitoBusiness;
             _historicoBusiness = historicoBusiness;
+            _armaBusiness = armaBusiness;
+            _suspeitoBusiness = suspeitoBusiness;
             _armaJogadorSalaBusiness = armaJogadorSalaBusiness;
             _suspeitoJogadorSalaBusiness = suspeitoJogadorSalaBusiness;
             _localJogadorSalaBusiness = localJogadorSalaBusiness;
@@ -70,7 +76,7 @@ namespace Detetive.Controllers
 
             int idSala = jogadorSala.IdSala;
 
-            var operacao = _partidaBusiness.Iniciar(idSala);
+            var operacao = _partidaBusiness.Iniciar(idJogadorSala, idSala);
 
             ViewBag.ID_Sala = idSala;
 
@@ -81,10 +87,13 @@ namespace Detetive.Controllers
             ViewBag.Locais = Mapper.Map<List<Local>, List<LocalViewModel>>(locais);
 
             this.CarregarAnotacoes(jogadorSala.Id);
+            this.CarregarCartas(jogadorSala.Id);
 
             var jogadorSalaViewModel = Mapper.Map<JogadorSala, JogadorSalaViewModel>(_jogadorSalaBusiness.Obter(idJogadorSala));
+            var historicoPartidaViewModel = Mapper.Map<List<Historico>, List<HistoricoViewModel>>(_historicoBusiness.Listar(idSala));
 
             ViewBag.JogadorSala = jogadorSalaViewModel;
+            ViewBag.Historicos = historicoPartidaViewModel;
 
             if (jogadorSalaViewModel.Posicao.IdLocal == 1 || jogadorSalaViewModel.Posicao.IdLocal == 7 || jogadorSalaViewModel.Posicao.IdLocal == 8 || jogadorSalaViewModel.Posicao.IdLocal == 6)
             {
@@ -115,6 +124,23 @@ namespace Detetive.Controllers
 
             var jogadorSalaViewModel = Mapper.Map<JogadorSala, JogadorSalaViewModel>(_jogadorSalaBusiness.Obter(idJogadorSala));
             return JsonConvert.SerializeObject(new Operacao(JsonConvert.SerializeObject(jogadorSalaViewModel)));
+        }
+
+        public string Rolardados(/*int idJogadorSala, int idSala*/)
+        {
+            // Remover linha abaixo e descomentar parâmetros do método quando finalizar o desenvolvimento.
+            int idJogadorSala = 16, idSala = 1010;
+
+            try
+            {
+                var operacao = _partidaBusiness.RolarDados(idJogadorSala, idSala);
+
+                return JsonConvert.SerializeObject(operacao);
+            }
+            catch (Exception ex)
+            {
+                return JsonConvert.SerializeObject(new Operacao($"Ocorreu um problema: {ex.Message}", false));
+            }
         }
 
 
@@ -149,41 +175,31 @@ namespace Detetive.Controllers
             return JsonConvert.SerializeObject("");
         }
 
-        public string CarregarCartas(/*int idJogadorSala*/)
+        public void CarregarCartas(int idJogadorSala)
         {
-            int idJogadorSala = 251;
+            var armas = _armaJogadorSalaBusiness.Listar(idJogadorSala);
+            var suspeitos = _suspeitoJogadorSalaBusiness.Listar(idJogadorSala);
+            var locais = _localJogadorSalaBusiness.Listar(idJogadorSala);
 
-            try
-            {
-                var armas = _armaJogadorSalaBusiness.Listar(idJogadorSala);
-                var suspeitos = _suspeitoJogadorSalaBusiness.Listar(idJogadorSala);
-                var locais = _localJogadorSalaBusiness.Listar(idJogadorSala);
+            List<string> caminhoImageCartas = new List<string>();
 
-                List<string> caminhoImageCartas = new List<string>();
+            if (armas != null && armas.Any())
+                caminhoImageCartas.AddRange(armas.Select(_ => _.Arma.UrlImagem).ToList());
 
-                if (armas != null && armas.Any())
-                    caminhoImageCartas.AddRange(armas.Select(_ => _.Arma.UrlImagem).ToList());
+            if (suspeitos != null && suspeitos.Any())
+                caminhoImageCartas.AddRange(suspeitos.Select(_ => _.Suspeito.UrlImagem).ToList());
 
-                if (suspeitos != null && suspeitos.Any())
-                    caminhoImageCartas.AddRange(suspeitos.Select(_ => _.Suspeito.UrlImagem).ToList());
+            if (locais != null && locais.Any())
+                caminhoImageCartas.AddRange(locais.Select(_ => _.Local.UrlImagem).ToList());
 
-                if (locais != null && locais.Any())
-                    caminhoImageCartas.AddRange(locais.Select(_ => _.Local.UrlImagem).ToList());
-
-                return JsonConvert.SerializeObject(new Operacao(JsonConvert.SerializeObject(caminhoImageCartas)));
-            }
-            catch (Exception ex)
-            {
-                return JsonConvert.SerializeObject(new Operacao($"Ocorreu um problema: {ex.Message}", false));
-            }
+            ViewBag.Cartas = caminhoImageCartas;
         }
 
         [HttpGet]
         public ActionResult ModalPalpite()
         {
-            // To Do
-            ViewBag.Armas = null;
-            ViewBag.Suspeitos = null;
+            ViewBag.Armas = Mapper.Map<List<Arma>, List<ArmaViewModel>>(_armaBusiness.Listar());
+            ViewBag.Suspeitos = Mapper.Map<List<Suspeito>, List<SuspeitoViewModel>>(_suspeitoBusiness.Listar());
             return PartialView();
         }
 
@@ -225,6 +241,10 @@ namespace Detetive.Controllers
 
         private void CarregarAnotacoes(int idJogadorSala)
         {
+            _anotacaoArmaBusiness.CriarAnotacoes(idJogadorSala);
+            _anotacaoLocalBusiness.CriarAnotacoes(idJogadorSala);
+            _anotacaoSuspeitoBusiness.CriarAnotacoes(idJogadorSala);
+
             ViewBag.AnotacaoArma = Mapper.Map<List<AnotacaoArma>, List<AnotacaoArmaViewModel>>(_anotacaoArmaBusiness.Listar(idJogadorSala));
             ViewBag.AnotacaoLocal = Mapper.Map<List<AnotacaoLocal>, List<AnotacaoLocalViewModel>>(_anotacaoLocalBusiness.Listar(idJogadorSala));
             ViewBag.AnotacaoSuspeito = Mapper.Map<List<AnotacaoSuspeito>, List<AnotacaoSuspeitoViewModel>>(_anotacaoSuspeitoBusiness.Listar(idJogadorSala));

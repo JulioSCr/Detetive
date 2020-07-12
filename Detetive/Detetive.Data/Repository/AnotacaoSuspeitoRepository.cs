@@ -41,5 +41,16 @@ namespace Detetive.Data.Repository
 
             return anotacao;
         }
+
+        public List<AnotacaoSuspeito> Adicionar(List<AnotacaoSuspeito> anotacoes)
+        {
+            if (anotacoes != null && anotacoes.Any())
+            {
+                this.Context.AnotacaoSuspeitos.AddRange(anotacoes);
+                this.Context.SaveChanges();
+            }
+
+            return anotacoes;
+        }
     }
 }

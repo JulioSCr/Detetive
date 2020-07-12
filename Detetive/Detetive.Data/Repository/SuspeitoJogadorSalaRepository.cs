@@ -34,7 +34,7 @@ namespace Detetive.Data.Repository
 
         public SuspeitoJogadorSala Obter(int idSuspeito, int idJogadorSala)
         {
-            return this.Context.SuspeitosJogadorSala.AsNoTracking().SingleOrDefault(_ => _.IdJogadorSala == idJogadorSala && _.IdSuspeito == idSuspeito && _.Ativo);
+            return this.Context.SuspeitosJogadorSala.AsNoTracking().FirstOrDefault(_ => _.IdJogadorSala == idJogadorSala && _.IdSuspeito == idSuspeito && _.Ativo);
         }
     }
 }

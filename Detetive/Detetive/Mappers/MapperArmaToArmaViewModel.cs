@@ -12,10 +12,9 @@ namespace Detetive.Mappers
     {
         public MapperArmaToArmaViewModel()
         {
-            //CreateMap<AnotacaoArma, ArmaViewModel>()
-            //    .ForMember(viewModel => viewModel.Id, _ => _.MapFrom(model => model.Arma.Id))
-            //    .ForMember(viewModel => viewModel.Descricao, _ => _.MapFrom(model => model.Arma.Descricao))
-            //    .ForMember(viewModel => viewModel.Selecionado, _ => _.MapFrom(model => model.Marcado));
+            CreateMap<Arma, ArmaViewModel>()
+                .ForMember(viewModel => viewModel.Id, _ => _.MapFrom(model => model.Id))
+                .ForMember(viewModel => viewModel.Descricao, _ => _.MapFrom(model => model.Descricao));
         }
 
         public override string ProfileName

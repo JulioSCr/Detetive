@@ -1,0 +1,16 @@
+﻿#lblDetetiveModalTitulo {
+    font-size: 2.5em;
+}
+
+#lblMensagem {
+    font-size: 1.25em;
+    color: #BDA1B0;
+}
+
+#btnAcao {
+    margin-top: 30px;
+}
+
+#btnOk {
+    width: 100px;
+}

@@ -131,7 +131,7 @@ button {
 }
 
     #divLoadContainer.ocultar {
-        animation: ocultar 2s;
+        animation: ocultar 0.5s;
         animation-fill-mode: forwards;
     }
 

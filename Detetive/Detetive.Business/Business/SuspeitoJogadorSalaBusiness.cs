@@ -41,14 +41,6 @@ namespace Detetive.Business.Business
             if (crime != null && crime.IdSuspeito == idSuspeito)
                 throw new InvalidOperationException("Esta carta faz parte do crime e não pode ser dada ao jogador.");
 
-            var jogadoresSala = _jogadorSalaBusiness.Listar(jogadorSala.IdSala).Where(x => x.Id != idJogadorSala);
-            foreach (var outroJogadorSala in jogadoresSala)
-            {
-                var suspeitosOutroJogadorSala = _suspeitoJogadorSalaRepository.Listar(outroJogadorSala.Id);
-                if (suspeitosOutroJogadorSala != null && suspeitosOutroJogadorSala.Any(suspeitoOutroJogadorSala => suspeitoOutroJogadorSala.IdSuspeito == idSuspeito))
-                    throw new InvalidOperationException("Esta carta já faz parte do baralho de outro jogador.");
-            }
-
             return _suspeitoJogadorSalaRepository.Adicionar(new SuspeitoJogadorSala(idSuspeito, idJogadorSala));
         }
 
@@ -62,6 +54,11 @@ namespace Detetive.Business.Business
             }
 
             return suspeitosJogadorSala;
+        }
+
+        public SuspeitoJogadorSala Obter(int idSuspeito, int idJogadorSala)
+        {
+            return _suspeitoJogadorSalaRepository.Obter(idSuspeito, idJogadorSala);
         }
     }
 }

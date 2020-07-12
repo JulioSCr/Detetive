@@ -36,7 +36,7 @@
                     <div class="Loader"></div>
                 </div>
                 <div class="centralizar">
-                    <label class="fontePadrao">Carregando . . .</label>
+                    @*<label class="fontePadrao">Carregando . . .</label>*@
                 </div>
             </div>
         </div>
@@ -44,6 +44,7 @@
         @RenderBody()
 
         <div id="divPopUp" data-url="@Url.Action("PopUp", "PopUp")"></div>
+        <div id="divLoading" data-url="@Url.Action("Loading", "Loading")"></div>
 
     </main>
 
@@ -60,10 +61,11 @@
 
         $(document).ready(function () {
             // Inicia popup de Alerta
+            $('#divLoading').Detetive_Modal();
             $('#divPopUp').Detetive_Modal();
             $(document).on({
-                ajaxStart: function () { PopUp.Carregamento(true); },
-                ajaxStop: function () { debugger; PopUp.Carregamento(false); }
+                ajaxStart: function () { Loading.Carregamento(true); },
+                ajaxStop: function () { Loading.Carregamento(false); }
             });
         });
 
