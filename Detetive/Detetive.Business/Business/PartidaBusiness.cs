@@ -584,9 +584,6 @@ namespace Detetive.Business.Business
             if (!jogadorSala.MinhaVez())
                 return new Operacao("Não está na vez desse jogador.", false);
 
-            if (!jogadorSala.PossoMeMovimentar(novaCoordenadaLinha, novaCoordenadaColuna))
-                return new Operacao("Não há movimentos suficientes para ir ao destino desejado.", false);
-
             var operacao = ValidarMovimento(jogadorSala.IdLocal, jogadorSala.CoordenadaLinha, jogadorSala.CoordenadaColuna, novaCoordenadaLinha, novaCoordenadaColuna);
             if (operacao.Status)
             {
