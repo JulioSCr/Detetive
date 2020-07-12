@@ -114,6 +114,7 @@ Jogar.btnFinalizarTurno_OnClick = function () {
                 if (!retorno.Status) {
                     PopUp.Erro(retorno.Retorno)
                 }
+                Sala.FinalizarTurno();
                 Sala.EnviarMensagem(Jogar.mID_SALA);
             },
             error: function (data, textStatus, XMLHttpRequest) {
@@ -126,6 +127,16 @@ Jogar.btnFinalizarTurno_OnClick = function () {
         PopUp.Erro(ex);
     }
 
+}
+
+Jogar.TransmitirFinalizarTurno = function (pintIdSala, pintIdJogadorSala) {
+    try {
+        if (Jogar.mID_JOGADOR_SALA == pintIdJogadorSala) {
+            Jogar.DesativarBotoes(false);
+        }
+    } catch (ex) {
+        PopUp.Erro(ex);
+    }
 }
 
 Jogar.btnDireita_OnClick = function () {
