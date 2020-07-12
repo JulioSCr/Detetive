@@ -61,19 +61,19 @@ Jogar.btnFinalizarTurno_OnClick = function () {
         //$("#btnFinalizarTurno").css('background', 'darkgrey');
 
         //$("#divCaixaInformacoes").append("Você finalizou seu turno!");
-
-        $.ajax({
+         $.ajax({
             url: gstrGlobalPath + 'Partida/Finalizar',
             type: 'post',
             data: {
                 idJogadorSala: Jogar.mID_JOGADOR_SALA
             },
             success: function (data, textStatus, XMLHttpRequest) {
-                var retorno = alert(JSON.parse(data).Retorno);
+                var retorno = JSON.parse(data);
 
                 if (!retorno.Status) {
-                    alert(retorno.Retorno)
+                    PopUp.Erro(retorno.Retorno)
                 }
+                Sala.EnviarMensagem(Jogar.mID_SALA).done(function () { });
             },
             error: function (data, textStatus, XMLHttpRequest) {
                 alert(data.Retorno);
@@ -389,15 +389,16 @@ Jogar.AnotacaoSuspeito_OnChange = function (input) {
 
 //#region Chat
 
-Jogar.TransmitirMensagem = function (pintIdJogadorSalaRemetente, pintIdJogadorSalaDestinatario, pstrDescricaoMensagem) {
+Jogar.TransmitirMensagem = function (pintIdSala, parrDescricaoMensagem) {
+    debugger;
     var lstrHtml = new String();
+    var larrDescricao = new Array(); 
     try {
-        lstrHtml = '<label class="informacao">' + pstrDescricaoMensagem + '</label>';
-        if (pintIdJogadorSalaDestinatario == Jogar.mID_JOGADOR_SALA) {
-            $('#divCaixaInformacoes').append(lstrHtml);
-        } else if (pintIdJogadorSalaDestinatario == 0 || pintIdJogadorSalaDestinatario == null) {
-            $('#divCaixaInformacoes').append(lstrHtml);
+        larrDescricao = JSON.parse(parrDescricaoMensagem);
+        for (var i = 0; i < larrDescricao.length; i++) {
+            lstrHtml += '<label class="informacao">' + larrDescricao[i].Descricao + '</label>';
         }
+        $('#divCaixaInformacoes').html(lstrHtml);
     } catch (ex) {
         alert(ex);
     }
