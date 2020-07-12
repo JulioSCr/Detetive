@@ -55,5 +55,10 @@ namespace Detetive.Business.Business
 
             return suspeitosJogadorSala;
         }
+
+        public SuspeitoJogadorSala Obter(int idSuspeito, int idJogadorSala)
+        {
+            return _suspeitoJogadorSalaRepository.Obter(idSuspeito, idJogadorSala);
+        }
     }
 }

@@ -6,6 +6,7 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
+using System.Runtime.InteropServices;
 using System.Security.Cryptography.X509Certificates;
 using System.Text;
 using System.Threading.Tasks;
@@ -25,9 +26,6 @@ namespace Detetive.Business.Business
         private readonly IArmaJogadorSalaBusiness _armaJogadorSalaBusiness;
         private readonly ILocalJogadorSalaBusiness _localJogadorSalaBusiness;
         private readonly ISuspeitoJogadorSalaBusiness _suspeitoJogadorSalaBusiness;
-        private readonly IAnotacaoArmaBusiness _anotacaoArmaBusiness;
-        private readonly IAnotacaoLocalBusiness _anotacaoLocalBusiness;
-        private readonly IAnotacaoSuspeitoBusiness _anotacaoSuspeitoBusiness;
         private readonly IHistoricoBusiness _historicoBusiness;
         private readonly Dado _dado;
 
@@ -41,9 +39,6 @@ namespace Detetive.Business.Business
                                 IArmaJogadorSalaBusiness armaJogadorSalaBusiness,
                                 ILocalJogadorSalaBusiness localJogadorSalaBusiness,
                                 ISuspeitoJogadorSalaBusiness suspeitoJogadorSalaBusiness,
-                                IAnotacaoArmaBusiness anotacaoArmaBusiness,
-                                IAnotacaoLocalBusiness anotacaoLocalBusiness,
-                                IAnotacaoSuspeitoBusiness anotacaoSuspeitoBusiness,
                                 IHistoricoBusiness historicoBusiness,
                                 IJogadorBusiness jogadorBusiness, Dado dado)
         {
@@ -57,9 +52,6 @@ namespace Detetive.Business.Business
             _armaJogadorSalaBusiness = armaJogadorSalaBusiness;
             _localJogadorSalaBusiness = localJogadorSalaBusiness;
             _suspeitoJogadorSalaBusiness = suspeitoJogadorSalaBusiness;
-            _anotacaoArmaBusiness = anotacaoArmaBusiness;
-            _anotacaoLocalBusiness = anotacaoLocalBusiness;
-            _anotacaoSuspeitoBusiness = anotacaoSuspeitoBusiness;
             _historicoBusiness = historicoBusiness;
             _jogadorBusiness = jogadorBusiness;
             _dado = dado;
@@ -182,7 +174,7 @@ namespace Detetive.Business.Business
         }
 
         public Operacao Finalizar(int idJogadorSala)
-        {        
+        {
             if (idJogadorSala <= 0)
                 return new Operacao("Id do jogador não informado", false);
 
@@ -209,14 +201,14 @@ namespace Detetive.Business.Business
             var jogadorSala = _jogadorSalaBusiness.Obter(idJogadorSala);
 
             if (jogadorSala == default) return;
-            
+
             jogadorSala.FinalizarTurno(false);
             _jogadorSalaBusiness.Alterar(jogadorSala);
 
             var Jogadores = _jogadorSalaBusiness.Listar(jogadorSala.IdSala);
 
-            int NroOrdemProximo =99; 
-            foreach(var jogador in Jogadores)
+            int NroOrdemProximo = 99;
+            foreach (var jogador in Jogadores)
             {
                 if (jogador.IdJogador == jogadorSala.IdJogador)
                 {
@@ -226,12 +218,12 @@ namespace Detetive.Business.Business
             }
 
             int idProximoJogador = 0;
-            int idDefault = 0; 
+            int idDefault = 0;
             foreach (var jogador in Jogadores)
             {
-                if (jogador.NumeroOrdem == 1) idDefault = jogador.IdJogador; 
+                if (jogador.NumeroOrdem == 1) idDefault = jogador.IdJogador;
 
-                if((NroOrdemProximo) == jogador.NumeroOrdem)
+                if ((NroOrdemProximo) == jogador.NumeroOrdem)
                 {
                     idProximoJogador = jogador.IdJogador;
                     break;
@@ -326,39 +318,82 @@ namespace Detetive.Business.Business
         private Operacao RealizarPalpite(int idSala, int idJogadorSala, int idLocal, int idSuspeito, int idArma)
         {
             var jogadorSala = _jogadorSalaBusiness.Obter(idJogadorSala);
-
             if (jogadorSala == default && jogadorSala.IdSala != idSala)
                 return new Operacao("Jogador não encontrado", false);
 
             if (!jogadorSala.MinhaVez())
                 return new Operacao("Não está na vez desse jogador.", false);
 
-            this.MoverJogadorSalaParaLocal(idSuspeito, idSala, idLocal);
+            MoverJogadorSalaParaLocal(idSuspeito, idSala, idLocal);
 
-            //TODO
-            return null;
+            var armaPaupite = _armaBusiness.Obter(idArma);
+            var localPaupite = _localBusiness.Obter(idLocal);
+            var suspeitoPaupite = _suspeitoBusiness.Obter(idSuspeito);
+
+            // Registra palpite no histórico da sala.
+            var jogador = _jogadorBusiness.Obter(jogadorSala.IdJogador);
+            _historicoBusiness.Adicionar(new Historico(idSala, $"O jogador {jogador.Descricao} palpitou as seguintes as cartas {armaPaupite.Descricao} (arma), {suspeitoPaupite.Descricao} (suspeito) e {localPaupite.Descricao} (local)"));
+
+            // Ordena jogadores à esquerda do jogador
+            var jogadoresSala = _jogadorSalaBusiness.Listar(idSala);
+            var jogadoresSalaOrdenado = jogadoresSala.Where(_ => _.NumeroOrdem > jogadorSala.NumeroOrdem)
+                                                        .OrderBy(_ => _.NumeroOrdem).ToList();
+
+            jogadoresSalaOrdenado.AddRange(jogadoresSala.Where(_ => _.NumeroOrdem < jogadorSala.NumeroOrdem)
+                                                        .OrderBy(_ => _.NumeroOrdem).ToList());
+
+            foreach (var jogadorSalaEsquerda in jogadoresSalaOrdenado)
+            {
+                var arma = _armaJogadorSalaBusiness.Obter(idArma, jogadorSalaEsquerda.Id);
+                var local = _localJogadorSalaBusiness.Obter(idLocal, jogadorSalaEsquerda.Id);
+                var suspeito = _suspeitoJogadorSalaBusiness.Obter(idSuspeito, jogadorSalaEsquerda.Id);
+
+                if (arma == default && local == default && suspeito == default)
+                    continue;
+
+                List<TipoCarta> tiposcarta = new List<TipoCarta>();
+
+                if (arma != default)
+                    tiposcarta.Add(TipoCarta.Arma);
+
+                if (local != default)
+                    tiposcarta.Add(TipoCarta.Local);
+
+                if (suspeito != default)
+                    tiposcarta.Add(TipoCarta.Suspeito);
+
+                var jogadorComCarta = _jogadorBusiness.Obter(jogadorSalaEsquerda.IdJogador);
+                _historicoBusiness.Adicionar(new Historico(idSala, $"O jogador {jogadorComCarta.Descricao} mostrou uma carta ao jogador {jogador.Descricao}"));
+
+                // Sorteia a carta que que será revelado por conta do palpite
+                switch (tiposcarta[new Random().Next(0, tiposcarta.Count)])
+                {
+                    case TipoCarta.Arma:
+                        return new Operacao($"O jogador {jogadorComCarta.Descricao} lhe mostrou a carta {armaPaupite.Descricao}");
+
+                    case TipoCarta.Local:
+                        return new Operacao($"O jogador {jogadorComCarta.Descricao} lhe mostrou a carta {localPaupite.Descricao}");
+
+                    case TipoCarta.Suspeito:
+                        return new Operacao($"O jogador {jogadorComCarta.Descricao} lhe mostrou a carta {suspeitoPaupite.Descricao}");
+                }
+            }
+
+            Historico historico = _historicoBusiness.Adicionar(new Historico(idSala, "Nenhum jogador possui as cartas palpitadas"));
+            return new Operacao(historico.Descricao);
         }
 
         private void MoverJogadorSalaParaLocal(int idSuspeito, int idSala, int idLocal)
         {
             var jogadorSala = _jogadorSalaBusiness.ObterPorSuspeito(idSuspeito, idSala);
-
             if (jogadorSala == default)
                 return;
 
             var local = _localBusiness.Obter(idLocal);
-
             if (local == default)
                 return;
 
-            var portas = _portaLocalBusiness.Listar(idLocal);
-            //ToDo
-            if (portas != null && portas.Any())
-                return;
-
-            var porta = portas.First();
-
-            jogadorSala.AlterarCoordenadas(porta.CoordenadaLinha, porta.CoordenadaColuna);
+            jogadorSala.Mover(jogadorSala.CoordenadaLinha, jogadorSala.CoordenadaColuna, idLocal);
             _jogadorSalaBusiness.Alterar(jogadorSala);
         }
 

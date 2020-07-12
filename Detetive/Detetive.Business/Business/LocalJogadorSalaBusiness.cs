@@ -55,5 +55,10 @@ namespace Detetive.Business.Business
 
             return locaisJogadorSala;
         }
+
+        public LocalJogadorSala Obter(int idLocal, int idJogadorSala)
+        {
+            return _localJogadorSalaRepository.Obter(idLocal, idJogadorSala);
+        }
     }
 }
