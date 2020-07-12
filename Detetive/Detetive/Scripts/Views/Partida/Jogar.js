@@ -122,13 +122,17 @@ Jogar.btnDireita_OnClick = function () {
     var lIDLocalDestino = new Number();
     var lstrOrientacaoMovimento = new String('');
     try {
+        debugger;
         ({ lLinha, lColuna } = Jogar.Posicao(lLinha, lColuna));
         lIDLocalAtual = Jogar.GetLocalAtual(Jogar.mID_JOGADOR_SALA);
         if (lIDLocalAtual == 0) {
             lIDLocalDestino = Jogar.CoordenadaToLocal(lLinha, lColuna + 1);
         } else {
             lstrOrientacaoMovimento = 'direita';
-            ({ lLinha, lColuna } = Jogar.PosicaoPortaSaida(lIDLocalAtual, lstrOrientacaoMovimento));
+            lobjCoordenadasSaida = Jogar.PosicaoPortaSaida(lIDLocalAtual, lstrOrientacaoMovimento);
+
+            lLinha = lobjCoordenadasSaida.Linha;
+            lColuna = lobjCoordenadasSaida.Coluna;
         }
         if (lLinha == null && lColuna == null) { throw 'Movimento inválido mova-se para outra direção.'; }
         Sala.EnviarMovimento(lLinha, lColuna + 1, lIDLocalDestino);
@@ -140,15 +144,21 @@ Jogar.btnDireita_OnClick = function () {
 Jogar.btnEsquerda_OnClick = function () {
     var lLinha = new Number();
     var lColuna = new Number();
-    var lIDLocal = new Number();
+    var lIDLocalAtual = new Number();
+    var lIDLocalDestino = new Number();
+    var lstrOrientacaoMovimento = new String('');
     try {
+        debugger;
         ({ lLinha, lColuna } = Jogar.Posicao(lLinha, lColuna));
         lIDLocalAtual = Jogar.GetLocalAtual(Jogar.mID_JOGADOR_SALA);
         if (lIDLocalAtual == 0) {
             lIDLocalDestino = Jogar.CoordenadaToLocal(lLinha, lColuna - 1);
         } else {
             lstrOrientacaoMovimento = 'esquerda';
-            ({ lLinha, lColuna } = Jogar.PosicaoPortaSaida(lIDLocalAtual, lstrOrientacaoMovimento));
+            lobjCoordenadasSaida = Jogar.PosicaoPortaSaida(lIDLocalAtual, lstrOrientacaoMovimento);
+
+            lLinha = lobjCoordenadasSaida.Linha;
+            lColuna = lobjCoordenadasSaida.Coluna;
         }
         if (lLinha == null && lColuna == null) { throw 'Movimento inválido mova-se para outra direção.'; }
         Sala.EnviarMovimento(lLinha, lColuna - 1, lIDLocalDestino);
@@ -160,15 +170,21 @@ Jogar.btnEsquerda_OnClick = function () {
 Jogar.btnAcima_OnClick = function () {
     var lLinha = new Number();
     var lColuna = new Number();
-    var lIDLocal = new Number();
+    var lIDLocalAtual = new Number();
+    var lIDLocalDestino = new Number();
+    var lstrOrientacaoMovimento = new String('');
     try {
+        debugger;
         ({ lLinha, lColuna } = Jogar.Posicao(lLinha, lColuna));
         lIDLocalAtual = Jogar.GetLocalAtual(Jogar.mID_JOGADOR_SALA);
         if (lIDLocalAtual == 0) {
             lIDLocalDestino = Jogar.CoordenadaToLocal(lLinha - 1, lColuna);
         } else {
             lstrOrientacaoMovimento = 'cima';
-            ({ lLinha, lColuna } = Jogar.PosicaoPortaSaida(lIDLocalAtual, lstrOrientacaoMovimento));
+            lobjCoordenadasSaida = Jogar.PosicaoPortaSaida(lIDLocalAtual, lstrOrientacaoMovimento);
+
+            lLinha = lobjCoordenadasSaida.Linha;
+            lColuna = lobjCoordenadasSaida.Coluna;
         }
         if (lLinha == null && lColuna == null) { throw 'Movimento inválido mova-se para outra direção.'; }
         Sala.EnviarMovimento(lLinha - 1, lColuna, lIDLocalDestino);
@@ -180,15 +196,21 @@ Jogar.btnAcima_OnClick = function () {
 Jogar.btnAbaixo_OnClick = function () {
     var lLinha = new Number();
     var lColuna = new Number();
-    var lIDLocal = new Number();
+    var lIDLocalAtual = new Number();
+    var lIDLocalDestino = new Number();
+    var lstrOrientacaoMovimento = new String('');
     try {
+        debugger;
         ({ lLinha, lColuna } = Jogar.Posicao(lLinha, lColuna));
         lIDLocalAtual = Jogar.GetLocalAtual(Jogar.mID_JOGADOR_SALA);
         if (lIDLocalAtual == 0) {
             lIDLocalDestino = Jogar.CoordenadaToLocal(lLinha + 1, lColuna);
         } else {
             lstrOrientacaoMovimento = 'baixo';
-            ({ lLinha, lColuna } = Jogar.PosicaoPortaSaida(lIDLocalAtual, lstrOrientacaoMovimento));
+            lobjCoordenadasSaida = Jogar.PosicaoPortaSaida(lIDLocalAtual, lstrOrientacaoMovimento);
+            
+            lLinha = lobjCoordenadasSaida.Linha;
+            lColuna = lobjCoordenadasSaida.Coluna;
         }
         if (lLinha == null && lColuna == null) { throw 'Movimento inválido mova-se para outra direção.'; }
         Sala.EnviarMovimento(lLinha + 1, lColuna, lIDLocalDestino);
@@ -335,23 +357,21 @@ Jogar.Posicao = function (lLinha, lColuna) {
 }
 
 Jogar.PosicaoPortaSaida = function (pintIdLocal, pstrOrientacaoMovimento) {
-    var lintLinha = new Number();
-    var lintColuna = new Number();
+    var lobjRetorno = new Object();
     try {
-        for (lobjLocal in Jogar.marrMapeamento) {
-            if (lobjLocal.ID == pintIdLocal) {
-                for (lobjPorta in lobjLocal.Portas) {
-                    if (lobjPorta.Direcao == pstrOrientacaoMovimento) {
-                        lintLinha = lobjPorta.Linha;
-                        lintColuna = lobjPorta.Coluna;
-                        return { lintLinha, lintColuna };
+        for (var lobjLocal in Jogar.marrMapeamento) {
+            if (Jogar.marrMapeamento[lobjLocal].ID == pintIdLocal) {
+                for (var lobjPorta in Jogar.marrMapeamento[lobjLocal].Portas) {
+                    if (Jogar.marrMapeamento[lobjLocal].Portas[lobjPorta].Direcao == pstrOrientacaoMovimento) {
+                        lobjRetorno.Linha = Jogar.marrMapeamento[lobjLocal].Portas[lobjPorta].Linha;
+                        lobjRetorno.Coluna = Jogar.marrMapeamento[lobjLocal].Portas[lobjPorta].Coluna;
+                        return lobjRetorno;
                     }
                 }
+                throw 'Tente sair por outra direção.';
             }
         }
-        lintLinha = null;
-        lintColuna = null;
-        return { lintLinha, lintColuna };
+        return lobjRetorno;
     } catch (ex) {
         PopUp.Erro(ex);
     }
@@ -392,16 +412,15 @@ Jogar.GetLocalAtual = function (pintID_JOGADOR_SALA) {
 
 Jogar.CoordenadaToLocal = function (lintLinha, lintColuna) {
     try {
-        for (lobjLocal in Jogar.marrMapeamento) {
-            if (lintLinha >= lobjLocal.LinhaA && lintLinha <= lobjLocal.LinhaB
-                && lintColuna >= lobjLocal.ColunaA && lintColuna <= lobjLocal.ColunaB) {
-                for (lobjPorta in lobjLocal.Portas) {
-                    if (lobjPorta.Linha == lintLinha && lobjPorta.Coluna == lintColuna) {
-                        return lobjLocal.ID;
-                    } else {
-                        throw 'Entre pela porta.';
+        for (var lobjLocal in Jogar.marrMapeamento) {
+            if (lintLinha >= Jogar.marrMapeamento[lobjLocal].LinhaA && lintLinha <= Jogar.marrMapeamento[lobjLocal].LinhaB
+                && lintColuna >= Jogar.marrMapeamento[lobjLocal].ColunaA && lintColuna <= Jogar.marrMapeamento[lobjLocal].ColunaB) {
+                for (var lobjPorta in Jogar.marrMapeamento[lobjLocal].Portas) {
+                    if (Jogar.marrMapeamento[lobjLocal].Portas[lobjPorta].Linha == lintLinha && Jogar.marrMapeamento[lobjLocal].Portas[lobjPorta].Coluna == lintColuna) {
+                        return Jogar.marrMapeamento[lobjLocal].ID;
                     }
                 }
+                throw 'Entre pela porta.';
             }
         }
         return null;
