@@ -68,6 +68,8 @@ Jogar.MontarTela = function () {
     $('#divCaixaInformacoes').animate({
         scrollTop: $('#divCaixaInformacoes').get(0).scrollHeight
     }, 500);
+
+    Jogar.MapearTabuleiro();
 };
 
 $(document).ready(function () {
@@ -142,11 +144,20 @@ Jogar.TransmitirFinalizarTurno = function (pintIdSala, pintIdJogadorSala) {
 Jogar.btnDireita_OnClick = function () {
     var lLinha = new Number();
     var lColuna = new Number();
-    var lIDLocal = new Number();
+    var lIDLocalAtual = new Number();
+    var lIDLocalDestino = new Number();
+    var lstrOrientacaoMovimento = new String('');
     try {
         ({ lLinha, lColuna } = Jogar.Posicao(lLinha, lColuna));
-        //({ lIDLocal, lLinha, lColuna } = Jogar.SairLocal(lIDLocal, lLinha, lColuna, 'direita'));
-        Sala.EnviarMovimento(lLinha, lColuna + 1);
+        lIDLocalAtual = Jogar.GetLocalAtual(Jogar.mID_JOGADOR_SALA);
+        if (lIDLocalAtual == 0) {
+            lIDLocalDestino = Jogar.CoordenadaToLocal(lLinha, lColuna + 1);
+        } else {
+            lstrOrientacaoMovimento = 'direita';
+            ({ lLinha, lColuna } = Jogar.PosicaoPortaSaida(lIDLocalAtual, lstrOrientacaoMovimento));
+        }
+        if (lLinha == null && lColuna == null) { throw 'Movimento inválido mova-se para outra direção.'; }
+        Sala.EnviarMovimento(lLinha, lColuna + 1, lIDLocalDestino);
     } catch (ex) {
         PopUp.Erro(ex);
     }
@@ -158,8 +169,15 @@ Jogar.btnEsquerda_OnClick = function () {
     var lIDLocal = new Number();
     try {
         ({ lLinha, lColuna } = Jogar.Posicao(lLinha, lColuna));
-        //({ lIDLocal, lLinha, lColuna } = Jogar.SairLocal(lIDLocal, lLinha, lColuna, 'esquerda'));
-        Sala.EnviarMovimento(lLinha, lColuna - 1);
+        lIDLocalAtual = Jogar.GetLocalAtual(Jogar.mID_JOGADOR_SALA);
+        if (lIDLocalAtual == 0) {
+            lIDLocalDestino = Jogar.CoordenadaToLocal(lLinha, lColuna - 1);
+        } else {
+            lstrOrientacaoMovimento = 'esquerda';
+            ({ lLinha, lColuna } = Jogar.PosicaoPortaSaida(lIDLocalAtual, lstrOrientacaoMovimento));
+        }
+        if (lLinha == null && lColuna == null) { throw 'Movimento inválido mova-se para outra direção.'; }
+        Sala.EnviarMovimento(lLinha, lColuna - 1, lIDLocalDestino);
     } catch (ex) {
         PopUp.Erro(ex);
     }
@@ -171,8 +189,15 @@ Jogar.btnAcima_OnClick = function () {
     var lIDLocal = new Number();
     try {
         ({ lLinha, lColuna } = Jogar.Posicao(lLinha, lColuna));
-        //({ lIDLocal, lLinha, lColuna } = Jogar.SairLocal(lIDLocal, lLinha, lColuna, 'cima'));
-        Sala.EnviarMovimento(lLinha - 1, lColuna);
+        lIDLocalAtual = Jogar.GetLocalAtual(Jogar.mID_JOGADOR_SALA);
+        if (lIDLocalAtual == 0) {
+            lIDLocalDestino = Jogar.CoordenadaToLocal(lLinha - 1, lColuna);
+        } else {
+            lstrOrientacaoMovimento = 'cima';
+            ({ lLinha, lColuna } = Jogar.PosicaoPortaSaida(lIDLocalAtual, lstrOrientacaoMovimento));
+        }
+        if (lLinha == null && lColuna == null) { throw 'Movimento inválido mova-se para outra direção.'; }
+        Sala.EnviarMovimento(lLinha - 1, lColuna, lIDLocalDestino);
     } catch (ex) {
         PopUp.Erro(ex);
     }
@@ -184,8 +209,15 @@ Jogar.btnAbaixo_OnClick = function () {
     var lIDLocal = new Number();
     try {
         ({ lLinha, lColuna } = Jogar.Posicao(lLinha, lColuna));
-        //({ lIDLocal, lLinha, lColuna } = Jogar.SairLocal(lIDLocal, lLinha, lColuna, 'baixo'));
-        Sala.EnviarMovimento(lLinha + 1, lColuna);
+        lIDLocalAtual = Jogar.GetLocalAtual(Jogar.mID_JOGADOR_SALA);
+        if (lIDLocalAtual == 0) {
+            lIDLocalDestino = Jogar.CoordenadaToLocal(lLinha + 1, lColuna);
+        } else {
+            lstrOrientacaoMovimento = 'baixo';
+            ({ lLinha, lColuna } = Jogar.PosicaoPortaSaida(lIDLocalAtual, lstrOrientacaoMovimento));
+        }
+        if (lLinha == null && lColuna == null) { throw 'Movimento inválido mova-se para outra direção.'; }
+        Sala.EnviarMovimento(lLinha + 1, lColuna, lIDLocalDestino);
     } catch (ex) {
         PopUp.Erro(ex);
     }
@@ -327,6 +359,29 @@ Jogar.Posicao = function (lLinha, lColuna) {
     return { lLinha, lColuna };
 }
 
+Jogar.PosicaoPortaSaida = function (pintIdLocal, pstrOrientacaoMovimento) {
+    var lintLinha = new Number();
+    var lintColuna = new Number();
+    try {
+        for (lobjLocal in Jogar.marrMapeamento) {
+            if (lobjLocal.ID == pintIdLocal) {
+                for (lobjPorta in lobjLocal.Portas) {
+                    if (lobjPorta.Direcao == pstrOrientacaoMovimento) {
+                        lintLinha = lobjPorta.Linha;
+                        lintColuna = lobjPorta.Coluna;
+                        return { lintLinha, lintColuna };
+                    }
+                }
+            }
+        }
+        lintLinha = null;
+        lintColuna = null;
+        return { lintLinha, lintColuna };
+    } catch (ex) {
+        PopUp.Erro(ex);
+    }
+}
+
 Jogar.SairLocal = function (lIDLocal, lLinha, lColuna, lstrDirecao) {
     var larrLocal = new Array();
     var larrPorta = new Array();
@@ -356,7 +411,27 @@ Jogar.GetLocalAtual = function (pintID_JOGADOR_SALA) {
         if (lintLocalID == null || lintLocalID == undefined) { lintLocalID = 0; }
         return lintLocalID;
     } catch (ex) {
-        throw ex;
+        PopUp.Erro(ex);
+    }
+}
+
+Jogar.CoordenadaToLocal = function (lintLinha, lintColuna) {
+    try {
+        for (lobjLocal in Jogar.marrMapeamento) {
+            if (lintLinha >= lobjLocal.LinhaA && lintLinha <= lobjLocal.LinhaB
+                && lintColuna >= lobjLocal.ColunaA && lintColuna <= lobjLocal.ColunaB) {
+                for (lobjPorta in lobjLocal.Portas) {
+                    if (lobjPorta.Linha == lintLinha && lobjPorta.Coluna == lintColuna) {
+                        return lobjLocal.ID;
+                    } else {
+                        throw 'Entre pela porta.';
+                    }
+                }
+            }
+        }
+        return null;
+    } catch (ex) {
+        PopUp.Erro(ex);
     }
 }
 
@@ -496,3 +571,176 @@ Jogar.TransmitirMensagem = function (pintIdSala, parrDescricaoMensagem) {
 }
 
 //#endregion
+
+Jogar.MapearTabuleiro = function () {
+    try {
+        Jogar.marrMapeamento = [
+            {
+                Nome: 'PredioA',
+                ID: 1,
+                LinhaA: 11,
+                LinhaB: 18,
+                ColunaA: 1,
+                ColunaB: 7,
+                Portas: [
+                    {
+                        Linha: 14,
+                        Coluna: 6,
+                        Direcao: 'direita'
+                    }
+                ],
+                PassagemSecreta: 7
+            },
+            {
+                Nome: 'PredioB',
+                ID: 2,
+                LinhaA: 11,
+                LinhaB: 18,
+                ColunaA: 9,
+                ColunaB: 15,
+                Portas: [
+                    {
+                        Linha: 14,
+                        Coluna: 9,
+                        Direcao: 'esquerda'
+                    }
+                ],
+                PassagemSecreta: 0
+            },
+            {
+                Nome: 'Santiago',
+                ID: 3,
+                LinhaA: 1,
+                LinhaB: 10,
+                ColunaA: 27,
+                ColunaB: 33,
+                Portas: [
+                    {
+                        Linha: 9,
+                        Coluna: 29,
+                        Direcao: 'baixo'
+                    }
+                ],
+                PassagemSecreta: 0
+            },
+            {
+                Nome: 'Praca',
+                ID: 4,
+                LinhaA: 20,
+                LinhaB: 26,
+                ColunaA: 16,
+                ColunaB: 25,
+                Portas: [
+                    {
+                        Linha: 25,
+                        Coluna: 16,
+                        Direcao: 'esquerda'
+                    },
+                    {
+                        Linha: 20,
+                        Coluna: 23,
+                        Direcao: 'cima'
+                    }
+                ],
+                PassagemSecreta: 0
+            },
+            {
+                Nome: 'Etesp',
+                ID: 5,
+                LinhaA: 20,
+                LinhaB: 26,
+                ColunaA: 9,
+                ColunaB: 15,
+                Portas: [
+                    {
+                        Linha: 24,
+                        Coluna: 9,
+                        Direcao: 'esquerda'
+                    },
+                    {
+                        Linha: 22,
+                        Coluna: 14,
+                        Direcao: 'direita'
+                    }
+                ],
+                PassagemSecreta: 0
+            },
+            {
+                Nome: 'CantinaAB',
+                ID: 6,
+                LinhaA: 20,
+                LinhaB: 26,
+                ColunaA: 1,
+                ColunaB: 7,
+                Portas: [
+                    {
+                        Linha: 20,
+                        Coluna: 1,
+                        Direcao: 'cima'
+                    }
+                ],
+                PassagemSecreta: 8
+            },
+            {
+                Nome: 'CA',
+                ID: 7,
+                LinhaA: 12,
+                LinhaB: 26,
+                ColunaA: 27,
+                ColunaB: 33,
+                Portas: [
+                    {
+                        Linha: 12,
+                        Coluna: 31,
+                        Direcao: 'cima'
+                    },
+                    {
+                        Linha: 24,
+                        Coluna: 27,
+                        Direcao: 'esquerda'
+                    }
+                ],
+                PassagemSecreta: 1
+            },
+            {
+                Nome: 'Auditorio',
+                ID: 8,
+                LinhaA: 3,
+                LinhaB: 9,
+                ColunaA: 18,
+                ColunaB: 25,
+                Portas: [
+                    {
+                        Linha: 4,
+                        Coluna: 18,
+                        Direcao: 'esquerda'
+                    },
+                    {
+                        Linha: 3,
+                        Coluna: 24,
+                        Direcao: 'cima'
+                    }
+                ],
+                PassagemSecreta: 6
+            },
+            {
+                Nome: 'Ginasio',
+                ID: 9,
+                LinhaA: 9,
+                LinhaB: 18,
+                ColunaA: 18,
+                ColunaB: 25,
+                Portas: [
+                    {
+                        Linha: 17,
+                        Coluna: 18,
+                        Direcao: 'esquerda'
+                    }
+                ],
+                PassagemSecreta: 0
+            }
+        ];
+    } catch (ex) {
+        alert(ex);
+    }
+}
