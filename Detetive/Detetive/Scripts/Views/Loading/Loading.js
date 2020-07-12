@@ -4,7 +4,6 @@
 
 Loading.Carregamento = function (pblnCarregar) {
     try {
-        debugger;
         if (pblnCarregar) {
             $('#divLoading #lblMensagem').text('Carregando . . .');
             $('#divLoading #DetetiveModal #divImagem').html('<div class="Loader"></div>')

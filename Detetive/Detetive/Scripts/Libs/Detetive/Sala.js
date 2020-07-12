@@ -181,6 +181,7 @@ Sala.EnviarMensagem = function (pintIdSala) {
                 idSala: Sala.mIdSala
             },
             success: function (data, textStatus, XMLHttpRequest) {
+                debugger;
                 var lobjResultado = new Object();
                 var lobjRetorno = new Object();
                 try {
@@ -209,7 +210,6 @@ Sala.EnviarMensagem = function (pintIdSala) {
 /// <returns type="Void"></returns>
 Sala.EnviarMovimento = function (pLinha, pColuna) {
     try {
-        debugger;
         Jogar.DesativarBotoes(true);
         $.ajax({
             url: gstrGlobalPath + 'Partida/MoverJogador',
