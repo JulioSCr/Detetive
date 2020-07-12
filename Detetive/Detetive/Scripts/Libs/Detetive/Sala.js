@@ -241,7 +241,7 @@ Sala.EnviarMensagem = function (pintIdSala) {
 /// <param name="pColuna" type="Number">Número da coluna.</param>
 /// <param name="pIDLocal" type="Number">ID do local onde o jogador está.</param>
 /// <returns type="Void"></returns>
-Sala.EnviarMovimento = function (pLinha, pColuna, pIdLocal) {
+Sala.EnviarMovimento = function (pLinha, pColuna) {
     try {
         Jogar.DesativarBotoes(true);
         $.ajax({

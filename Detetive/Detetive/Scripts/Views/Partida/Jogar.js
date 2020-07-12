@@ -551,12 +551,65 @@ Jogar.MapearTabuleiro = function () {
     try {
         Jogar.marrMapeamento = [
             {
-                Nome: 'PredioA',
+                Nome: 'Santiago',
                 ID: 1,
+                LinhaA: 1,
+                LinhaB: 9,
+                ColunaA: 27,
+                ColunaB: 32,
+                Portas: [
+                    {
+                        Linha: 9,
+                        Coluna: 29,
+                        Direcao: 'baixo'
+                    }
+                ],
+                PassagemSecreta: 0
+            },
+            {
+                Nome: 'CA',
+                ID: 2,
+                LinhaA: 12,
+                LinhaB: 25,
+                ColunaA: 27,
+                ColunaB: 32,
+                Portas: [
+                    {
+                        Linha: 12,
+                        Coluna: 31,
+                        Direcao: 'cima'
+                    },
+                    {
+                        Linha: 24,
+                        Coluna: 27,
+                        Direcao: 'esquerda'
+                    }
+                ],
+                PassagemSecreta: 1
+            },
+            {
+                Nome: 'Ginasio',
+                ID: 3,
+                LinhaA: 9,
+                LinhaB: 17,
+                ColunaA: 18,
+                ColunaB: 24,
+                Portas: [
+                    {
+                        Linha: 17,
+                        Coluna: 18,
+                        Direcao: 'esquerda'
+                    }
+                ],
+                PassagemSecreta: 0
+            },
+            {
+                Nome: 'PredioA',
+                ID: 4,
                 LinhaA: 11,
-                LinhaB: 18,
+                LinhaB: 17,
                 ColunaA: 1,
-                ColunaB: 7,
+                ColunaB: 6,
                 Portas: [
                     {
                         Linha: 14,
@@ -568,11 +621,11 @@ Jogar.MapearTabuleiro = function () {
             },
             {
                 Nome: 'PredioB',
-                ID: 2,
+                ID: 5,
                 LinhaA: 11,
-                LinhaB: 18,
+                LinhaB: 17,
                 ColunaA: 9,
-                ColunaB: 15,
+                ColunaB: 14,
                 Portas: [
                     {
                         Linha: 14,
@@ -583,28 +636,12 @@ Jogar.MapearTabuleiro = function () {
                 PassagemSecreta: 0
             },
             {
-                Nome: 'Santiago',
-                ID: 3,
-                LinhaA: 1,
-                LinhaB: 10,
-                ColunaA: 27,
-                ColunaB: 33,
-                Portas: [
-                    {
-                        Linha: 9,
-                        Coluna: 29,
-                        Direcao: 'baixo'
-                    }
-                ],
-                PassagemSecreta: 0
-            },
-            {
                 Nome: 'Praca',
-                ID: 4,
+                ID: 6,
                 LinhaA: 20,
-                LinhaB: 26,
+                LinhaB: 25,
                 ColunaA: 16,
-                ColunaB: 25,
+                ColunaB: 24,
                 Portas: [
                     {
                         Linha: 25,
@@ -621,11 +658,11 @@ Jogar.MapearTabuleiro = function () {
             },
             {
                 Nome: 'Etesp',
-                ID: 5,
+                ID: 7,
                 LinhaA: 20,
-                LinhaB: 26,
+                LinhaB: 25,
                 ColunaA: 9,
-                ColunaB: 15,
+                ColunaB: 14,
                 Portas: [
                     {
                         Linha: 24,
@@ -642,11 +679,11 @@ Jogar.MapearTabuleiro = function () {
             },
             {
                 Nome: 'CantinaAB',
-                ID: 6,
+                ID: 8,
                 LinhaA: 20,
-                LinhaB: 26,
+                LinhaB: 25,
                 ColunaA: 1,
-                ColunaB: 7,
+                ColunaB: 6,
                 Portas: [
                     {
                         Linha: 20,
@@ -657,33 +694,12 @@ Jogar.MapearTabuleiro = function () {
                 PassagemSecreta: 8
             },
             {
-                Nome: 'CA',
-                ID: 7,
-                LinhaA: 12,
-                LinhaB: 26,
-                ColunaA: 27,
-                ColunaB: 33,
-                Portas: [
-                    {
-                        Linha: 12,
-                        Coluna: 31,
-                        Direcao: 'cima'
-                    },
-                    {
-                        Linha: 24,
-                        Coluna: 27,
-                        Direcao: 'esquerda'
-                    }
-                ],
-                PassagemSecreta: 1
-            },
-            {
                 Nome: 'Auditorio',
-                ID: 8,
+                ID: 9,
                 LinhaA: 3,
-                LinhaB: 9,
+                LinhaB: 8,
                 ColunaA: 18,
-                ColunaB: 25,
+                ColunaB: 24,
                 Portas: [
                     {
                         Linha: 4,
@@ -697,22 +713,6 @@ Jogar.MapearTabuleiro = function () {
                     }
                 ],
                 PassagemSecreta: 6
-            },
-            {
-                Nome: 'Ginasio',
-                ID: 9,
-                LinhaA: 9,
-                LinhaB: 18,
-                ColunaA: 18,
-                ColunaB: 25,
-                Portas: [
-                    {
-                        Linha: 17,
-                        Coluna: 18,
-                        Direcao: 'esquerda'
-                    }
-                ],
-                PassagemSecreta: 0
             }
         ];
     } catch (ex) {
