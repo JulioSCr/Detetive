@@ -47,10 +47,6 @@ Sala.Configurar = function () {
         console.log(vstrMensagemTecnica);
     };
 
-    Sala.mHubSala.client.TransmitirMensagem = function (apelido, msg) {
-        Listar.TransmitirMensagem(apelido, msg);
-    };
-
     Sala.mHubSala.client.TransmitirMovimento = function (ID_JOGADOR_SALA, pLinha, pColuna, pIDLocal) {
         Jogar.TransmitirMovimento(ID_JOGADOR_SALA, pLinha, pColuna, pIDLocal);
     }
@@ -71,8 +67,8 @@ Sala.Configurar = function () {
         Listar.TransmitirDesconsideracaoSuspeito(pintIdJogadorSala, pDescricaoSuspeito);
     }
 
-    Sala.mHubSala.client.TransmitirMensagem = function (pintIdJogadorSalaRemetente, pintIdJogadorSalaDestinatario, pstrDescricaoMensagem) {
-        Jogar.TransmitirMensagem(pintIdJogadorSalaRemetente, pintIdJogadorSalaDestinatario, pstrDescricaoMensagem);
+    Sala.mHubSala.client.TransmitirMensagem = function (pintIdSala, pstrDescricaoMensagem) {
+        Jogar.TransmitirMensagem(pintIdSala, pstrDescricaoMensagem);
     }
 
     Sala.mHubSala.client.erro = function (vstrMensagem, vstrMensagemTecnica) {
@@ -140,7 +136,7 @@ Sala.SelecionarSuspeito = function (pintIdSala, pintIdJogadorSala, pintIdSuspeit
                 }
             },
             error: function (request, status, error) {
-                alert(request.responseText);
+                PopUp.Erro(request.responseText);
             }
         });
     } catch (ex) {
@@ -176,32 +172,33 @@ Sala.DesconsiderarSuspeito = function (pintIdSala, pintIdJogadorSala) {
 
 //#endregion
 
-Sala.EnviarMensagem = function (pIdJogadorSalaRemetente, pIdJogadorSalaDestinatario, pDescricaoMensagem) {
+Sala.EnviarMensagem = function (pintIdSala) {
     try {
         $.ajax({
-            url: gstrGlobalPath + 'Agaga/Agaga',
+            url: gstrGlobalPath + 'Partida/HistoricoPartida',
             type: 'Post',
             data: {
-                Agaga: agaga
+                idSala: Sala.mIdSala
             },
             success: function (data, textStatus, XMLHttpRequest) {
                 var lobjResultado = new Object();
                 var lobjRetorno = new Object();
                 try {
                     lobjResultado = JSON.parse(data);
-                    if (!lobjResultado.Status) { throw lobjResultado.Retorno; }
-                    lobjRetorno = JSON.parse(lobjResultado.Retorno);
-                    Sala.mHubSala.server.enviarMensagem(Sala.mIdSala, pIdJogadorSalaRemetente, pIdJogadorSalaDestinatario, pDescricaoMensagem).done(function () { });
+                    if (lobjResultado.length == 1 ) {
+                        if (!lobjResultado.Status) { throw lobjResultado.Retorno; }
+                    }
+                    Sala.mHubSala.server.enviarMensagem(Sala.mIdSala, JSON.stringify(lobjResultado)).done(function () { });
                 } catch (ex) {
                     alert(ex);
                 }
             },
             error: function (data, textStatus, XMLHttpRequest) {
-                alert("Erro no envio da mensagem.");
+                PopUp.Erro('Erro no envio da mensagem.');
             }
         });
     } catch (ex) {
-        console.log(ex);
+        PopUp.Erro(ex);
     }
 }
 
@@ -212,6 +209,7 @@ Sala.EnviarMensagem = function (pIdJogadorSalaRemetente, pIdJogadorSalaDestinata
 /// <returns type="Void"></returns>
 Sala.EnviarMovimento = function (pLinha, pColuna) {
     try {
+        debugger;
         Jogar.DesativarBotoes(true);
         $.ajax({
             url: gstrGlobalPath + 'Partida/MoverJogador',
@@ -237,12 +235,13 @@ Sala.EnviarMovimento = function (pLinha, pColuna) {
                     lintIdLocal = lobjRetorno.Posicao.IdLocal;
                     Sala.mHubSala.server.enviarMovimento(Sala.mIdSala, Sala.mID_JOGADOR_SALA, lintLinha, lintColuna, lintIdLocal).done(function () { });
                 } catch (ex) {
-                    alert(ex);
+                    //PopUp.Erro(ex);
+                    PopUp.Erro(ex);
                 }
             },
             error: function (data, textStatus, XMLHttpRequest) {
                 Jogar.DesativarBotoes(false);
-                alert("Erro na chamada da movimentação.");
+                PopUp.Erro('Erro na chamada da movimentação.');
             }
         });
     } catch (ex) {
@@ -254,7 +253,7 @@ Sala.Teletransporte = function (pintIdJogadorSala, pintIdLocal) {
     try {
         Sala.mHubSala.server.teletransporte(pintIdJogadorSala, pintIdLocal, Sala.mIdSala).done(function () { });
     } catch (ex) {
-        alert(ex);
+        PopUp.Erro(ex);
     }
 }
 

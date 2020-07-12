@@ -11,5 +11,6 @@ namespace Detetive.Business.Business.Interfaces
     {
         Sala Obter(int idSala);
         Sala Adicionar();
+        Sala Alterar(Sala sala);
     }
 }

@@ -235,6 +235,7 @@
     <Compile Include="App_Start\Startup.cs" />
     <Compile Include="Controllers\AnotacaoController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\LoadingController.cs" />
     <Compile Include="Controllers\PopUpController.cs" />
     <Compile Include="Controllers\PropagandaController.cs" />
     <Compile Include="Controllers\SalaController.cs" />
@@ -294,7 +295,7 @@
     <Content Include="Content\Imagens\CartasLocais\imgCartaGinasio.svg" />
     <Content Include="Content\Imagens\CartasLocais\imgCartaPraca.svg" />
     <Content Include="Content\Imagens\CartasLocais\imgCartaPredioA.svg" />
-    <Content Include="Content\Imagens\CartasLocais\imgCartaPrédioB.svg" />
+    <Content Include="Content\Imagens\CartasLocais\imgCartaPredioB.svg" />
     <Content Include="Content\Imagens\CartasLocais\imgCartaSantiago.svg" />
     <Content Include="Content\Imagens\CartasSuspeitos\imgCartaBibliotecaria.svg" />
     <Content Include="Content\Imagens\CartasSuspeitos\imgCartaDiretora.svg" />
@@ -336,10 +337,13 @@
     <Content Include="Content\Libs\Detetive\Global.css" />
     <Content Include="Content\Libs\Detetive\Modal.css" />
     <Content Include="Content\Libs\Material\material-icons.css" />
+    <Content Include="Content\Libs\Slick\ajax-loader.gif" />
+    <Content Include="Content\Libs\Slick\fonts\slick.svg" />
     <Content Include="Content\Libs\Slick\slick-theme.css" />
     <Content Include="Content\Libs\Slick\slick.css" />
     <Content Include="Content\Site.css" />
     <Content Include="Content\Views\Home\Index.css" />
+    <Content Include="Content\Views\Loading\Loading.css" />
     <Content Include="Content\Views\Partida\Jogar.css" />
     <Content Include="Content\Views\Partida\ModalAcusar.css" />
     <Content Include="Content\Views\PopUp\PopUp.css" />
@@ -384,6 +388,9 @@
     <Content Include="Content\bootstrap-reboot.min.css.map" />
     <Content Include="Content\bootstrap.css.map" />
     <Content Include="Content\bootstrap.min.css.map" />
+    <Content Include="Content\Libs\Slick\fonts\slick.eot" />
+    <Content Include="Content\Libs\Slick\fonts\slick.ttf" />
+    <Content Include="Content\Libs\Slick\fonts\slick.woff" />
     <None Include="Scripts\Libs\JQuery\jquery-3.5.1.intellisense.js" />
     <Content Include="Scripts\Libs\JQuery\jquery-3.5.1.js" />
     <Content Include="Scripts\Libs\JQuery\jquery-3.5.1.min.js" />
@@ -470,6 +477,7 @@
     <Content Include="Scripts\Libs\umd\popper-utils.min.js" />
     <Content Include="Scripts\Libs\umd\popper.js" />
     <Content Include="Scripts\Libs\umd\popper.min.js" />
+    <Content Include="Scripts\Views\Loading\Loading.js" />
     <Content Include="Scripts\Views\Partida\ModalAcusar.js" />
     <Content Include="Scripts\Views\PopUp\PopUp.js" />
     <Content Include="Scripts\Views\Propaganda\Ad.js" />
@@ -513,6 +521,7 @@
     <Content Include="Views\Sala\Manter.cshtml" />
     <Content Include="Views\Propaganda\Ad.cshtml" />
     <Content Include="Views\PopUp\PopUp.cshtml" />
+    <Content Include="Views\Loading\Loading.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

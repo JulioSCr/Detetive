@@ -15,7 +15,8 @@ namespace Detetive.Mappers
             CreateMap<Suspeito, SuspeitoViewModel>()
                 .ForMember(viewModel => viewModel.Id, _ => _.MapFrom(model => model.Id))
                 .ForMember(viewModel => viewModel.Descricao, _ => _.MapFrom(model => model.Descricao))
-                .ForMember(viewModel => viewModel.UrlImagem, _ => _.MapFrom(model => model.UrlImagem));
+                .ForMember(viewModel => viewModel.UrlImagem, _ => _.MapFrom(model => model.UrlImagem))
+                .ForMember(viewModel => viewModel.UrlImagemToken, _ => _.MapFrom(model => model.UrlImagemToken));
         }
 
         public override string ProfileName

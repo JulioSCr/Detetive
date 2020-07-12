@@ -13,6 +13,9 @@
             case 'TOGGLE':
                 return toggle(this);
                 break;
+            case 'CARREGAR':
+                return carregar(this);
+                break;
             default:
                 return null;
         }
@@ -119,9 +122,21 @@ function popup(vobjComponente) {
     }
 }
 
+function carregar(vobjComponente) {
+    debugger;
+    var lobjModalID = new String();
+    try {
+        lobjModalID = $(vobjComponente).attr('id');
+        $('#' + lobjModalID + ' .modal-container').addClass('delay');
+    } catch (ex) {
+        alert(ex);
+    }
+}
+
 function hide(vobjComponente) {
     try {
         lobjModalID = $(vobjComponente).attr('id');
+        $('#' + lobjModalID + ' .modal-container').removeClass('delay');
         $('#' + lobjModalID + ' .modal-container').removeClass('mostrar');
     } catch (ex) {
         alert(ex);
@@ -139,10 +154,14 @@ function SetTitulo(pstrComponenteID, pstrTitulo) {
 function SetImagem(pstrComponenteID, pstrImagem) {
     var lstrElementoImagem = new String();
     try {
-        pstrImagem = gstrGlobalPath +  pstrImagem.replace(/^(~\\|\\)/, '');
-        lstrElementoImagem = '<img id="imgPopUp" src="' + pstrImagem + '"/>';
+        if (pstrImagem == '') {
+            $('#' + pstrComponenteID + ' #divImagem img').remove();
+        } else {
+            pstrImagem = gstrGlobalPath + pstrImagem.replace(/^(~\\|\\)/, '');
+            lstrElementoImagem = '<img id="imgPopUp" src="' + pstrImagem + '"/>';
 
-        $('#' + pstrComponenteID + ' #divImagem').html(lstrElementoImagem);
+            $('#' + pstrComponenteID + ' #divImagem').html(lstrElementoImagem);
+        }
     } catch (ex) {
         alert(ex);
     }

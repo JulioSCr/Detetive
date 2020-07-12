@@ -103,50 +103,36 @@
     <div id="divCartasContainer" class="esquerda centralizar">
         <div id="divCartas">
             <div class="slider slider-nav">
+                @foreach (var carta in ViewBag.Cartas)
+                {
                 <div class="carta centralizar">
-                    <img src="~/Content/Imagens/CartasArmas/imgCartaCadeiraQuebrada.svg" />
+                    <img src="@Url.Content(carta)" />
                 </div>
-                <div class="carta centralizar">
-                    <img src="~/Content/Imagens/CartasArmas/imgCartaCadeiraQuebrada.svg" />
-                </div>
-                <div class="carta centralizar">
-                    <img src="~/Content/Imagens/CartasArmas/imgCartaCadeiraQuebrada.svg" />
-                </div>
-                <div class="carta centralizar">
-                    <img src="~/Content/Imagens/CartasArmas/imgCartaCadeiraQuebrada.svg" />
-                </div>
-                <div class="carta centralizar">
-                    <img src="~/Content/Imagens/CartasArmas/imgCartaCadeiraQuebrada.svg" />
-                </div>
-                <div class="carta centralizar">
-                    <img src="~/Content/Imagens/CartasArmas/imgCartaCadeiraQuebrada.svg" />
-                </div>
+                }
             </div>
         </div>
     </div>
     <div id="divAcoes" class="direita">
         <div id="divBotoes">
-            <button type="button" title="Mover para direita" id="btnDireita" class="botoes btnSetaHorizontal centralizarBotoes" onclick="Jogar.btnDireita_OnClick()"></button>
-            <button type="button" title="Mover para esquerda" id="btnEsquerda" class="botoes btnSetaHorizontal centralizarBotoes" onclick="Jogar.btnEsquerda_OnClick()"></button>
-            <button type="button" title="Mover para cima" id="btnAcima" class="botoes btnSetaVertical centralizarBotoes" onclick="Jogar.btnAcima_OnClick()"></button>
-            <button type="button" title="Mover para baixo" id="btnAbaixo" class="botoes btnSetaVertical centralizarBotoes" onclick="Jogar.btnAbaixo_OnClick()"></button>
-            <button type="button" title="Rolar os dados" id="btnLancarDados" class="botoes centralizarBotoes"></button>
+            <button type="button" title="Mover para direita" id="btnDireita" class="botoes btnSetaHorizontal centralizarBotoes" onclick="Jogar.btnDireita_OnClick()" @(ViewBag.JogadorSala.Vez == false ? "disabled=''" : "")></button>
+            <button type="button" title="Mover para esquerda" id="btnEsquerda" class="botoes btnSetaHorizontal centralizarBotoes" onclick="Jogar.btnEsquerda_OnClick()" @(ViewBag.JogadorSala.Vez == false ? "disabled=''" : "")></button>
+            <button type="button" title="Mover para cima" id="btnAcima" class="botoes btnSetaVertical centralizarBotoes" onclick="Jogar.btnAcima_OnClick()" @(ViewBag.JogadorSala.Vez == false ? "disabled=''" : "")></button>
+            <button type="button" title="Mover para baixo" id="btnAbaixo" class="botoes btnSetaVertical centralizarBotoes" onclick="Jogar.btnAbaixo_OnClick()" @(ViewBag.JogadorSala.Vez == false ? "disabled=''" : "")></button>
+            <button type="button" title="Rolar os dados" id="btnLancarDados" class="botoes centralizarBotoes" onclick="Jogar.btnLancarDados_OnClick()" @(ViewBag.JogadorSala.Vez == false ? "disabled=''" : "")></button>
 
-            <button type="button" title="Palpitar" id="btnPalpite" class="botoes centralizarBotoes botoesOpcoes" onclick="Jogar.btnPalpite_OnClick()" style="@(ViewBag.JogadorSala.Posicao.IdLocal == null ? "visibility: hidden" : "visibility: visible")">Palpite</button>
-            <button type="button" title="Acusar" id="btnAcusar" class="botoes centralizarBotoes botoesOpcoes" onclick="Jogar.btnAcusar_OnClick()" style="@(ViewBag.JogadorSala.Posicao.IdLocal == null ? "visibility: hidden" : "visibility: visible")">Acusar</button>
-            <button type="button" title="Usar passagem secreta" id="btnPassagemSecreta" class="botoes centralizarBotoes botoesOpcoes" onclick="Jogar.btnPassagemSecreta_OnClick()" style="@(ViewBag.passagemSecreta == false ? "visibility: hidden" : "visibility: visible")"></button>
+            <button type="button" title="Palpitar" id="btnPalpite" class="botoes centralizarBotoes botoesOpcoes" onclick="Jogar.btnPalpite_OnClick()" style="@(ViewBag.JogadorSala.Posicao.IdLocal == null ? "visibility: hidden" : "visibility: visible")" @(ViewBag.JogadorSala.Vez == false ? "disabled=''" : "")>Palpite</button>
+            <button type="button" title="Acusar" id="btnAcusar" class="botoes centralizarBotoes botoesOpcoes" onclick="Jogar.btnAcusar_OnClick()" style="@(ViewBag.JogadorSala.Posicao.IdLocal == null ? "visibility: hidden" : "visibility: visible")" @(ViewBag.JogadorSala.Vez == false ? "disabled=''" : "")>Acusar</button>
+            <button type="button" title="Usar passagem secreta" id="btnPassagemSecreta" class="botoes centralizarBotoes botoesOpcoes" onclick="Jogar.btnPassagemSecreta_OnClick()" style="@(ViewBag.passagemSecreta == false ? "visibility: hidden" : "visibility: visible")" @(ViewBag.JogadorSala.Vez == false ? "disabled=''" : "")></button>
         </div>
         <div id="divInformacoesContainer">
             <div id="divInformacoes">
                 <label id="lblSala">#ID Sala: @ViewBag.ID_Sala</label>
-                <button type="button" title="Finalizar turno" id="btnFinalizarTurno" class="botoes centralizarBotoes" onclick="Jogar.btnFinalizarTurno_OnClick()"></button>
+                <button type="button" title="Finalizar turno" id="btnFinalizarTurno" class="botoes centralizarBotoes" onclick="Jogar.btnFinalizarTurno_OnClick()" @(ViewBag.JogadorSala.Vez == false ? "disabled=''" : "")></button>
                 <div id="divCaixaInformacoes">
-                    <label class="informacao">É a sua vez! Role o dado!</label>
-                    <label class="informacao">Valor do dado = 5. Avance até 5 casas!</label>
-                    <label class="informacao">Voce adentrou o CA! O que deseja fazer? (Palpite/Acusar)</label>
-                    <label class="informacao">Voce palpitou a blibliotecária, no CA com o Pendrive!</label>
-                    <label class="informacao">O jogador 2 revelou a carta Pendrive!</label>
-                    <label class="informacao">Sua vez terminou! Jogador 2 está fazendo sua jogada...</label>
+                    @foreach (var historico in ViewBag.Historicos)
+                    {
+                        <label class="informacao">@historico.Descricao</label>
+                    }
                 </div>
             </div>
         </div>

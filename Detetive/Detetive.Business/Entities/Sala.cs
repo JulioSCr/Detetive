@@ -7,6 +7,7 @@ namespace Detetive.Business.Entities
 {
     public class Sala : BaseEntity
     {
+        public int? IdJogadorSala { get; set; }
         public DateTime DataCriacao { get; set; }
 
         internal Sala() : base()
@@ -18,6 +19,11 @@ namespace Detetive.Business.Entities
         {
             Id = id;
             DataCriacao = DateTime.Now;
+        }
+
+        public void AlterarJogador(int? idJogadorSala)
+        {
+            IdJogadorSala = idJogadorSala;
         }
     }
 }

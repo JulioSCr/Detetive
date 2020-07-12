@@ -1,6 +1,6 @@
 ﻿var Jogar = window.Jogar || {
     mID_JOGADOR_SALA: new Number(),     // ID do jogador sala
-    mID_SALA: new Number(),     // ID do jogador sala
+    mID_SALA: new Number(),             // ID do jogador sala
     marrMapeamento: new Array()         // Mapeamento do tabuleiro
 };
 
@@ -19,8 +19,44 @@ Jogar.MontarTela = function () {
     $('.slider-nav').slick({
         slidesToShow: 5,
         slidesToScroll: 1,
-        dots: false,
-        focusOnSelect: true
+        infinite: false,
+        dots: true,
+    });
+
+    $('.responsive').slick({
+        dots: true,
+        infinite: false,
+        speed: 300,
+        slidesToShow: 5,
+        slidesToScroll: 1,
+        responsive: [
+            {
+                breakpoint: 1024,
+                settings: {
+                    slidesToShow: 3,
+                    slidesToScroll: 1,
+                    infinite: true,
+                    dots: true
+                }
+            },
+            {
+                breakpoint: 600,
+                settings: {
+                    slidesToShow: 2,
+                    slidesToScroll: 1
+                }
+            },
+            {
+                breakpoint: 480,
+                settings: {
+                    slidesToShow: 1,
+                    slidesToScroll: 1
+                }
+            }
+            // You can unslick at a given breakpoint now by adding:
+            // settings: "unslick"
+            // instead of a settings object
+        ]
     });
 
     $('a[data-slide]').click(function (e) {
@@ -61,19 +97,19 @@ Jogar.btnFinalizarTurno_OnClick = function () {
         //$("#btnFinalizarTurno").css('background', 'darkgrey');
 
         //$("#divCaixaInformacoes").append("Você finalizou seu turno!");
-
-        $.ajax({
+         $.ajax({
             url: gstrGlobalPath + 'Partida/Finalizar',
             type: 'post',
             data: {
                 idJogadorSala: Jogar.mID_JOGADOR_SALA
             },
             success: function (data, textStatus, XMLHttpRequest) {
-                var retorno = alert(JSON.parse(data).Retorno);
+                var retorno = JSON.parse(data);
 
                 if (!retorno.Status) {
-                    alert(retorno.Retorno)
+                    PopUp.Erro(retorno.Retorno)
                 }
+                Sala.EnviarMensagem(Jogar.mID_SALA).done(function () { });
             },
             error: function (data, textStatus, XMLHttpRequest) {
                 alert(data.Retorno);
@@ -83,7 +119,7 @@ Jogar.btnFinalizarTurno_OnClick = function () {
     } catch (ex) {
         PopUp.Erro(ex);
     }
-    
+
 }
 
 Jogar.btnDireita_OnClick = function () {
@@ -179,6 +215,37 @@ Jogar.DesativarBotoes = function (pblnAtivar) {
     $('#btnPalpite').prop('disabled', pblnAtivar);
     $('#btnAcusar').prop('disabled', pblnAtivar);
     $('#btnPassagemSecreta').prop('disabled', pblnAtivar);
+}
+
+Jogar.btnLancarDados_OnClick = function () {
+    try {
+        $.ajax({
+            url: gstrGlobalPath + 'Partida/RolarDados',
+            type: 'post',
+            data: {
+                idJogadorSala: Jogar.mID_JOGADOR_SALA,
+                idSala: Jogar.mID_SALA
+            },
+            success: function (data, textStatus, XMLHttpRequest) {
+                var lobjResltado = new Object();
+                var lstrDescricaoJogador = new String();
+                var lstrDescricaoSuspeitoSelecionado = new String();
+                var lstrDescricaoSuspeitoDesconsiderado = new String();
+                try {
+                    lobjResltado = JSON.parse(data);
+                    if (!lobjResltado.Status) { throw data.Retorno; }
+                    Sala.AtualizarHistorico(Jogar.mID_SALA);
+                } catch (ex) {
+                    PopUp.Erro(ex);
+                }
+            },
+            error: function (request, status, error) {
+                PopUp.Erro(request.responseText);
+            }
+        });
+    } catch (ex) {
+        PopUp.Erro(ex);
+    }
 }
 
 //#endregion
@@ -389,15 +456,16 @@ Jogar.AnotacaoSuspeito_OnChange = function (input) {
 
 //#region Chat
 
-Jogar.TransmitirMensagem = function (pintIdJogadorSalaRemetente, pintIdJogadorSalaDestinatario, pstrDescricaoMensagem) {
+Jogar.TransmitirMensagem = function (pintIdSala, parrDescricaoMensagem) {
+    debugger;
     var lstrHtml = new String();
+    var larrDescricao = new Array(); 
     try {
-        lstrHtml = '<label class="informacao">' + pstrDescricaoMensagem + '</label>';
-        if (pintIdJogadorSalaDestinatario == Jogar.mID_JOGADOR_SALA) {
-            $('#divCaixaInformacoes').append(lstrHtml);
-        } else if (pintIdJogadorSalaDestinatario == 0 || pintIdJogadorSalaDestinatario == null) {
-            $('#divCaixaInformacoes').append(lstrHtml);
+        larrDescricao = JSON.parse(parrDescricaoMensagem);
+        for (var i = 0; i < larrDescricao.length; i++) {
+            lstrHtml += '<label class="informacao">' + larrDescricao[i].Descricao + '</label>';
         }
+        $('#divCaixaInformacoes').html(lstrHtml);
     } catch (ex) {
         alert(ex);
     }

@@ -32,13 +32,10 @@ namespace Detetive.Business.Business
                 suspeitos = suspeitos.Where(suspeito => !anotacoesSuspeitos.Any(anotacao => anotacao.IdSuspeito == suspeito.Id)).ToList();
             }
 
-            // Adiciona os suspeitos que ainda não foram cadastradas.
-            suspeitos.ForEach(suspeito => Adicionar(suspeito.Id, idJogadorSala));
-        }
-
-        public AnotacaoSuspeito Adicionar(int idSuspeito, int idJogadorSala)
-        {
-            return _anotacaoSuspeitoRepository.Adicionar(new AnotacaoSuspeito(idSuspeito, idJogadorSala));
+            // Adiciona as suspeitos que ainda não foram cadastradas.
+            var anotacoes = new List<AnotacaoSuspeito>();
+            suspeitos.ForEach(suspeito => anotacoes.Add(new AnotacaoSuspeito(suspeito.Id, idJogadorSala)));
+            _anotacaoSuspeitoRepository.Adicionar(anotacoes);
         }
 
         public List<AnotacaoSuspeito> Listar(int idJogadorSala)

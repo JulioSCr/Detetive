@@ -19,6 +19,7 @@ namespace Detetive.Business.Entities
         public int? IdLocal { get; set; }
         public int IdJogador { get; set; }
         public int? IdSuspeito { get; set; }
+        public bool RolouDados { get; set; }
         public virtual Suspeito Suspeito { get; set; }
 
         internal JogadorSala() : base()
@@ -84,6 +85,12 @@ namespace Detetive.Business.Entities
         public void AlterarSuspeito(int? idSuspeito)
         {
             IdSuspeito = idSuspeito;
+        }
+
+        public void AlterarQuantidadeMovimento(int quantidadeMovimento)
+        {
+            QuantidadeMovimento = quantidadeMovimento;
+            RolouDados = true;
         }
     }
 }

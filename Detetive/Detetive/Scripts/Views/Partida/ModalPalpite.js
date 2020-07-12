@@ -29,6 +29,7 @@ ModalPalpite.Palpitar = function () {
                 var lintIdJogadorSalaAcusado = new Number();
                 var lobjRetorno = new Object();
                 try {
+                    debugger;
                     lobjRetorno = JSON.parse(data);
                     if (!lobjRetorno.Status) { throw lobjRetorno.Retorno; }
 

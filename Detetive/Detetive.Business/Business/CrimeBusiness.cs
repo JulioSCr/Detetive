@@ -26,6 +26,10 @@ namespace Detetive.Business.Business
 
         public Crime Adicionar(Sala sala)
         {
+            var crime = this.Obter(sala.Id);
+            if (crime != default)
+                return crime;
+
             var armas = _armaBusiness.Listar();
             var locais = _localBusiness.Listar();
             var suspeitos = _suspeitoBusiness.Listar();

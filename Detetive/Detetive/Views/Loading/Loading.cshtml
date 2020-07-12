@@ -1,0 +1,14 @@
+﻿
+@{
+    Layout = "~/Views/Shared/_LayoutModal.cshtml";
+}
+@section head{
+    <link rel="stylesheet" href="@Url.Content("~/Content/Views/Loading/Loading.css?" + DateTimeOffset.Now)" />
+}
+@section scripts{
+    <script src="@Url.Content("~/Scripts/Views/Loading/Loading.js?" + DateTimeOffset.Now)"></script>
+}
+
+<div class="centralizar">
+    <label id="lblMensagem" class="fontePadrao"></label>
+</div>

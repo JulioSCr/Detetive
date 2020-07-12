@@ -12,6 +12,7 @@ namespace Detetive.ViewModel
         public int? IdJogadorSala { get; set; }
         public string Descricao { get; set; }
         public string UrlImagem { get; set; }
+        public string UrlImagemToken { get; set; }
         public string NickJogador { get; set; }
     }
 }
