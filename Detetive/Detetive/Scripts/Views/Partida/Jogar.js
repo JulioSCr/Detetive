@@ -64,6 +64,16 @@ Jogar.MontarTela = function () {
         var slideno = $(this).data('slide');
         $('.slider-nav').slick('slickGoTo', slideno - 1);
     });
+
+    $('#divCaixaInformacoes').animate({
+        scrollTop: $('#divCaixaInformacoes').get(0).scrollHeight
+    }, 500);
+
+    document.getElementById('#divCaixaInformacoes').addEventListener('change', function myfunction() {
+        $('#divCaixaInformacoes').animate({
+            scrollTop: $('#divCaixaInformacoes').get(0).scrollHeight
+        }, 500);
+    });
 };
 
 $(document).ready(function () {
