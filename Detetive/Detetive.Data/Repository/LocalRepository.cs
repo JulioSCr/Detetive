@@ -24,5 +24,11 @@ namespace Detetive.Data.Repository
         {
             return this.Context.Locais.AsNoTracking().Single(_ => _.Id == idLocal && _.Ativo);
         }
+
+        public Local Obter(int coordenadaLinha, int coordenadaColuna)
+        {
+            return this.Context.Locais.AsNoTracking().FirstOrDefault(_ => _.CoordenadaALinha <= coordenadaLinha && _.CoordenadaBLinha >= coordenadaLinha &&
+                                                                            _.CoordenadaAColuna <= coordenadaColuna && _.CoordenadaBColuna >= coordenadaColuna && _.Ativo);
+        }
     }
 }

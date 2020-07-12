@@ -46,5 +46,14 @@ namespace Detetive.Business.Entities
                                     _.CoordenadaColuna == coordenadaColuna &&
                                     _.Direcao.Equals(direcao));
         }
+
+        public bool PortaLocal(int coordenadaOrigemLinha, int coordenadaOrigemColuna, int coordenadaDestinoLinha, int coordenadaDestinoColuna)
+        {
+            var porta = Portas.FirstOrDefault(_ => _.CoordenadaLinha == coordenadaDestinoLinha && _.CoordenadaColuna == coordenadaDestinoColuna);
+            if (porta == default)
+                return false;
+
+            return porta.ValidarMovimento(coordenadaOrigemLinha, coordenadaOrigemColuna);
+        }
     }
 }
