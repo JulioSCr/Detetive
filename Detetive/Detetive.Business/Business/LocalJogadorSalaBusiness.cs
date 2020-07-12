@@ -44,6 +44,15 @@ namespace Detetive.Business.Business
             return _localJogadorSalaRepository.Adicionar(new LocalJogadorSala(idLocal, idJogadorSala));
         }
 
+        public void DesabilitarLocaisJogador(int idJogadorSala)
+        {
+            var locais = _localJogadorSalaRepository.Listar(idJogadorSala);
+
+            locais.ForEach(local => local.Ativo = false);
+
+            _localJogadorSalaRepository.Alterar(locais);
+        }
+
         public List<LocalJogadorSala> Listar(int idJogadorSala)
         {
             var locaisJogadorSala = _localJogadorSalaRepository.Listar(idJogadorSala);

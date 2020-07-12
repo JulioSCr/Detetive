@@ -12,5 +12,6 @@ namespace Detetive.Business.Business.Interfaces
         ArmaJogadorSala Adicionar(int idArma, int idJogadorSala);
         List<ArmaJogadorSala> Listar(int idJogadorSala);
         ArmaJogadorSala Obter(int idArma, int idJogadorSala);
+        void DesabilitarArmasJogador(int idJogadorSala);
     }
 }
