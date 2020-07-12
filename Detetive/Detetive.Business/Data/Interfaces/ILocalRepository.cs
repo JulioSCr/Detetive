@@ -10,6 +10,7 @@ namespace Detetive.Business.Data.Interfaces
     public interface ILocalRepository
     {
         Local Obter(int idLocal);
+        Local Obter(int coordenadaLinha, int coordenadaColuna);
         List<Local> Listar();
     }
 }
