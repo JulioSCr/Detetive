@@ -64,6 +64,10 @@ Jogar.MontarTela = function () {
         var slideno = $(this).data('slide');
         $('.slider-nav').slick('slickGoTo', slideno - 1);
     });
+
+    $('#divCaixaInformacoes').animate({
+        scrollTop: $('#divCaixaInformacoes').get(0).scrollHeight
+    }, 500);
 };
 
 $(document).ready(function () {
@@ -110,6 +114,7 @@ Jogar.btnFinalizarTurno_OnClick = function () {
                 if (!retorno.Status) {
                     PopUp.Erro(retorno.Retorno)
                 }
+                Sala.FinalizarTurno();
                 Sala.EnviarMensagem(Jogar.mID_SALA);
             },
             error: function (data, textStatus, XMLHttpRequest) {
@@ -122,6 +127,16 @@ Jogar.btnFinalizarTurno_OnClick = function () {
         PopUp.Erro(ex);
     }
 
+}
+
+Jogar.TransmitirFinalizarTurno = function (pintIdSala, pintIdJogadorSala) {
+    try {
+        if (Jogar.mID_JOGADOR_SALA == pintIdJogadorSala) {
+            Jogar.DesativarBotoes(false);
+        }
+    } catch (ex) {
+        PopUp.Erro(ex);
+    }
 }
 
 Jogar.btnDireita_OnClick = function () {
@@ -234,14 +249,19 @@ Jogar.btnLancarDados_OnClick = function () {
                 var lstrDescricaoSuspeitoSelecionado = new String();
                 var lstrDescricaoSuspeitoDesconsiderado = new String();
                 try {
+                    Loading.Carregamento(false);
                     lobjResltado = JSON.parse(data);
                     if (!lobjResltado.Status) { throw data.Retorno; }
-                    Sala.AtualizarHistorico(Jogar.mID_SALA);
+                    Sala.EnviarMensagem(Jogar.mID_SALA);
                 } catch (ex) {
+                    if (ex == null) {
+                        ex = 'Você não pode lançar os dados.'
+                    }
                     PopUp.Erro(ex);
                 }
             },
             error: function (request, status, error) {
+                Loading.Carregamento(false);
                 PopUp.Erro(request.responseText);
             }
         });
@@ -462,6 +482,9 @@ Jogar.TransmitirMensagem = function (pintIdSala, parrDescricaoMensagem) {
     var lstrHtml = new String();
     var larrDescricao = new Array();
     try {
+        $('#divCaixaInformacoes').animate({
+            scrollTop: $('#divCaixaInformacoes').get(0).scrollHeight
+        }, 500);
         larrDescricao = JSON.parse(parrDescricaoMensagem);
         for (var i = 0; i < larrDescricao.length; i++) {
             lstrHtml += '<label class="informacao">' + larrDescricao[i].Descricao + '</label>';

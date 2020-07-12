@@ -20,6 +20,7 @@ namespace Detetive.Business.Entities
         public int IdJogador { get; set; }
         public int? IdSuspeito { get; set; }
         public bool RolouDados { get; set; }
+        public bool RealizouPalpite { get; set; }
         public virtual Suspeito Suspeito { get; set; }
 
         internal JogadorSala() : base()
@@ -49,25 +50,29 @@ namespace Detetive.Business.Entities
 
         public void Mover(int coordenadaLinha, int coordenadaColuna, int? idLocal = null)
         {
-            IdLocal = idLocal;
-            CoordenadaLinha = coordenadaLinha;
-            CoordenadaColuna = coordenadaColuna;
-
             int quantidadeMovimentosNecessarios = Math.Abs(CoordenadaLinha - coordenadaLinha) +
                                                     Math.Abs(CoordenadaColuna - coordenadaColuna);
 
             QuantidadeMovimento -= quantidadeMovimentosNecessarios;
-        } 
 
-        public void FinalizarTurno (bool fim)
+            IdLocal = idLocal;
+            CoordenadaLinha = coordenadaLinha;
+            CoordenadaColuna = coordenadaColuna;
+        }
+
+        public void FinalizarTurno(bool fim)
         {
+            if (fim)
+                RolouDados = false;
+
             VezJogador = fim;
         }
 
-        public void AlterarCoordenadas(int coordenadaLinha, int coordenadaColuna)
+        public void AlterarCoordenadas(int coordenadaLinha, int coordenadaColuna, int idLocal)
         {
             CoordenadaLinha = coordenadaLinha;
             CoordenadaColuna = coordenadaColuna;
+            IdLocal = idLocal;
         }
 
         public void Alterar(JogadorSala jogadorSala)
@@ -80,7 +85,9 @@ namespace Detetive.Business.Entities
             CoordenadaColuna = jogadorSala.CoordenadaColuna;
             IdLocal = jogadorSala.IdLocal;
             IdSuspeito = jogadorSala.IdSuspeito;
-    }
+            RolouDados = jogadorSala.RolouDados;
+            RealizouPalpite = jogadorSala.RealizouPalpite;
+        }
 
         public void AlterarSuspeito(int? idSuspeito)
         {
@@ -91,6 +98,16 @@ namespace Detetive.Business.Entities
         {
             QuantidadeMovimento = quantidadeMovimento;
             RolouDados = true;
+        }
+
+        public void PalpiteRealizado()
+        {
+            RealizouPalpite = true;
+        }
+
+        internal void HabilitarPalpite()
+        {
+            RealizouPalpite = false;
         }
     }
 }

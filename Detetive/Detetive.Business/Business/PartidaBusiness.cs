@@ -63,12 +63,12 @@ namespace Detetive.Business.Business
             if (sala == default)
                 return new Operacao("Sala não encontrada.", false);
 
-            if (sala.IdJogadorSala != idJogadorSala)
-                return new Operacao("Esse jogador não pode iniciar a partida", false);
-
             var crimeSala = _crimeBusiness.Obter(idSala);
             if (crimeSala != default)
                 return new Operacao("A sala já foi iniciada.", false);
+
+            if (sala.IdJogadorSala != idJogadorSala)
+                return new Operacao("Esse jogador não pode iniciar a partida", false);
 
             var jogadoresSala = _jogadorSalaBusiness.Listar(idSala);
             if (jogadoresSala == null || jogadoresSala.Count < 3)
@@ -251,7 +251,7 @@ namespace Detetive.Business.Business
             var nickProximoJogador = _jogadorBusiness.Obter(proximoJogadorSala.IdJogador); 
 
             _historicoBusiness.Adicionar(new Historico(proximoJogadorSala.IdSala, $"Player {nickJogador.Descricao} finalizou a rodada, {nickProximoJogador.Descricao}, é a sua vez!"));
-            
+            proximoJogadorSala.HabilitarPalpite();
         }
 
         public Operacao Acusar(int idSala, int idJogadorSala, int idLocal, int idSuspeito, int idArma)
@@ -308,8 +308,31 @@ namespace Detetive.Business.Business
                 _jogadorSalaBusiness.Alterar(jogadorSala);
 
                 _historicoBusiness.Adicionar(new Historico(idSala, $"O jogador {jogador.Descricao} errou a acusação e perdeu o jogo."));
+
+                //Quando o jogador perde, suas cartas são distribuídas para o restantes dos jogadores
+                DistribuirCartasJogador(jogadorSala);
+
                 return new Operacao("Acusação errada! Você não é um Sherlock Holmes.");
             }
+        }
+
+        private void DistribuirCartasJogador(JogadorSala jogadorSala)
+        {
+            var jogadoresSala = _jogadorSalaBusiness.Listar(jogadorSala.IdSala);
+
+            var armasJogador = _armaJogadorSalaBusiness.Listar(jogadorSala.Id);
+            var locaisJogador = _localJogadorSalaBusiness.Listar(jogadorSala.Id);
+            var suspeitosJogador = _suspeitoJogadorSalaBusiness.Listar(jogadorSala.Id);
+
+            _armaJogadorSalaBusiness.DesabilitarArmasJogador(jogadorSala.Id);
+            _localJogadorSalaBusiness.DesabilitarLocaisJogador(jogadorSala.Id);
+            _suspeitoJogadorSalaBusiness.DesabilitarSuspeitosJogador(jogadorSala.Id);
+
+            var armas = armasJogador.Select(_ => _.Arma).ToList();
+            var locais = locaisJogador.Select(_ => _.Local).ToList();
+            var suspeitos = suspeitosJogador.Select(_ => _.Suspeito).ToList();
+
+            DistribuirCartasJogadores(jogadoresSala, armas, locais, suspeitos);
         }
 
         public Operacao Palpitar(int idSala, int idJogadorSala, int idLocal, int idSuspeito, int idArma)
@@ -341,6 +364,9 @@ namespace Detetive.Business.Business
             if (!jogadorSala.MinhaVez())
                 return new Operacao("Não está na vez desse jogador.", false);
 
+            if(jogadorSala.RealizouPalpite)
+                return new Operacao("Só é permitido realizar 1 palpite por rodada.", false);
+
             MoverJogadorSalaParaLocal(idSuspeito, idSala, idLocal);
 
             var armaPaupite = _armaBusiness.Obter(idArma);
@@ -350,6 +376,9 @@ namespace Detetive.Business.Business
             // Registra palpite no histórico da sala.
             var jogador = _jogadorBusiness.Obter(jogadorSala.IdJogador);
             _historicoBusiness.Adicionar(new Historico(idSala, $"O jogador {jogador.Descricao} palpitou as seguintes as cartas {armaPaupite.Descricao} (arma), {suspeitoPaupite.Descricao} (suspeito) e {localPaupite.Descricao} (local)"));
+            
+            jogadorSala.PalpiteRealizado();
+            _jogadorSalaBusiness.Alterar(jogadorSala);
 
             // Ordena jogadores à esquerda do jogador
             var jogadoresSala = _jogadorSalaBusiness.Listar(idSala);
@@ -410,7 +439,7 @@ namespace Detetive.Business.Business
             if (local == default)
                 return;
 
-            jogadorSala.Mover(jogadorSala.CoordenadaLinha, jogadorSala.CoordenadaColuna, idLocal);
+            jogadorSala.AlterarCoordenadas(jogadorSala.CoordenadaLinha, jogadorSala.CoordenadaColuna, idLocal);
             _jogadorSalaBusiness.Alterar(jogadorSala);
         }
 

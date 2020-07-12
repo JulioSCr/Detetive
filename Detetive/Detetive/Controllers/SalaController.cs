@@ -50,7 +50,7 @@ namespace Detetive.Controllers
                     return JsonConvert.SerializeObject(operacao);
 
                 var jogadorSala = _jogadorSalaBusiness.Obter(jogador.Id, sala.Id);
-                
+
                 sala.AlterarJogador(jogadorSala.Id);
                 _salaBusiness.Alterar(sala);
 
