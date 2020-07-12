@@ -10,7 +10,9 @@
     <script src="@Url.Content("~/Scripts/Views/Suspeito/Listar.js?" + DateTimeOffset.Now)"></script>
 }
 <input id="inpID_JOGADOR_SALA" type="hidden" name="ID_JOGADOR_SALA" data-id="@ViewBag.ID_JOGADOR_SALA" />
-<div id="divInformaIDSala" data-id="@ViewBag.Sala_ID">
+
+<div class="topo" id="divInformaIDSala" data-id="@ViewBag.Sala_ID">
+
     <h1>ID da Sala: #@ViewBag.Sala_ID</h1>
 
     @foreach (var suspeito in ViewBag.Suspeitos)
@@ -24,9 +26,11 @@
     }
 
 </div>
+
 <div class="centralizar" id="Icone">
     <img src="~/Content/Imagens/Shared/imgLogo.svg" alt="Alternate Text" />
 </div>
+<div><iframe src='/Propaganda/Ad' sandbox="allow-scripts" height="300" width="400"></iframe></div>
 <div class="centralizar" id="divSuspeitos">
     <label>@ViewBag.NomeJogador escolha seu personagem:</label>
 </div>
@@ -60,7 +64,7 @@
             </button>
         </div>
         <div class="centralizar" id="divVamosAoCaso">
-            <input  type="button" class="btnPadrao" id="btnVamosAoCaso" onclick="Listar.btnVamosAoCaso_OnClick()" value="Vamos ao caso!" @(ViewBag.QtdeJogadorPronto >= 3 ? "" : "disabled") />
+            <input type="button" class="btnPadrao" id="btnVamosAoCaso" onclick="Listar.btnVamosAoCaso_OnClick()" value="Vamos ao caso!" @(ViewBag.QtdeJogadorPronto >= 3 ? "" : "disabled") />
         </div>
     </div>
 </section>
