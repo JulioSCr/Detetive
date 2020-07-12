@@ -18,7 +18,7 @@ namespace Detetive.Hubs
         {
             try
             {
-                Clients.Group(pIdSala.ToString()).TransmitirFinalizarTurno(pIdJogadorSala);
+                Clients.Group(pIdSala.ToString()).TransmitirFinalizarTurno(pIdJogadorSala, pIdJogadorSala);
             }
             catch (Exception ex)
             {

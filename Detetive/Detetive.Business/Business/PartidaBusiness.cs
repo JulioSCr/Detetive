@@ -27,6 +27,7 @@ namespace Detetive.Business.Business
         private readonly ILocalJogadorSalaBusiness _localJogadorSalaBusiness;
         private readonly ISuspeitoJogadorSalaBusiness _suspeitoJogadorSalaBusiness;
         private readonly IHistoricoBusiness _historicoBusiness;
+        private readonly IJogadorSalaRepository _jogadorSalaRepository;
         private readonly Dado _dado;
 
         public PartidaBusiness(ISalaBusiness salaBusiness,
@@ -40,6 +41,7 @@ namespace Detetive.Business.Business
                                 ILocalJogadorSalaBusiness localJogadorSalaBusiness,
                                 ISuspeitoJogadorSalaBusiness suspeitoJogadorSalaBusiness,
                                 IHistoricoBusiness historicoBusiness,
+                                IJogadorSalaRepository jogadorSalaRepository,
                                 IJogadorBusiness jogadorBusiness, Dado dado)
         {
             _salaBusiness = salaBusiness;
@@ -54,6 +56,7 @@ namespace Detetive.Business.Business
             _suspeitoJogadorSalaBusiness = suspeitoJogadorSalaBusiness;
             _historicoBusiness = historicoBusiness;
             _jogadorBusiness = jogadorBusiness;
+            _jogadorSalaRepository = jogadorSalaRepository;
             _dado = dado;
         }
 
@@ -193,9 +196,9 @@ namespace Detetive.Business.Business
                 if (!jogadorSala.MinhaVez())
                     return new Operacao("Não está na vez desse jogador.", false);
 
-                this.AlteraVezJogadores(idJogadorSala);
+                string idProximoJogadorSala = this.AlteraVezJogadores(idJogadorSala);
 
-                return new Operacao("Vez passada com sucesso!");
+                return new Operacao(idProximoJogadorSala);
             }
             catch (Exception ex)
             {
@@ -203,12 +206,12 @@ namespace Detetive.Business.Business
             }
         }
 
-        private void AlteraVezJogadores(int idJogadorSala)
+        private string AlteraVezJogadores(int idJogadorSala)
         {
             // Altera termina a vez do jogador atual 
             var jogadorSala = _jogadorSalaBusiness.Obter(idJogadorSala);
 
-            if (jogadorSala == default) return;
+            if (jogadorSala == default) return "";
 
             jogadorSala.FinalizarTurno(false);
             _jogadorSalaBusiness.Alterar(jogadorSala);
@@ -249,9 +252,13 @@ namespace Detetive.Business.Business
             //Mensagem para o histórico
             var nickJogador = _jogadorBusiness.Obter(jogadorSala.IdJogador);
             var nickProximoJogador = _jogadorBusiness.Obter(proximoJogadorSala.IdJogador); 
-
+            
             _historicoBusiness.Adicionar(new Historico(proximoJogadorSala.IdSala, $"Player {nickJogador.Descricao} finalizou a rodada, {nickProximoJogador.Descricao}, é a sua vez!"));
             proximoJogadorSala.HabilitarPalpite();
+            var idProximoJogadorSala = _jogadorSalaRepository.Obter(proximoJogadorSala.IdJogador, jogadorSala.IdSala);
+            return idProximoJogadorSala.Id.ToString(); 
+            
+            
         }
 
         public Operacao Acusar(int idSala, int idJogadorSala, int idLocal, int idSuspeito, int idArma)
