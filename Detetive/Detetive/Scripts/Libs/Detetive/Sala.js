@@ -47,10 +47,6 @@ Sala.Configurar = function () {
         console.log(vstrMensagemTecnica);
     };
 
-    Sala.mHubSala.client.TransmitirMensagem = function (apelido, msg) {
-        Listar.TransmitirMensagem(apelido, msg);
-    };
-
     Sala.mHubSala.client.TransmitirMovimento = function (ID_JOGADOR_SALA, pLinha, pColuna, pIDLocal) {
         Jogar.TransmitirMovimento(ID_JOGADOR_SALA, pLinha, pColuna, pIDLocal);
     }
@@ -71,8 +67,8 @@ Sala.Configurar = function () {
         Listar.TransmitirDesconsideracaoSuspeito(pintIdJogadorSala, pDescricaoSuspeito);
     }
 
-    Sala.mHubSala.client.TransmitirMensagem = function (pintIdJogadorSalaRemetente, pintIdJogadorSalaDestinatario, pstrDescricaoMensagem) {
-        Jogar.TransmitirMensagem(pintIdJogadorSalaRemetente, pintIdJogadorSalaDestinatario, pstrDescricaoMensagem);
+    Sala.mHubSala.client.TransmitirMensagem = function (pintIdSala, pstrDescricaoMensagem) {
+        Jogar.TransmitirMensagem(pintIdSala, pstrDescricaoMensagem);
     }
 
     Sala.mHubSala.client.erro = function (vstrMensagem, vstrMensagemTecnica) {
@@ -176,22 +172,23 @@ Sala.DesconsiderarSuspeito = function (pintIdSala, pintIdJogadorSala) {
 
 //#endregion
 
-Sala.EnviarMensagem = function (pIdJogadorSalaRemetente, pIdJogadorSalaDestinatario, pDescricaoMensagem) {
+Sala.EnviarMensagem = function (pintIdSala) {
     try {
         $.ajax({
-            url: gstrGlobalPath + 'Agaga/Agaga',
+            url: gstrGlobalPath + 'Partida/HistoricoPartida',
             type: 'Post',
             data: {
-                Agaga: agaga
+                idSala: Sala.mIdSala
             },
             success: function (data, textStatus, XMLHttpRequest) {
                 var lobjResultado = new Object();
                 var lobjRetorno = new Object();
                 try {
                     lobjResultado = JSON.parse(data);
-                    if (!lobjResultado.Status) { throw lobjResultado.Retorno; }
-                    lobjRetorno = JSON.parse(lobjResultado.Retorno);
-                    Sala.mHubSala.server.enviarMensagem(Sala.mIdSala, pIdJogadorSalaRemetente, pIdJogadorSalaDestinatario, pDescricaoMensagem).done(function () { });
+                    if (lobjResultado.length == 1 ) {
+                        if (!lobjResultado.Status) { throw lobjResultado.Retorno; }
+                    }
+                    Sala.mHubSala.server.enviarMensagem(Sala.mIdSala, JSON.stringify(lobjResultado)).done(function () { });
                 } catch (ex) {
                     alert(ex);
                 }

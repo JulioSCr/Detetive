@@ -2,6 +2,7 @@
 using Detetive.Business.Business.Interfaces;
 using Detetive.Injection;
 using Microsoft.AspNet.SignalR;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -12,11 +13,7 @@ namespace Detetive.Hubs
 {
     public class HubSala : Hub
     {
-        public void EnviarMensagem(string apelido, string mensagem)
-        {
-            Clients.All.TransmitirMensagem(apelido, mensagem);
-        }
-
+      
         /// <summary>Envia o movimento para os outros jogadores da sala.</summary>
         /// <param name="ID_JOGADOR_SALA" type="int">ID do JoggadorSala.</param>
         /// <param name="pLinha" type="int">Número da linha.</param>
@@ -49,11 +46,11 @@ namespace Detetive.Hubs
 
         #region Chat
 
-        public void EnviaMensagem(int pIdSala, int pIdJogadorSalaRemetente, int pIdJogadorSalaDestinatario, string pDescricaoMensagem)
+        public void EnviarMensagem(int pIdSala, string pDescricaoMensagem)
         {
             try
             {
-                Clients.Group(pIdSala.ToString()).TransmitirMensagem(pIdJogadorSalaRemetente, pIdJogadorSalaDestinatario, pDescricaoMensagem);
+                Clients.Group(pIdSala.ToString()).TransmitirMensagem(pIdSala, pDescricaoMensagem);
             }
             catch (Exception ex)
             {
