@@ -57,11 +57,15 @@ namespace Detetive.Business.Entities
                                                     Math.Abs(CoordenadaColuna - coordenadaColuna);
 
             QuantidadeMovimento -= quantidadeMovimentosNecessarios;
-        } 
+        }
 
-        public void FinalizarTurno (bool fim)
+        public void FinalizarTurno(bool fim)
         {
-            VezJogador = fim;
+            if (fim)
+            {
+                VezJogador = fim;
+                RolouDados = false;
+            }
         }
 
         public void AlterarCoordenadas(int coordenadaLinha, int coordenadaColuna)
@@ -80,7 +84,7 @@ namespace Detetive.Business.Entities
             CoordenadaColuna = jogadorSala.CoordenadaColuna;
             IdLocal = jogadorSala.IdLocal;
             IdSuspeito = jogadorSala.IdSuspeito;
-    }
+        }
 
         public void AlterarSuspeito(int? idSuspeito)
         {
