@@ -49,14 +49,14 @@ namespace Detetive.Business.Entities
 
         public void Mover(int coordenadaLinha, int coordenadaColuna, int? idLocal = null)
         {
-            IdLocal = idLocal;
-            CoordenadaLinha = coordenadaLinha;
-            CoordenadaColuna = coordenadaColuna;
-
             int quantidadeMovimentosNecessarios = Math.Abs(CoordenadaLinha - coordenadaLinha) +
                                                     Math.Abs(CoordenadaColuna - coordenadaColuna);
 
             QuantidadeMovimento -= quantidadeMovimentosNecessarios;
+
+            IdLocal = idLocal;
+            CoordenadaLinha = coordenadaLinha;
+            CoordenadaColuna = coordenadaColuna;
         } 
 
         public void FinalizarTurno (bool fim)

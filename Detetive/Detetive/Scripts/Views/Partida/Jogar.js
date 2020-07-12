@@ -238,14 +238,16 @@ Jogar.btnLancarDados_OnClick = function () {
                 var lstrDescricaoSuspeitoSelecionado = new String();
                 var lstrDescricaoSuspeitoDesconsiderado = new String();
                 try {
+                    Loading.Carregamento(false);
                     lobjResltado = JSON.parse(data);
                     if (!lobjResltado.Status) { throw data.Retorno; }
-                    Sala.AtualizarHistorico(Jogar.mID_SALA);
+                    Sala.EnviarMensagem(Jogar.mID_SALA);
                 } catch (ex) {
                     PopUp.Erro(ex);
                 }
             },
             error: function (request, status, error) {
+                Loading.Carregamento(false);
                 PopUp.Erro(request.responseText);
             }
         });
