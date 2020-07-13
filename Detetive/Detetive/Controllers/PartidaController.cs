@@ -206,7 +206,7 @@ namespace Detetive.Controllers
         }
 
         [HttpGet]
-        public string AtualizarCartas(int pIdJogadorSala)
+        public string AtualizarCartas(int idJogadorSala)
         {
             try
             {
