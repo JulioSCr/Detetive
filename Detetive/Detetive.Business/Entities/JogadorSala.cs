@@ -109,9 +109,14 @@ namespace Detetive.Business.Entities
             RealizouPalpite = true;
         }
 
-        internal void HabilitarPalpite()
+        public void HabilitarPalpite()
         {
             RealizouPalpite = false;
+        }
+
+        public bool PodeUtilizarPassagemSecreta()
+        {
+            return NumeroPassagemSecreta > 0;
         }
     }
 }

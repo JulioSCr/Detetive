@@ -13,6 +13,7 @@ namespace Detetive.ViewModel
         public int CoordenadaAColuna { get; set; }
         public int CoordenadaBLinha { get; set; }
         public int CoordenadaBColuna { get; set; }
+        public int? PassagemSecreta { get; set; }
         public List<PortaLocal> Portas { get; set; }
     }
 }
