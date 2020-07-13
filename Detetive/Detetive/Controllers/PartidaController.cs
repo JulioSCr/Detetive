@@ -92,7 +92,17 @@ namespace Detetive.Controllers
             var jogadorSalaViewModel = Mapper.Map<JogadorSala, JogadorSalaViewModel>(_jogadorSalaBusiness.Obter(idJogadorSala));
             var historicoPartidaViewModel = Mapper.Map<List<Historico>, List<HistoricoViewModel>>(_historicoBusiness.Listar(idSala));
 
-            ViewBag.LocalAtual = jogadorSala.IdLocal != null ? Mapper.Map<Local, LocalViewModel>(_localBusiness.Obter(jogadorSala.IdLocal.Value)) : null;
+            Local localAtual;
+            ViewBag.PassagemSecreta = false;
+            if (jogadorSala.IdLocal != null)
+            {
+                localAtual = _localBusiness.Obter(jogadorSala.IdLocal.Value);
+                if (localAtual.IdLocalPassagemSecreta != null)
+                {
+                    ViewBag.PassagemSecreta = true;
+                }
+            }
+
 
             ViewBag.JogadorSala = jogadorSalaViewModel;
             ViewBag.Historicos = historicoPartidaViewModel;
@@ -206,9 +216,8 @@ namespace Detetive.Controllers
         [HttpGet]
         public ActionResult ModalAcusar()
         {
-            // To Do
-            ViewBag.Armas = null;
-            ViewBag.Suspeitos = null;
+            ViewBag.Armas = Mapper.Map<List<Arma>, List<ArmaViewModel>>(_armaBusiness.Listar());
+            ViewBag.Suspeitos = Mapper.Map<List<Suspeito>, List<SuspeitoViewModel>>(_suspeitoBusiness.Listar());
             return PartialView();
         }
 
