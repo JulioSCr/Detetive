@@ -210,9 +210,9 @@ namespace Detetive.Controllers
         {
             try
             {
-                var armas = _armaJogadorSalaBusiness.Listar(idJogadorSala);
-                var suspeitos = _suspeitoJogadorSalaBusiness.Listar(idJogadorSala);
-                var locais = _localJogadorSalaBusiness.Listar(idJogadorSala);
+                var armas = _armaJogadorSalaBusiness.Listar(pIdJogadorSala);
+                var suspeitos = _suspeitoJogadorSalaBusiness.Listar(pIdJogadorSala);
+                var locais = _localJogadorSalaBusiness.Listar(pIdJogadorSala);
 
                 List<string> caminhoImageCartas = new List<string>();
 
