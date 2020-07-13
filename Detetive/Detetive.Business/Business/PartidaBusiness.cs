@@ -86,7 +86,7 @@ namespace Detetive.Business.Business
             if (jogadorSala == default && jogadorSala.IdSala != idSala)
                 return new Operacao("Jogador não encontrado", false);
 
-            if(!jogadorSala.Jogando)
+            if (!jogadorSala.Jogando)
                 return new Operacao("Jogador não está mais jogando", false);
 
             if (!jogadorSala.MinhaVez())
@@ -256,14 +256,14 @@ namespace Detetive.Business.Business
 
             //Mensagem para o histórico
             var nickJogador = _jogadorBusiness.Obter(jogadorSala.IdJogador);
-            var nickProximoJogador = _jogadorBusiness.Obter(proximoJogadorSala.IdJogador); 
-            
+            var nickProximoJogador = _jogadorBusiness.Obter(proximoJogadorSala.IdJogador);
+
             _historicoBusiness.Adicionar(new Historico(proximoJogadorSala.IdSala, $"Player {nickJogador.Descricao} finalizou a rodada, {nickProximoJogador.Descricao}, é a sua vez!"));
             proximoJogadorSala.HabilitarPalpite();
             var idProximoJogadorSala = _jogadorSalaRepository.Obter(proximoJogadorSala.IdJogador, jogadorSala.IdSala);
-            return idProximoJogadorSala.Id.ToString(); 
-            
-            
+            return idProximoJogadorSala.Id.ToString();
+
+
         }
 
         public Operacao Acusar(int idSala, int idJogadorSala, int idLocal, int idSuspeito, int idArma)
@@ -375,8 +375,12 @@ namespace Detetive.Business.Business
             if (jogadorSala == default && jogadorSala.IdSala != idSala)
                 return new Operacao("Jogador não encontrado", false);
 
+            var jogadoresSala = _jogadorSalaBusiness.Listar(idSala);
+            if (jogadoresSala.Count(_ => _.Jogando) <= 1)
+                return new Operacao("Não é possível realizar mais palpites, pois há apenas 1 jogador", false);
+
             if (!jogadorSala.Jogando)
-                return new Operacao("Jogador não está mais jogando", false);
+                    return new Operacao("Jogador não está mais jogando", false);
 
             if (!jogadorSala.MinhaVez())
                 return new Operacao("Não está na vez desse jogador.", false);
@@ -398,11 +402,10 @@ namespace Detetive.Business.Business
             _jogadorSalaBusiness.Alterar(jogadorSala);
 
             // Ordena jogadores à esquerda do jogador
-            var jogadoresSala = _jogadorSalaBusiness.Listar(idSala);
-            var jogadoresSalaOrdenado = jogadoresSala.Where(_ => _.NumeroOrdem > jogadorSala.NumeroOrdem)
+            var jogadoresSalaOrdenado = jogadoresSala.Where(_ => _.NumeroOrdem > jogadorSala.NumeroOrdem && _.Jogando)
                                                         .OrderBy(_ => _.NumeroOrdem).ToList();
 
-            jogadoresSalaOrdenado.AddRange(jogadoresSala.Where(_ => _.NumeroOrdem < jogadorSala.NumeroOrdem)
+            jogadoresSalaOrdenado.AddRange(jogadoresSala.Where(_ => _.NumeroOrdem < jogadorSala.NumeroOrdem && _.Jogando)
                                                         .OrderBy(_ => _.NumeroOrdem).ToList());
 
             foreach (var jogadorSalaEsquerda in jogadoresSalaOrdenado)
@@ -532,7 +535,7 @@ namespace Detetive.Business.Business
             if (!local.IdLocalPassagemSecreta.HasValue)
                 return new Operacao("Este local não possui passagem secreta", false);
 
-            if(jogadorSala.PodeUtilizarPassagemSecreta())
+            if (jogadorSala.PodeUtilizarPassagemSecreta())
                 return new Operacao("O jogador não pode mais utilizar a passagem secreta", false);
 
             jogadorSala.AlterarCoordenadas(jogadorSala.CoordenadaLinha, jogadorSala.CoordenadaColuna, local.IdLocalPassagemSecreta.Value);
