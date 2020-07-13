@@ -86,6 +86,9 @@ namespace Detetive.Business.Business
             if (jogadorSala == default && jogadorSala.IdSala != idSala)
                 return new Operacao("Jogador não encontrado", false);
 
+            if(!jogadorSala.Jogando)
+                return new Operacao("Jogador não está mais jogando", false);
+
             if (!jogadorSala.MinhaVez())
                 return new Operacao("Não está na vez desse jogador.", false);
 
@@ -189,9 +192,11 @@ namespace Detetive.Business.Business
             try
             {
                 var jogadorSala = _jogadorSalaBusiness.Obter(idJogadorSala);
-
                 if (jogadorSala == default)
                     return new Operacao("Jogador não encontrado", false);
+
+                if (!jogadorSala.Jogando)
+                    return new Operacao("Jogador não está mais jogando", false);
 
                 if (!jogadorSala.MinhaVez())
                     return new Operacao("Não está na vez desse jogador.", false);
@@ -217,7 +222,7 @@ namespace Detetive.Business.Business
             _jogadorSalaBusiness.Alterar(jogadorSala);
 
             // Lista os jogadores da sala 
-            var Jogadores = _jogadorSalaBusiness.Listar(jogadorSala.IdSala);
+            var Jogadores = _jogadorSalaBusiness.Listar(jogadorSala.IdSala).Where(_ => _.Jogando).ToList();
 
             // Lógica para encontrar qual a ordem do próximo jogador 
             int NroOrdemProximo = 99;
@@ -284,9 +289,11 @@ namespace Detetive.Business.Business
         private Operacao RealizarAcusacao(int idSala, int idJogadorSala, int idLocal, int idSuspeito, int idArma)
         {
             var jogadorSala = _jogadorSalaBusiness.Obter(idJogadorSala);
-
             if (jogadorSala == default && jogadorSala.IdSala != idSala)
                 return new Operacao("Jogador não encontrado", false);
+
+            if (!jogadorSala.Jogando)
+                return new Operacao("Jogador não está mais jogando", false);
 
             if (!jogadorSala.MinhaVez())
                 return new Operacao("Não está na vez desse jogador.", false);
@@ -311,7 +318,7 @@ namespace Detetive.Business.Business
             }
             else
             {
-                jogadorSala.DefinirAtivo(false);
+                jogadorSala.EncerrarParticipacao();
                 _jogadorSalaBusiness.Alterar(jogadorSala);
 
                 _historicoBusiness.Adicionar(new Historico(idSala, $"O jogador {jogador.Descricao} errou a acusação e perdeu o jogo."));
@@ -325,7 +332,7 @@ namespace Detetive.Business.Business
 
         private void DistribuirCartasJogador(JogadorSala jogadorSala)
         {
-            var jogadoresSala = _jogadorSalaBusiness.Listar(jogadorSala.IdSala);
+            var jogadoresSala = _jogadorSalaBusiness.Listar(jogadorSala.IdSala).Where(_ => _.Jogando).ToList();
 
             var armasJogador = _armaJogadorSalaBusiness.Listar(jogadorSala.Id);
             var locaisJogador = _localJogadorSalaBusiness.Listar(jogadorSala.Id);
@@ -367,6 +374,9 @@ namespace Detetive.Business.Business
             var jogadorSala = _jogadorSalaBusiness.Obter(idJogadorSala);
             if (jogadorSala == default && jogadorSala.IdSala != idSala)
                 return new Operacao("Jogador não encontrado", false);
+
+            if (!jogadorSala.Jogando)
+                return new Operacao("Jogador não está mais jogando", false);
 
             if (!jogadorSala.MinhaVez())
                 return new Operacao("Não está na vez desse jogador.", false);
@@ -456,6 +466,9 @@ namespace Detetive.Business.Business
             if (jogadorSala == default)
                 return new Operacao("Jogador não encotrado.", false);
 
+            if (!jogadorSala.Jogando)
+                return new Operacao("Jogador não está mais jogando", false);
+
             if (!jogadorSala.MinhaVez())
                 return new Operacao("Não está na vez desse jogador.", false);
 
@@ -505,6 +518,9 @@ namespace Detetive.Business.Business
             var jogadorSala = _jogadorSalaBusiness.Obter(idJogadorSala);
             if (jogadorSala == default)
                 return new Operacao("Jogador não encontrado", false);
+
+            if (!jogadorSala.Jogando)
+                return new Operacao("Jogador não está mais jogando", false);
 
             if (!jogadorSala.IdLocal.HasValue)
                 return new Operacao("Essa operação não é válida na localização atual do jogador", false);
