@@ -17,7 +17,8 @@ namespace Detetive.Business.Entities
 
         public int Rolar()
         {
-            return new Random().Next(1, QuantidadeLados + 1);
+            Random random = new Random();
+            return random.Next(1, QuantidadeLados + 1) + random.Next(1, QuantidadeLados + 1);
         }
     }
 }

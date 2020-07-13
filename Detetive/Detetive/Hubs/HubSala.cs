@@ -56,6 +56,18 @@ namespace Detetive.Hubs
             }
         }
 
+        public void AtualizarCartas(int pIdSala)
+        {
+            try
+            {
+                Clients.Group(pIdSala.ToString()).TransmitirAtualizarCartas();
+            }
+            catch (Exception ex)
+            {
+                Clients.Caller.erro(ex.Message, ex.ToString());
+            }
+        }
+
         #region Chat
 
         public void EnviarMensagem(int pIdSala, string pDescricaoMensagem)

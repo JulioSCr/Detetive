@@ -206,6 +206,34 @@ namespace Detetive.Controllers
         }
 
         [HttpGet]
+        public string AtualizarCartas(int pIdJogadorSala)
+        {
+            try
+            {
+                var armas = _armaJogadorSalaBusiness.Listar(pIdJogadorSala);
+                var suspeitos = _suspeitoJogadorSalaBusiness.Listar(pIdJogadorSala);
+                var locais = _localJogadorSalaBusiness.Listar(pIdJogadorSala);
+
+                List<string> caminhoImageCartas = new List<string>();
+
+                if (armas != null && armas.Any())
+                    caminhoImageCartas.AddRange(armas.Select(_ => _.Arma.UrlImagem).ToList());
+
+                if (suspeitos != null && suspeitos.Any())
+                    caminhoImageCartas.AddRange(suspeitos.Select(_ => _.Suspeito.UrlImagem).ToList());
+
+                if (locais != null && locais.Any())
+                    caminhoImageCartas.AddRange(locais.Select(_ => _.Local.UrlImagem).ToList());
+
+                return JsonConvert.SerializeObject(new Operacao(JsonConvert.SerializeObject(caminhoImageCartas)));
+            }
+            catch (Exception ex)
+            {
+                return JsonConvert.SerializeObject(new Operacao($"Ocorreu um problema: {ex.Message}", false));
+            }
+        }
+
+        [HttpGet]
         public ActionResult ModalPalpite()
         {
             ViewBag.Armas = Mapper.Map<List<Arma>, List<ArmaViewModel>>(_armaBusiness.Listar());

@@ -75,6 +75,10 @@ Sala.Configurar = function () {
         Jogar.TransmitirFinalizarTurno(pintIdSala, pintIdJogadorSala);
     }
 
+    Sala.mHubSala.client.TransmitirAtualizarCartas = function (pintIdSala, pintIdJogadorSala) {
+        Jogar.TransmitirAtualizarCartas();
+    }
+
     Sala.mHubSala.client.erro = function (vstrMensagem, vstrMensagemTecnica) {
         console.log(vstrMensagemTecnica);
     };
@@ -201,6 +205,14 @@ Sala.FinalizarTurno = function () {
                 PopUp.Erro(request.responseText);
             }
         });
+    } catch (ex) {
+        PopUp.Erro(ex);
+    }
+}
+
+Sala.AtualizarCartas = function () {
+    try {
+        Sala.mHubSala.server.atualizarCartas(Sala.mIdSala).done(function () { });
     } catch (ex) {
         PopUp.Erro(ex);
     }

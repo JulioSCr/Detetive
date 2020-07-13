@@ -52,7 +52,10 @@ ModalAcusar.Acusar = function () {
                         Sala.Teletransporte(lintIdJogadorSalaAcusado, lintIdLocal);
                     }
                     Sala.EnviarMensagem(lintIdSala);
+                    Sala.AtualizarCartas();
+                    Jogar.btnFinalizarTurno_OnClick();
                     $('#ModalAcusar').Detetive_Modal('hide');
+                    Loading.Carregamento(false);
                 } catch (ex) {
                     Loading.Carregamento(false);
                     $('#ModalAcusar').Detetive_Modal('hide');
