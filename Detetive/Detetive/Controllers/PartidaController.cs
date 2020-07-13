@@ -126,6 +126,12 @@ namespace Detetive.Controllers
             return JsonConvert.SerializeObject(new Operacao(JsonConvert.SerializeObject(jogadorSalaViewModel)));
         }
 
+        [HttpPost]
+        public string PassagemSecreta(int pIdJogadorSala)
+        {
+            return "";
+        }
+
         public string RolarDados(int idJogadorSala, int idSala)
         {
             try
