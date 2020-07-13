@@ -18,7 +18,7 @@ namespace Detetive.Data.Context.EntityConfig
             Property(p => p.CoordenadaBLinha).HasColumnName("NR_LINHA_2");
             Property(p => p.CoordenadaBColuna).HasColumnName("NR_COLUNA_2");
             Property(p => p.UrlImagem).HasColumnName("DS_CAMINHO_IMAGEM");
-            Property(p => p.IdLocalPassagemSecreta).HasColumnName("DS_CAMINHO_IMAGEM");
+            Property(p => p.IdLocalPassagemSecreta).HasColumnName("ID_LOCAL_PASSAGEM_SECRETA");
             Property(p => p.Ativo).HasColumnName("IE_ATIVO");
             Ignore(p => p.Portas);
         }
