@@ -122,7 +122,6 @@ Jogar.btnDireita_OnClick = function () {
     var lIDLocalDestino = new Number();
     var lstrOrientacaoMovimento = new String('');
     try {
-        debugger;
         ({ lLinha, lColuna } = Jogar.Posicao(lLinha, lColuna));
         lIDLocalAtual = Jogar.GetLocalAtual(Jogar.mID_JOGADOR_SALA);
         if (lIDLocalAtual == 0) {
@@ -148,7 +147,6 @@ Jogar.btnEsquerda_OnClick = function () {
     var lIDLocalDestino = new Number();
     var lstrOrientacaoMovimento = new String('');
     try {
-        debugger;
         ({ lLinha, lColuna } = Jogar.Posicao(lLinha, lColuna));
         lIDLocalAtual = Jogar.GetLocalAtual(Jogar.mID_JOGADOR_SALA);
         if (lIDLocalAtual == 0) {
@@ -174,7 +172,6 @@ Jogar.btnAcima_OnClick = function () {
     var lIDLocalDestino = new Number();
     var lstrOrientacaoMovimento = new String('');
     try {
-        debugger;
         ({ lLinha, lColuna } = Jogar.Posicao(lLinha, lColuna));
         lIDLocalAtual = Jogar.GetLocalAtual(Jogar.mID_JOGADOR_SALA);
         if (lIDLocalAtual == 0) {
@@ -200,7 +197,6 @@ Jogar.btnAbaixo_OnClick = function () {
     var lIDLocalDestino = new Number();
     var lstrOrientacaoMovimento = new String('');
     try {
-        debugger;
         ({ lLinha, lColuna } = Jogar.Posicao(lLinha, lColuna));
         lIDLocalAtual = Jogar.GetLocalAtual(Jogar.mID_JOGADOR_SALA);
         if (lIDLocalAtual == 0) {
@@ -220,16 +216,31 @@ Jogar.btnAbaixo_OnClick = function () {
 };
 
 Jogar.btnPassagemSecreta_OnClick = function () {
-    var lintLocalID = new Number();
-    var lintLocalIDDestino = new Number();
     try {
-        // Pega local atual
-        lintLocalID = Jogar.GetLocalAtual(Jogar.mID_JOGADOR_SALA);
-        if (lintLocalID <= 0) { throw 'Você não está em um local.'; }
-        // Verifica qual o local que ele pode ir
-        lintLocalIDDestino = Jogar.marrMapeamento.filter((lElemTabuleiro, lIndexTabuleiro, lArrTabuleiro) => lElemTabuleiro.ID == lintLocalID)[0].PassagemSecreta;
-        if (lintLocalIDDestino <= 0) { throw 'Você não está em um local com passagem secreta.'; }
-        Sala.Teletransporte(Jogar.mID_JOGADOR_SALA, lintLocalIDDestino);
+        $.ajax({
+            url: gstrGlobalPath + 'Partida/PassagemSecreta',
+            type: 'Post',
+            data: {
+                idJogadorSala: Sala.mID_JOGADOR_SALA
+            },
+            success: function (data, textStatus, XMLHttpRequest) {
+                var lobjResultado = new Object();
+                var lintIdLocal = new Number();
+                try {
+                    lobjResultado = JSON.parse(data);
+                    if (!lobjResultado.Status) { throw lobjResultado.Retorno; }
+                    lintIdLocal = lobjResultado.Retorno
+                    // Verifica qual o local que ele pode ir
+                    //lintLocalIDDestino = Jogar.marrMapeamento.filter((lElemTabuleiro, lIndexTabuleiro, lArrTabuleiro) => lElemTabuleiro.ID == lintLocalID)[0].PassagemSecreta;
+                    Sala.Teletransporte(Jogar.mID_JOGADOR_SALA, lintIdLocal);
+                } catch (ex) {
+                    alert(ex);
+                }
+            },
+            error: function (data, textStatus, XMLHttpRequest) {
+                PopUp.Erro('Erro no envio da mensagem.');
+            }
+        });
     } catch (ex) {
         PopUp.Erro(ex);
     }
@@ -359,6 +370,8 @@ Jogar.Posicao = function (lLinha, lColuna) {
 Jogar.PosicaoPortaSaida = function (pintIdLocal, pstrOrientacaoMovimento) {
     var lobjRetorno = new Object();
     try {
+        lobjRetorno.Linha = null;
+        lobjRetorno.Coluna = null;
         for (var lobjLocal in Jogar.marrMapeamento) {
             if (Jogar.marrMapeamento[lobjLocal].ID == pintIdLocal) {
                 for (var lobjPorta in Jogar.marrMapeamento[lobjLocal].Portas) {
@@ -373,7 +386,7 @@ Jogar.PosicaoPortaSaida = function (pintIdLocal, pstrOrientacaoMovimento) {
         }
         return lobjRetorno;
     } catch (ex) {
-        PopUp.Erro(ex);
+        throw ex;
     }
 }
 
@@ -425,7 +438,7 @@ Jogar.CoordenadaToLocal = function (lintLinha, lintColuna) {
         }
         return null;
     } catch (ex) {
-        PopUp.Erro(ex);
+        throw ex;
     }
 }
 
