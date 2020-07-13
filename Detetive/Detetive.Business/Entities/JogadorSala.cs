@@ -21,10 +21,12 @@ namespace Detetive.Business.Entities
         public int? IdSuspeito { get; set; }
         public bool RolouDados { get; set; }
         public bool RealizouPalpite { get; set; }
+        public bool Jogando { get; set; }
         public virtual Suspeito Suspeito { get; set; }
 
         internal JogadorSala() : base()
         {
+            Jogando = true;
         }
 
         public JogadorSala(int idJogador, int idSala) : base()
@@ -33,6 +35,7 @@ namespace Detetive.Business.Entities
             IdJogador = idJogador;
             CoordenadaLinha = 1;
             CoordenadaColuna = 1;
+            Jogando = true;
         }
 
         public bool MinhaVez()
@@ -89,6 +92,7 @@ namespace Detetive.Business.Entities
             RolouDados = jogadorSala.RolouDados;
             RealizouPalpite = jogadorSala.RealizouPalpite;
             Ativo = jogadorSala.Ativo;
+            Jogando = jogadorSala.Jogando;
         }
 
         public void AlterarSuspeito(int? idSuspeito)
@@ -115,6 +119,11 @@ namespace Detetive.Business.Entities
         public bool PodeUtilizarPassagemSecreta()
         {
             return NumeroPassagemSecreta > 0;
+        }
+
+        public void EncerrarParticipacao()
+        {
+            Jogando = false;
         }
     }
 }
