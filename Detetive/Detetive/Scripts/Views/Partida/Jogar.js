@@ -348,7 +348,6 @@ Jogar.TransmitirAtualizarCartas = function () {
             },
             success: function (data, textStatus, XMLHttpRequest) {
                 var lobjResltado = new Object();
-                var 
                 try {
                     lobjResltado = JSON.parse(data);
                     if (!lobjResltado.Status) { throw lobjResltado.Retorno; }
