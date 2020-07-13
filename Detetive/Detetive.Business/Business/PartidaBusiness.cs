@@ -503,7 +503,7 @@ namespace Detetive.Business.Business
         public Operacao PassagemSecreta(int idJogadorSala)
         {
             var jogadorSala = _jogadorSalaBusiness.Obter(idJogadorSala);
-            if (jogadorSala != default)
+            if (jogadorSala == default)
                 return new Operacao("Jogador não encontrado", false);
 
             if (!jogadorSala.IdLocal.HasValue)
@@ -516,7 +516,7 @@ namespace Detetive.Business.Business
             if (!local.IdLocalPassagemSecreta.HasValue)
                 return new Operacao("Este local não possui passagem secreta", false);
 
-            if(!jogadorSala.PodeUtilizarPassagemSecreta())
+            if(jogadorSala.PodeUtilizarPassagemSecreta())
                 return new Operacao("O jogador não pode mais utilizar a passagem secreta", false);
 
             jogadorSala.AlterarCoordenadas(jogadorSala.CoordenadaLinha, jogadorSala.CoordenadaColuna, local.IdLocalPassagemSecreta.Value);
