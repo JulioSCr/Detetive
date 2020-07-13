@@ -75,7 +75,7 @@ Sala.Configurar = function () {
         Jogar.TransmitirFinalizarTurno(pintIdSala, pintIdJogadorSala);
     }
 
-    Sala.mHubSala.client.TransmitirAtualizarCartas = function (pintIdSala, pintIdJogadorSala) {
+    Sala.mHubSala.client.TransmitirAtualizarCartas = function () {
         Jogar.TransmitirAtualizarCartas();
     }
 
