@@ -14,6 +14,7 @@ namespace Detetive.Business.Entities
         public int CoordenadaBLinha { get; set; }
         public int CoordenadaBColuna { get; set; }
         public string UrlImagem { get; set; }
+        public int? IdLocalPassagemSecreta { get; set; }
 
         public virtual List<PortaLocal> Portas { get; set; }
 

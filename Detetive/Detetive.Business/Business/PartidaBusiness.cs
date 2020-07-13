@@ -220,8 +220,8 @@ namespace Detetive.Business.Business
             var Jogadores = _jogadorSalaBusiness.Listar(jogadorSala.IdSala);
 
             // Lógica para encontrar qual a ordem do próximo jogador 
-            int NroOrdemProximo =99; 
-            foreach(var jogador in Jogadores)
+            int NroOrdemProximo = 99;
+            foreach (var jogador in Jogadores)
             {
                 if (jogador.IdJogador == jogadorSala.IdJogador)
                 {
@@ -371,7 +371,7 @@ namespace Detetive.Business.Business
             if (!jogadorSala.MinhaVez())
                 return new Operacao("Não está na vez desse jogador.", false);
 
-            if(jogadorSala.RealizouPalpite)
+            if (jogadorSala.RealizouPalpite)
                 return new Operacao("Só é permitido realizar 1 palpite por rodada.", false);
 
             MoverJogadorSalaParaLocal(idSuspeito, idSala, idLocal);
@@ -383,7 +383,7 @@ namespace Detetive.Business.Business
             // Registra palpite no histórico da sala.
             var jogador = _jogadorBusiness.Obter(jogadorSala.IdJogador);
             _historicoBusiness.Adicionar(new Historico(idSala, $"O jogador {jogador.Descricao} palpitou as seguintes as cartas {armaPaupite.Descricao} (arma), {suspeitoPaupite.Descricao} (suspeito) e {localPaupite.Descricao} (local)"));
-            
+
             jogadorSala.PalpiteRealizado();
             _jogadorSalaBusiness.Alterar(jogadorSala);
 
@@ -498,6 +498,31 @@ namespace Detetive.Business.Business
 
                 return new Operacao("Não é possível sair do local por essa direção.", false);
             }
+        }
+
+        public Operacao PassagemSecreta(int idJogadorSala)
+        {
+            var jogadorSala = _jogadorSalaBusiness.Obter(idJogadorSala);
+            if (jogadorSala != default)
+                return new Operacao("Jogador não encontrado", false);
+
+            if (!jogadorSala.IdLocal.HasValue)
+                return new Operacao("Essa operação não é válida na localização atual do jogador", false);
+
+            var local = _localBusiness.Obter(jogadorSala.IdLocal.Value);
+            if (local == default)
+                return new Operacao("Local do jogador não encontrado", false);
+
+            if (!local.IdLocalPassagemSecreta.HasValue)
+                return new Operacao("Este local não possui passagem secreta", false);
+
+            if(!jogadorSala.PodeUtilizarPassagemSecreta())
+                return new Operacao("O jogador não pode mais utilizar a passagem secreta", false);
+
+            jogadorSala.AlterarCoordenadas(jogadorSala.CoordenadaLinha, jogadorSala.CoordenadaColuna, local.IdLocalPassagemSecreta.Value);
+            _jogadorSalaBusiness.Alterar(jogadorSala);
+
+            return new Operacao($"{jogadorSala.IdLocal}");
         }
     }
 }

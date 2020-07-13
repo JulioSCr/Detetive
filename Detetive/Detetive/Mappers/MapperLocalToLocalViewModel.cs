@@ -20,6 +20,7 @@ namespace Detetive.Mappers
                 .ForMember(viewModel => viewModel.CoordenadaAColuna, _ => _.MapFrom(model => model.CoordenadaAColuna))
                 .ForMember(viewModel => viewModel.CoordenadaBLinha, _ => _.MapFrom(model => model.CoordenadaBLinha))
                 .ForMember(viewModel => viewModel.CoordenadaBColuna, _ => _.MapFrom(model => model.CoordenadaBColuna))
+                .ForMember(viewModel => viewModel.PassagemSecreta, _ => _.MapFrom(model => model.IdLocalPassagemSecreta))
                 .ForMember(viewModel => viewModel.Portas, _ => _.MapFrom(model => model.Portas))
                 .ForMember(viewModel => viewModel.IdDescricao, _ => _.MapFrom(model => model.Descricao.TratarString())); 
         }
