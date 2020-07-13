@@ -470,13 +470,23 @@ Jogar.AnotacaoArma_OnChange = function (input) {
                 valor: valor
             },
             success: function (data, textStatus, XMLHttpRequest) {
-                var retorno = PopUp.Erro(JSON.parse(data).Retorno);
+                Loading.Carregamento(false);
+                var retorno = JSON.parse(data).Retorno;
 
-                if (!retorno.Status) {
-                    PopUp.Erro(retorno.Retorno)
-                }
+                PopUp.Visualizar({
+                    TipoPopUp: 'Alerta',
+                    Mensagem: retorno,
+                    Evento: function () {
+                        try {
+                            $('#divPopUp').Detetive_Modal('hide');
+                        } catch (ex) {
+                            PopUp.Erro(ex);
+                        }
+                    }
+                });
             },
             error: function (data, textStatus, XMLHttpRequest) {
+                Loading.Carregamento(false);
                 PopUp.Erro('Erro durante chamada da controller MarcarArma');
             }
         });
@@ -499,13 +509,23 @@ Jogar.AnotacaoLocal_OnChange = function (input) {
                 valor: valor
             },
             success: function (data, textStatus, XMLHttpRequest) {
-                var retorno = PopUp.Erro(JSON.parse(data).Retorno);
+                Loading.Carregamento(false);
+                var retorno = JSON.parse(data).Retorno;
 
-                if (!retorno.Status) {
-                    PopUp.Erro(retorno.Retorno);
-                }
+                PopUp.Visualizar({
+                    TipoPopUp: 'Alerta',
+                    Mensagem: retorno,
+                    Evento: function () {
+                        try {
+                            $('#divPopUp').Detetive_Modal('hide');
+                        } catch (ex) {
+                            PopUp.Erro(ex);
+                        }
+                    }
+                });
             },
             error: function (data, textStatus, XMLHttpRequest) {
+                Loading.Carregamento(false);
                 PopUp.Erro('Erro durante chamada da controller MarcarLocal');
             }
         });
@@ -527,13 +547,23 @@ Jogar.AnotacaoSuspeito_OnChange = function (input) {
                 valor: valor
             },
             success: function (data, textStatus, XMLHttpRequest) {
-                var retorno = PopUp.Erro(JSON.parse(data).Retorno);
-
-                if (!retorno.Status) {
-                    PopUp.Erro(retorno.Retorno);
-                }
+                Loading.Carregamento(false);
+                var retorno = JSON.parse(data).Retorno;
+                
+                PopUp.Visualizar({
+                    TipoPopUp: 'Alerta',
+                    Mensagem: retorno,
+                    Evento: function () {
+                        try {
+                            $('#divPopUp').Detetive_Modal('hide');
+                        } catch (ex) {
+                            PopUp.Erro(ex);
+                        }
+                    }
+                });
             },
             error: function (data, textStatus, XMLHttpRequest) {
+                Loading.Carregamento(false);
                 PopUp.Erro('Erro durante chamada da controller MarcarSuspeito');
             }
         });
