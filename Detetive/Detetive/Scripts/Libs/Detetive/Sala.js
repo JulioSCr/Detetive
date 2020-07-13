@@ -241,7 +241,7 @@ Sala.EnviarMensagem = function (pintIdSala) {
 /// <param name="pColuna" type="Number">Número da coluna.</param>
 /// <param name="pIDLocal" type="Number">ID do local onde o jogador está.</param>
 /// <returns type="Void"></returns>
-Sala.EnviarMovimento = function (pLinha, pColuna) {
+Sala.EnviarMovimento = function (pLinha, pColuna, pidLocalDestino) {
     try {
         Jogar.DesativarBotoes(true);
         $.ajax({
@@ -250,7 +250,7 @@ Sala.EnviarMovimento = function (pLinha, pColuna) {
             data: {
                 idJogadorSala: Sala.mID_JOGADOR_SALA,
                 novaCoordenadaLinha: pLinha,
-                novaCoordenadaColuna: pColuna
+                novaCoordenadaColuna: pColuna,
             },
             success: function (data, textStatus, XMLHttpRequest) {
                 var lobjResultado = new Object();

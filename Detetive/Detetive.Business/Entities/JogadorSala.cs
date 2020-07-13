@@ -40,12 +40,9 @@ namespace Detetive.Business.Entities
             return VezJogador;
         }
 
-        public bool PossoMeMovimentar(int linhaMovimento, int colunaMovimento)
-        {
-            int quantidadeMovimentosNecessarios = Math.Abs(CoordenadaLinha - linhaMovimento) +
-                                                    Math.Abs(CoordenadaColuna - colunaMovimento);
-
-            return QuantidadeMovimento > 0 && quantidadeMovimentosNecessarios <= QuantidadeMovimento;
+        public bool PossoMeMovimentar()
+        { 
+            return QuantidadeMovimento > 0;
         }
 
         public void Mover(int coordenadaLinha, int coordenadaColuna, int? idLocal = null)
@@ -53,7 +50,11 @@ namespace Detetive.Business.Entities
             int quantidadeMovimentosNecessarios = Math.Abs(CoordenadaLinha - coordenadaLinha) +
                                                     Math.Abs(CoordenadaColuna - coordenadaColuna);
 
-            QuantidadeMovimento -= quantidadeMovimentosNecessarios;
+            if (IdLocal.HasValue && !idLocal.HasValue)
+                QuantidadeMovimento--;
+            else
+                QuantidadeMovimento -= quantidadeMovimentosNecessarios;
+
 
             IdLocal = idLocal;
             CoordenadaLinha = coordenadaLinha;
@@ -68,7 +69,7 @@ namespace Detetive.Business.Entities
             VezJogador = fim;
         }
 
-        public void AlterarCoordenadas(int coordenadaLinha, int coordenadaColuna, int idLocal)
+        public void AlterarCoordenadas(int coordenadaLinha, int coordenadaColuna, int? idLocal)
         {
             CoordenadaLinha = coordenadaLinha;
             CoordenadaColuna = coordenadaColuna;
@@ -105,9 +106,14 @@ namespace Detetive.Business.Entities
             RealizouPalpite = true;
         }
 
-        internal void HabilitarPalpite()
+        public void HabilitarPalpite()
         {
             RealizouPalpite = false;
+        }
+
+        public bool PodeUtilizarPassagemSecreta()
+        {
+            return NumeroPassagemSecreta > 0;
         }
     }
 }

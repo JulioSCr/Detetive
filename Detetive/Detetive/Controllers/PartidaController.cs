@@ -92,17 +92,10 @@ namespace Detetive.Controllers
             var jogadorSalaViewModel = Mapper.Map<JogadorSala, JogadorSalaViewModel>(_jogadorSalaBusiness.Obter(idJogadorSala));
             var historicoPartidaViewModel = Mapper.Map<List<Historico>, List<HistoricoViewModel>>(_historicoBusiness.Listar(idSala));
 
+            ViewBag.LocalAtual = jogadorSala.IdLocal != null ? Mapper.Map<Local, LocalViewModel>(_localBusiness.Obter(jogadorSala.IdLocal.Value)) : null;
+
             ViewBag.JogadorSala = jogadorSalaViewModel;
             ViewBag.Historicos = historicoPartidaViewModel;
-
-            if (jogadorSalaViewModel.Posicao.IdLocal == 1 || jogadorSalaViewModel.Posicao.IdLocal == 7 || jogadorSalaViewModel.Posicao.IdLocal == 8 || jogadorSalaViewModel.Posicao.IdLocal == 6)
-            {
-                ViewBag.passagemSecreta = true;
-            }
-            else
-            {
-                ViewBag.passagemSecreta = false;
-            }
 
             return View();
         }
@@ -124,6 +117,13 @@ namespace Detetive.Controllers
 
             var jogadorSalaViewModel = Mapper.Map<JogadorSala, JogadorSalaViewModel>(_jogadorSalaBusiness.Obter(idJogadorSala));
             return JsonConvert.SerializeObject(new Operacao(JsonConvert.SerializeObject(jogadorSalaViewModel)));
+        }
+
+        [HttpPost]
+        public string PassagemSecreta(int pIdJogadorSala)
+        {
+            return JsonConvert.SerializeObject(_partidaBusiness.PassagemSecreta(pIdJogadorSala));
+
         }
 
         public string RolarDados(int idJogadorSala, int idSala)
@@ -161,15 +161,18 @@ namespace Detetive.Controllers
             return JsonConvert.SerializeObject(jogadoresViewModel);
         }
 
+        [HttpPost]
         public string MapearTabuleiro()
         {
-            /// TO DO
-            /// Deve retornar um objeto conforme o utilizado no javascript Scripts/Views/Partida/Jogar.js linha 220 a 342
-            var locais = _localBusiness.Listar();
-
-
-
-            return JsonConvert.SerializeObject("");
+            try
+            {
+                var locais = _localBusiness.Listar();
+                return JsonConvert.SerializeObject(new Operacao(JsonConvert.SerializeObject(locais), true));
+            }
+            catch (Exception ex)
+            {
+                return JsonConvert.SerializeObject(new Operacao($"Ocorreu um problema: {ex.Message}", false));
+            }
         }
 
         public void CarregarCartas(int idJogadorSala)
