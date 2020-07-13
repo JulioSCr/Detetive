@@ -123,7 +123,7 @@
 
             <button type="button" title="Palpitar" id="btnPalpite" class="botoes centralizarBotoes botoesOpcoes" onclick="Jogar.btnPalpite_OnClick()" style="@(ViewBag.JogadorSala.Posicao.IdLocal == null ? "visibility: hidden" : "visibility: visible")" @(ViewBag.JogadorSala.Vez == false ? "disabled=''" : "")>Palpite</button>
             <button type="button" title="Acusar" id="btnAcusar" class="botoes centralizarBotoes botoesOpcoes" onclick="Jogar.btnAcusar_OnClick()" style="@(ViewBag.JogadorSala.Posicao.IdLocal == null ? "visibility: hidden" : "visibility: visible")" @(ViewBag.JogadorSala.Vez == false ? "disabled=''" : "")>Acusar</button>
-            <button type="button" title="Usar passagem secreta" id="btnPassagemSecreta" class="botoes centralizarBotoes botoesOpcoes" onclick="Jogar.btnPassagemSecreta_OnClick()" style="@(ViewBag.LocalAtual.PassagemSecreta == null ? "visibility: hidden" : "visibility: visible")" @(ViewBag.JogadorSala.Vez == false ? "disabled=''" : "")>Passagem</button>
+            <button type="button" title="Usar passagem secreta" id="btnPassagemSecreta" class="botoes centralizarBotoes botoesOpcoes" onclick="Jogar.btnPassagemSecreta_OnClick()" style="@(ViewBag.PassagemSecreta == false ? "visibility: hidden" : "visibility: visible")" @(ViewBag.JogadorSala.Vez == false ? "disabled=''" : "")>Passagem</button>
         </div>
         <div id="divInformacoesContainer">
             <div id="divInformacoes">

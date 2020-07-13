@@ -88,6 +88,7 @@ namespace Detetive.Business.Entities
             IdSuspeito = jogadorSala.IdSuspeito;
             RolouDados = jogadorSala.RolouDados;
             RealizouPalpite = jogadorSala.RealizouPalpite;
+            Ativo = jogadorSala.Ativo;
         }
 
         public void AlterarSuspeito(int? idSuspeito)
