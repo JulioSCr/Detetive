@@ -305,6 +305,8 @@ namespace Detetive.Business.Business
                 jogadorSala.EncerrarParticipacao();
                 _jogadorSalaBusiness.Alterar(jogadorSala);
 
+                AlteraVezJogadores(jogadorSala.Id);
+
                 _historicoBusiness.Adicionar(new Historico(idSala, $"O jogador {jogador.Descricao} errou a acusação e perdeu o jogo."));
 
                 //Quando o jogador perde, suas cartas são distribuídas para o restantes dos jogadores
