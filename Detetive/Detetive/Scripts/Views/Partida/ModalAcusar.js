@@ -25,12 +25,10 @@ ModalAcusar.Acusar = function () {
                 idSuspeito: lobjSuspeito.Id
             },
             success: function (data, textStatus, XMLHttpRequest) {
-                debugger;
                 var leleSuspeito = new Object();
                 var lintIdJogadorSalaAcusado = new Number();
                 var lobjRetorno = new Object();
                 try {
-                    debugger;
                     Loading.Carregamento(false);
                     lobjRetorno = JSON.parse(data);
                     if (!lobjRetorno.Status) { throw lobjRetorno.Retorno; }
