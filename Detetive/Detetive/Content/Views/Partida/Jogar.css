@@ -46,6 +46,118 @@
     justify-self: center;
 }
 
+#divReitor {
+    background-image: url(../../Imagens/TokenSuspeitos/imgTokenReitor.png);
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center center;
+    background-attachment: inherit;
+    display: grid;
+    border-radius: 50%;
+    width: 16px;
+    height: 16px;
+    align-self: center;
+    justify-self: center;
+}
+
+#divBibliotecaria {
+    background-image: url(../../Imagens/TokenSuspeitos/imgTokenBibliotecaria.png);
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center center;
+    background-attachment: inherit;
+    display: grid;
+    border-radius: 50%;
+    width: 16px;
+    height: 16px;
+    align-self: center;
+    justify-self: center;
+}
+
+#divDiretora {
+    background-image: url(../../Imagens/TokenSuspeitos/imgTokenDiretora.png);
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center center;
+    background-attachment: inherit;
+    display: grid;
+    border-radius: 50%;
+    width: 16px;
+    height: 16px;
+    align-self: center;
+    justify-self: center;
+}
+
+#divEstudante {
+    background-image: url(../../Imagens/TokenSuspeitos/imgTokenEstudante.png);
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center center;
+    background-attachment: inherit;
+    display: grid;
+    border-radius: 50%;
+    width: 16px;
+    height: 16px;
+    align-self: center;
+    justify-self: center;
+}
+
+#divPolicial {
+    background-image: url(../../Imagens/TokenSuspeitos/imgTokenPolicial.png);
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center center;
+    background-attachment: inherit;
+    display: grid;
+    border-radius: 50%;
+    width: 16px;
+    height: 16px;
+    align-self: center;
+    justify-self: center;
+}
+
+#divProfessora {
+    background-image: url(../../Imagens/TokenSuspeitos/imgTokenProfessora.png);
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center center;
+    background-attachment: inherit;
+    display: grid;
+    border-radius: 50%;
+    width: 16px;
+    height: 16px;
+    align-self: center;
+    justify-self: center;
+}
+
+#divReporter {
+    background-image: url(../../Imagens/TokenSuspeitos/imgTokenReporter.png);
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center center;
+    background-attachment: inherit;
+    display: grid;
+    border-radius: 50%;
+    width: 16px;
+    height: 16px;
+    align-self: center;
+    justify-self: center;
+}
+
+#divZelador {
+    background-image: url(../../Imagens/TokenSuspeitos/imgTokenZelador.png);
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center center;
+    background-attachment: inherit;
+    display: grid;
+    border-radius: 50%;
+    width: 16px;
+    height: 16px;
+    align-self: center;
+    justify-self: center;
+}
+
 .Local {
     display: flex;
     justify-content: center;
