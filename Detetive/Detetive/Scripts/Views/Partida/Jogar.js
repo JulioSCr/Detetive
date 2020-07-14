@@ -16,6 +16,16 @@ Jogar.MontarTela = function () {
         Titulo: 'Acusar'
     });
     // Listagem de cartas
+    Jogar.CarregarCartas();    
+
+    Jogar.MapearTabuleiro();
+};
+
+$(document).ready(function () {
+    Jogar.MontarTela();
+});
+
+Jogar.CarregarCartas = function () {
     $('.slider-nav').slick({
         slidesToShow: 5,
         slidesToScroll: 1,
@@ -68,13 +78,7 @@ Jogar.MontarTela = function () {
     $('#divCaixaInformacoes').animate({
         scrollTop: $('#divCaixaInformacoes').get(0).scrollHeight
     }, 500);
-
-    Jogar.MapearTabuleiro();
-};
-
-$(document).ready(function () {
-    Jogar.MontarTela();
-});
+}
 
 //#region Botões de ação
 
@@ -344,17 +348,25 @@ Jogar.TransmitirAtualizarCartas = function () {
             url: gstrGlobalPath + 'Partida/AtualizarCartas',
             type: 'post',
             data: {
-                idJogadorSala: Jogar.mID_JOGADOR_SALA,
+                pIdJogadorSala: Jogar.mID_JOGADOR_SALA,
             },
             success: function (data, textStatus, XMLHttpRequest) {
-                var lobjResltado = new Object();
+                var lobjResultado = new Object();
+                var lstrElemento = new String();
                 try {
-                    lobjResltado = JSON.parse(data);
-                    if (!lobjResltado.Status) { throw lobjResltado.Retorno; }
+                    Loading.Carregamento(false);
+                    lstrElemento = '<div class="slider slider-nav">';
+
+                    lobjResultado = JSON.parse(data);
+                    if (!lobjResultado.Status) { throw lobjResultado.Retorno; }
+                    lobjResultado = JSON.parse(lobjResultado.Retorno);
                     $('#divCartas > .slider').html();
-                    for (var imgCarta in lobjResltado.Retorno) {
-                        $('#divCartas > .slider').append('<div class="carta centralizar"> < img src="' + lobjResltado.Retorno[imgCarta] + '" /></div >');
+                    for (var imgCarta in lobjResultado) {
+                        lstrElemento += '<div class="carta centralizar"><img src="' + gstrGlobalPath + lobjResultado[imgCarta].replace(/^(~\/|\/)/, '') + '"/></div >';
                     }
+                    lstrElemento += '</div>'
+                    $('#divCartas').html(lstrElemento);
+                    Jogar.CarregarCartas();
                 } catch (ex) {
                     PopUp.Erro(ex);
                 }
@@ -372,7 +384,6 @@ Jogar.TransmitirAtualizarCartas = function () {
 Jogar.VisibilidadeBotoesAcao = function (pblnMostrar, pIDLocal = 0) {
     var lintLocalAtual = new Number();
     if (pblnMostrar) {
-        debugger;
         $("#btnPalpite").css("visibility", "visible");
         $("#btnAcusar").css("visibility", "visible");
         lintLocalAtual = Jogar.GetLocalAtual(Jogar.mID_JOGADOR_SALA);
