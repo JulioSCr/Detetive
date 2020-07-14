@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.InteropServices.WindowsRuntime;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -44,6 +45,11 @@ namespace Detetive.Business.Entities
         public void AlterarJogadorSala(int idJogadorSala)
         {
             IdJogadorSala = idJogadorSala;
+        }
+
+        public bool Solucionado()
+        {
+            return IdJogadorSala.HasValue && IdJogadorSala.GetValueOrDefault() > 0;
         }
     }
 }

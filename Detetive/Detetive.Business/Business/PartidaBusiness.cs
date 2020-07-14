@@ -5,6 +5,7 @@ using Detetive.Business.Entities.Enum;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Diagnostics;
 using System.Linq;
 using System.Runtime.InteropServices;
 using System.Security.Cryptography.X509Certificates;
@@ -94,6 +95,17 @@ namespace Detetive.Business.Business
 
             if (jogadorSala.RolouDados)
                 return new Operacao("O jogador já rolou os dados.", false);
+
+            var sala = _salaBusiness.Obter(jogadorSala.IdSala);
+            if (sala == default)
+                return new Operacao("sala não encotrada", false);
+
+            var crime = _crimeBusiness.Obter(sala.Id);
+            if (crime == default)
+                return new Operacao("sala não encotrada", false);
+
+            if (crime.Solucionado())
+                return new Operacao("A partida acabou, o caso já foi solucionado", false);
 
             jogadorSala.AlterarQuantidadeMovimento(_dado.Rolar());
             var jogador = _jogadorBusiness.Obter(jogadorSala.IdJogador);
@@ -201,6 +213,17 @@ namespace Detetive.Business.Business
                 if (!jogadorSala.MinhaVez())
                     return new Operacao("Não está na vez desse jogador.", false);
 
+                var sala = _salaBusiness.Obter(jogadorSala.IdSala);
+                if (sala == default)
+                    return new Operacao("sala não encotrada", false);
+
+                var crime = _crimeBusiness.Obter(sala.Id);
+                if (crime == default)
+                    return new Operacao("sala não encotrada", false);
+
+                if (crime.Solucionado())
+                    return new Operacao("O crime já foi solucionado", false);
+
                 string idProximoJogadorSala = this.AlteraVezJogadores(idJogadorSala);
 
                 return new Operacao(idProximoJogadorSala);
@@ -283,9 +306,11 @@ namespace Detetive.Business.Business
                 return new Operacao("Não está na vez desse jogador.", false);
 
             var crime = _crimeBusiness.Obter(idSala);
-
             if (crime == default)
                 return new Operacao("Crime da sala informada não encontrado", false);
+
+            if (crime.Solucionado())
+                return new Operacao("A partida acabou, o caso já foi solucionado", false);
 
             var jogador = _jogadorBusiness.Obter(jogadorSala.IdJogador);
 
