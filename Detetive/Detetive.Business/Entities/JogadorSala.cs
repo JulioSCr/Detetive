@@ -28,6 +28,7 @@ namespace Detetive.Business.Entities
         internal JogadorSala() : base()
         {
             Jogando = true;
+            NumeroPassagemSecreta = 3;
         }
 
         public JogadorSala(int idJogador, int idSala) : base()
@@ -36,6 +37,7 @@ namespace Detetive.Business.Entities
             IdJogador = idJogador;
             CoordenadaLinha = 1;
             CoordenadaColuna = 1;
+            NumeroPassagemSecreta = 3;
             Jogando = true;
         }
 
