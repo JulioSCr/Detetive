@@ -236,7 +236,7 @@ namespace Detetive.Business.Business
 
             _historicoBusiness.Adicionar(new Historico(proximoJogadorSala.IdSala, $"Player {nickJogador.Descricao} finalizou a rodada, {nickProximoJogador.Descricao}, é a sua vez!"));
             proximoJogadorSala.HabilitarPalpite();
-            
+
             return Convert.ToString(proximoJogadorSala.Id);
         }
 
@@ -508,6 +508,9 @@ namespace Detetive.Business.Business
             if (jogadorSala == default)
                 return new Operacao("Jogador não encontrado", false);
 
+            if (!jogadorSala.MinhaVez())
+                return new Operacao("Não está na vez desse jogador.", false);
+
             if (!jogadorSala.Jogando)
                 return new Operacao("Jogador não está mais jogando", false);
 
@@ -525,6 +528,7 @@ namespace Detetive.Business.Business
                 return new Operacao("O jogador não pode mais utilizar a passagem secreta", false);
 
             jogadorSala.AlterarCoordenadas(jogadorSala.CoordenadaLinha, jogadorSala.CoordenadaColuna, local.IdLocalPassagemSecreta.Value);
+            jogadorSala.UtilizarPassagemSecreta();
             _jogadorSalaBusiness.Alterar(jogadorSala);
 
             return new Operacao($"{jogadorSala.IdLocal}");

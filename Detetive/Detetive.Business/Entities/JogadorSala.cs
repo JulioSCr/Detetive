@@ -130,5 +130,10 @@ namespace Detetive.Business.Entities
         {
             Jogando = false;
         }
+
+        public void UtilizarPassagemSecreta()
+        {
+            NumeroPassagemSecreta--;
+        }
     }
 }
