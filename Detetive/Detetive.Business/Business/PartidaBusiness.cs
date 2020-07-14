@@ -214,56 +214,40 @@ namespace Detetive.Business.Business
         private string AlteraVezJogadores(int idJogadorSala)
         {
             // Altera termina a vez do jogador atual 
-            var jogadorSala = _jogadorSalaBusiness.Obter(idJogadorSala);
-
-            if (jogadorSala == default) return "";
-
-            jogadorSala.FinalizarTurno(false);
-            _jogadorSalaBusiness.Alterar(jogadorSala);
+            var jogadorSalaAtual = _jogadorSalaBusiness.Obter(idJogadorSala);
+            if (jogadorSalaAtual == default) return String.Empty;
 
             // Lista os jogadores da sala 
-            var Jogadores = _jogadorSalaBusiness.Listar(jogadorSala.IdSala).Where(_ => _.Jogando).ToList();
+            var jogadores = _jogadorSalaBusiness.Listar(jogadorSalaAtual.IdSala).ToList();
 
-            // Lógica para encontrar qual a ordem do próximo jogador 
-            int NroOrdemProximo = 99;
-            foreach (var jogador in Jogadores)
-            {
-                if (jogador.IdJogador == jogadorSala.IdJogador)
-                {
-                    NroOrdemProximo = jogador.NumeroOrdem + 1;
-                    break;
-                }
-            }
-            // Lógica para encontrar o próximo jogador (sabendo a ordem dele) 
-            int idProximoJogador = 0;
-            int idDefault = 0;
-            foreach (var jogador in Jogadores)
-            {
-                if (jogador.NumeroOrdem == 1) idDefault = jogador.IdJogador;
+            // Lógica para encontrar qual o próximo jogador 
+            JogadorSala proximoJogadorSala = ObterProximoJogador(jogadorSalaAtual, jogadores);
 
-                if ((NroOrdemProximo) == jogador.NumeroOrdem)
-                {
-                    idProximoJogador = jogador.IdJogador;
-                    break;
-                }
-                // Se a ordem não for encontrada, então o próximo jogador é o de ordem 1 
-                idProximoJogador = idDefault;
-            }
-            //Dá a vez para o próximo jogador 
-            var proximoJogadorSala = _jogadorSalaBusiness.Obter(idProximoJogador, jogadorSala.IdSala);
-            proximoJogadorSala.FinalizarTurno(true);
+            // Dá a vez para o próximo jogador
+            jogadorSalaAtual.FinalizarTurno();
+            proximoJogadorSala.IniciarTurno();
+
+            _jogadorSalaBusiness.Alterar(jogadorSalaAtual);
             _jogadorSalaBusiness.Alterar(proximoJogadorSala);
 
-            //Mensagem para o histórico
-            var nickJogador = _jogadorBusiness.Obter(jogadorSala.IdJogador);
+            // Mensagem para o histórico
+            var nickJogador = _jogadorBusiness.Obter(jogadorSalaAtual.IdJogador);
             var nickProximoJogador = _jogadorBusiness.Obter(proximoJogadorSala.IdJogador);
 
             _historicoBusiness.Adicionar(new Historico(proximoJogadorSala.IdSala, $"Player {nickJogador.Descricao} finalizou a rodada, {nickProximoJogador.Descricao}, é a sua vez!"));
             proximoJogadorSala.HabilitarPalpite();
-            var idProximoJogadorSala = _jogadorSalaRepository.Obter(proximoJogadorSala.IdJogador, jogadorSala.IdSala);
-            return idProximoJogadorSala.Id.ToString();
+            
+            return Convert.ToString(proximoJogadorSala.Id);
+        }
 
+        private JogadorSala ObterProximoJogador(JogadorSala jogadorSalaAtual, List<JogadorSala> jogadores)
+        {
+            jogadores = jogadores.Where(_ => _.Jogando).ToList();
 
+            if (jogadores.Any(_ => _.NumeroOrdem > jogadorSalaAtual.NumeroOrdem))
+                return jogadores.OrderBy(_ => _.NumeroOrdem).First(_ => _.NumeroOrdem > jogadorSalaAtual.NumeroOrdem);
+            else
+                return jogadores.OrderBy(_ => _.NumeroOrdem).First();
         }
 
         public Operacao Acusar(int idSala, int idJogadorSala, int idLocal, int idSuspeito, int idArma)
@@ -380,7 +364,7 @@ namespace Detetive.Business.Business
                 return new Operacao("Não é possível realizar mais palpites, pois há apenas 1 jogador", false);
 
             if (!jogadorSala.Jogando)
-                    return new Operacao("Jogador não está mais jogando", false);
+                return new Operacao("Jogador não está mais jogando", false);
 
             if (!jogadorSala.MinhaVez())
                 return new Operacao("Não está na vez desse jogador.", false);

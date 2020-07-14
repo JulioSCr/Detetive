@@ -44,7 +44,7 @@ namespace Detetive.Business.Entities
         }
 
         public bool PossoMeMovimentar()
-        { 
+        {
             return QuantidadeMovimento > 0;
         }
 
@@ -64,12 +64,15 @@ namespace Detetive.Business.Entities
             CoordenadaColuna = coordenadaColuna;
         }
 
-        public void FinalizarTurno(bool fim)
+        public void FinalizarTurno()
         {
-            if (fim)
-                RolouDados = false;
+            VezJogador = false;
+        }
 
-            VezJogador = fim;
+        public void IniciarTurno()
+        {
+            RolouDados = false;
+            VezJogador = true;
         }
 
         public void AlterarCoordenadas(int coordenadaLinha, int coordenadaColuna, int? idLocal)
