@@ -55,7 +55,7 @@ Sala.Configurar = function () {
         Jogar.TransmitirTeletransporte(pintID_JOGADOR_SALA, pintIDLocal);
     }
 
-    Sala.mHubSala.client.TransmitirSelecaoSuspeito = function (pintIdJogadorSala, pintIdSuspeito, pstrDescricaoJogador, pstrDescricaoSuspeitoSelecionado,pstrDescricaoSuspeitoDesconsiderado) {
+    Sala.mHubSala.client.TransmitirSelecaoSuspeito = function (pintIdJogadorSala, pintIdSuspeito, pstrDescricaoJogador, pstrDescricaoSuspeitoSelecionado, pstrDescricaoSuspeitoDesconsiderado) {
         Listar.TransmitirSelecaoSuspeito(pintIdJogadorSala, pintIdSuspeito, pstrDescricaoJogador, pstrDescricaoSuspeitoSelecionado, pstrDescricaoSuspeitoDesconsiderado);
     }
 
@@ -157,6 +157,7 @@ Sala.DesconsiderarSuspeito = function (pintIdSala, pintIdJogadorSala) {
         $.ajax({
             url: gstrGlobalPath + 'Suspeito/DesconsiderarSuspeito',
             type: 'post',
+            async: false,
             data: {
                 idJogadorSala: pintIdJogadorSala
             },
@@ -201,7 +202,7 @@ Sala.EnviarMensagem = function (pintIdSala) {
                 var lobjRetorno = new Object();
                 try {
                     lobjResultado = JSON.parse(data);
-                    if (lobjResultado.length == 1 ) {
+                    if (lobjResultado.length == 1) {
                         if (!lobjResultado.Status) { throw lobjResultado.Retorno; }
                     }
                     Sala.mHubSala.server.enviarMensagem(Sala.mIdSala, JSON.stringify(lobjResultado)).done(function () { });

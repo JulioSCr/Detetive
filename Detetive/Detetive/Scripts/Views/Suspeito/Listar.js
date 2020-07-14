@@ -124,7 +124,7 @@ Listar.btnVamosAoCaso_OnClick = function () {
 
         PopUp.Visualizar({
             TipoPopUp: 'Questao',
-            Mensagem: 'A partida vai começar, seus amigos não poderão ingressar caso não tenham selecionado um suspeito.\nDeseja continuar?',
+            Mensagem: 'A partida vai começar, seus amigos não poderão ingressar caso não tenham selecionado um suspeito.\n Deseja continuar?',
             Evento: function () {
                 try {
                     Sala.IniciarPartida(Listar.mintIdSala, Listar.mintIdJogadorSala);
