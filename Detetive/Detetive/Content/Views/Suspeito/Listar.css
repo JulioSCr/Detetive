@@ -119,3 +119,13 @@
     float: right;
     width: 50%;
 }
+
+iframe {
+    overflow: hidden;
+    position: fixed;
+    top: 0;
+    left: 0;
+}
+
+
+

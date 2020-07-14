@@ -11,13 +11,14 @@ window.onload = function () {
             .removeChild(this.parentNode.parentNode);
         return false;
     };
-
 };
 
 
+setTimeout(EsconderAd, 30000)
+
 function ExibirAd() {
     document.getElementById('propaganda').style.visibility = 'visible';
-    myVideo.play();
+    myVideo.play()
     myVideo.autoplay()
 }
 
