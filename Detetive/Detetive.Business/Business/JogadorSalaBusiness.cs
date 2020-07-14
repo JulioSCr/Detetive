@@ -16,8 +16,8 @@ namespace Detetive.Business.Business
         private readonly ISuspeitoBusiness _suspeitoBusiness;
         private readonly IJogadorSalaRepository _jogadorSalaRepository;
 
-        public JogadorSalaBusiness(IJogadorBusiness jogadorBusiness, 
-                                   ISuspeitoBusiness suspeitoBusiness, 
+        public JogadorSalaBusiness(IJogadorBusiness jogadorBusiness,
+                                   ISuspeitoBusiness suspeitoBusiness,
                                    IJogadorSalaRepository jogadorSalaRepository)
         {
             _jogadorBusiness = jogadorBusiness;
@@ -47,7 +47,7 @@ namespace Detetive.Business.Business
             if (jogadoresSala != default && jogadoresSala.Count >= 8)
                 return new Operacao("A sala já está cheia", false);
 
-            var jogador= _jogadorBusiness.Obter(idJogador);
+            var jogador = _jogadorBusiness.Obter(idJogador);
 
             if (jogador == default)
                 return new Operacao("Jogador não cadastrado", false);
@@ -66,8 +66,11 @@ namespace Detetive.Business.Business
         {
             var listaJogadores = _jogadorSalaRepository.Listar(idSala);
             var suspeitos = _suspeitoBusiness.Listar();
+            var jogadores = _jogadorBusiness.Listar(listaJogadores.Select(_ => _.IdJogador).ToList());
 
             listaJogadores.ForEach(x => x.Suspeito = suspeitos.FirstOrDefault(y => y.Id == x.IdSuspeito));
+            if (jogadores != null)
+                listaJogadores.ForEach(x => x.Jogador = jogadores.FirstOrDefault(y => y.Id == x.IdJogador));
 
             return listaJogadores;
         }

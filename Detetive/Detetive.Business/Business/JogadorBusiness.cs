@@ -26,5 +26,10 @@ namespace Detetive.Business.Business
         {
             return _jogadorRepository.Obter(idJogador);
         }
+
+        public List<Jogador> Listar(List<int> idJogadores)
+        {
+            return _jogadorRepository.Listar(idJogadores);
+        }
     }
 }

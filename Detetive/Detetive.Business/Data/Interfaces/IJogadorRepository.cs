@@ -9,5 +9,6 @@ namespace Detetive.Business.Data.Interfaces
     {
         Jogador Adicionar(Jogador jogador);
         Jogador Obter(int idJogador);
+        List<Jogador> Listar(List<int> idJogadores);
     }
 }

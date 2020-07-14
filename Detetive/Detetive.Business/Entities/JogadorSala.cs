@@ -23,6 +23,7 @@ namespace Detetive.Business.Entities
         public bool RealizouPalpite { get; set; }
         public bool Jogando { get; set; }
         public virtual Suspeito Suspeito { get; set; }
+        public virtual Jogador Jogador { get; set; }
 
         internal JogadorSala() : base()
         {

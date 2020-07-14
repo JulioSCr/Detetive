@@ -28,5 +28,13 @@ namespace Detetive.Data.Repository
         {
             return this.Context.Jogadores.AsNoTracking().SingleOrDefault(_ => _.Id == idJogador);
         }
+
+        public List<Jogador> Listar(List<int> idJogadores)
+        {
+            if (idJogadores != null && idJogadores.Any())
+                return this.Context.Jogadores.AsNoTracking().Where(_ => idJogadores.Any(x => _.Id == x)).ToList();
+
+            return null;
+        }
     }
 }

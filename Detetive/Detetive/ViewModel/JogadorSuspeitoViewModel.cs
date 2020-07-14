@@ -14,5 +14,6 @@ namespace Detetive.ViewModel
         public int? IdSuspeito { get; set; }
         public int? IdLocal { get; set; }
         public string DescricaoSuspeito { get; set; }
+        public string NickJogador { get; set; }
     }
 }

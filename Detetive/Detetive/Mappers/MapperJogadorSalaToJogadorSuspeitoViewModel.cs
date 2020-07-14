@@ -21,6 +21,7 @@ namespace Detetive.Mappers
                 .ForMember(viewModel => viewModel.IdSuspeito, _ => _.MapFrom(model => model.Suspeito.Id))
                 .ForMember(viewModel => viewModel.DescricaoSuspeito, _ => _.MapFrom(model => model.Suspeito.Descricao))
                 .ForMember(viewModel => viewModel.IdDescricao, _ => _.MapFrom(model => model.Suspeito.Descricao.TratarString()))
+                .ForMember(viewModel => viewModel.NickJogador, _ => _.MapFrom(model => model.Jogador.Descricao))
                 .ForMember(viewModel => viewModel.IdLocal, _ => _.MapFrom(model => model.IdLocal));
         }
 

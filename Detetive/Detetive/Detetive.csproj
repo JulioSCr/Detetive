@@ -282,6 +282,7 @@
     <Content Include="Content\bootstrap-reboot.min.css" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
+    <Content Include="Content\Imagens\Ads\dolly.mp4" />
     <Content Include="Content\Imagens\CartasArmas\imgCartaCadeiraQuebrada.svg" />
     <Content Include="Content\Imagens\CartasArmas\imgCartaCaixaDeGiz.svg" />
     <Content Include="Content\Imagens\CartasArmas\imgCartaMonitor.svg" />

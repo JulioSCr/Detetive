@@ -30,7 +30,7 @@
                 {
                     if (jogadorSuspeito.IdLocal != null && jogadorSuspeito.IdLocal == local.Id)
                     {
-                        <div id=@($"div{jogadorSuspeito.IdDescricao}") title="@jogadorSuspeito.DescricaoSuspeito" idJogadorSala="@jogadorSuspeito.IdJogadorSala" class="suspeito dentro" style="grid-column:@jogadorSuspeito.CoordenadaColuna;grid-row:@jogadorSuspeito.CoordenadaLinha;"></div>
+                        <div id=@($"div{jogadorSuspeito.IdDescricao}") title="@jogadorSuspeito.NickJogador" idJogadorSala="@jogadorSuspeito.IdJogadorSala" class="suspeito dentro" style="grid-column:@jogadorSuspeito.CoordenadaColuna;grid-row:@jogadorSuspeito.CoordenadaLinha;"></div>
                     }
                 }
             </div>
@@ -40,7 +40,7 @@
         {
             if (jogadorSuspeito.IdLocal == null)
             {
-                <div id=@($"div{jogadorSuspeito.IdDescricao}") title="@jogadorSuspeito.DescricaoSuspeito" idJogadorSala="@jogadorSuspeito.IdJogadorSala" class="suspeito" style="grid-column:@jogadorSuspeito.CoordenadaColuna;grid-row:@jogadorSuspeito.CoordenadaLinha"></div>
+                <div id=@($"div{jogadorSuspeito.IdDescricao}") title="@jogadorSuspeito.NickJogador" idJogadorSala="@jogadorSuspeito.IdJogadorSala" class="suspeito" style="grid-column:@jogadorSuspeito.CoordenadaColuna;grid-row:@jogadorSuspeito.CoordenadaLinha"></div>
             }
         }
     </div>

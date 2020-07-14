@@ -32,6 +32,7 @@ namespace Detetive.Data.Context.EntityConfig
             Property(p => p.Jogando).HasColumnName("IE_JOGANDO");
             Property(p => p.Ativo).HasColumnName("IE_ATIVO");
             Ignore(p => p.Suspeito);
+            Ignore(p => p.Jogador);
         }
     }
 }
