@@ -23,7 +23,7 @@ namespace Detetive.Data.Repository
 
         public Crime Alterar(Crime crime)
         {
-            var crimeSala = this.Context.Crimes.AsNoTracking().SingleOrDefault(_ => _.Id == crime.Id && _.Ativo);
+            var crimeSala = this.Context.Crimes.SingleOrDefault(_ => _.Id == crime.Id && _.Ativo);
 
             if (crimeSala != default)
             {

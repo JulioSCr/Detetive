@@ -87,6 +87,17 @@ namespace Detetive.Business.Business
             if (jogadorSala == default && jogadorSala.IdSala != idSala)
                 return new Operacao("Jogador não encontrado", false);
 
+            var sala = _salaBusiness.Obter(jogadorSala.IdSala);
+            if (sala == default)
+                return new Operacao("Sala não encotrada", false);
+
+            var crime = _crimeBusiness.Obter(sala.Id);
+            if (crime == default)
+                return new Operacao("Crime não encotrada", false);
+
+            if (crime.Solucionado())
+                return new Operacao("A partida acabou, o caso já foi solucionado", false);
+
             if (!jogadorSala.Jogando)
                 return new Operacao("Jogador não está mais jogando", false);
 
@@ -95,17 +106,6 @@ namespace Detetive.Business.Business
 
             if (jogadorSala.RolouDados)
                 return new Operacao("O jogador já rolou os dados.", false);
-
-            var sala = _salaBusiness.Obter(jogadorSala.IdSala);
-            if (sala == default)
-                return new Operacao("sala não encotrada", false);
-
-            var crime = _crimeBusiness.Obter(sala.Id);
-            if (crime == default)
-                return new Operacao("sala não encotrada", false);
-
-            if (crime.Solucionado())
-                return new Operacao("A partida acabou, o caso já foi solucionado", false);
 
             jogadorSala.AlterarQuantidadeMovimento(_dado.Rolar());
             var jogador = _jogadorBusiness.Obter(jogadorSala.IdJogador);
@@ -299,18 +299,18 @@ namespace Detetive.Business.Business
             if (jogadorSala == default && jogadorSala.IdSala != idSala)
                 return new Operacao("Jogador não encontrado", false);
 
-            if (!jogadorSala.Jogando)
-                return new Operacao("Jogador não está mais jogando", false);
-
-            if (!jogadorSala.MinhaVez())
-                return new Operacao("Não está na vez desse jogador.", false);
-
             var crime = _crimeBusiness.Obter(idSala);
             if (crime == default)
                 return new Operacao("Crime da sala informada não encontrado", false);
 
             if (crime.Solucionado())
                 return new Operacao("A partida acabou, o caso já foi solucionado", false);
+
+            if (!jogadorSala.Jogando)
+                return new Operacao("Jogador não está mais jogando", false);
+
+            if (!jogadorSala.MinhaVez())
+                return new Operacao("Não está na vez desse jogador.", false);
 
             var jogador = _jogadorBusiness.Obter(jogadorSala.IdJogador);
 
@@ -389,6 +389,13 @@ namespace Detetive.Business.Business
             var jogadoresSala = _jogadorSalaBusiness.Listar(idSala);
             if (jogadoresSala.Count(_ => _.Jogando) <= 1)
                 return new Operacao("Não é possível realizar mais palpites, pois há apenas 1 jogador", false);
+
+            var crime = _crimeBusiness.Obter(idSala);
+            if (crime == default)
+                return new Operacao("Crime da sala informada não encontrado", false);
+
+            if (crime.Solucionado())
+                return new Operacao("A partida acabou, o caso já foi solucionado", false);
 
             if (!jogadorSala.Jogando)
                 return new Operacao("Jogador não está mais jogando", false);
@@ -480,11 +487,21 @@ namespace Detetive.Business.Business
             if (jogadorSala == default)
                 return new Operacao("Jogador não encotrado.", false);
 
+            var crime = _crimeBusiness.Obter(jogadorSala.IdSala);
+            if (crime == default)
+                return new Operacao("Crime da sala informada não encontrado", false);
+
+            if (crime.Solucionado())
+                return new Operacao("A partida acabou, o caso já foi solucionado", false);
+
             if (!jogadorSala.Jogando)
                 return new Operacao("Jogador não está mais jogando", false);
 
             if (!jogadorSala.MinhaVez())
                 return new Operacao("Não está na vez desse jogador.", false);
+
+            if(!jogadorSala.RolouDados)
+                return new Operacao("Antes de se movimentar, é preciso rolar os dados.", false);
 
             if (!jogadorSala.PossoMeMovimentar())
                 return new Operacao("Não há movimentos suficientes para ir ao destino desejado.", false);
@@ -533,6 +550,13 @@ namespace Detetive.Business.Business
             if (jogadorSala == default)
                 return new Operacao("Jogador não encontrado", false);
 
+            var crime = _crimeBusiness.Obter(jogadorSala.IdSala);
+            if (crime == default)
+                return new Operacao("Crime da sala informada não encontrado", false);
+
+            if (crime.Solucionado())
+                return new Operacao("A partida acabou, o caso já foi solucionado", false);
+
             if (!jogadorSala.MinhaVez())
                 return new Operacao("Não está na vez desse jogador.", false);
 
@@ -549,7 +573,7 @@ namespace Detetive.Business.Business
             if (!local.IdLocalPassagemSecreta.HasValue)
                 return new Operacao("Este local não possui passagem secreta", false);
 
-            if (jogadorSala.PodeUtilizarPassagemSecreta())
+            if (!jogadorSala.PodeUtilizarPassagemSecreta())
                 return new Operacao("O jogador não pode mais utilizar a passagem secreta", false);
 
             jogadorSala.AlterarCoordenadas(jogadorSala.CoordenadaLinha, jogadorSala.CoordenadaColuna, local.IdLocalPassagemSecreta.Value);
