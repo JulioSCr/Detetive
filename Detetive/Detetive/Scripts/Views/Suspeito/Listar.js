@@ -37,6 +37,15 @@ Listar.Suspeito_OnClick = function (e) {
     }
 }
 
+Listar.btnVoltar_OnClick = function () {
+    try {
+        Sala.DesconsiderarSuspeito(Listar.mintIdSala, Listar.mintIdJogadorSala);
+        location.href = '/Sala/Manter';
+    } catch (ex) {
+        PopUp.Erro(ex);
+    }
+}
+
 Listar.TransmitirSelecaoSuspeito = function (pintIdJogadorSala, pintIdSuspeito, pstrDescricaoJogador, pstrDescricaoSuspeitoSelecionado, pstrDescricaoSuspeitoDesconsiderado) {
     var lstrJogadorSuspeito = new String();
     try {
