@@ -205,8 +205,8 @@ namespace Detetive.Controllers
             ViewBag.Cartas = caminhoImageCartas;
         }
 
-        [HttpGet]
-        public string AtualizarCartas(int idJogadorSala)
+        [HttpPost]
+        public string AtualizarCartas(int pIdJogadorSala)
         {
             try
             {

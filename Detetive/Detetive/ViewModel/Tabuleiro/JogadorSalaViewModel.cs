@@ -23,5 +23,6 @@ namespace Detetive.ViewModel.Tabuleiro
         }
 
         public bool Vez { get; set; }
+        public bool Jogando { get; set; }
     }
 }

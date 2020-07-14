@@ -25,7 +25,6 @@ ModalAcusar.Acusar = function () {
                 idSuspeito: lobjSuspeito.Id
             },
             success: function (data, textStatus, XMLHttpRequest) {
-                debugger;
                 var leleSuspeito = new Object();
                 var lintIdJogadorSalaAcusado = new Number();
                 var lobjRetorno = new Object();
@@ -52,8 +51,8 @@ ModalAcusar.Acusar = function () {
                         Sala.Teletransporte(lintIdJogadorSalaAcusado, lintIdLocal);
                     }
                     Sala.EnviarMensagem(lintIdSala);
-                    Sala.AtualizarCartas();
                     Jogar.btnFinalizarTurno_OnClick();
+                    Sala.AtualizarCartas();
                     $('#ModalAcusar').Detetive_Modal('hide');
                     Loading.Carregamento(false);
                 } catch (ex) {

@@ -75,7 +75,7 @@ Sala.Configurar = function () {
         Jogar.TransmitirFinalizarTurno(pintIdSala, pintIdJogadorSala);
     }
 
-    Sala.mHubSala.client.TransmitirAtualizarCartas = function (pintIdSala, pintIdJogadorSala) {
+    Sala.mHubSala.client.TransmitirAtualizarCartas = function () {
         Jogar.TransmitirAtualizarCartas();
     }
 
@@ -179,36 +179,6 @@ Sala.DesconsiderarSuspeito = function (pintIdSala, pintIdJogadorSala) {
 }
 
 //#endregion
-
-Sala.FinalizarTurno = function () {
-    try {
-        $.ajax({
-            url: gstrGlobalPath + 'Agaga/Agaga',
-            type: 'post',
-            data: {
-                idSala: Sala.mIdSala,
-                idJogadorSala: Sala.mID_JOGADOR_SALA
-            },
-            success: function (data, textStatus, XMLHttpRequest) {
-                var lobjResltado = new Object();
-                var lintIdJogadorSala = new Number();
-                try {
-                    lobjResltado = JSON.parse(data);
-                    if (!lobjResltado.Status) { throw data.Retorno; }
-                    lintIdJogadorSala = JSON.parse(lobjResltado.Retorno);
-                    Sala.mHubSala.server.finalizarTurno(Sala.mIdSala, lintIdJogadorSala).done(function () { });
-                } catch (ex) {
-                    PopUp.Erro(ex);
-                }
-            },
-            error: function (request, status, error) {
-                PopUp.Erro(request.responseText);
-            }
-        });
-    } catch (ex) {
-        PopUp.Erro(ex);
-    }
-}
 
 Sala.AtualizarCartas = function () {
     try {
