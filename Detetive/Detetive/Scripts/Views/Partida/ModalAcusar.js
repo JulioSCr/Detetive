@@ -25,23 +25,42 @@ ModalAcusar.Acusar = function () {
                 idSuspeito: lobjSuspeito.Id
             },
             success: function (data, textStatus, XMLHttpRequest) {
+                debugger;
                 var leleSuspeito = new Object();
                 var lintIdJogadorSalaAcusado = new Number();
                 var lobjRetorno = new Object();
                 try {
+                    debugger;
+                    Loading.Carregamento(false);
                     lobjRetorno = JSON.parse(data);
                     if (!lobjRetorno.Status) { throw lobjRetorno.Retorno; }
+
+                    PopUp.Visualizar({
+                        TipoPopUp: 'Alerta',
+                        Mensagem: lobjRetorno.Retorno,
+                        Evento: function () {
+                            try {
+                                $('#divPopUp').Detetive_Modal('hide');
+                            } catch (ex) {
+                                PopUp.Erro(ex);
+                            }
+                        }
+                    });
 
                     leleSuspeito = $('#divTabuleiro > #div' + removeAcentos(lobjSuspeito.Descricao)).length == 0 ? $('#divTabuleiro >> #div' + removeAcentos(lobjSuspeito.Descricao)) : $('#divTabuleiro > #div' + removeAcentos(lobjSuspeito.Descricao));
                     if (leleSuspeito.length != 0) {
                         lintIdJogadorSalaAcusado = $(leleSuspeito).attr('idJogadorSala');
                         Sala.Teletransporte(lintIdJogadorSalaAcusado, lintIdLocal);
                     }
-
+                    Sala.EnviarMensagem(lintIdSala);
+                    Jogar.btnFinalizarTurno_OnClick();
+                    Sala.AtualizarCartas();
                     $('#ModalAcusar').Detetive_Modal('hide');
+                    Loading.Carregamento(false);
                 } catch (ex) {
+                    Loading.Carregamento(false);
                     $('#ModalAcusar').Detetive_Modal('hide');
-                    alert(ex);
+                    PopUp.Erro(ex);
                 }
             },
             error: function (data, textStatus, XMLHttpRequest) {

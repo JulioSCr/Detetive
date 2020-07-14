@@ -14,6 +14,7 @@ namespace Detetive.Business.Entities
         public int CoordenadaBLinha { get; set; }
         public int CoordenadaBColuna { get; set; }
         public string UrlImagem { get; set; }
+        public int? IdLocalPassagemSecreta { get; set; }
 
         public virtual List<PortaLocal> Portas { get; set; }
 
@@ -45,6 +46,15 @@ namespace Detetive.Business.Entities
             return Portas.Any(_ => _.CoordenadaLinha == coordenadaLinha &&
                                     _.CoordenadaColuna == coordenadaColuna &&
                                     _.Direcao.Equals(direcao));
+        }
+
+        public bool PortaLocal(int coordenadaOrigemLinha, int coordenadaOrigemColuna, int coordenadaDestinoLinha, int coordenadaDestinoColuna)
+        {
+            var porta = Portas.FirstOrDefault(_ => _.CoordenadaLinha == coordenadaDestinoLinha && _.CoordenadaColuna == coordenadaDestinoColuna);
+            if (porta == default)
+                return false;
+
+            return porta.ValidarMovimento(coordenadaOrigemLinha, coordenadaOrigemColuna);
         }
     }
 }

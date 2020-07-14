@@ -19,6 +19,7 @@
 }
 <input id="inpID_JOGADOR_SALA" type="hidden" name="ID_JOGADOR_SALA" value="@ViewBag.JogadorSala.Id" />
 <input id="inpID_SALA" type="hidden" name="inpID_SALA" value="@ViewBag.ID_Sala" />
+<input id="inpLocais" type="hidden" name="inpLocais" value="@ViewBag.Locais" />
 
 <section id="secPrimeiraLinha">
     <div id="divTabuleiro" class="esquerda">
@@ -114,15 +115,15 @@
     </div>
     <div id="divAcoes" class="direita">
         <div id="divBotoes">
-            <button type="button" title="Mover para direita" id="btnDireita" class="botoes btnSetaHorizontal centralizarBotoes" onclick="Jogar.btnDireita_OnClick()" @(ViewBag.JogadorSala.Vez == false ? "disabled=''" : "")></button>
-            <button type="button" title="Mover para esquerda" id="btnEsquerda" class="botoes btnSetaHorizontal centralizarBotoes" onclick="Jogar.btnEsquerda_OnClick()" @(ViewBag.JogadorSala.Vez == false ? "disabled=''" : "")></button>
-            <button type="button" title="Mover para cima" id="btnAcima" class="botoes btnSetaVertical centralizarBotoes" onclick="Jogar.btnAcima_OnClick()" @(ViewBag.JogadorSala.Vez == false ? "disabled=''" : "")></button>
-            <button type="button" title="Mover para baixo" id="btnAbaixo" class="botoes btnSetaVertical centralizarBotoes" onclick="Jogar.btnAbaixo_OnClick()" @(ViewBag.JogadorSala.Vez == false ? "disabled=''" : "")></button>
-            <button type="button" title="Rolar os dados" id="btnLancarDados" class="botoes centralizarBotoes" onclick="Jogar.btnLancarDados_OnClick()" @(ViewBag.JogadorSala.Vez == false ? "disabled=''" : "")></button>
+            <button type="button" title="Mover para direita" id="btnDireita" class="botoes btnSetaHorizontal centralizarBotoes" onclick="Jogar.btnDireita_OnClick()" @(ViewBag.JogadorSala.Vez == false && ViewBag.JogadorSala.Jogando == false ? "disabled=''" : "")></button>
+            <button type="button" title="Mover para esquerda" id="btnEsquerda" class="botoes btnSetaHorizontal centralizarBotoes" onclick="Jogar.btnEsquerda_OnClick()" @(ViewBag.JogadorSala.Vez == false && ViewBag.JogadorSala.Jogando == false ? "disabled=''" : "")></button>
+            <button type="button" title="Mover para cima" id="btnAcima" class="botoes btnSetaVertical centralizarBotoes" onclick="Jogar.btnAcima_OnClick()" @(ViewBag.JogadorSala.Vez == false && ViewBag.JogadorSala.Jogando == false ? "disabled=''" : "")></button>
+            <button type="button" title="Mover para baixo" id="btnAbaixo" class="botoes btnSetaVertical centralizarBotoes" onclick="Jogar.btnAbaixo_OnClick()" @(ViewBag.JogadorSala.Vez == false && ViewBag.JogadorSala.Jogando == false ? "disabled=''" : "")></button>
+            <button type="button" title="Rolar os dados" id="btnLancarDados" class="botoes centralizarBotoes" onclick="Jogar.btnLancarDados_OnClick()" @(ViewBag.JogadorSala.Vez == false && ViewBag.JogadorSala.Jogando == false ? "disabled=''" : "")></button>
 
-            <button type="button" title="Palpitar" id="btnPalpite" class="botoes centralizarBotoes botoesOpcoes" onclick="Jogar.btnPalpite_OnClick()" style="@(ViewBag.JogadorSala.Posicao.IdLocal == null ? "visibility: hidden" : "visibility: visible")" @(ViewBag.JogadorSala.Vez == false ? "disabled=''" : "")>Palpite</button>
-            <button type="button" title="Acusar" id="btnAcusar" class="botoes centralizarBotoes botoesOpcoes" onclick="Jogar.btnAcusar_OnClick()" style="@(ViewBag.JogadorSala.Posicao.IdLocal == null ? "visibility: hidden" : "visibility: visible")" @(ViewBag.JogadorSala.Vez == false ? "disabled=''" : "")>Acusar</button>
-            <button type="button" title="Usar passagem secreta" id="btnPassagemSecreta" class="botoes centralizarBotoes botoesOpcoes" onclick="Jogar.btnPassagemSecreta_OnClick()" style="@(ViewBag.passagemSecreta == false ? "visibility: hidden" : "visibility: visible")" @(ViewBag.JogadorSala.Vez == false ? "disabled=''" : "")></button>
+            <button type="button" title="Palpitar" id="btnPalpite" class="botoes centralizarBotoes botoesOpcoes" onclick="Jogar.btnPalpite_OnClick()" style="@(ViewBag.JogadorSala.Posicao.IdLocal == null ? "visibility: hidden" : "visibility: visible")" @(ViewBag.JogadorSala.Vez == false && ViewBag.JogadorSala.Jogando == false  ? "disabled=''" : "")>Palpite</button>
+            <button type="button" title="Acusar" id="btnAcusar" class="botoes centralizarBotoes botoesOpcoes" onclick="Jogar.btnAcusar_OnClick()" style="@(ViewBag.JogadorSala.Posicao.IdLocal == null ? "visibility: hidden" : "visibility: visible")" @(ViewBag.JogadorSala.Vez == false && ViewBag.JogadorSala.Jogando == false  ? "disabled=''" : "")>Acusar</button>
+            <button type="button" title="Usar passagem secreta" id="btnPassagemSecreta" class="botoes centralizarBotoes botoesOpcoes" onclick="Jogar.btnPassagemSecreta_OnClick()" style="@(ViewBag.PassagemSecreta == false ? "visibility: hidden" : "visibility: visible")" @(ViewBag.JogadorSala.Vez == false && ViewBag.JogadorSala.Jogando == false ? "disabled=''" : "")>Passagem</button>
         </div>
         <div id="divInformacoesContainer">
             <div id="divInformacoes">

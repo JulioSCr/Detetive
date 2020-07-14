@@ -15,10 +15,10 @@ PopUp.Visualizar = function (pobjEntrada) {
         $('#lblMensagem').text(pobjEntrada.Mensagem);
 
         if (pobjEntrada.TipoPopUp.toUpperCase() == 'QUESTAO') {
-            $('#DetetiveModal .fecha').css('visibility', 'visible');
+            $('#divPopUp #DetetiveModal .fecha').css('visibility', 'visible');
             $('#divPopUp').Detetive_Modal('show');
         } else {
-            $('#DetetiveModal .fecha').css('visibility', 'hidden');
+            $('#divPopUp #DetetiveModal .fecha').css('visibility', 'hidden');
             $('#divPopUp').Detetive_Modal('popup');
         }
 

@@ -75,6 +75,10 @@ Sala.Configurar = function () {
         Jogar.TransmitirFinalizarTurno(pintIdSala, pintIdJogadorSala);
     }
 
+    Sala.mHubSala.client.TransmitirAtualizarCartas = function () {
+        Jogar.TransmitirAtualizarCartas();
+    }
+
     Sala.mHubSala.client.erro = function (vstrMensagem, vstrMensagemTecnica) {
         console.log(vstrMensagemTecnica);
     };
@@ -176,31 +180,9 @@ Sala.DesconsiderarSuspeito = function (pintIdSala, pintIdJogadorSala) {
 
 //#endregion
 
-Sala.FinalizarTurno = function () {
+Sala.AtualizarCartas = function () {
     try {
-        $.ajax({
-            url: gstrGlobalPath + 'Agaga/Agaga',
-            type: 'post',
-            data: {
-                idSala: Sala.mIdSala,
-                idJogadorSala: Sala.mID_JOGADOR_SALA
-            },
-            success: function (data, textStatus, XMLHttpRequest) {
-                var lobjResltado = new Object();
-                var lintIdJogadorSala = new Number();
-                try {
-                    lobjResltado = JSON.parse(data);
-                    if (!lobjResltado.Status) { throw data.Retorno; }
-                    lintIdJogadorSala = JSON.parse(lobjResltado.Retorno);
-                    Sala.mHubSala.server.finalizarTurno(Sala.mIdSala, lintIdJogadorSala).done(function () { });
-                } catch (ex) {
-                    PopUp.Erro(ex);
-                }
-            },
-            error: function (request, status, error) {
-                PopUp.Erro(request.responseText);
-            }
-        });
+        Sala.mHubSala.server.atualizarCartas(Sala.mIdSala).done(function () { });
     } catch (ex) {
         PopUp.Erro(ex);
     }
@@ -241,7 +223,7 @@ Sala.EnviarMensagem = function (pintIdSala) {
 /// <param name="pColuna" type="Number">Número da coluna.</param>
 /// <param name="pIDLocal" type="Number">ID do local onde o jogador está.</param>
 /// <returns type="Void"></returns>
-Sala.EnviarMovimento = function (pLinha, pColuna) {
+Sala.EnviarMovimento = function (pLinha, pColuna, pidLocalDestino) {
     try {
         Jogar.DesativarBotoes(true);
         $.ajax({
@@ -250,7 +232,7 @@ Sala.EnviarMovimento = function (pLinha, pColuna) {
             data: {
                 idJogadorSala: Sala.mID_JOGADOR_SALA,
                 novaCoordenadaLinha: pLinha,
-                novaCoordenadaColuna: pColuna
+                novaCoordenadaColuna: pColuna,
             },
             success: function (data, textStatus, XMLHttpRequest) {
                 var lobjResultado = new Object();

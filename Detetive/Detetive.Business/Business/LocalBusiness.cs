@@ -34,5 +34,15 @@ namespace Detetive.Business.Business
         {
             return _localRepository.Obter(idLocal);
         }
+
+        public Local Obter(int coordenadaLinha, int coordenadaColuna)
+        {
+            var local = _localRepository.Obter(coordenadaLinha, coordenadaColuna);
+
+            if (local != default)
+                local.Portas = _portaLocalBusiness.Listar(local.Id);
+
+            return local;
+        }
     }
 }

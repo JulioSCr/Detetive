@@ -68,6 +68,8 @@ Jogar.MontarTela = function () {
     $('#divCaixaInformacoes').animate({
         scrollTop: $('#divCaixaInformacoes').get(0).scrollHeight
     }, 500);
+
+    Jogar.MapearTabuleiro();
 };
 
 $(document).ready(function () {
@@ -78,29 +80,7 @@ $(document).ready(function () {
 
 Jogar.btnFinalizarTurno_OnClick = function () {
     try {
-        //$("#btnEsquerda").attr("disabled", true);
-        //$("#btnEsquerda").css('background', 'darkgrey');
-
-        //$("#btnDireita").attr("disabled", true);
-        //$("#btnDireita").css('background', 'darkgrey');
-
-        //$("#btnAcima").attr("disabled", true);
-        //$("#btnAcima").css('background', 'darkgrey');
-
-        //$("#btnAbaixo").attr("disabled", true);
-        //$("#btnAbaixo").css('background', 'darkgrey');
-
-        //$("#btnLancarDados").attr("disabled", true);
-        //$("#btnLancarDados").css('background', 'darkgrey');
-
-        //$("#btnPalpite").attr("disabled", true);
-        //$("#btnAcusar").attr("disabled", true);
-        //$("#btnPassagemSecreta").attr("disabled", true);
-
-        //$("#btnFinalizarTurno").attr("disabled", true);
-        //$("#btnFinalizarTurno").css('background', 'darkgrey');
-
-        //$("#divCaixaInformacoes").append("Você finalizou seu turno!");
+        
         $.ajax({
             url: gstrGlobalPath + 'Partida/Finalizar',
             type: 'post',
@@ -110,11 +90,7 @@ Jogar.btnFinalizarTurno_OnClick = function () {
             success: function (data, textStatus, XMLHttpRequest) {
                 Loading.Carregamento(false);
                 var retorno = JSON.parse(data);
-
-                if (!retorno.Status) {
-                    PopUp.Erro(retorno.Retorno)
-                }
-                Sala.FinalizarTurno();
+                Sala.mHubSala.server.finalizarTurno(Jogar.mID_SALA, retorno.Retorno).done(function () { });
                 Sala.EnviarMensagem(Jogar.mID_SALA);
             },
             error: function (data, textStatus, XMLHttpRequest) {
@@ -142,11 +118,23 @@ Jogar.TransmitirFinalizarTurno = function (pintIdSala, pintIdJogadorSala) {
 Jogar.btnDireita_OnClick = function () {
     var lLinha = new Number();
     var lColuna = new Number();
-    var lIDLocal = new Number();
+    var lIDLocalAtual = new Number();
+    var lIDLocalDestino = new Number();
+    var lstrOrientacaoMovimento = new String('');
     try {
         ({ lLinha, lColuna } = Jogar.Posicao(lLinha, lColuna));
-        //({ lIDLocal, lLinha, lColuna } = Jogar.SairLocal(lIDLocal, lLinha, lColuna, 'direita'));
-        Sala.EnviarMovimento(lLinha, lColuna + 1);
+        lIDLocalAtual = Jogar.GetLocalAtual(Jogar.mID_JOGADOR_SALA);
+        if (lIDLocalAtual == 0) {
+            lIDLocalDestino = Jogar.CoordenadaToLocal(lLinha, lColuna + 1);
+        } else {
+            lstrOrientacaoMovimento = 'direita';
+            lobjCoordenadasSaida = Jogar.PosicaoPortaSaida(lIDLocalAtual, lstrOrientacaoMovimento);
+
+            lLinha = lobjCoordenadasSaida.Linha;
+            lColuna = lobjCoordenadasSaida.Coluna;
+        }
+        if (lLinha == null && lColuna == null) { throw 'Movimento inválido mova-se para outra direção.'; }
+        Sala.EnviarMovimento(lLinha, lColuna + 1, lIDLocalDestino);
     } catch (ex) {
         PopUp.Erro(ex);
     }
@@ -155,11 +143,23 @@ Jogar.btnDireita_OnClick = function () {
 Jogar.btnEsquerda_OnClick = function () {
     var lLinha = new Number();
     var lColuna = new Number();
-    var lIDLocal = new Number();
+    var lIDLocalAtual = new Number();
+    var lIDLocalDestino = new Number();
+    var lstrOrientacaoMovimento = new String('');
     try {
         ({ lLinha, lColuna } = Jogar.Posicao(lLinha, lColuna));
-        //({ lIDLocal, lLinha, lColuna } = Jogar.SairLocal(lIDLocal, lLinha, lColuna, 'esquerda'));
-        Sala.EnviarMovimento(lLinha, lColuna - 1);
+        lIDLocalAtual = Jogar.GetLocalAtual(Jogar.mID_JOGADOR_SALA);
+        if (lIDLocalAtual == 0) {
+            lIDLocalDestino = Jogar.CoordenadaToLocal(lLinha, lColuna - 1);
+        } else {
+            lstrOrientacaoMovimento = 'esquerda';
+            lobjCoordenadasSaida = Jogar.PosicaoPortaSaida(lIDLocalAtual, lstrOrientacaoMovimento);
+
+            lLinha = lobjCoordenadasSaida.Linha;
+            lColuna = lobjCoordenadasSaida.Coluna;
+        }
+        if (lLinha == null && lColuna == null) { throw 'Movimento inválido mova-se para outra direção.'; }
+        Sala.EnviarMovimento(lLinha, lColuna - 1, lIDLocalDestino);
     } catch (ex) {
         PopUp.Erro(ex);
     }
@@ -168,11 +168,23 @@ Jogar.btnEsquerda_OnClick = function () {
 Jogar.btnAcima_OnClick = function () {
     var lLinha = new Number();
     var lColuna = new Number();
-    var lIDLocal = new Number();
+    var lIDLocalAtual = new Number();
+    var lIDLocalDestino = new Number();
+    var lstrOrientacaoMovimento = new String('');
     try {
         ({ lLinha, lColuna } = Jogar.Posicao(lLinha, lColuna));
-        //({ lIDLocal, lLinha, lColuna } = Jogar.SairLocal(lIDLocal, lLinha, lColuna, 'cima'));
-        Sala.EnviarMovimento(lLinha - 1, lColuna);
+        lIDLocalAtual = Jogar.GetLocalAtual(Jogar.mID_JOGADOR_SALA);
+        if (lIDLocalAtual == 0) {
+            lIDLocalDestino = Jogar.CoordenadaToLocal(lLinha - 1, lColuna);
+        } else {
+            lstrOrientacaoMovimento = 'cima';
+            lobjCoordenadasSaida = Jogar.PosicaoPortaSaida(lIDLocalAtual, lstrOrientacaoMovimento);
+
+            lLinha = lobjCoordenadasSaida.Linha;
+            lColuna = lobjCoordenadasSaida.Coluna;
+        }
+        if (lLinha == null && lColuna == null) { throw 'Movimento inválido mova-se para outra direção.'; }
+        Sala.EnviarMovimento(lLinha - 1, lColuna, lIDLocalDestino);
     } catch (ex) {
         PopUp.Erro(ex);
     }
@@ -181,27 +193,54 @@ Jogar.btnAcima_OnClick = function () {
 Jogar.btnAbaixo_OnClick = function () {
     var lLinha = new Number();
     var lColuna = new Number();
-    var lIDLocal = new Number();
+    var lIDLocalAtual = new Number();
+    var lIDLocalDestino = new Number();
+    var lstrOrientacaoMovimento = new String('');
     try {
         ({ lLinha, lColuna } = Jogar.Posicao(lLinha, lColuna));
-        //({ lIDLocal, lLinha, lColuna } = Jogar.SairLocal(lIDLocal, lLinha, lColuna, 'baixo'));
-        Sala.EnviarMovimento(lLinha + 1, lColuna);
+        lIDLocalAtual = Jogar.GetLocalAtual(Jogar.mID_JOGADOR_SALA);
+        if (lIDLocalAtual == 0) {
+            lIDLocalDestino = Jogar.CoordenadaToLocal(lLinha + 1, lColuna);
+        } else {
+            lstrOrientacaoMovimento = 'baixo';
+            lobjCoordenadasSaida = Jogar.PosicaoPortaSaida(lIDLocalAtual, lstrOrientacaoMovimento);
+            
+            lLinha = lobjCoordenadasSaida.Linha;
+            lColuna = lobjCoordenadasSaida.Coluna;
+        }
+        if (lLinha == null && lColuna == null) { throw 'Movimento inválido mova-se para outra direção.'; }
+        Sala.EnviarMovimento(lLinha + 1, lColuna, lIDLocalDestino);
     } catch (ex) {
         PopUp.Erro(ex);
     }
 };
 
 Jogar.btnPassagemSecreta_OnClick = function () {
-    var lintLocalID = new Number();
-    var lintLocalIDDestino = new Number();
     try {
-        // Pega local atual
-        lintLocalID = Jogar.GetLocalAtual(Jogar.mID_JOGADOR_SALA);
-        if (lintLocalID <= 0) { throw 'Você não está em um local.'; }
-        // Verifica qual o local que ele pode ir
-        lintLocalIDDestino = Jogar.marrMapeamento.filter((lElemTabuleiro, lIndexTabuleiro, lArrTabuleiro) => lElemTabuleiro.ID == lintLocalID)[0].PassagemSecreta;
-        if (lintLocalIDDestino <= 0) { throw 'Você não está em um local com passagem secreta.'; }
-        Sala.Teletransporte(Jogar.mID_JOGADOR_SALA, lintLocalIDDestino);
+        $.ajax({
+            url: gstrGlobalPath + 'Partida/PassagemSecreta',
+            type: 'Post',
+            data: {
+                pIdJogadorSala: Sala.mID_JOGADOR_SALA
+            },
+            success: function (data, textStatus, XMLHttpRequest) {
+                var lobjResultado = new Object();
+                var lintIdLocal = new Number();
+                try {
+                    lobjResultado = JSON.parse(data);
+                    if (!lobjResultado.Status) { throw lobjResultado.Retorno; }
+                    lintIdLocal = lobjResultado.Retorno
+                    // Verifica qual o local que ele pode ir
+                    //lintLocalIDDestino = Jogar.marrMapeamento.filter((lElemTabuleiro, lIndexTabuleiro, lArrTabuleiro) => lElemTabuleiro.ID == lintLocalID)[0].PassagemSecreta;
+                    Sala.Teletransporte(Jogar.mID_JOGADOR_SALA, lintIdLocal);
+                } catch (ex) {
+                    PopUp.Erro(ex);
+                }
+            },
+            error: function (data, textStatus, XMLHttpRequest) {
+                PopUp.Erro('Erro ao utilizar a passagem secreta.');
+            }
+        });
     } catch (ex) {
         PopUp.Erro(ex);
     }
@@ -232,6 +271,7 @@ Jogar.DesativarBotoes = function (pblnAtivar) {
     $('#btnPalpite').prop('disabled', pblnAtivar);
     $('#btnAcusar').prop('disabled', pblnAtivar);
     $('#btnPassagemSecreta').prop('disabled', pblnAtivar);
+    $('#btnFinalizarTurno').prop('disabled', pblnAtivar);
 }
 
 Jogar.btnLancarDados_OnClick = function () {
@@ -251,7 +291,7 @@ Jogar.btnLancarDados_OnClick = function () {
                 try {
                     Loading.Carregamento(false);
                     lobjResltado = JSON.parse(data);
-                    if (!lobjResltado.Status) { throw data.Retorno; }
+                    if (!lobjResltado.Status) { throw lobjResltado.Retorno; }
                     Sala.EnviarMensagem(Jogar.mID_SALA);
                 } catch (ex) {
                     if (ex == null) {
@@ -298,14 +338,51 @@ Jogar.TransmitirTeletransporte = function (pintID_JOGADOR_SALA, pintIDLocal) {
     }
 }
 
+Jogar.TransmitirAtualizarCartas = function () {
+    try {
+        $.ajax({
+            url: gstrGlobalPath + 'Partida/AtualizarCartas',
+            type: 'post',
+            data: {
+                idJogadorSala: Jogar.mID_JOGADOR_SALA,
+            },
+            success: function (data, textStatus, XMLHttpRequest) {
+                var lobjResltado = new Object();
+                try {
+                    lobjResltado = JSON.parse(data);
+                    if (!lobjResltado.Status) { throw lobjResltado.Retorno; }
+                    $('#divCartas > .slider').html();
+                    for (var imgCarta in lobjResltado.Retorno) {
+                        $('#divCartas > .slider').append('<div class="carta centralizar"> < img src="' + lobjResltado.Retorno[imgCarta] + '" /></div >');
+                    }
+                } catch (ex) {
+                    PopUp.Erro(ex);
+                }
+            },
+            error: function (request, status, error) {
+                Loading.Carregamento(false);
+                PopUp.Erro(request.responseText);
+            }
+        });
+    } catch (ex) {
+        PopUp.Erro(ex);
+    }
+}
+
 Jogar.VisibilidadeBotoesAcao = function (pblnMostrar, pIDLocal = 0) {
+    var lintLocalAtual = new Number();
     if (pblnMostrar) {
+        debugger;
         $("#btnPalpite").css("visibility", "visible");
         $("#btnAcusar").css("visibility", "visible");
-        if (pIDLocal > 0) {
-            $("#btnPassagemSecreta").css("visibility", "visible");
-        } else {
-            $("#btnPassagemSecreta").css("visibility", "hidden");
+        lintLocalAtual = Jogar.GetLocalAtual(Jogar.mID_JOGADOR_SALA);
+        for (var lobjLocal in Jogar.marrMapeamento) {
+            if (Jogar.marrMapeamento[lobjLocal].Id == lintLocalAtual && Jogar.marrMapeamento[lobjLocal].IdLocalPassagemSecreta > 0) {
+                $("#btnPassagemSecreta").css("visibility", "visible");
+                break;
+            } else {
+                $("#btnPassagemSecreta").css("visibility", "hidden");
+            }
         }
     } else {
         $("#btnPalpite").css("visibility", "hidden");
@@ -327,23 +404,24 @@ Jogar.Posicao = function (lLinha, lColuna) {
     return { lLinha, lColuna };
 }
 
-Jogar.SairLocal = function (lIDLocal, lLinha, lColuna, lstrDirecao) {
-    var larrLocal = new Array();
-    var larrPorta = new Array();
+Jogar.PosicaoPortaSaida = function (pintIdLocal, pstrOrientacaoMovimento) {
+    var lobjRetorno = new Object();
     try {
-        lIDLocal = $('div[idJogadorSala=' + Jogar.mID_JOGADOR_SALA + ']').parent().attr('idLocal');
-        if (lIDLocal != null && lIDLocal != undefined) {
-            larrLocal = Jogar.marrMapeamento.filter((lElemTabuleiro, lIndexTabuleiro, lArrTabuleiro) => lElemTabuleiro.ID == lIDLocal);
-            larrPorta = larrLocal[0].Portas.filter((lElemPorta, lIndexPorta, lArrPorta) => lElemPorta.Direcao == lstrDirecao);
-            if (larrPorta.length == 0) {
-                throw 'Movimento inválido, mova-se para uma das saídas.';
-            }
-            else {
-                lLinha = larrPorta[0].Linha;
-                lColuna = larrPorta[0].Coluna;
+        lobjRetorno.Linha = null;
+        lobjRetorno.Coluna = null;
+        for (var lobjLocal in Jogar.marrMapeamento) {
+            if (Jogar.marrMapeamento[lobjLocal].Id == pintIdLocal) {
+                for (var lobjPorta in Jogar.marrMapeamento[lobjLocal].Portas) {
+                    if (Jogar.marrMapeamento[lobjLocal].Portas[lobjPorta].Direcao == pstrOrientacaoMovimento) {
+                        lobjRetorno.Linha = Jogar.marrMapeamento[lobjLocal].Portas[lobjPorta].CoordenadaLinha;
+                        lobjRetorno.Coluna = Jogar.marrMapeamento[lobjLocal].Portas[lobjPorta].CoordenadaColuna;
+                        return lobjRetorno;
+                    }
+                }
+                throw 'Tente sair por outra direção.';
             }
         }
-        return { lIDLocal, lLinha, lColuna };
+        return lobjRetorno;
     } catch (ex) {
         throw ex;
     }
@@ -355,6 +433,25 @@ Jogar.GetLocalAtual = function (pintID_JOGADOR_SALA) {
         lintLocalID = $('div[idJogadorSala=' + pintID_JOGADOR_SALA + ']').parent().attr('idLocal');
         if (lintLocalID == null || lintLocalID == undefined) { lintLocalID = 0; }
         return lintLocalID;
+    } catch (ex) {
+        PopUp.Erro(ex);
+    }
+}
+
+Jogar.CoordenadaToLocal = function (lintLinha, lintColuna) {
+    try {
+        for (var lobjLocal in Jogar.marrMapeamento) {
+            if (lintLinha >= Jogar.marrMapeamento[lobjLocal].CoordenadaALinha && lintLinha <= Jogar.marrMapeamento[lobjLocal].CoordenadaBLinha
+                && lintColuna >= Jogar.marrMapeamento[lobjLocal].CoordenadaAColuna && lintColuna <= Jogar.marrMapeamento[lobjLocal].CoordenadaBColuna) {
+                for (var lobjPorta in Jogar.marrMapeamento[lobjLocal].Portas) {
+                    if (Jogar.marrMapeamento[lobjLocal].Portas[lobjPorta].CoordenadaLinha == lintLinha && Jogar.marrMapeamento[lobjLocal].Portas[lobjPorta].CoordenadaColuna == lintColuna) {
+                        return Jogar.marrMapeamento[lobjLocal].Id;
+                    }
+                }
+                throw 'Entre pela porta.';
+            }
+        }
+        return null;
     } catch (ex) {
         throw ex;
     }
@@ -404,13 +501,23 @@ Jogar.AnotacaoArma_OnChange = function (input) {
                 valor: valor
             },
             success: function (data, textStatus, XMLHttpRequest) {
-                var retorno = PopUp.Erro(JSON.parse(data).Retorno);
+                Loading.Carregamento(false);
+                var retorno = JSON.parse(data).Retorno;
 
-                if (!retorno.Status) {
-                    PopUp.Erro(retorno.Retorno)
-                }
+                PopUp.Visualizar({
+                    TipoPopUp: 'Alerta',
+                    Mensagem: retorno,
+                    Evento: function () {
+                        try {
+                            $('#divPopUp').Detetive_Modal('hide');
+                        } catch (ex) {
+                            PopUp.Erro(ex);
+                        }
+                    }
+                });
             },
             error: function (data, textStatus, XMLHttpRequest) {
+                Loading.Carregamento(false);
                 PopUp.Erro('Erro durante chamada da controller MarcarArma');
             }
         });
@@ -433,13 +540,23 @@ Jogar.AnotacaoLocal_OnChange = function (input) {
                 valor: valor
             },
             success: function (data, textStatus, XMLHttpRequest) {
-                var retorno = PopUp.Erro(JSON.parse(data).Retorno);
+                Loading.Carregamento(false);
+                var retorno = JSON.parse(data).Retorno;
 
-                if (!retorno.Status) {
-                    PopUp.Erro(retorno.Retorno);
-                }
+                PopUp.Visualizar({
+                    TipoPopUp: 'Alerta',
+                    Mensagem: retorno,
+                    Evento: function () {
+                        try {
+                            $('#divPopUp').Detetive_Modal('hide');
+                        } catch (ex) {
+                            PopUp.Erro(ex);
+                        }
+                    }
+                });
             },
             error: function (data, textStatus, XMLHttpRequest) {
+                Loading.Carregamento(false);
                 PopUp.Erro('Erro durante chamada da controller MarcarLocal');
             }
         });
@@ -461,13 +578,23 @@ Jogar.AnotacaoSuspeito_OnChange = function (input) {
                 valor: valor
             },
             success: function (data, textStatus, XMLHttpRequest) {
-                var retorno = PopUp.Erro(JSON.parse(data).Retorno);
-
-                if (!retorno.Status) {
-                    PopUp.Erro(retorno.Retorno);
-                }
+                Loading.Carregamento(false);
+                var retorno = JSON.parse(data).Retorno;
+                
+                PopUp.Visualizar({
+                    TipoPopUp: 'Alerta',
+                    Mensagem: retorno,
+                    Evento: function () {
+                        try {
+                            $('#divPopUp').Detetive_Modal('hide');
+                        } catch (ex) {
+                            PopUp.Erro(ex);
+                        }
+                    }
+                });
             },
             error: function (data, textStatus, XMLHttpRequest) {
+                Loading.Carregamento(false);
                 PopUp.Erro('Erro durante chamada da controller MarcarSuspeito');
             }
         });
@@ -496,3 +623,27 @@ Jogar.TransmitirMensagem = function (pintIdSala, parrDescricaoMensagem) {
 }
 
 //#endregion
+
+Jogar.MapearTabuleiro = function () {
+    try {
+        $.ajax({
+            url: gstrGlobalPath + 'Partida/MapearTabuleiro',
+            type: 'post',
+            success: function (data, textStatus, XMLHttpRequest) {
+                var lobjResltado = new Object();
+                try {
+                    lobjResltado = JSON.parse(data);
+                    if (!lobjResltado.Status) { throw data.Retorno; }
+                    Jogar.marrMapeamento = JSON.parse(lobjResltado.Retorno);
+                } catch (ex) {
+                    PopUp.Erro(ex);
+                }
+            },
+            error: function (request, status, error) {
+                PopUp.Erro(request.responseText);
+            }
+        });
+    } catch (ex) {
+        alert(ex);
+    }
+}

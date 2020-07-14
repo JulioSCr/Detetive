@@ -18,7 +18,7 @@ namespace Detetive.Hubs
         {
             try
             {
-                Clients.Group(pIdSala.ToString()).TransmitirFinalizarTurno(pIdJogadorSala);
+                Clients.Group(pIdSala.ToString()).TransmitirFinalizarTurno(pIdJogadorSala, pIdJogadorSala);
             }
             catch (Exception ex)
             {
@@ -49,6 +49,18 @@ namespace Detetive.Hubs
             try
             {
                 Clients.Group(pIdSala.ToString()).TransmitirTeletransporte(ID_JOGADOR_SALA, pIDLocal);
+            }
+            catch (Exception ex)
+            {
+                Clients.Caller.erro(ex.Message, ex.ToString());
+            }
+        }
+
+        public void AtualizarCartas(int pIdSala)
+        {
+            try
+            {
+                Clients.Group(pIdSala.ToString()).TransmitirAtualizarCartas();
             }
             catch (Exception ex)
             {
