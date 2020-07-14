@@ -2,16 +2,16 @@
 var myVideo = document.getElementById("ad"); 
 
 
-window.onload = function () {
+$(document).ready(function ()  {
     EsconderAd()
-    setTimeout(ExibirAd, 3000)
+    setTimeout(ExibirAd, 10000)
    // setTimeout(EsconderAd, 15000)
     document.getElementById('close').onclick = function () {
         this.parentNode.parentNode.parentNode
             .removeChild(this.parentNode.parentNode);
         return false;
     };
-};
+});
 
 
 setTimeout(EsconderAd, 30000)
@@ -19,7 +19,6 @@ setTimeout(EsconderAd, 30000)
 function ExibirAd() {
     document.getElementById('propaganda').style.visibility = 'visible';
     myVideo.play()
-    myVideo.autoplay()
 }
 
 function EsconderAd() {

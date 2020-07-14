@@ -120,7 +120,7 @@
     width: 50%;
 }
 
-iframe {
+#propaganda {
     overflow: hidden;
     position: fixed;
     top: 5%;

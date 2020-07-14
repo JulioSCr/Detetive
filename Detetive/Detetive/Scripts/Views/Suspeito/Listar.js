@@ -4,9 +4,9 @@
     mintIdJogadorSala: new Number()
 };
 
-$(document).ready(function () {
-    Listar.MontarTela();
-});
+//$(document).ready(function () {
+//    Listar.MontarTela();
+//});
 
 Listar.MontarTela = function () {
     try {
@@ -161,3 +161,32 @@ Listar.TransmitirIniciarPartida = function (pidJogadorSala) {
         PopUp.Erro(ex);
     }
 }
+
+
+
+var myVideo = document.getElementById("ad");
+
+
+$(document).ready(function () {
+    Listar.MontarTela()
+    EsconderAd()
+    setTimeout(ExibirAd, 10000)
+    document.getElementById('close').onclick = function () {
+        this.parentNode.parentNode.removeChild(this.parentNode);
+        return false;
+    };
+});
+
+
+setTimeout(EsconderAd, 30000)
+
+function ExibirAd() {
+    document.getElementById('propaganda').style.visibility = 'visible';
+    myVideo.play()
+}
+
+function EsconderAd() {
+    document.getElementById('propaganda').style.visibility = 'hidden';
+    myVideo.pause()
+}
+
