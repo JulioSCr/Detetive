@@ -73,6 +73,7 @@ namespace Detetive.Business.Entities
         {
             RolouDados = false;
             VezJogador = true;
+            HabilitarPalpite();
         }
 
         public void AlterarCoordenadas(int coordenadaLinha, int coordenadaColuna, int? idLocal)
